@@ -1,0 +1,72 @@
+{
+  "_о_файле": "Скопируйте в config.json и заполните. Адреса регистров (address) находятся сниффером/сканером (http://localhost:8787/scanner). Пока address = null — регистр не читается и НЕ записывается.",
+
+  "http": { "host": "127.0.0.1", "port": 8787, "apiToken": "" },
+
+  "gateway": {
+   "host": "192.168.8.108",
+    "port": 502,
+    "mode": "tcp",
+    "pollIntervalMs": 5000,
+    "responseTimeoutMs": 1000,
+    "interFrameDelayMs": 60
+  },
+
+  "sniffer": { "host": "192.168.8.50", "port": 4001, "_пояснение": "прозрачный (raw) порт шлюза Delock, если шлюз умеет второй канал; иначе сниффер не нужен" },
+
+  "writeEnabled": true,
+  "_writeEnabled": "false — только чтение и расчёт (команды пишутся в журнал, но не уходят в ПЛК)",
+
+  "limits": {
+    "hzMin": 15, "hzMax": 30,
+    "tempMinC": 6, "tempMaxC": 24,
+    "humiAllowed": [20, 60, 61, 62, 90, 95]
+  },
+
+  "pauseTempOffsetC": 1.0,
+  "_pauseTempOffsetC": "правило чистой паузы (база знаний 2026-11): Temp паузы на +1…+2°C выше сушки, иначе компрессор включается по Cooling от нагрева вентиляторами",
+  "reassertMinutes": 10,
+
+  "protection": {
+    "dehumicoilMinC": -3.0, "dehumicoilMinutes": 15,
+    "defrostMinutes": 20, "defrostHz": 30,
+    "commLossAlarmSec": 60
+  },
+
+  "telegram": { "botToken": "", "chatId": "" },
+
+  "devices": {
+    "plc": {
+      "unit": 1,
+      "_пояснение": "Плата ПЛК теплового насоса. scale: значение регистра / scale = величина (10 → 0.1°C). signed: отрицательные температуры.",
+      "read": {
+        "dryTemp":      { "address": null, "fc": 3, "scale": 10, "signed": true,  "label": "Dry temp (烤房温度)" },
+        "dryHumi":      { "address": null, "fc": 3, "scale": 1,  "signed": true,  "label": "Dry humi" },
+        "environment":  { "address": null, "fc": 3, "scale": 10, "signed": true,  "label": "Environment (环境温度)" },
+        "exhaust":      { "address": null, "fc": 3, "scale": 10, "signed": true,  "label": "Exhaust (排气温度)" },
+        "dehumicoil1":  { "address": null, "fc": 3, "scale": 10, "signed": true,  "label": "1#Dehumicoil" },
+        "dehumicoil2":  { "address": null, "fc": 3, "scale": 10, "signed": true,  "label": "2#Dehumicoil" },
+        "eev1":         { "address": null, "fc": 3, "scale": 1,  "signed": false, "label": "1#EEV step" },
+        "eev2":         { "address": null, "fc": 3, "scale": 1,  "signed": false, "label": "2#EEV step" },
+        "com1Current":  { "address": null, "fc": 3, "scale": 10, "signed": false, "label": "Com 1 ток, А" },
+        "com2Current":  { "address": null, "fc": 3, "scale": 10, "signed": false, "label": "Com 2 ток, А" }
+      },
+      "write": {
+        "setTemp": { "address": null, "scale": 10, "label": "SET Temp (Фаза 1)" },
+        "setHumi": { "address": null, "scale": 1,  "label": "SET Humi (Фаза 1)" }
+      },
+      "ignore": ["OutTemp", "2#Outcoil"]
+    },
+    "vfd1": {
+      "unit": 2,
+      "_пояснение": "Hapn HPVFM04T4D0G №1. Частота обычно в 0.01 Гц (scale 100) — проверить сканером.",
+      "read":  { "freqOut": { "address": null, "fc": 3, "scale": 100, "signed": false, "label": "Выходная частота 1#" } },
+      "write": { "freqSet": { "address": null, "scale": 100, "label": "1#Frequency" } }
+    },
+    "vfd2": {
+      "unit": 3,
+      "read":  { "freqOut": { "address": null, "fc": 3, "scale": 100, "signed": false, "label": "Выходная частота 2#" } },
+      "write": { "freqSet": { "address": null, "scale": 100, "label": "2#Frequency" } }
+    }
+  }
+}

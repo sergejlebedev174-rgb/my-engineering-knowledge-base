@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>Советник технолога • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<script src="js/knowledge-base.js"></script><script src="js/bio-tomography.js"></script>
+<style>
+  html,body{margin:0;padding:0;background:#0b0f19}
+  ::-webkit-scrollbar{display:none}
+  :root{--cy:#00F0FF;--tq:#2DD4BF;--am:#FFB95F;--vi:#A78BFA;--rd:#F87171;--sk:#38BDF8;--tx:#F1F5F9;--mu:#94A3B8;--dim:#64748B;--line:rgba(148,163,184,.14)}
+  .av{display:flex;flex-direction:column;gap:12px;height:100vh;padding:14px 16px;box-sizing:border-box;color:var(--tx);font-family:Inter,"Segoe UI",sans-serif;
+    background:radial-gradient(900px 420px at 85% -10%,rgba(0,240,255,.07),transparent 60%),radial-gradient(700px 380px at 0% 110%,rgba(167,139,250,.06),transparent 60%),#0b0f19}
+  .av-card{position:relative;border-radius:16px;padding:12px 14px;background:linear-gradient(135deg,rgba(27,31,43,.82),rgba(12,17,27,.92));border:1px solid rgba(0,240,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;min-width:0;display:flex;flex-direction:column}
+  .av-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,transparent 20%,rgba(0,240,255,.5) 45%,rgba(167,139,250,.45) 55%,transparent 80%);background-size:300% 100%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:avBorder 8s linear infinite;pointer-events:none}
+  @keyframes avBorder{0%{background-position:150% 0}100%{background-position:-150% 0}}
+  .av-cap{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+  .av-cap > span{font:700 10px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+  .av-cap > span i{width:6px;height:6px;border-radius:50%;background:var(--c,var(--cy));box-shadow:0 0 8px var(--c,var(--cy))}
+  .av-cap em{font-style:normal;font:600 10.5px "JetBrains Mono",monospace;color:var(--dim)}
+  .av-cap em b{color:#CBD5E1}
+  /* шапка */
+  .av-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+  .av-title .k{font:700 10px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--cy);display:flex;align-items:center;gap:6px}
+  .av-title .k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 10px var(--cy);animation:avDot 2s ease-in-out infinite}
+  @keyframes avDot{50%{opacity:.35}}
+  .av-title h1{margin:2px 0 0;font:700 21px/1.15 "Space Grotesk",Inter,sans-serif;color:#E0FBFF}
+  .av-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .av-chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:9px;border:1px solid color-mix(in srgb,var(--c,var(--cy)) 40%,transparent);background:color-mix(in srgb,var(--c,var(--cy)) 9%,transparent);font:700 11px "JetBrains Mono",monospace;color:var(--c,var(--cy));white-space:nowrap}
+  .av-chip i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+  .av-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:10px;cursor:pointer;font:700 11px/1 "JetBrains Mono",monospace;letter-spacing:.03em;color:#C3F5FF;background:rgba(27,31,43,.85);border:1px solid rgba(0,240,255,.22);transition:border-color .2s,box-shadow .2s,transform .1s;white-space:nowrap}
+  .av-btn:hover{border-color:rgba(0,240,255,.6);box-shadow:0 0 14px rgba(0,240,255,.22)}
+  .av-btn:active{transform:scale(.97)}
+  .av-btn .material-symbols-outlined{font-size:16px}
+  .av-btn.go{position:relative;overflow:hidden;color:#00363D;background:linear-gradient(90deg,#22D3EE,#00F0FF 50%,#5EEAD4);border-color:rgba(255,255,255,.35);box-shadow:0 0 16px rgba(0,240,255,.4)}
+  .av-btn.go::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);background-size:250% 100%;animation:avSweep 3.2s ease-in-out infinite}
+  @keyframes avSweep{0%{background-position:130% 0}60%,100%{background-position:-130% 0}}
+  /* сетки */
+  .av-r1{flex:1.15 1 0;min-height:0;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:12px}
+  .av-r2{flex:1 1 0;min-height:0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.9fr) minmax(0,1.05fr);gap:12px}
+  @media (max-width:1150px){.av-r1,.av-r2{grid-template-columns:1fr}}
+  /* заключение */
+  .av-advice{position:relative;padding:12px 14px 12px 16px;border-radius:12px;background:rgba(6,11,20,.72);border:1px solid var(--line);font:500 13px/1.55 Inter,sans-serif;color:#E2E8F0;flex:1 1 0;min-height:60px;overflow:auto}
+  .av-advice::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--cy),var(--vi));box-shadow:0 0 10px var(--cy)}
+  .av-advice small{display:block;margin-bottom:4px;font:700 9.5px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--am);text-transform:uppercase}
+  .av-dx{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+  .av-dx > button{all:unset;cursor:pointer;position:relative;display:flex;flex-direction:column;gap:3px;padding:9px 10px 11px;border-radius:11px;background:rgba(6,11,20,.7);border:1px solid color-mix(in srgb,var(--c) 32%,transparent);transition:transform .2s,box-shadow .2s;overflow:hidden}
+  .av-dx > button:hover,.av-dx > button.on{transform:translateY(-2px);box-shadow:0 0 18px color-mix(in srgb,var(--c) 25%,transparent)}
+  .av-dx > button.on{border-color:var(--c)}
+  .av-dx > button::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--c),transparent);box-shadow:0 0 10px var(--c)}
+  .av-dx span{font:700 9px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--mu);text-transform:uppercase}
+  .av-dx b{font:800 14px "JetBrains Mono",monospace;color:var(--c);display:flex;align-items:center;gap:6px}
+  .av-dx b i{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 10px currentColor;animation:avDot 2s ease-in-out infinite}
+  .av-dx-txt{margin-top:8px;font:500 12px/1.45 Inter,sans-serif;color:#CBD5E1;padding:9px 12px;border-radius:10px;border:1px solid color-mix(in srgb,var(--c,#2DD4BF) 35%,transparent);background:linear-gradient(90deg,color-mix(in srgb,var(--c,#2DD4BF) 9%,transparent),transparent);min-height:36px}
+  .av-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  /* замеры тушки */
+  .av-meas{flex:1 1 0;min-height:110px}.av-meas svg{display:block;width:100%;height:100%}
+  .av-kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+  .av-kv > p{margin:0;padding:8px 10px;border-radius:11px;background:rgba(6,11,20,.75);border:1px solid var(--line)}
+  .av-kv span{display:block;font:700 9px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--mu);text-transform:uppercase}
+  .av-kv b{display:block;font:800 17px "JetBrains Mono",monospace;color:var(--tx);margin:2px 0}
+  .av-kv em{font-style:normal;font:500 10.5px Inter,sans-serif;color:var(--dim)}
+  /* срез */
+  .av-cut{position:relative;flex:1 1 0;min-height:120px;border-radius:12px;overflow:hidden;background:#05080f;cursor:zoom-in}
+  .av-cut img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+  .av-cut:hover img{transform:scale(1.06)}
+  .av-cut::before{content:"";position:absolute;left:0;right:0;height:40%;top:-40%;z-index:1;background:linear-gradient(180deg,transparent,rgba(0,240,255,.16),transparent);animation:avScan 4.5s ease-in-out infinite;pointer-events:none}
+  @keyframes avScan{0%{top:-40%}100%{top:100%}}
+  .av-cut::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,8,15,.9),transparent 50%);pointer-events:none}
+  .av-cut .lb{position:absolute;left:10px;right:10px;bottom:9px;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+  .av-cut .lb b{font:700 13px "Space Grotesk",Inter,sans-serif;color:#F8FAFC}
+  .av-cut .lb span{font:700 9.5px "JetBrains Mono",monospace;color:#67E8F9;letter-spacing:.06em}
+  /* паспорт / журнал */
+  .av-lines{display:flex;flex-direction:column;gap:5px}
+  .av-lines > p{display:flex;justify-content:space-between;gap:8px;margin:0;font:500 12px Inter,sans-serif;color:#CBD5E1;padding:6px 10px;border-radius:9px;background:rgba(6,11,20,.6)}
+  .av-lines b{font:700 12px "JetBrains Mono",monospace;color:var(--tx);text-align:right}
+  .av-log{width:100%;border-collapse:separate;border-spacing:0 3px;font:500 11.5px/1.3 "JetBrains Mono",monospace;color:#E2E8F0}
+  .av-log th{font:700 9px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;text-align:left;padding:2px 7px}
+  .av-log td{padding:6px 7px;background:rgba(6,11,20,.6)}
+  .av-log td:first-child{border-radius:7px 0 0 7px;color:#CBD5E1}.av-log td:last-child{border-radius:0 7px 7px 0}
+  .av-log tr{animation:avIn .45s cubic-bezier(.2,.8,.2,1) both}
+  .av-log tr:nth-child(2){animation-delay:.05s}.av-log tr:nth-child(3){animation-delay:.1s}.av-log tr:nth-child(4){animation-delay:.15s}.av-log tr:nth-child(5){animation-delay:.2s}
+  @keyframes avIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+  .av-note{margin:8px 0 0;font:500 11.5px/1.45 Inter,sans-serif;color:#CBD5E1;padding:8px 11px;border-radius:10px;border:1px solid rgba(255,185,95,.3);background:linear-gradient(90deg,rgba(255,185,95,.08),transparent)}
+  .av-note b{color:var(--am)}
+  .av-wait{font:500 12px Inter,sans-serif;color:var(--dim);padding:14px;text-align:center}
+  .av-toast{position:fixed;right:18px;bottom:18px;z-index:50;padding:10px 14px;border-radius:12px;background:#111827;border:1px solid rgba(0,240,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.6);font:500 12.5px Inter,sans-serif;color:var(--tx);opacity:0;transform:translateY(16px);transition:all .3s;pointer-events:none}
+  .av-toast.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.av-card::before,.av-title .k::before,.av-btn.go::after,.av-cut::before,.av-log tr{animation:none!important}}
+</style>
+<script src="js/cockpit-pages-fx.js" defer></script>
+</head><body class="bg-surface"><main class="av" id="av">
+
+<!-- Шапка -->
+<div class="av-head">
+  <div class="av-title"><div class="k">СОВЕТНИК ТЕХНОЛОГА • AIM AGHD-250ELC</div><h1 id="av-h1">Заключение по партии</h1></div>
+  <div class="av-chips" id="av-chips"><span class="av-chip" style="--c:#64748B">ждём данные АРМ…</span></div>
+  <div class="av-chips">
+    <button class="av-btn go" onclick="avCmd('requestAiAdvice',[],'Запрос совета… Без ключа Gemini ответит ядро АРМ')"><span class="material-symbols-outlined">auto_awesome</span>Совет ИИ</button>
+    <button class="av-btn" onclick="avCopy()"><span class="material-symbols-outlined">content_copy</span>Копировать</button>
+    <button class="av-btn" onclick="avCmd('saveBatchToLog',[])"><span class="material-symbols-outlined">bookmark_add</span>В журнал</button>
+    <button class="av-btn" onclick="avCmd('triggerExportCsv',[],'Готовим CSV-отчёт партии')"><span class="material-symbols-outlined">download</span>CSV</button>
+  </div>
+</div>
+
+<!-- Ряд 1: заключение + замеры тушки -->
+<div class="av-r1">
+  <div class="av-card">
+    <div class="av-cap"><span><i style="--c:#A78BFA"></i>Заключение и 4 проверки</span><em id="av-adv-src">ядро АРМ</em></div>
+    <div class="av-advice" id="av-advice"><span class="av-wait">Ждём данные АРМ…</span></div>
+    <div class="av-dx" id="av-dx"></div>
+    <div class="av-dx-txt" id="av-dx-txt"></div>
+  </div>
+  <div class="av-card">
+    <div class="av-cap"><span><i style="--c:#2DD4BF"></i>Замеры тушки</span><em><b>ручной ввод</b> • пирометр и влагомер</em></div>
+    <div class="av-meas" id="av-meas"></div>
+    <div class="av-kv" id="av-kv"></div>
+    <div class="av-acts"><button class="av-btn" onclick="avCmd('ckSwitchTabMode',['tab-advisor','legacy'])"><span class="material-symbols-outlined">edit</span>Ввести замеры</button></div>
+  </div>
+</div>
+
+<!-- Ряд 2: срез, паспорт вида, журнал -->
+<div class="av-r2">
+  <div class="av-card">
+    <div class="av-cap"><span><i style="--c:#FFB95F"></i>Эталонный срез</span><em>фото из базы • не камера</em></div>
+    <div class="av-cut" id="av-cut" onclick="avOpenCut()"><img id="av-cut-img" src="img/vyalka/cut-vimba.jpg" alt="Срез вяленой рыбы"/><div class="lb"><b id="av-cut-t">Вимба</b><span>3D-срез →</span></div></div>
+  </div>
+  <div class="av-card">
+    <div class="av-cap"><span><i style="--c:#38BDF8"></i>Паспорт вида</span><em>база знаний</em></div>
+    <div id="av-pass"><div class="av-wait">Ждём данные АРМ…</div></div>
+  </div>
+  <div class="av-card">
+    <div class="av-cap"><span><i style="--c:#2DD4BF"></i>Журнал замеров</span><em id="av-log-cap">—</em></div>
+    <div id="av-log"><div class="av-wait">Ждём данные АРМ…</div></div>
+  </div>
+</div>
+<div class="av-toast" id="av-toast"></div>
+</main>
+
+<script>
+  // Советник. Всё — из главного окна АРМ (сообщение ARM_ADVISOR): заключение ядра АРМ или Gemini, 4 проверки биофизики,
+  // ручные замеры (пирометр, влагомер, ЭРВ), журнал. Паспорт вида — база знаний (ARM_KB). Фото среза — эталон из базы, не камера.
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const fmt = (n, d) => Number(n || 0).toLocaleString("ru-RU", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+    const sign = (n, d) => (Number(n) >= 0 ? "+" : "") + fmt(n, d);
+    const prev = {};
+    let last = "", data = null, dxSel = 0;
+
+    function toast(m) { const t = $("av-toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 3000); }
+    window.avCmd = function (cmd, args, msg) {
+      if (window.parent === window) { toast("Работает внутри АРМ (index.html)"); return; }
+      try { window.parent.postMessage({ type: "arm-cmd", cmd, args: args || [] }, "*"); } catch (e) {}
+      if (msg) toast(msg);
+    };
+    window.avCopy = function () {
+      const txt = $("av-advice").innerText.trim();
+      const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      ta.remove();
+      if (!ok && navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast("Заключение скопировано"), () => toast("Не удалось скопировать"));
+      else toast(ok ? "Заключение скопировано" : "Не удалось скопировать");
+    };
+    const BIO_KEY = { VIMBA: "vimba", BREAM: "bream", ROACH: "roach", SMELT: "smelt", PERCH: "perch", ROUND_GOBY: "goby", GOBY: "goby" };
+    window.avOpenCut = function () {
+      const k = data ? (BIO_KEY[data.t.speciesKey] || "vimba") : "vimba";
+      if (window.BIO_TOMO && window.BIO_TOMO.openBioLightbox) window.BIO_TOMO.openBioLightbox(k, "3d");
+    };
+
+    const RISK = { OPTIMAL: ["норма", "#2DD4BF", "check_circle"], WARNING: ["внимание", "#FFB95F", "warning"], CRITICAL: ["опасно", "#F87171", "error"] };
+    const rk = (s) => RISK[s] || ["—", "#64748B", "help"];
+
+    function dxRender() {
+      if (!data) return;
+      const d = data.diag;
+      const items = [
+        ["Закал чешуи", d.crust[0], d.crust[1]],
+        ["Подпарка", d.steam[0], d.steam[1]],
+        ["Испарение ΔT", d.evap[0], (d.evap[1] ? d.evap[1] + ". " : "") + (d.evap[2] || "")],
+        ["Готовность", d.ready[0], d.ready[1]]
+      ];
+      $("av-dx").innerHTML = items.map((it, i) => { const r = rk(it[1]); return `<button class="${i === dxSel ? "on" : ""}" style="--c:${r[1]}" onclick="avDx(${i})"><span>${i + 1}. ${it[0]}</span><b><i></i>${r[0]}</b></button>`; }).join("");
+      const cur = items[dxSel], r = rk(cur[1]);
+      $("av-dx-txt").style.setProperty("--c", r[1]);
+      $("av-dx-txt").innerHTML = `<b style="color:${r[1]}">${cur[0]}:</b> ${esc(cur[2] || "нет пояснения")}`;
+    }
+    window.avDx = function (i) { dxSel = i; dxRender(); };
+
+    // ΔT: воздух против чешуи (пирометр). Чешуя холоднее воздуха — идёт испарение.
+    function measSvg(t, d) {
+      const air = Number(t.tempC), sc = Number(t.scaleC), dew = Number(d.dew);
+      const lo = Math.floor(Math.min(dew, sc, air) - 2), hi = Math.ceil(Math.max(air, sc) + 2);
+      const W = 360, H = 190, x0 = 40, x1 = W - 16, y = (v) => 156 - (v - lo) / (hi - lo) * 128;
+      const dT = air - sc;
+      const col = dT >= 1 ? "#2DD4BF" : (dT >= 0.3 ? "#FFB95F" : "#F87171");
+      const p = prev.m || { a: y(air), s: y(sc), w: y(dew) }; prev.m = { a: y(air), s: y(sc), w: y(dew) };
+      const grid = [];
+      for (let v = lo; v <= hi; v += Math.max(1, Math.round((hi - lo) / 5))) grid.push(`<line x1="${x0}" x2="${x1}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="rgba(148,163,184,.08)"/><text x="${x0 - 6}" y="${(y(v) + 3).toFixed(1)}" fill="#64748B" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="end">${v}°</text>`);
+      const lvl = (key, yy, py, c, label, val, xL) => `<g>
+          <line x1="${x0}" x2="${x1}" y1="${yy.toFixed(1)}" y2="${yy.toFixed(1)}" stroke="${c}" stroke-width="2" stroke-dasharray="${key === "w" ? "4 4" : "0"}" style="filter:drop-shadow(0 0 4px ${c})"><animate attributeName="y1" from="${py.toFixed(1)}" to="${yy.toFixed(1)}" dur=".8s" fill="freeze"/><animate attributeName="y2" from="${py.toFixed(1)}" to="${yy.toFixed(1)}" dur=".8s" fill="freeze"/></line>
+          <g transform="translate(${xL} ${(yy - 22).toFixed(1)})"><animateTransform attributeName="transform" type="translate" from="${xL} ${(py - 22).toFixed(1)}" to="${xL} ${(yy - 22).toFixed(1)}" dur=".8s" fill="freeze"/><rect width="118" height="18" rx="6" fill="rgba(5,8,15,.88)" stroke="${c}" stroke-opacity=".5"/><text x="7" y="12.5" fill="${c}" font-family="JetBrains Mono,monospace" font-size="10" font-weight="800">${label} ${val}</text></g></g>`;
+      const ya = y(air), ys = y(sc);
+      return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${grid.join("")}
+        <rect x="${(x0 + x1) / 2 - 22}" y="${Math.min(ya, ys).toFixed(1)}" width="44" height="${Math.max(1, Math.abs(ys - ya)).toFixed(1)}" rx="5" fill="${col}" fill-opacity=".18" stroke="${col}" stroke-opacity=".5">
+          <animate attributeName="fill-opacity" values=".12;.3;.12" dur="2.4s" repeatCount="indefinite"/></rect>
+        ${[0, 1, 2].map((i) => `<circle cx="${(x0 + x1) / 2 - 10 + i * 10}" r="2" fill="${col}"><animate attributeName="cy" values="${ys.toFixed(1)};${ya.toFixed(1)}" dur="1.8s" begin="${i * .6}s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="${i * .6}s" repeatCount="indefinite"/></circle>`).join("")}
+        ${lvl("a", ya, p.a, "#FFB95F", "воздух", sign(air, 1) + "°", x0 + 6)}
+        ${lvl("s", ys, p.s, "#22D3EE", "чешуя", sign(sc, 1) + "°", x1 - 124)}
+        ${lvl("w", y(dew), p.w, "#A78BFA", "т. росы", sign(dew, 1) + "°", x0 + 6)}
+        <text x="${(x0 + x1) / 2}" y="${H - 8}" fill="${col}" font-family="JetBrains Mono,monospace" font-size="15" font-weight="800" text-anchor="middle">ΔT = ${sign(dT, 1)}°C</text>
+      </svg>`;
+    }
+
+    function render(m) {
+      data = m;
+      const t = m.t, d = m.diag, st = m.stage;
+      $("av-h1").textContent = st ? `${m.species} • Стадия ${st.number}: ${String(st.title).replace(/^Стадия \d:\s*/, "")}` : "Заключение по партии";
+      $("av-chips").innerHTML = `<span class="av-chip" style="--c:#FFB95F">${esc(m.species)} • ${fmt(t.kg)} кг</span>
+        <span class="av-chip" style="--c:${m.linked ? "#2DD4BF" : "#22D3EE"}"><i></i>t/rH: ${m.linked ? "мост Modbus" : "ручной ввод / Parkside"}</span>
+        <span class="av-chip" style="--c:#94A3B8">${sign(t.tempC, 1)}°C • ${Math.round(t.rh)}% • VPD ${fmt(d.vpd, 2)}</span>`;
+
+      // заключение
+      $("av-adv-src").innerHTML = m.advice ? `<b>${esc(m.adviceSrc || "Совет ИИ")}</b>` : "ядро АРМ • по текущим цифрам";
+      $("av-advice").innerHTML = `<small>${m.advice ? "Ответ на «Совет ИИ»" : "Оперативное заключение"}</small>${esc(m.advice || d.summary)}`;
+      dxRender();
+
+      // замеры тушки
+      $("av-meas").innerHTML = measSvg(t, d);
+      const shelf = st && st.shelf ? `${st.shelf[0]}–${st.shelf[1]}%` : "—";
+      $("av-kv").innerHTML = `
+        <p><span>Влага у хребта</span><b style="color:#38BDF8">${fmt(t.spine, 1)}%</b><em>влагомер, ручной ввод</em></p>
+        <p><span>Полка rH стадии</span><b style="color:${st && st.shelf && t.rh >= st.shelf[0] && t.rh <= st.shelf[1] ? "#2DD4BF" : "#FFB95F"}">${Math.round(t.rh)}%</b><em>норма ${shelf}</em></p>
+        <p title="${esc(d.eev[1])}"><span>ЭРВ / испаритель</span><b style="color:${rk(d.eev[0])[1]}">${fmt(t.eev)} st • ${sign(t.coil, 1)}°</b><em>ручной ввод • ${rk(d.eev[0])[0]}</em></p>`;
+
+      // срез + паспорт вида из базы
+      const bk = BIO_KEY[t.speciesKey] || "vimba";
+      const bio = window.BIO_TOMO && window.BIO_TOMO.BIO_SPECIES ? window.BIO_TOMO.BIO_SPECIES[bk] : null;
+      if (bio && prev.cut !== bio.cutImg) { prev.cut = bio.cutImg; $("av-cut-img").src = bio.cutImg; }
+      $("av-cut-t").textContent = m.species;
+      const kb = window.ARM_KB && window.ARM_KB.getCanonicalSpecies ? window.ARM_KB.getCanonicalSpecies(t.speciesKey) : null;
+      $("av-pass").innerHTML = kb ? `<div class="av-lines">
+          <p><span>Выход готовой</span><b>${kb.yieldMin != null ? `${fmt(kb.yieldMin, 1)}–${fmt(kb.yieldMax, 1)}%` : "—"}</b></p>
+          <p><span>Жирность</span><b>${kb.fatPercent != null ? kb.fatPercent + "%" : "—"}</b></p>
+          <p><span>Активность воды a<sub>w</sub></span><b>${kb.aw != null ? esc(kb.aw) : "—"}</b></p>
+          <p><span>Масса штуки</span><b>${kb.pieceG != null ? esc(kb.pieceG) + " г" : "—"}</b></p>
+          <p><span>Температура</span><b>${esc(kb.tempRangeText || "—")}</b></p>
+          <p><span>Аварийный предел</span><b style="color:#F87171">${kb.emergencyMaxTempC != null ? "+" + kb.emergencyMaxTempC + "°C" : "—"}</b></p>
+          <p><span>Срок сушки</span><b title="${esc(kb.durationDaysDesc || "")}">${esc(String(kb.durationDaysDesc || "—").replace(/\s*\(.*$/, ""))}</b></p>
+        </div>` : `<div class="av-wait">Нет данных вида в базе знаний.</div>`;
+
+      // журнал замеров
+      $("av-log-cap").innerHTML = m.logsTotal ? `всего <b>${m.logsTotal}</b> • последние ${Math.min(5, m.logsTotal)}` : "пусто";
+      $("av-log").innerHTML = m.logs.length ? `<table class="av-log"><thead><tr><th>Когда</th><th>t</th><th>rH</th><th>Т.росы</th><th>VPD</th></tr></thead><tbody>${m.logs.map((l) => {
+        const v = Number(l.vpd), c = (v < .35 || v > 1.2) ? "#F87171" : ((v < .5 || v > 1.05) ? "#FFB95F" : "#2DD4BF");
+        return `<tr><td>${esc(l.ts)}</td><td>${sign(l.tC, 1)}°</td><td>${Math.round(l.rh)}%</td><td>${sign(l.dew, 1)}°</td><td style="color:${c};font-weight:800">${fmt(v, 2)}</td></tr>`;
+      }).join("")}</tbody></table>`
+        : `<p class="av-note">Журнал пуст.</p>`;
+    }
+
+    window.addEventListener("message", (ev) => {
+      const m = ev.data;
+      if (!m || m.type !== "ARM_ADVISOR") return;
+      const key = JSON.stringify(m);
+      if (key === last) return;
+      last = key;
+      try { render(m); } catch (e) { console.warn("[Советник]", e); }
+    });
+    function fit() { const z = parseFloat(getComputedStyle(document.documentElement).zoom) || 1; $("av").style.height = Math.floor(innerHeight / z) + "px"; }
+    fit(); addEventListener("resize", fit);
+    avCmd("broadcastTelemetrySync");
+  })();
+</script><script src="js/stitch-cockpits.js"></script></body></html>

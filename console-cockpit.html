@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>Пульт камеры • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<style>
+  html,body{margin:0;padding:0;background:#0b0f19}
+  ::-webkit-scrollbar{display:none}
+  :root{--cy:#00F0FF;--tq:#2DD4BF;--am:#FFB95F;--vi:#A78BFA;--rd:#F87171;--tx:#F1F5F9;--mu:#94A3B8;--dim:#64748B;--line:rgba(148,163,184,.14)}
+  .cc{display:flex;flex-direction:column;gap:12px;padding:14px 16px;box-sizing:border-box;color:var(--tx);font-family:Inter,"Segoe UI",sans-serif;
+    background:radial-gradient(900px 420px at 85% -10%,rgba(0,240,255,.07),transparent 60%),radial-gradient(700px 380px at 0% 110%,rgba(255,185,95,.05),transparent 60%),#0b0f19}
+  .cc-card{position:relative;border-radius:16px;padding:12px 14px;background:linear-gradient(135deg,rgba(27,31,43,.82),rgba(12,17,27,.92));border:1px solid rgba(0,240,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;min-width:0}
+  .cc-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,transparent 20%,rgba(0,240,255,.5) 45%,rgba(255,185,95,.4) 55%,transparent 80%);background-size:300% 100%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ccBorder 8s linear infinite;pointer-events:none}
+  @keyframes ccBorder{0%{background-position:150% 0}100%{background-position:-150% 0}}
+  .cc-cap{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+  .cc-cap > span{font:700 10px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+  .cc-cap > span i{width:6px;height:6px;border-radius:50%;background:var(--c,var(--cy));box-shadow:0 0 8px var(--c,var(--cy))}
+  .cc-cap em{font-style:normal;font:600 10.5px "JetBrains Mono",monospace;color:var(--dim)}
+  .cc-cap em b{color:#CBD5E1}
+  /* шапка */
+  .cc-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+  .cc-title .k{font:700 10px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--cy);display:flex;align-items:center;gap:6px}
+  .cc-title .k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 10px var(--cy);animation:ccDot 2s ease-in-out infinite}
+  @keyframes ccDot{50%{opacity:.35}}
+  .cc-title h1{margin:2px 0 0;font:700 21px/1.15 "Space Grotesk",Inter,sans-serif;color:#E0FBFF}
+  .cc-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .cc-chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:9px;border:1px solid color-mix(in srgb,var(--c,var(--cy)) 40%,transparent);background:color-mix(in srgb,var(--c,var(--cy)) 9%,transparent);font:700 11px "JetBrains Mono",monospace;color:var(--c,var(--cy))}
+  .cc-chip i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+  .cc-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:10px;cursor:pointer;font:700 11px/1 "JetBrains Mono",monospace;letter-spacing:.03em;color:#C3F5FF;background:rgba(27,31,43,.85);border:1px solid rgba(0,240,255,.22);transition:border-color .2s,box-shadow .2s,transform .1s}
+  .cc-btn:hover{border-color:rgba(0,240,255,.6);box-shadow:0 0 14px rgba(0,240,255,.22)}
+  .cc-btn:active{transform:scale(.97)}
+  .cc-btn .material-symbols-outlined{font-size:16px}
+  .cc-btn.on{color:#00363D;background:linear-gradient(90deg,#22D3EE,#00F0FF 50%,#5EEAD4);border-color:rgba(255,255,255,.35);box-shadow:0 0 16px rgba(0,240,255,.4)}
+  .cc-btn.amber.on{color:#3A2300;background:linear-gradient(90deg,#F59E0B,#FFB95F)}
+  .cc-seg{display:inline-flex;gap:4px;padding:3px;border-radius:12px;background:rgba(9,14,25,.85);border:1px solid var(--line)}
+  /* сетки */
+  .cc-r1{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:12px}
+  .cc-r2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,.9fr);gap:12px}
+  @media (max-width:1150px){.cc-r1,.cc-r2{grid-template-columns:1fr}}
+  /* мнемосхема */
+  .cc-mnemo{position:relative;height:clamp(200px,calc(100vh - 560px),330px);border-radius:12px;overflow:hidden;background:#05080f}
+  .cc-mnemo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.88;transition:transform 1.2s}
+  .cc-mnemo:hover img{transform:scale(1.03)}
+  .cc-mnemo::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,8,15,.85),transparent 45%),linear-gradient(90deg,rgba(5,8,15,.55),transparent 30%,transparent 70%,rgba(5,8,15,.55));pointer-events:none}
+  .cc-hot{position:absolute;z-index:2;display:flex;align-items:center;gap:7px}
+  .cc-hot .dot{position:relative;width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c)}
+  .cc-hot .dot::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--c);opacity:0;animation:ccPing 2.2s ease-out infinite}
+  @keyframes ccPing{0%{opacity:.8;transform:scale(.5)}100%{opacity:0;transform:scale(1.6)}}
+  .cc-hot .lb{padding:5px 9px;border-radius:9px;background:rgba(5,8,15,.86);border:1px solid color-mix(in srgb,var(--c) 45%,transparent);backdrop-filter:blur(6px)}
+  .cc-hot .lb span{display:block;font:700 9px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--mu);text-transform:uppercase}
+  .cc-hot .lb b{display:block;font:800 13px "JetBrains Mono",monospace;color:var(--c)}
+  .cc-flow{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .cc-hz{position:absolute;right:10px;top:10px;bottom:10px;z-index:2;width:42px;border-radius:12px;background:rgba(5,8,15,.82);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:8px 0}
+  .cc-hz span{font:700 9px "JetBrains Mono",monospace;color:var(--mu)}
+  .cc-hz .bar{position:relative;flex:1;width:6px;margin:6px 0;border-radius:999px;background:rgba(148,163,184,.15);overflow:hidden}
+  .cc-hz .bar i{position:absolute;left:0;right:0;bottom:0;border-radius:inherit;background:linear-gradient(0deg,#22D3EE,#5EEAD4,#FFB95F);box-shadow:0 0 10px #22D3EE;transition:height .7s cubic-bezier(.2,.8,.2,1)}
+  .cc-hz b{font:800 13px "JetBrains Mono",monospace;color:#F8FAFC}
+  .cc-kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+  .cc-kv > div{padding:8px 10px;border-radius:11px;background:rgba(6,11,20,.75);border:1px solid var(--line)}
+  .cc-kv span{display:block;font:700 9.5px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--mu);text-transform:uppercase}
+  .cc-kv b{display:block;font:800 19px "JetBrains Mono",monospace;color:var(--tx);margin:2px 0}
+  .cc-kv em{font-style:normal;font:500 10.5px Inter,sans-serif;color:var(--dim)}
+  .cc-note{font:500 11.5px/1.45 Inter,sans-serif;color:#CBD5E1;padding:9px 12px;border-radius:10px;border:1px solid rgba(255,185,95,.3);background:linear-gradient(90deg,rgba(255,185,95,.08),transparent)}
+  .cc-note b{color:var(--am)}
+  .cc-note.ok{border-color:rgba(45,212,191,.35);background:linear-gradient(90deg,rgba(45,212,191,.08),transparent)}.cc-note.ok b{color:var(--tq)}
+  .cc-note.bad{border-color:rgba(248,113,113,.45);background:linear-gradient(90deg,rgba(248,113,113,.1),transparent)}.cc-note.bad b{color:var(--rd)}
+  .cc-gauge{width:100%;height:clamp(120px,calc(100vh - 640px),190px)}
+  /* вода */
+  .cc-water{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center}
+  .cc-water svg{width:clamp(104px,15vh,140px);height:auto}
+  .cc-lines{display:flex;flex-direction:column;gap:6px}
+  .cc-lines > div{display:flex;justify-content:space-between;gap:8px;font:500 11.5px Inter,sans-serif;color:#CBD5E1;padding:5px 9px;border-radius:8px;background:rgba(6,11,20,.55)}
+  .cc-lines b{font:700 12px "JetBrains Mono",monospace;color:var(--tx)}
+  /* таблица фаз */
+  .cc-tbl{width:100%;border-collapse:separate;border-spacing:0 3px;font:500 11px/1.3 "JetBrains Mono",monospace;color:#E2E8F0}
+  .cc-tbl th{font:700 9px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;text-align:left;padding:2px 6px}
+  .cc-tbl td{padding:5px 6px;background:rgba(6,11,20,.55)}
+  .cc-tbl td:first-child{border-radius:7px 0 0 7px}.cc-tbl td:last-child{border-radius:0 7px 7px 0}
+  .cc-tbl tr.pz td{color:var(--am)}
+  .cc-tbl tr.buf td{color:var(--tq)}
+  /* лимиты пауз */
+  .cc-lim{display:flex;flex-direction:column;gap:6px}
+  .cc-lim > div{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 9px;border-radius:9px;background:rgba(6,11,20,.55);border:1px solid transparent}
+  .cc-lim > div.cur{border-color:rgba(255,185,95,.5);background:rgba(255,185,95,.07);box-shadow:0 0 14px rgba(255,185,95,.12)}
+  .cc-lim b{font:800 12px "JetBrains Mono",monospace;color:var(--am)}
+  .cc-lim span{font:600 11px Inter,sans-serif;color:#CBD5E1}
+  .cc-lim .bar{grid-column:1 / -1;height:5px;border-radius:999px;background:rgba(148,163,184,.12);overflow:hidden}
+  .cc-lim .bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#22D3EE 0 var(--w),#FFB95F var(--w) 100%)}
+  .cc-lim em{font-style:normal;font:700 11px "JetBrains Mono",monospace;color:var(--tx)}
+  .cc-wait{font:500 12px Inter,sans-serif;color:var(--dim);padding:14px;text-align:center}
+  .cc-toast{position:fixed;right:18px;bottom:18px;z-index:50;padding:10px 14px;border-radius:12px;background:#111827;border:1px solid rgba(0,240,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.6);font:500 12.5px Inter,sans-serif;color:var(--tx);opacity:0;transform:translateY(16px);transition:all .3s;pointer-events:none}
+  .cc-toast.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.cc-card::before,.cc-title .k::before,.cc-hot .dot::after{animation:none!important}}
+</style>
+<script src="js/cockpit-pages-fx.js" defer></script>
+</head><body class="bg-surface"><main class="cc" id="cc">
+
+<!-- Шапка: что за экран, откуда данные, режим -->
+<div class="cc-head">
+  <div class="cc-title"><div class="k">ПУЛЬТ КАМЕРЫ • AIM AGHD-250ELC</div><h1 id="cc-h1">Климат, фазы и паузы</h1></div>
+  <div class="cc-chips" id="cc-chips"><span class="cc-chip" style="--c:#64748B">ждём данные АРМ…</span></div>
+  <div class="cc-chips">
+    <span class="cc-seg">
+      <button class="cc-btn" id="cc-dry" onclick="ccCmd('setPausePhase',[false],'Сушка — в АРМ. На контроллер команда не отправляется')"><span class="material-symbols-outlined">air</span>Сушка</button>
+      <button class="cc-btn amber" id="cc-pause" onclick="ccCmd('setPausePhase',[true],'Пауза — в АРМ. На контроллер команда не отправляется')"><span class="material-symbols-outlined">pause</span>Пауза</button>
+    </span>
+    <span class="cc-seg">
+      <button class="cc-btn" id="cc-winter" onclick="ccCmd('setHeatRecoveryMode',['WINTER_14KW'],'Зима: тепло 14 кВт в цех (режим в АРМ)')"><span class="material-symbols-outlined">heat_pump</span>Зима</button>
+      <button class="cc-btn amber" id="cc-summer" onclick="ccCmd('setHeatRecoveryMode',['SUMMER_OUTDOOR'],'Лето: тепло на улицу (режим в АРМ)')"><span class="material-symbols-outlined">wb_sunny</span>Лето</button>
+    </span>
+    <button class="cc-btn" onclick="ccCmd('selectTab',['mcgs'])"><span class="material-symbols-outlined">table_view</span>Таблица MCGS</button>
+  </div>
+</div>
+
+<!-- Ряд 1: мнемосхема + VPD -->
+<div class="cc-r1">
+  <div class="cc-card">
+    <div class="cc-cap"><span><i></i>Мнемосхема камеры</span><em id="cc-mnemo-src">источник: <b>данные АРМ</b></em></div>
+    <div class="cc-mnemo">
+      <img src="chamber-3d.png" alt="Разрез камеры AIM AGHD-250ELC"/>
+      <svg class="cc-flow" viewBox="0 0 100 60" preserveAspectRatio="none">
+        <path id="cc-flowpath" d="M8 20 C 30 8, 60 8, 88 22 C 70 40, 40 46, 10 40" fill="none" stroke="rgba(34,211,238,.35)" stroke-width=".35" stroke-dasharray="1.2 2"><animate attributeName="stroke-dashoffset" from="6.4" to="0" dur="1.2s" repeatCount="indefinite"/></path>
+        <g id="cc-parts"></g>
+      </svg>
+      <div class="cc-hot" style="left:16%;top:46%;--c:#22D3EE"><div class="dot"></div><div class="lb"><span>Зона тележек</span><b id="cc-h-zone">—</b></div></div>
+      <div class="cc-hot" style="left:46%;top:16%;--c:#FFB95F"><div class="dot"></div><div class="lb"><span>Cantoni • уставка стадии</span><b id="cc-h-fan">—</b></div></div>
+      <div class="cc-hot" style="left:52%;top:62%;--c:#A78BFA"><div class="dot"></div><div class="lb"><span>Точка росы</span><b id="cc-h-dew">—</b></div></div>
+      <div class="cc-hz"><span>50</span><div class="bar"><i id="cc-hz-bar" style="height:0%"></i></div><b id="cc-hz-v">—</b><span>Гц</span></div>
+    </div>
+    <div class="cc-kv">
+      <div><span>Температура</span><b id="cc-k-t">—</b><em id="cc-k-t2">цель стадии —</em></div>
+      <div><span>Влажность</span><b id="cc-k-rh">—</b><em id="cc-k-rh2">коридор стадии —</em></div>
+      <div><span>Стадия / режим</span><b id="cc-k-st">—</b><em id="cc-k-st2">—</em></div>
+    </div>
+  </div>
+  <div class="cc-card" style="display:flex;flex-direction:column">
+    <div class="cc-cap"><span><i style="--c:#FFB95F"></i>VPD и риск закала</span><em>пороги приложения</em></div>
+    <div id="cc-gauge" style="flex:1;display:flex;align-items:center;justify-content:center"></div>
+
+  </div>
+</div>
+
+<!-- Ряд 2: вода (оценка), фазы MCGS, лимиты пауз -->
+<div class="cc-r2">
+  <div class="cc-card">
+    <div class="cc-cap"><span><i style="--c:#38BDF8"></i>Отдача воды • оценка</span><em>датчика влаги нет</em></div>
+    <div id="cc-water"><div class="cc-wait">Ждём данные АРМ…</div></div>
+  </div>
+  <div class="cc-card">
+    <div class="cc-cap"><span><i style="--c:#2DD4BF"></i>8 фаз MCGS для этой стадии</span><em id="cc-ph-cap">генератор АРМ</em></div>
+    <div id="cc-phases"><div class="cc-wait">Ждём данные АРМ…</div></div>
+  </div>
+  <div class="cc-card">
+    <div class="cc-cap"><span><i style="--c:#FFB95F"></i>Работа / пауза по стадиям</span><em>stages.js</em></div>
+    <div id="cc-limits"><div class="cc-wait">Ждём данные АРМ…</div></div>
+  </div>
+</div>
+<div class="cc-toast" id="cc-toast"></div>
+</main>
+
+<script>
+  // Пульт камеры. Все цифры — из главного окна АРМ (сообщение ARM_CONSOLE): t/rH — ручной ввод, лог Parkside
+  // или мост Modbus, если подключён; уставки стадий и 8 фаз — генератор АРМ по базе знаний; отдача воды — оценка по времени.
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const fmt = (n, d) => Number(n || 0).toLocaleString("ru-RU", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+    const prev = {};
+    let last = "";
+
+    function toast(m) { const t = $("cc-toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 3000); }
+    // Команда главному окну (выполняется по белому списку). Вне АРМ — честно говорим, что открыть негде.
+    window.ccCmd = function (cmd, args, msg) {
+      if (window.parent === window) { toast("Работает внутри АРМ (index.html)"); return; }
+      try { window.parent.postMessage({ type: "arm-cmd", cmd, args: args || [] }, "*"); } catch (e) {}
+      if (msg) toast(msg);
+    };
+
+    function gauge(v) {
+      const lo = 0, hi = 1.5, cx = 140, cy = 132, r = 104;
+      const zones = [[0, .35, "#F87171", "СЫРО"], [.35, .5, "#FFB95F", ""], [.5, 1.05, "#2DD4BF", "НОРМА"], [1.05, 1.2, "#FFB95F", ""], [1.2, 1.5, "#F87171", "СУХО"]];
+      const cl = (x) => Math.max(lo, Math.min(hi, x));
+      const pt = (x, rr) => { const a = (180 - (cl(x) - lo) / (hi - lo) * 180) * Math.PI / 180; return [(cx + rr * Math.cos(a)).toFixed(1), (cy - rr * Math.sin(a)).toFixed(1)]; };
+      const arc = (a, b, rr) => { const [x1, y1] = pt(a, rr), [x2, y2] = pt(b, rr); return `M ${x1} ${y1} A ${rr} ${rr} 0 0 1 ${x2} ${y2}`; };
+      const z = zones.find((q) => v >= q[0] && v <= q[1]) || zones[0];
+      const deg = (cl(v) - lo) / (hi - lo) * 180, p0 = prev.g == null ? 0 : prev.g; prev.g = deg;
+      const ticks = [0, .25, .5, .75, 1, 1.25, 1.5].map((x) => { const [x1, y1] = pt(x, r + 10), [x2, y2] = pt(x, r + 17), [tx, ty] = pt(x, r + 28); return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(226,232,240,.5)" stroke-width="1.4"/><text x="${tx}" y="${(+ty + 3).toFixed(1)}" fill="#94A3B8" font-family="JetBrains Mono" font-size="9.5" font-weight="700" text-anchor="middle">${String(x).replace(/0$/, "") || "0"}</text>`; }).join("");
+      return `<svg class="cc-gauge" viewBox="0 0 280 172">
+        <path d="${arc(lo, hi, r)}" fill="none" stroke="rgba(148,163,184,.12)" stroke-width="16" stroke-linecap="round"/>
+        ${zones.map((q) => `<path d="${arc(q[0], q[1], r)}" fill="none" stroke="${q[2]}" stroke-opacity="${q === z ? .95 : .3}" stroke-width="${q === z ? 12 : 9}"/>`).join("")}
+        ${zones.filter((q) => q[3]).map((q) => { const [x, y] = pt((q[0] + q[1]) / 2, r - 24); return `<text x="${x}" y="${y}" fill="${q[2]}" font-family="JetBrains Mono" font-size="8.5" font-weight="800" text-anchor="middle">${q[3]}</text>`; }).join("")}
+        ${ticks}
+        <g transform="rotate(${deg.toFixed(2)} ${cx} ${cy})" style="filter:drop-shadow(0 0 6px ${z[2]})">
+          <animateTransform attributeName="transform" type="rotate" from="${p0.toFixed(2)} ${cx} ${cy}" to="${deg.toFixed(2)} ${cx} ${cy}" dur=".7s" fill="freeze" calcMode="spline" keySplines="0.2 0.9 0.25 1" keyTimes="0;1"/>
+          <path d="M ${cx - 84} ${cy} L ${cx - 6} ${cy - 3.5} L ${cx + 10} ${cy} L ${cx - 6} ${cy + 3.5} Z" fill="${z[2]}"/>
+        </g>
+        <circle cx="${cx}" cy="${cy}" r="9" fill="#0B1424" stroke="${z[2]}" stroke-width="2.5"/><circle cx="${cx}" cy="${cy}" r="3" fill="${z[2]}"/>
+        <text x="${cx}" y="${cy + 32}" fill="${z[2]}" font-family="JetBrains Mono" font-size="22" font-weight="800" text-anchor="middle">${fmt(v, 2)} кПа</text>
+      </svg>`;
+    }
+
+    function render(m) {
+      const t = m.t, d = m.diag, st = m.stage;
+      // шапка
+      const src = m.scada.connected ? ["мост Modbus: связь", "#2DD4BF"] : m.scada.online ? ["мост Modbus: нет шлюза", "#FFB95F"] : ["Modbus: нет моста", "#64748B"];
+      $("cc-chips").innerHTML = `<span class="cc-chip" style="--c:${src[1]}"><i></i>${src[0]}</span>
+        <span class="cc-chip" style="--c:#22D3EE">t/rH: ${m.scada.connected ? "мост Modbus" : "ручной ввод / Parkside"}</span>
+        ${t.protocol === "RESCUE" ? '<span class="cc-chip" style="--c:#F87171"><i></i>протокол спасения</span>' : ""}`;
+      $("cc-h1").textContent = st ? `Стадия ${st.number} • ${String(st.title).replace(/^Стадия \d:\s*/, "")}` : "Климат, фазы и паузы";
+      $("cc-dry").classList.toggle("on", !t.pause); $("cc-pause").classList.toggle("on", t.pause);
+      $("cc-winter").classList.toggle("on", t.heat === "WINTER_14KW"); $("cc-summer").classList.toggle("on", t.heat !== "WINTER_14KW");
+
+      // мнемосхема и климат
+      const hz = st ? (t.pause ? parseFloat(st.pauseHz) || 18 : st.hz) : 0;
+      $("cc-h-zone").textContent = `${t.tempC >= 0 ? "+" : ""}${fmt(t.tempC, 1)}°C • ${Math.round(t.rh)}% rH`;
+      $("cc-h-fan").textContent = st ? (t.pause ? `пауза ${st.pauseHz}` : `сушка ${st.hz} Гц`) : "—";
+      $("cc-h-dew").textContent = d ? `${fmt(d.dew, 1)}°C` : "—";
+      $("cc-hz-bar").style.height = Math.min(100, hz / 50 * 100) + "%";
+      $("cc-hz-v").textContent = hz ? fmt(hz) : "—";
+      $("cc-mnemo-src").innerHTML = `Cantoni — <b>уставка стадии</b>, не замер`;
+      // частицы по контуру: быстрее при сушке, медленнее в паузе
+      const dur = t.pause ? 4.5 : 1.8;
+      const partsKey = "p" + dur;
+      if (prev.parts !== partsKey) {
+        prev.parts = partsKey;
+        $("cc-parts").innerHTML = Array.from({ length: 7 }, (_, i) => `<circle r=".7" fill="${t.pause ? "#FFB95F" : "#67E8F9"}"><animateMotion dur="${dur}s" begin="${(i * dur / 7).toFixed(2)}s" repeatCount="indefinite"><mpath href="#cc-flowpath"/></animateMotion></circle>`).join("");
+      }
+      const inT = st ? Math.abs(t.tempC - st.tempC) <= 1 : true;
+      const inRh = st && st.shelf ? t.rh >= st.shelf[0] && t.rh <= st.shelf[1] : true;
+      $("cc-k-t").innerHTML = `<span style="color:${inT ? "#2DD4BF" : "#FFB95F"}">${t.tempC >= 0 ? "+" : ""}${fmt(t.tempC, 1)}°C</span>`;
+      $("cc-k-t2").textContent = st ? `цель стадии +${st.tempC}°C` : "—";
+      $("cc-k-rh").innerHTML = `<span style="color:${inRh ? "#2DD4BF" : "#FFB95F"}">${Math.round(t.rh)}%</span>`;
+      $("cc-k-rh2").textContent = st && st.shelf ? `коридор полки ${st.shelf[0]}–${st.shelf[1]}%` : "—";
+      $("cc-k-st").textContent = st ? `Ст.${st.number} • ${t.pause ? "пауза" : "сушка"}` : "—";
+      $("cc-k-st2").textContent = st ? `работа ${st.work} ч / пауза ${st.pauseH} ч` : "—";
+
+      // VPD
+      if (d) {
+        $("cc-gauge").innerHTML = gauge(d.vpd);
+      }
+
+      // Вода — оценка по времени цикла
+      const b = m.batch;
+      // Оценка по времени: вода партии (сырьё − готовое) равномерно за цикл по стадиям из базы знаний
+      const cycleH = b && b.energyHours ? b.energyHours : 162;
+      const elapsedH = t.batchStartMs ? Math.max(0, (Date.now() - t.batchStartMs) / 3600000) : null;
+      const w = b && elapsedH != null ? {
+        percentComplete: Math.min(100, elapsedH / cycleH * 100),
+        litovPerCycle: b.water * Math.min(1, elapsedH / cycleH),
+        litovPerHour: b.water / cycleH,
+        elapsedHours: elapsedH,
+        hoursRemain: Math.max(0, cycleH - elapsedH)
+      } : null;
+      if (w && b) {
+        const pct = Math.max(0, Math.min(100, w.percentComplete));
+        const C = 2 * Math.PI * 46, off = C * (1 - pct / 100), p0 = prev.w == null ? C : prev.w; prev.w = off;
+        const start = t.batchStartMs ? new Date(t.batchStartMs) : null;
+        $("cc-water").innerHTML = `<div class="cc-water">
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="46" fill="none" stroke="rgba(148,163,184,.14)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#38BDF8" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 60 60)" style="filter:drop-shadow(0 0 6px #38BDF8)"><animate attributeName="stroke-dashoffset" from="${p0.toFixed(1)}" to="${off.toFixed(1)}" dur=".8s" fill="freeze"/></circle>
+            <text x="60" y="58" fill="#F8FAFC" font-family="JetBrains Mono" font-size="20" font-weight="800" text-anchor="middle">${fmt(w.litovPerCycle)} л</text>
+            <text x="60" y="75" fill="#94A3B8" font-family="JetBrains Mono" font-size="9" font-weight="700" text-anchor="middle">из ${fmt(b.water)} л</text></svg>
+          <div class="cc-lines">
+            <div><span>В среднем за цикл ${fmt(cycleH)} ч</span><b>${fmt(w.litovPerHour, 1)} л/ч</b></div>
+            <div><span>Прошло / осталось</span><b>${fmt(w.elapsedHours, 1)} ч / ~${fmt(w.hoursRemain)} ч</b></div>
+            <div><span>Всего уйдёт в трап</span><b>${fmt(b.water)} л</b></div>
+            <div><span>Отсчёт с</span><b>${start ? start.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : "—"}</b></div>
+          </div></div>
+`;
+      } else if (b) {
+        $("cc-water").innerHTML = `<div class="cc-lines"><div><span>Всего уйдёт в трап</span><b>${fmt(b.water)} л</b></div></div><div class="cc-note" style="margin-top:8px">Старт партии не отмечен.</div>`;
+      }
+
+      // 8 фаз MCGS
+      const ph = d && Array.isArray(d.phases) ? d.phases : [];
+      $("cc-ph-cap").innerHTML = t.protocol === "RESCUE" ? "<b style='color:#F87171'>протокол спасения</b>" : "генератор АРМ • как на вкладке MCGS";
+      $("cc-phases").innerHTML = ph.length ? `<table class="cc-tbl"><thead><tr><th>Ф</th><th>Режим</th><th>T</th><th>Humi</th><th>Длит.</th><th>Dehumi / PauseD</th><th>Cantoni</th></tr></thead><tbody>${ph.map((p) => {
+        const n = p.phaseNumber, buf = n === 8, pz = !buf && n % 2 === 0;
+        return `<tr class="${buf ? "buf" : pz ? "pz" : ""}"><td>Ф${n}</td><td>${esc(p.modeLabel)}</td><td>${esc(p.tempSetpointC)}°</td><td>${esc(p.humiSetpointPercent)}%</td><td>${esc(p.durationHours)} ч</td><td>${esc(p.dehumiMin ?? "—")} / ${esc(p.pauseMin ?? "—")}</td><td>${esc(p.cantoniFreqHz)}</td></tr>`;
+      }).join("")}</tbody></table>` : `<div class="cc-wait">Таблица фаз появится, когда главное окно пришлёт данные.</div>`;
+
+      // Работа / пауза по стадиям
+      $("cc-limits").innerHTML = m.stages.length ? `<div class="cc-lim">${m.stages.map((s) => {
+        const cyc = s.work + s.pauseH, wPct = (s.work / cyc * 100).toFixed(0);
+        return `<div class="${st && s.number === st.number ? "cur" : ""}"><b>Ст.${s.number}</b><span>${esc(String(s.title).replace(/^Стадия \d:\s*/, ""))}</span><em>${s.work} / ${s.pauseH} ч</em><span class="bar"><i style="--w:${wPct}%"></i></span></div>`;
+      }).join("")}</div>` : "";
+    }
+
+    window.addEventListener("message", (ev) => {
+      const m = ev.data;
+      if (!m || m.type !== "ARM_CONSOLE") return;
+      const key = JSON.stringify(m);
+      if (key === last && Date.now() - (window.__ccLastAt || 0) < 60000) return; // ничего не изменилось — не перерисовываем (раз в минуту — для часов отдачи)
+      window.__ccLastAt = Date.now();
+      last = key;
+      try { render(m); } catch (e) { console.warn("[Пульт]", e); }
+    });
+    ccCmd("broadcastTelemetrySync");
+  })();
+</script><script src="js/stitch-cockpits.js"></script></body></html>

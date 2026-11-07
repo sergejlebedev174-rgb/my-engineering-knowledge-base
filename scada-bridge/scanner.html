@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Поиск регистров Modbus • Юрмалциемс</title>
+<style>
+:root{--bg:#070A12;--card:#0D1322;--line:rgba(56,189,248,.25);--tx:#E2E8F0;--mut:#94A3B8;--c:#22D3EE;--a:#F59E0B;--r:#F87171;--g:#2DD4BF}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 "Segoe UI",system-ui,sans-serif;padding:16px}
+h1{font-size:19px;margin:0 0 4px}.sub{color:var(--mut);font-size:12.5px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.card h2{font-size:14px;margin:0 0 10px;color:var(--c);text-transform:uppercase;letter-spacing:.05em}
+label{font-size:12px;color:var(--mut);display:inline-flex;flex-direction:column;gap:3px;margin:0 8px 8px 0}
+input,select{background:#050810;border:1px solid rgba(148,163,184,.3);color:var(--tx);border-radius:8px;padding:7px 9px;font:600 14px ui-monospace,Consolas,monospace;width:110px}
+button{cursor:pointer;border-radius:9px;border:1px solid var(--c);background:rgba(34,211,238,.12);color:var(--c);font-weight:700;padding:8px 14px;margin:0 6px 6px 0}
+button.a{border-color:var(--a);color:var(--a);background:rgba(245,158,11,.1)}button.r{border-color:var(--r);color:var(--r);background:rgba(248,113,113,.1)}
+table{width:100%;border-collapse:collapse;font:13px ui-monospace,Consolas,monospace}th,td{border-bottom:1px solid rgba(255,255,255,.06);padding:5px 7px;text-align:left}th{color:var(--mut);font-weight:600}
+tr.ch td{background:rgba(245,158,11,.08)}tr.w td{background:rgba(34,211,238,.08)}.err{color:var(--r)}.ok{color:var(--g)}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font:700 12px ui-monospace,monospace;border:1px solid}
+.tip{font-size:12.5px;color:var(--mut);line-height:1.5}.tip b{color:var(--tx)}
+</style></head><body>
+<h1>Поиск регистров Modbus — ПЛК, частотники Hapn</h1>
+<div class="sub">Найденные адреса впишите в <b>scada-bridge/config.json</b> → devices → address. Пока адрес пустой, мост его не читает и не пишет.</div>
+<div class="card"><h2>Связь</h2><div id="link">…</div></div>
+
+<div class="card"><h2>1. Сниффер шины (самый быстрый путь)</h2>
+<div class="tip">Слушает, что панель MCGS сама читает и пишет в ПЛК. <b>Запустите, затем на панели MCGS поменяйте Temp фазы 1 (например 16.0 → 16.5)</b> — в «Записях» появится узел и регистр со значением 165: это адрес SET Temp (scale 10). Так же для Humi и частоты.</div>
+<p><button onclick="sn('start')">Старт</button><button class="a" onclick="sn('stop')">Стоп</button><button class="a" onclick="sn('clear')">Очистить</button></p>
+<div id="snInfo" class="tip"></div>
+<h3 style="font-size:13px">Записи (FC06/FC16)</h3><table><thead><tr><th>время</th><th>узел</th><th>функция</th><th>регистр</th><th>значения</th></tr></thead><tbody id="snW"></tbody></table>
+<h3 style="font-size:13px">Регистры, которые читает MCGS (жёлтые — менялись)</h3><table><thead><tr><th>узел</th><th>тип</th><th>адрес</th><th>hex</th><th>значение</th><th>со знаком</th><th>изменений</th><th>история</th></tr></thead><tbody id="snR"></tbody></table>
+</div>
+
+<div class="card"><h2>2. Сканер диапазона</h2>
+<div class="tip">Читает регистры подряд. Сравните с экраном MCGS: Dry temp 15.8°C обычно лежит как 158.</div>
+<label>Узел<input id="u" value="1"></label><label>Функция<select id="fc"><option value="3">FC03 holding</option><option value="4">FC04 input</option></select></label>
+<label>С адреса<input id="from" value="0"></label><label>Сколько<input id="cnt" value="60"></label>
+<button onclick="scan()">Прочитать</button><button class="a" onclick="scan(true)">Сравнить с прошлым</button>
+<table><thead><tr><th>адрес</th><th>hex</th><th>значение</th><th>со знаком</th><th>/10</th><th>/100</th></tr></thead><tbody id="sc"></tbody></table>
+</div>
+
+<div class="card"><h2>3. Проверочная запись одного регистра</h2>
+<div class="tip">Только для проверки уже найденного адреса. <b>На работающей камере</b> — записывайте значение, которое и так допустимо (например частоту 20.00 Гц = 2000).</div>
+<label>Узел<input id="wu" value="2"></label><label>Регистр<input id="wa" value=""></label><label>Значение<input id="wv" value=""></label>
+<button class="r" onclick="wr()">Записать (FC06)</button><span id="wres" class="tip"></span>
+</div>
+<script>
+const tok=new URLSearchParams(location.search).get('token')||'';
+const post=(p,b)=>fetch(p,{method:'POST',headers:{'Content-Type':'application/json','X-Arm-Token':tok},body:JSON.stringify(b||{})}).then(r=>r.json());
+let prev={};
+async function link(){try{const s=await fetch('/api/state').then(r=>r.json());const l=s.link;document.getElementById('link').innerHTML=`<span class="pill" style="color:${l.connected?'#2DD4BF':'#F87171'}">${l.connected?'шлюз подключен':'нет связи'}</span> ${l.host}:${l.port} • режим ${l.mode} • ответов ${l.stats.ok}, таймаутов ${l.stats.timeouts}, ошибок ${l.stats.errors} • запись ${s.writeEnabled?'<b class="err">ВКЛЮЧЕНА</b>':'выключена'}`}catch(e){document.getElementById('link').textContent='мост не отвечает'}}
+async function scan(cmp){const r=await post('/api/scan',{unit:+u.value,fc:+fc.value,from:+from.value,count:+cnt.value});const rows=(r.values||[]).map(v=>{if(v.error)return`<tr><td>${v.addr}</td><td colspan=5 class=err>${v.error}</td></tr>`;const k=r.unit+':'+r.fc+':'+v.addr;const ch=cmp&&prev[k]!==undefined&&prev[k]!==v.value;prev[k]=v.value;return`<tr class="${ch?'ch':''}"><td>${v.addr}</td><td>0x${v.addr.toString(16).padStart(4,'0')}</td><td>${v.value}</td><td>${v.signed}</td><td>${(v.signed/10).toFixed(1)}</td><td>${(v.value/100).toFixed(2)}</td></tr>`});sc.innerHTML=rows.join('')||`<tr><td class=err colspan=6>${r.error||'пусто'}</td></tr>`}
+async function sn(action){const r=await post('/api/sniffer',{action});if(r.error){snInfo.innerHTML='<span class=err>'+r.error+'</span>';return}snInfo.textContent=`${r.running?'слушаю':'остановлен'} • кадров: ${r.frames}`;snW.innerHTML=r.writes.map(w=>`<tr class=w><td>${new Date(w.at).toLocaleTimeString()}</td><td>${w.unit}</td><td>FC${w.fc}</td><td>${w.addr} (0x${w.addr.toString(16)})</td><td>${w.values.join(', ')}</td></tr>`).join('');snR.innerHTML=r.registers.map(g=>`<tr class="${g.changes?'ch':''}"><td>${g.unit}</td><td>${g.space}</td><td>${g.addr}</td><td>${g.hex}</td><td>${g.value}</td><td>${g.signed}</td><td>${g.changes}</td><td>${g.history.map(h=>h.value).join(' ← ')}</td></tr>`).join('')}
+async function wr(){if(!confirm(`Записать в узел ${wu.value}, регистр ${wa.value} значение ${wv.value}?`))return;const r=await post('/api/write-raw',{unit:+wu.value,addr:+wa.value,value:+wv.value,confirm:'ДА'});wres.innerHTML=r.ok?'<span class=ok>записано</span>':'<span class=err>'+r.error+'</span>'}
+link();setInterval(link,4000);setInterval(()=>{if(snInfo.textContent.startsWith('слушаю'))sn()},3000);
+</script></body></html>

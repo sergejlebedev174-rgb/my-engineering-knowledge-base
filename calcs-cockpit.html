@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>Расчёт партии • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" media="print" onload="this.media='all'"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
+/* Расчёт партии: свои мелочи поверх стиля кокпита */
+.calc-src{font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.06em;color:#94A3B8;border:1px solid rgba(148,163,184,.28);border-radius:999px;padding:4px 9px;white-space:nowrap}
+.calc-src b{color:#2DD4BF;font-weight:700}
+.calc-warn{display:inline-block;margin-left:6px;font:700 9px/1 "JetBrains Mono",monospace;color:#FBBF24;border:1px solid rgba(251,191,36,.45);border-radius:4px;padding:2px 5px;vertical-align:middle;cursor:help}
+.calc-money{cursor:pointer;transition:background .2s}
+.calc-money:hover{background:rgba(0,240,255,.06)}
+.calc-pos{color:#2DD4BF}.calc-neg{color:#F87171}
+.calc-balance{display:flex;height:8px;border-radius:999px;overflow:hidden;background:rgba(148,163,184,.12)}
+.calc-balance i{display:block;height:100%;transition:width .5s ease}
+.calc-balance .b-out{background:linear-gradient(90deg,#00F0FF,#2DD4BF);box-shadow:0 0 10px rgba(0,240,255,.45)}
+.calc-balance .b-water{background:linear-gradient(90deg,rgba(248,113,113,.55),rgba(248,113,113,.25))}
+.calc-legend{display:flex;justify-content:space-between;gap:8px;font:500 10.5px/1.3 "JetBrains Mono",monospace;color:#94A3B8;margin-top:6px}
+.calc-legend b{color:#E2E8F0}
+.calc-chips{display:inline-flex;flex-wrap:wrap;gap:6px}
+.calc-grow{flex:1 1 auto}
+.calc-muted{color:#94A3B8;font-weight:400}
+/* Затраты: полоса долей и строки */
+.calc-stack{display:flex;height:10px;border-radius:999px;overflow:hidden;background:rgba(148,163,184,.12)}
+.calc-stack i{display:block;height:100%;transition:width .5s ease}
+.s-raw{background:linear-gradient(90deg,#00F0FF,#38BDF8);box-shadow:0 0 10px rgba(0,240,255,.4)}
+.s-salt{background:linear-gradient(90deg,#FFB95F,#F59E0B)}
+.s-en{background:linear-gradient(90deg,#A78BFA,#7C3AED)}
+.calc-rows{display:flex;flex-direction:column;gap:6px}
+.calc-row{display:grid;grid-template-columns:10px 120px 1fr auto 40px;align-items:center;gap:8px;font:500 11.5px/1.3 "JetBrains Mono",monospace;color:#E2E8F0;padding:6px 8px;border-radius:8px;background:rgba(15,23,42,.45)}
+.calc-row .dot{width:9px;height:9px;border-radius:3px}
+.calc-row .pct{text-align:right}
+/* Таблицы энергии и каналов */
+.calc-table{width:100%;border-collapse:separate;border-spacing:0 4px;font:500 11.5px/1.35 "JetBrains Mono",monospace;color:#E2E8F0}
+.calc-table th{font:600 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.06em;color:#94A3B8;text-transform:uppercase;text-align:right;padding:2px 8px}
+.calc-table th:first-child,.calc-table td:first-child{text-align:left}
+.calc-table td{text-align:right;padding:7px 8px;background:rgba(15,23,42,.45)}
+.calc-table td:first-child{border-radius:8px 0 0 8px}.calc-table td:last-child{border-radius:0 8px 8px 0}
+.calc-table tr.tot td{background:rgba(0,240,255,.07);color:#00F0FF;font-weight:700}
+.calc-ch td{padding:14px 8px}
+.calc-ch tr.best td{background:rgba(45,212,191,.10);box-shadow:inset 0 1px 0 rgba(45,212,191,.35),inset 0 -1px 0 rgba(45,212,191,.35)}
+.calc-best{font:500 12px/1.5 Inter,"Segoe UI",sans-serif;color:#CBD5E1;padding:10px 12px;border-radius:10px;border:1px solid rgba(45,212,191,.3);background:linear-gradient(90deg,rgba(45,212,191,.08),transparent)}
+.calc-best b{color:#2DD4BF}
+.calc-hdr-right{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.calc-act{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:10px;cursor:pointer;font:700 11px/1 "JetBrains Mono",monospace;letter-spacing:.04em;color:#C3F5FF;background:rgba(27,31,43,.8);border:1px solid rgba(0,240,255,.25);transition:border-color .2s,box-shadow .2s,transform .1s}
+.calc-act:hover{border-color:rgba(0,240,255,.6);box-shadow:0 0 14px rgba(0,240,255,.25)}
+.calc-act:active{transform:scale(.97)}
+.calc-act .material-symbols-outlined{font-size:18px}
+.calc-act-main{color:#00363D;background:linear-gradient(90deg,#22D3EE,#00F0FF 50%,#5EEAD4);border-color:rgba(255,255,255,.35);box-shadow:0 0 18px rgba(0,240,255,.4)}
+.calc-act-wa{color:#6FFBBE;border-color:rgba(111,251,190,.3)}
+.calc-act-sm{height:26px;padding:0 10px;font-size:10px}.calc-act-sm .material-symbols-outlined{font-size:14px}
+/* Плотнее: всё помещается на экран ноутбука с масштабом 125% */
+#en-table td{padding:clamp(5px, calc((100vh - 600px) / 14), 9px) 8px}
+.calc-ch td{padding:clamp(9px, calc((100vh - 560px) / 9), 18px) 8px}
+.calc-row{padding:5px 8px}
+</style><link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/><script src="js/knowledge-base.js"></script><script src="js/cockpit-pages-fx.js" defer></script></head><body class="bg-surface font-body-md text-on-surface antialiased"><div class="w-full"><main class="relative w-full min-h-screen bg-surface px-space-lg py-space-md"><div class="flex flex-col w-full gap-space-md">
+
+<!-- 1. Шапка: вид рыбы, сырьё, выход, деньги -->
+<section class="flex flex-col gap-space-md p-space-lg rounded-xl bg-surface-container-low shadow-xl relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-16 -bottom-16 w-80 h-80 rounded-full bg-secondary/5 blur-3xl pointer-events-none"></div>
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md z-10">
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-high">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f0ff]"></span>
+<span class="font-label-caps text-label-caps text-primary-container tracking-wider">РАСЧЁТ ПАРТИИ • МАССА И ДЕНЬГИ</span>
+</div>
+<span class="calc-src" id="calc-src" title="Цифры видов, цены и себестоимость берутся из базы знаний (knowledge/*.js) и ваших правок цен"><b>база знаний</b> • расчёт</span>
+<span class="calc-chips">
+<button data-species="VIMBA" class="species-chip active px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container font-headline-md text-body-md flex items-center gap-space-xs shadow-[0_0_10px_rgba(0,240,255,0.25)] transition-all cursor-pointer">Вимба</button>
+<button data-species="BREAM" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">Лещ</button>
+<button data-species="ROACH" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">Плотва</button>
+<button data-species="SMELT" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">Корюшка</button>
+<button data-species="PERCH" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">Окунь</button>
+<button data-species="ROUND_GOBY" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">Бычок</button>
+</span>
+</div>
+<div class="calc-hdr-right">
+<!-- Деньги партии (модель себестоимости базы знаний) -->
+<div class="calc-money flex items-center gap-space-md bg-surface-container-lowest/60 px-space-md py-2 rounded-lg" onclick="calcGoTab('profit','Деньги партии')" title="Сырьё + соль + электроэнергия цикла + упаковка. Подробно — вкладка «Экономика»">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">СЕБЕСТОИМОСТЬ 1 КГ</span>
+<span class="font-metric-md text-metric-md text-secondary font-semibold" id="hdr-cost-kg">—</span>
+</div>
+<div class="h-6 w-px bg-surface-container-highest"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">ПРИБЫЛЬ: ОПТ / ВАКУУМ</span>
+<span class="font-metric-md text-metric-md font-semibold" id="hdr-profit-val">—</span>
+</div>
+</div>
+<button type="button" onclick="calcGoTab('batch','Партия')" class="calc-act calc-act-main" title="Посол, навеска, сушка, чек-лист и 15 тележек"><span class="material-symbols-outlined">shelves</span><span>Партия в цеху</span></button>
+<button type="button" onclick="calcCall('openWhatsAppReportModal','WhatsApp')" class="calc-act calc-act-wa" title="Рапорт по партии в WhatsApp"><span class="material-symbols-outlined">send</span><span>WhatsApp</span></button>
+</div>
+</div>
+<!-- Ползунки: сырьё и выход -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg pt-space-xs">
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">СЫРЬЁ В ПАРТИИ</span>
+<span class="font-metric-lg text-metric-lg text-primary-container font-bold" id="raw-display">1 850 кг</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" id="raw-slider" max="2550" min="300" step="50" type="range" value="1850"/>
+<div class="flex justify-between font-label-code text-label-code text-outline">
+<span>300 кг</span>
+<span id="raw-max-txt">камера: 15 × 170 = 2 550 кг</span>
+</div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ВЫХОД ГОТОВОЙ</span>
+<span class="font-metric-lg text-metric-lg text-secondary font-bold" id="yield-display">61.5% • В НОРМЕ</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="yield-slider" max="75" min="45" step="0.5" type="range" value="61.5"/>
+<div class="flex justify-between font-label-code text-label-code text-outline">
+<span id="yield-dry-hint">сухая 54.5%</span>
+<span id="yield-norm-hint">норма 60–63%</span>
+<span id="yield-soft-hint">мягкая 63.5%</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 2. Путь партии: сырьё → посол → усушка → выход -->
+<section class="flex flex-col gap-space-sm">
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- 1. Сырьё -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container flex items-center justify-center font-label-code text-label-code font-bold">1</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">СЫРЬЁ</span>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[20px]">scale</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-primary-container" id="card-raw-weight">1 850</span>
+<span class="font-label-code text-label-code text-on-surface-variant">КГ</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary" id="card1-sub">Вимба • тушка 350 г • ≈ 5 290 рыб</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="card1-price">сырьё 1.80 €/кг</span>
+<span id="card1-cost">3 330 €</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-container via-primary-container/50 to-transparent"></div>
+</div>
+<!-- 2. Посол -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-secondary/20 text-secondary flex items-center justify-center font-label-code text-label-code font-bold">2</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">СОЛЬ</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">water</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-secondary" id="card2-hours">48–72</span>
+<span class="font-label-code text-label-code text-on-surface-variant">КГ</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary-fixed" id="card2-sub">соль ≈ 296 кг • 12 мешков по 25 кг</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="card2-norm">16 кг на 100 кг сырья</span>
+<span id="card2-soak">отмочка 2–3 ч</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-secondary/50 to-transparent"></div>
+</div>
+<!-- 3. Усушка -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center font-label-code text-label-code font-bold">3</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">УСУШКА</span>
+</div>
+<span class="material-symbols-outlined text-error text-[20px]">humidity_percentage</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-error" id="card-loss-liters">−712</span>
+<span class="font-label-code text-label-code text-on-surface-variant">Л ВОДЫ</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant" id="card3-sub">цикл 162 ч • в среднем 4.4 л/ч</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="card3-kwh">энергия ≈ 1 860 кВт·ч</span>
+<span id="card3-eur">≈ 335 €</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-error via-error/50 to-transparent"></div>
+</div>
+<!-- 4. Выход -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-tertiary-container/20 text-tertiary-container flex items-center justify-center font-label-code text-label-code font-bold">4</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">ГОТОВО</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">fact_check</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-tertiary-container" id="card-yield-weight">1 138</span>
+<span class="font-label-code text-label-code text-on-surface-variant">КГ</span>
+</div>
+<span class="font-body-sm text-body-sm text-tertiary" id="card4-sub">≈ 1 339 вакуум-пакетов по 0.85 кг</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="card4-cubes">или 5 еврокубов</span>
+<span id="card4-aw">a_w 0.81</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-tertiary-container via-tertiary-container/50 to-transparent"></div>
+</div>
+</div>
+<!-- Баланс массы одной полосой: что ушло в продукт, что — в трап -->
+<div class="px-space-md py-space-sm rounded-xl bg-surface-container-low">
+<div class="calc-balance"><i class="b-out" id="bal-out" style="width:61.5%"></i><i class="b-water" id="bal-water" style="width:38.5%"></i></div>
+<div class="calc-legend"><span>в продукт: <b id="bal-out-txt">1 138 кг (61.5%)</b></span><span>в трап: <b id="bal-water-txt">712 кг (38.5%)</b></span></div>
+</div>
+</section>
+
+<!-- 3. Деньги: затраты партии, энергия по стадиям, прибыль по каналам -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Слева: куда уходят деньги -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">donut_large</span>
+<span class="font-headline-md text-headline-md text-secondary">ЗАТРАТЫ ДО УПАКОВКИ</span>
+</div>
+<span class="font-metric-md text-metric-md text-on-surface font-bold" id="cost-total">—</span>
+</div>
+<div class="calc-stack" id="cost-stack"><i class="s-raw"></i><i class="s-salt"></i><i class="s-en"></i></div>
+<div class="calc-rows" id="cost-rows"></div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-sm calc-grow">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">bolt</span>
+<span class="font-headline-md text-headline-md text-primary">ЭНЕРГИЯ ПО СТАДИЯМ</span>
+</div>
+<span class="font-label-code text-label-code text-outline" id="en-tariff">тариф 0.18 €/кВт·ч</span>
+</div>
+<table class="calc-table" id="en-table"><thead><tr><th>Стадия</th><th>Часы</th><th>Сушка / пауза</th><th>кВт·ч</th><th>€</th></tr></thead><tbody></tbody></table>
+<span class="font-label-code text-[10px] text-outline" id="en-note"></span>
+</div>
+</div>
+<!-- Справа: прибыль по каналам продажи -->
+<div class="lg:col-span-7 flex flex-col">
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-sm calc-grow">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">payments</span>
+<span class="font-headline-md text-headline-md text-tertiary-container">ПРИБЫЛЬ ПО КАНАЛАМ ПРОДАЖИ</span>
+</div>
+<span class="flex items-center gap-space-sm"><span class="font-label-code text-label-code text-outline" id="ch-out">из 1 138 кг готовой</span><button type="button" class="calc-act calc-act-sm" onclick="calcGoTab('profit','Экономика')" title="Поправить цены сырья, продажи, соли, тарифа и упаковки"><span class="material-symbols-outlined">edit</span><span>Цены</span></button></span>
+</div>
+<table class="calc-table calc-ch" id="ch-table"><thead><tr><th>Канал</th><th>Цена</th><th>Выручка</th><th>Упаковка</th><th>Все затраты</th><th>Себест. 1 кг</th><th>Прибыль</th></tr></thead><tbody></tbody></table>
+<div class="calc-best" id="ch-best"></div>
+<span class="font-label-code text-[10px] text-outline">Цены продажи и сырья — из базы знаний (marketing.js) или ваши правки во вкладке «Экономика». Затраты: сырьё + соль + электроэнергия цикла + упаковка. Зарплата, аренда и транспорт не учтены.</span>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+  // Расчёт партии: масса и деньги. Все цифры — из базы знаний (window.ARM_KB): виды (species.js), цены и себестоимость (marketing.js),
+  // часы стадий (stages.js). На экране нет данных датчиков: это расчёт, а не показания.
+  (function () {
+    const TROLLEYS = 15;
+    const BAG_KG = 25;
+    const fmt = (n, d) => Number(n || 0).toLocaleString("ru-RU", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+    const eur = (n) => (n < 0 ? "−" : "+") + fmt(Math.abs(Math.round(n))) + " €";
+    const $ = (id) => document.getElementById(id);
+    const setText = (id, v) => { const el = $(id); if (el) el.textContent = v; };
+    const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+    const rawSlider = $("raw-slider");
+    const yieldSlider = $("yield-slider");
+    let speciesKey = "VIMBA";
+
+    // Переход на вкладку главного окна АРМ (вне АРМ — честно говорим, что открыть негде)
+    window.calcCall = function (cmd, label) {
+      const ok = typeof window.stitchCallParent === "function" && window.parent !== window && window.stitchCallParent(cmd, []);
+      if (!ok && typeof window.stitchNotify === "function") window.stitchNotify("«" + label + "» работает внутри АРМ (index.html)");
+    };
+    window.calcGoTab = function (tab, label) {
+      const ok = typeof window.stitchCallParent === "function" && window.parent !== window && window.stitchCallParent("selectTab", [tab]);
+      if (!ok && typeof window.stitchNotify === "function") window.stitchNotify("«" + label + "» открывается внутри АРМ (index.html)");
+    };
+
+    function kb() { return window.ARM_KB; }
+    const CHANNELS = [
+      { ch: "wholesale", name: "Опт", pack: "еврокубы", price: (c) => c.wholesalePriceEur },
+      { ch: "semi", name: "Полуопт", pack: "еврокубы", price: (c) => c.semiPriceEur },
+      { ch: "vacuum", name: "Вакуум", pack: "пакеты KOMET", price: (c) => c.vacuumPriceEur },
+      { ch: "retail", name: "Розница", pack: "штучно премиум", price: (c) => c.retailPriceEur },
+    ];
+    const STAGE_SHORT = ["Ст.1 съём верховой влаги", "Ст.2 вытяжка от хребта", "Ст.3 дожим спинки", "Ст.4 отволаживание"];
+
+    function render() {
+      if (!kb()) return;
+      const c = kb().getCanonicalSpecies(speciesKey);
+      const cb = kb().getCostBase();
+      const cap = c.trolleyCapKg;
+      const maxRaw = Math.floor((TROLLEYS * cap) / 50) * 50;
+      if (Number(rawSlider.max) !== maxRaw) rawSlider.max = String(maxRaw);
+      const rawKg = Math.min(maxRaw, parseFloat(rawSlider.value) || 1850);
+      if (Number(rawSlider.value) !== rawKg) rawSlider.value = String(rawKg);
+      const yieldPct = parseFloat(yieldSlider.value) || c.yieldNorm;
+      const outKg = Math.round(rawKg * yieldPct / 100);
+      const waterKg = rawKg - outKg;
+
+      // Ползунки
+      setText("raw-display", fmt(rawKg) + " кг");
+      setText("raw-max-txt", "камера: 15 × " + cap + " = " + fmt(TROLLEYS * cap) + " кг");
+      const state = yieldPct < c.yieldMin ? "СУШЕ НОРМЫ" : yieldPct > c.yieldMax ? "МЯГЧЕ НОРМЫ" : "В НОРМЕ";
+      setText("yield-display", yieldPct.toFixed(1) + "% • " + state);
+      setText("yield-dry-hint", "сухая " + c.yieldDry + "%");
+      setText("yield-norm-hint", "норма " + c.yieldMin + "–" + c.yieldMax + "%");
+      setText("yield-soft-hint", "мягкая " + c.yieldSoft + "%");
+
+      const opt = kb().computeBatchEconomics({ speciesKey: c.key, rawKg, outKg, channel: "wholesale" });
+      const en = opt.energy;
+
+      // 1. Сырьё
+      const rp = opt.rawPrice;
+      setText("card-raw-weight", fmt(rawKg));
+      setText("card1-sub", c.shortRu + " • тушка " + c.pieceG + " г • ≈ " + fmt(rawKg * 1000 / c.pieceG) + " рыб");
+      setText("card1-price", "сырьё " + rp.eur.toFixed(2) + " €/кг" + (rp.edited ? " (ваша цена)" : ""));
+      setText("card1-cost", fmt(opt.rawCost) + " €");
+
+      // 2. Соль (модель себестоимости: кг на 100 кг сырья)
+      setText("card2-hours", fmt(opt.saltKg));
+      setText("card2-sub", "мешков по 25 кг: " + Math.ceil(opt.saltKg / BAG_KG) + " • посол " + c.saltingRange + " ч");
+      setText("card2-norm", fmt(cb.saltKgPer100) + " кг на 100 кг • " + cb.saltEurKg.toFixed(2) + " €/кг");
+      setText("card2-soak", fmt(opt.saltCost) + " €");
+
+      // 3. Усушка: вода = сырьё − готовое (1 кг воды ≈ 1 л)
+      setText("card-loss-liters", "−" + fmt(waterKg));
+      setText("card3-sub", "цикл " + Math.round(en.hours) + " ч • в среднем " + (waterKg / en.hours).toFixed(1) + " л/ч");
+      setText("card3-kwh", "энергия ≈ " + fmt(Math.round(en.kWh / 10) * 10) + " кВт·ч");
+      setText("card3-eur", "≈ " + fmt(en.eur) + " €");
+
+      // 4. Готово
+      const packs = Math.round(outKg / cb.vac.packKg);
+      const cubes = outKg > 0 ? Math.ceil(outKg / cb.cube.kgPerCube) : 0;
+      setText("card-yield-weight", fmt(outKg));
+      setText("card4-sub", "вакуум-пакетов по " + cb.vac.packKg + " кг: ≈ " + fmt(packs));
+      setText("card4-cubes", "или " + cubes + " еврокуб. по ~" + cb.cube.kgPerCube + " кг");
+      setText("card4-aw", "a_w " + c.aw.toFixed(2));
+
+      // Баланс массы
+      const outPct = rawKg > 0 ? outKg / rawKg * 100 : 0;
+      $("bal-out").style.width = outPct.toFixed(1) + "%";
+      $("bal-water").style.width = (100 - outPct).toFixed(1) + "%";
+      setText("bal-out-txt", fmt(outKg) + " кг (" + outPct.toFixed(1) + "%)");
+      setText("bal-water-txt", fmt(waterKg) + " кг (" + (100 - outPct).toFixed(1) + "%)");
+
+      // Затраты до упаковки
+      const base = opt.rawCost + opt.saltCost + en.eur;
+      setText("cost-total", fmt(base) + " € • " + (outKg > 0 ? (base / outKg).toFixed(2) : "0") + " €/кг");
+      const parts = [
+        ["s-raw", "Сырьё", opt.rawCost, fmt(rawKg) + " кг × " + rp.eur.toFixed(2) + " €"],
+        ["s-salt", "Соль", opt.saltCost, fmt(opt.saltKg) + " кг × " + cb.saltEurKg.toFixed(2) + " €"],
+        ["s-en", "Электроэнергия", en.eur, fmt(Math.round(en.kWh)) + " кВт·ч × " + en.tariff.toFixed(2) + " €"],
+      ];
+      const stack = $("cost-stack");
+      parts.forEach((p) => { stack.querySelector("." + p[0]).style.width = (base > 0 ? p[2] / base * 100 : 0).toFixed(1) + "%"; });
+      $("cost-rows").innerHTML = parts.map((p) =>
+        '<div class="calc-row"><span class="dot ' + p[0] + '"></span><span class="nm">' + p[1] + '</span><span class="calc-muted">' + p[3] + '</span><b>' + fmt(p[2]) + " €</b><span class=\"calc-muted pct\">" + (base > 0 ? Math.round(p[2] / base * 100) : 0) + "%</span></div>").join("");
+
+      // Энергия по стадиям
+      setText("en-tariff", "тариф " + en.tariff.toFixed(2) + " €/кВт·ч");
+      const st = (window.ARM_KNOWLEDGE && window.ARM_KNOWLEDGE.stages && window.ARM_KNOWLEDGE.stages.стадии) || {};
+      const guessed = [];
+      $("en-table").querySelector("tbody").innerHTML = en.stages.map((s, i) => {
+        const fromKb = Number((st[s.key] || {}).длительность_ч_по_умолчанию) > 0;
+        if (!fromKb) guessed.push("Ст." + s.number);
+        return "<tr><td>" + esc(STAGE_SHORT[i]) + "</td><td>" + Math.round(s.hours) + (fromKb ? "" : "*") + "</td><td>" + s.workH + " ч / " + s.pauseHPerCycle + " ч</td><td>" + fmt(s.kWh) + "</td><td>" + fmt(s.kWh * en.tariff) + "</td></tr>";
+      }).join("") + '<tr class="tot"><td>Цикл</td><td>' + Math.round(en.hours) + "</td><td></td><td>" + fmt(en.kWh) + "</td><td>" + fmt(en.eur) + "</td></tr>";
+      setText("en-note", (guessed.length ? "* длительности " + guessed.join(", ") + " в базе нет — взято по умолчанию. " : "") + "Мощность сушка/пауза: Ст.1 " + cb.power.st1Dry + "/" + cb.power.st1Pause + " кВт, дальше " + cb.power.dry + "/" + cb.power.pause + " кВт.");
+
+      // Прибыль по каналам
+      setText("ch-out", "из " + fmt(outKg) + " кг готовой");
+      const rows = CHANNELS.map((x) => Object.assign({ x }, kb().computeBatchEconomics({ speciesKey: c.key, rawKg, outKg, channel: x.ch })));
+      const best = rows.reduce((a, b) => (b.profit > a.profit ? b : a), rows[0]);
+      $("ch-table").querySelector("tbody").innerHTML = rows.map((r) =>
+        "<tr" + (r === best ? ' class="best"' : "") + "><td><b>" + r.x.name + "</b><span class=\"calc-muted\"> • " + r.x.pack + "</span></td><td>" + r.x.price(c).toFixed(2) + " €</td><td>" + fmt(r.revenue) + " €</td><td>" + fmt(r.packCost) + " €</td><td>" + fmt(r.totalCost) + " €</td><td>" + r.costPerKgOut.toFixed(2) + " €</td><td class=\"" + (r.profit >= 0 ? "calc-pos" : "calc-neg") + "\"><b>" + eur(r.profit) + "</b></td></tr>").join("");
+      const vac = rows[2];
+      $("ch-best").innerHTML = "Выгоднее всего: <b>" + best.x.name.toLowerCase() + "</b> — " + eur(best.profit) + " за партию (" + (outKg > 0 ? (best.profit / outKg).toFixed(2) : "0") + " € с 1 кг готовой; упаковка " + best.packText + "). Вакуум против опта: <b>" + eur(vac.profit - rows[0].profit) + "</b>.";
+
+      // Шапка: деньги
+      setText("hdr-cost-kg", (outKg > 0 ? base / outKg : 0).toFixed(2) + " €/кг без упаковки");
+      const pv = $("hdr-profit-val");
+      if (pv) pv.innerHTML = '<span class="' + (rows[0].profit >= 0 ? "calc-pos" : "calc-neg") + '">' + eur(rows[0].profit) + '</span> / <span class="' + (vac.profit >= 0 ? "calc-pos" : "calc-neg") + '">' + eur(vac.profit) + "</span>";
+    }
+
+    window.setCalcsSpecies = function (spKey, updateYield) {
+      const key = kb() ? kb().getCanonicalSpecies(spKey).key : "VIMBA";
+      speciesKey = key;
+      if (updateYield !== false && kb()) yieldSlider.value = String(kb().getCanonicalSpecies(key).yieldNorm);
+      document.querySelectorAll(".species-chip").forEach((chip) => {
+        const on = chip.getAttribute("data-species") === key;
+        chip.className = on
+          ? "species-chip active px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container font-headline-md text-body-md flex items-center gap-space-xs shadow-[0_0_10px_rgba(0,240,255,0.25)] transition-all cursor-pointer"
+          : "species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer";
+      });
+      render();
+    };
+
+    document.querySelectorAll(".species-chip").forEach((chip) => {
+      chip.addEventListener("click", () => window.setCalcsSpecies(chip.getAttribute("data-species"), true));
+    });
+    rawSlider.addEventListener("input", render);
+    yieldSlider.addEventListener("input", render);
+
+    // Цены поменяли во вкладке «Экономика» — пересчитать
+    window.addEventListener("arm-cost-changed", render);
+    window.addEventListener("storage", (e) => { if (e.key === "JURMALCIEMS_COST_OVERRIDES_V1") render(); });
+
+    if (kb() && kb().ready) kb().ready.then(() => window.setCalcsSpecies(speciesKey, true));
+    else render();
+  })();
+</script><script src="js/stitch-cockpits.js"></script></main></div></body></html>

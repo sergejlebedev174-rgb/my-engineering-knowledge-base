@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>8 фаз MCGS • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<style>
+  html,body{margin:0;padding:0;background:#0b0f19}
+  ::-webkit-scrollbar{display:none}
+  :root{--cy:#00F0FF;--tq:#2DD4BF;--am:#FFB95F;--vi:#A78BFA;--rd:#F87171;--sk:#38BDF8;--tx:#F1F5F9;--mu:#94A3B8;--dim:#64748B;--line:rgba(148,163,184,.14)}
+  .ph{display:flex;flex-direction:column;gap:12px;padding:14px 16px;box-sizing:border-box;color:var(--tx);font-family:Inter,"Segoe UI",sans-serif;height:100vh;
+    background:radial-gradient(900px 420px at 85% -10%,rgba(0,240,255,.07),transparent 60%),radial-gradient(700px 380px at 0% 110%,rgba(255,185,95,.05),transparent 60%),#0b0f19}
+  .ph-card{position:relative;border-radius:16px;padding:12px 14px;background:linear-gradient(135deg,rgba(27,31,43,.82),rgba(12,17,27,.92));border:1px solid rgba(0,240,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;min-width:0;display:flex;flex-direction:column}
+  .ph-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,transparent 20%,rgba(0,240,255,.5) 45%,rgba(255,185,95,.4) 55%,transparent 80%);background-size:300% 100%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:phBorder 8s linear infinite;pointer-events:none}
+  @keyframes phBorder{0%{background-position:150% 0}100%{background-position:-150% 0}}
+  .ph-cap{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+  .ph-cap > span{font:700 10px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+  .ph-cap > span i{width:6px;height:6px;border-radius:50%;background:var(--c,var(--cy));box-shadow:0 0 8px var(--c,var(--cy))}
+  .ph-cap em{font-style:normal;font:600 10.5px "JetBrains Mono",monospace;color:var(--dim)}
+  .ph-cap em b{color:#CBD5E1}
+  /* шапка */
+  .ph-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+  .ph-title .k{font:700 10px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--cy);display:flex;align-items:center;gap:6px}
+  .ph-title .k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 10px var(--cy);animation:phDot 2s ease-in-out infinite}
+  @keyframes phDot{50%{opacity:.35}}
+  .ph-title h1{margin:2px 0 0;font:700 21px/1.15 "Space Grotesk",Inter,sans-serif;color:#E0FBFF}
+  .ph-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .ph-chip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:9px;border:1px solid color-mix(in srgb,var(--c,var(--cy)) 40%,transparent);background:color-mix(in srgb,var(--c,var(--cy)) 9%,transparent);font:700 11px "JetBrains Mono",monospace;color:var(--c,var(--cy));white-space:nowrap}
+  .ph-chip i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+  .ph-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:10px;cursor:pointer;font:700 11px/1 "JetBrains Mono",monospace;letter-spacing:.03em;color:#C3F5FF;background:rgba(27,31,43,.85);border:1px solid rgba(0,240,255,.22);transition:border-color .2s,box-shadow .2s,transform .1s;white-space:nowrap}
+  .ph-btn:hover{border-color:rgba(0,240,255,.6);box-shadow:0 0 14px rgba(0,240,255,.22)}
+  .ph-btn:active{transform:scale(.97)}
+  .ph-btn.on{color:#00363D;background:linear-gradient(90deg,#22D3EE,#00F0FF 50%,#5EEAD4);border-color:rgba(255,255,255,.35);box-shadow:0 0 16px rgba(0,240,255,.4)}
+  .ph-btn.red.on{color:#3B0A0A;background:linear-gradient(90deg,#EF4444,#F87171);box-shadow:0 0 16px rgba(248,113,113,.4)}
+  .ph-seg{display:inline-flex;gap:3px;padding:3px;border-radius:12px;background:rgba(9,14,25,.85);border:1px solid var(--line)}
+  .ph-seg .ph-btn{border-color:transparent;background:transparent}
+  /* плитки */
+  .ph-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .ph-kpi{position:relative;overflow:hidden;border-radius:14px;padding:10px 12px 12px;background:linear-gradient(160deg,rgba(27,31,43,.85),rgba(10,15,25,.95));border:1px solid color-mix(in srgb,var(--c) 30%,transparent);transition:transform .25s,box-shadow .25s}
+  .ph-kpi:hover{transform:translateY(-2px);box-shadow:0 0 22px color-mix(in srgb,var(--c) 22%,transparent)}
+  .ph-kpi::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--c),transparent);box-shadow:0 0 12px var(--c)}
+  .ph-kpi span{display:block;font:700 9.5px "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase}
+  .ph-kpi b{display:block;margin:3px 0 2px;font:800 23px/1.1 "JetBrains Mono",monospace;color:var(--c);text-shadow:0 0 18px color-mix(in srgb,var(--c) 45%,transparent)}
+  .ph-kpi b small{font-size:12px;font-weight:700;margin-left:3px}
+  .ph-kpi em{font-style:normal;font:500 11px Inter,sans-serif;color:var(--dim)}
+  /* основная часть */
+  .ph-main{flex:1 1 0;min-height:0;display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:12px}
+  .ph-side{display:flex;flex-direction:column;gap:12px;min-height:0}
+  @media (max-width:1150px){.ph-main{grid-template-columns:1fr}.ph-kpis{grid-template-columns:1fr 1fr}}
+  .ph-ribbon{display:flex;gap:3px;height:34px;border-radius:10px;overflow:hidden;margin-bottom:10px}
+  .ph-ribbon > p{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:30px;font:800 10.5px/1.1 "JetBrains Mono",monospace;color:#0B1220;background:var(--c);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 10px color-mix(in srgb,var(--c) 40%,transparent);animation:phGrow .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d);transform-origin:left;cursor:default}
+  .ph-ribbon > p small{font-size:9px;font-weight:700;opacity:.75}
+  @keyframes phGrow{from{transform:scaleX(0);opacity:0}to{transform:none;opacity:1}}
+  .ph-tblw{flex:1 1 0;min-height:0;overflow:auto}
+  .ph-tbl{width:100%;border-collapse:separate;border-spacing:0 3px;font:500 12px/1.3 "JetBrains Mono",monospace;color:#E2E8F0}
+  .ph-tbl th{position:sticky;top:0;background:#111725;font:700 9.5px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--mu);text-transform:uppercase;text-align:left;padding:4px 8px;z-index:1}
+  .ph-tbl td{padding:9px 8px;background:rgba(6,11,20,.6);white-space:nowrap}
+  .ph-tbl td:last-child{white-space:normal}
+  .ph-tbl td:first-child{border-radius:7px 0 0 7px;font-weight:800}.ph-tbl td:last-child{border-radius:0 7px 7px 0;color:#94A3B8;font-size:11px;font-family:Inter,sans-serif}
+  .ph-tbl tr{animation:phIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
+  @keyframes phIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+  .ph-tbl tr.dry td:nth-child(2){color:#67E8F9;font-weight:800}
+  .ph-tbl tr.pz td:nth-child(-n+7){color:var(--am)}
+  .ph-tbl tr.buf td:nth-child(-n+7){color:var(--tq)}
+  .ph-tbl tr:hover td{background:rgba(0,240,255,.06)}
+  /* стадии */
+  .ph-st{display:flex;flex-direction:column;gap:6px}
+  .ph-st > p{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:4px 10px;align-items:center;margin:0;padding:7px 10px;border-radius:10px;background:rgba(6,11,20,.6);border:1px solid transparent}
+  .ph-st > p.cur{border-color:rgba(0,240,255,.5);background:rgba(0,240,255,.06);box-shadow:0 0 14px rgba(0,240,255,.12)}
+  .ph-st b{font:800 12px "JetBrains Mono",monospace;color:#67E8F9}
+  .ph-st span{font:600 11.5px Inter,sans-serif;color:#CBD5E1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ph-st em{font-style:normal;font:700 11px "JetBrains Mono",monospace;color:#F1F5F9;white-space:nowrap}
+  .ph-st u{grid-column:1 / -1;display:block;height:6px;border-radius:999px;background:linear-gradient(90deg,#22D3EE 0 var(--w),#FFB95F var(--w) 100%);box-shadow:0 0 8px rgba(34,211,238,.2)}
+  .ph-cyc{display:flex;height:12px;border-radius:999px;overflow:hidden;gap:2px;margin:8px 0 4px}
+  .ph-cyc i{display:block;height:100%;background:var(--c);opacity:.45;animation:phGrow .8s cubic-bezier(.2,.8,.2,1) both;transform-origin:left}
+  .ph-cyc i.cur{opacity:1;box-shadow:0 0 10px var(--c)}
+  .ph-lab{display:flex;justify-content:space-between;font:600 10px "JetBrains Mono",monospace;color:var(--dim)}
+  /* проверки */
+  .ph-chk{display:flex;flex-direction:column;gap:6px}
+  .ph-chk > p{display:flex;gap:9px;align-items:flex-start;margin:0;padding:8px 10px;border-radius:10px;background:rgba(6,11,20,.6);border:1px solid color-mix(in srgb,var(--c) 30%,transparent);font:500 11.5px/1.4 Inter,sans-serif;color:#CBD5E1}
+  .ph-chk > p i{flex:none;width:9px;height:9px;margin-top:4px;border-radius:50%;background:var(--c);box-shadow:0 0 9px var(--c)}
+  .ph-chk b{color:var(--c)}
+  .ph-wait{font:500 12px Inter,sans-serif;color:var(--dim);padding:14px;text-align:center}
+  .ph-toast{position:fixed;right:18px;bottom:18px;z-index:50;padding:10px 14px;border-radius:12px;background:#111827;border:1px solid rgba(0,240,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.6);font:500 12.5px Inter,sans-serif;color:var(--tx);opacity:0;transform:translateY(16px);transition:all .3s;pointer-events:none}
+  .ph-toast.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.ph-card::before,.ph-title .k::before,.ph-ribbon > p,.ph-tbl tr,.ph-cyc i{animation:none!important}}
+</style>
+<script src="js/cockpit-pages-fx.js" defer></script>
+</head><body class="bg-surface"><main class="ph" id="ph">
+
+<div class="ph-head">
+  <div class="ph-title"><div class="k">8 ФАЗ MCGS • AIM AGHD-250ELC</div><h1 id="ph-h1">Таблица для контроллера</h1></div>
+  <div class="ph-chips" id="ph-chips"><span class="ph-chip" style="--c:#64748B">ждём данные АРМ…</span></div>
+  <div class="ph-chips">
+    <span class="ph-seg">
+      <button class="ph-btn" id="ph-std" onclick="phCmd('setMcgsProtocol',['STANDARD'],'Регламент стадии')">Регламент</button>
+      <button class="ph-btn red" id="ph-rescue" onclick="phCmd('setMcgsProtocol',['RESCUE'],'Протокол спасения: высолы / липкая чешуя')">Спасение</button>
+    </span>
+    <button class="ph-btn" id="ph-coload" onclick="phCoLoad()">Совместно с вимбой</button>
+    <button class="ph-btn" onclick="phCmd('copyMcgsTable',[],'Таблица скопирована — вставьте в заметки и введите в MCGS вручную')">Копировать</button>
+  </div>
+</div>
+
+<div class="ph-kpis" id="ph-kpis"></div>
+
+<div class="ph-main">
+  <div class="ph-card">
+    <div class="ph-cap"><span><i></i>Лента и таблица 8 фаз</span><em>генератор АРМ • <b>в MCGS вводится вручную</b> (связи с контроллером нет)</em></div>
+    <div class="ph-ribbon" id="ph-ribbon"></div>
+    <div class="ph-tblw"><table class="ph-tbl"><thead><tr><th>Фаза</th><th>Режим</th><th>Temp</th><th>Humi</th><th>Время</th><th>Dehumi / PauseD</th><th>Cantoni</th><th>Контуры / логика</th></tr></thead><tbody id="ph-tbody"><tr><td colspan="8" class="ph-wait">Ждём данные АРМ…</td></tr></tbody></table></div>
+  </div>
+  <div class="ph-side">
+    <div class="ph-card">
+      <div class="ph-cap"><span><i style="--c:#FFB95F"></i>Цикл партии по стадиям</span><em id="ph-cyc-cap">база знаний</em></div>
+      <div id="ph-stages"><div class="ph-wait">Ждём данные АРМ…</div></div>
+    </div>
+    <div class="ph-card" style="flex:1 1 0;min-height:0">
+      <div class="ph-cap"><span><i style="--c:#2DD4BF"></i>Проверка таблицы по правилам</span><em>stages.js</em></div>
+      <div id="ph-checks" style="overflow:auto"><div class="ph-wait">Ждём данные АРМ…</div></div>
+    </div>
+  </div>
+</div>
+<div class="ph-toast" id="ph-toast"></div>
+</main>
+
+<script>
+  // 8 фаз MCGS. Таблица — генератор главного окна АРМ (ARM_MCGS_TABLE), стадии и мощности — база знаний.
+  // Связи с контроллером нет: таблица переносится в MCGS вручную, это написано на экране.
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const fmt = (n, d) => Number(n || 0).toLocaleString("ru-RU", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+    let last = "", tel = null;
+
+    function toast(m) { const t = $("ph-toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 3000); }
+    window.phCmd = function (cmd, args, msg) {
+      if (window.parent === window) { toast("Работает внутри АРМ (index.html)"); return; }
+      try { window.parent.postMessage({ type: "arm-cmd", cmd, args: args || [] }, "*"); } catch (e) {}
+      if (msg) toast(msg);
+    };
+    window.phCoLoad = function () { const v = !(tel && tel.coLoadWithVimba); phCmd("toggleCoLoad", [v], v ? "Совместная загрузка с вимбой: вкл" : "Совместная загрузка с вимбой: выкл"); };
+
+    function render(m) {
+      const t = m.telemetry || {}; tel = t;
+      const ph = Array.isArray(m.phases) ? m.phases : [];
+      const stages = m.stages || [], b = m.batch;
+      const st = stages.find((s) => s.key === t.stageKey) || null;
+      const rescue = t.mcgsProtocol === "RESCUE";
+      $("ph-h1").textContent = st ? `Стадия ${st.number} • ${String(st.title).replace(/^Стадия \d:\s*/, "")} (${st.work} ч / ${st.pauseH} ч)` : "Таблица для контроллера";
+      $("ph-chips").innerHTML = `${b ? `<span class="ph-chip" style="--c:#FFB95F">${esc(b.species)} • ${fmt(b.raw)} кг</span>` : ""}
+        <span class="ph-chip" style="--c:${m.linked ? "#2DD4BF" : "#64748B"}"><i></i>${m.linked ? "Modbus: связь" : "MCGS: ввод вручную"}</span>
+        ${rescue ? '<span class="ph-chip" style="--c:#F87171"><i></i>протокол спасения</span>' : ""}`;
+      $("ph-std").classList.toggle("on", !rescue); $("ph-rescue").classList.toggle("on", rescue);
+      $("ph-coload").classList.toggle("on", !!t.coLoadWithVimba);
+
+      // итоги 8 фаз
+      const isBuf = (p) => p.phaseNumber === 8, isPz = (p) => !isBuf(p) && p.phaseNumber % 2 === 0;
+      const sum = (f) => ph.filter(f).reduce((s, p) => s + (Number(p.durationHours) || 0), 0);
+      const dryH = sum((p) => !isBuf(p) && !isPz(p)), pzH = sum(isPz), bufH = sum(isBuf), totH = dryH + pzH + bufH;
+      const en = b && Array.isArray(b.energy) ? b.energy.find((e) => e.key === t.stageKey) : null;
+      let kwh = null;
+      if (en) {
+        const buf = ph.find(isBuf), duty = buf && buf.dehumiMin != null ? Number(buf.dehumiMin) / 60 : 0.25;
+        kwh = dryH * en.pDry + pzH * en.pPause + bufH * (en.pDry * duty + en.pPause * (1 - duty));
+      }
+      const maxPz = ph.filter(isPz).reduce((mx, p) => Math.max(mx, Number(p.durationHours) || 0), 0);
+      const pzOk = !st || maxPz <= st.pauseH + 1e-9;
+      $("ph-kpis").innerHTML = `
+        <div class="ph-kpi" style="--c:#22D3EE"><span>Длительность 8 фаз</span><b>${fmt(totH, 1)}<small>ч</small></b><em>сушка ${fmt(dryH, 1)} • паузы ${fmt(pzH, 1)} • буфер Ф8 ${fmt(bufH, 1)} ч</em></div>
+        <div class="ph-kpi" style="--c:#FFB95F"><span>Энергия 8 фаз • оценка</span><b>${kwh == null ? "—" : "~" + fmt(kwh)}<small>кВт·ч</small></b><em>${en ? `сушка ${fmt(en.pDry, 1)} кВт, пауза ${fmt(en.pPause, 1)} кВт (база)` : "нет мощностей стадии в базе"}</em></div>
+        <div class="ph-kpi" style="--c:${pzOk ? "#2DD4BF" : "#F87171"}"><span>Самая длинная пауза</span><b>${fmt(maxPz, 1)}<small>ч</small></b><em>предел стадии ${st ? fmt(st.pauseH, 1) + " ч" : "—"} • ${pzOk ? "в норме" : "ПРЕВЫШЕН"}</em></div>
+        <div class="ph-kpi" style="--c:#A78BFA"><span>Партия</span><b>${b ? fmt(b.finished) : "—"}<small>кг</small></b><em>${b ? `${fmt(b.raw)} кг сырья • выход ${fmt(b.y, 1)}% • вода ${fmt(b.water)} л` : "—"}</em></div>`;
+
+      // лента + таблица
+      const col = (p) => isBuf(p) ? "#2DD4BF" : (isPz(p) ? "#FFB95F" : "#22D3EE");
+      $("ph-ribbon").innerHTML = ph.map((p, i) => `<p style="--c:${col(p)};--d:${i * 60}ms;flex:${Math.max(.35, Number(p.durationHours) || .35)}" title="Ф${p.phaseNumber}: ${esc(p.modeLabel)} • ${esc(p.durationHours)} ч">Ф${p.phaseNumber}<small>${esc(p.durationHours)} ч</small></p>`).join("");
+      $("ph-tbody").innerHTML = ph.length ? ph.map((p, i) => `<tr class="${isBuf(p) ? "buf" : isPz(p) ? "pz" : "dry"}" style="--d:${i * 40}ms">
+          <td>Ф${p.phaseNumber}</td><td>${esc(p.modeLabel)}</td><td>${esc(p.tempSetpointC)}°C</td><td>${esc(p.humiSetpointPercent)}%</td><td>${esc(p.durationHours)} ч</td>
+          <td>${esc(p.dehumiMin ?? "—")} / ${esc(p.pauseMin ?? "—")}</td><td>${esc(p.cantoniFreqHz)}${p.cantoniVoltageV ? ` (${esc(p.cantoniVoltageV)})` : ""}</td><td>${esc(p.circuitsNote)}</td></tr>`).join("")
+        : `<tr><td colspan="8" class="ph-wait">Генератор фаз не вернул таблицу для этой стадии.</td></tr>`;
+
+      // стадии цикла
+      const tot = b && b.energy ? b.energy.reduce((s, e) => s + e.hours, 0) : 0;
+      const sc = ["#38BDF8", "#22D3EE", "#2DD4BF", "#A78BFA"];
+      $("ph-cyc-cap").innerHTML = b && b.hours ? `цикл <b>${fmt(b.hours)} ч</b> • база знаний` : "база знаний";
+      $("ph-stages").innerHTML = (b && b.energy ? `<div class="ph-cyc">${b.energy.map((e, i) => `<i class="${e.key === t.stageKey ? "cur" : ""}" style="--c:${sc[i % 4]};flex:${e.hours};animation-delay:${i * 80}ms" title="Ст.${e.number}: ${fmt(e.hours)} ч"></i>`).join("")}</div><div class="ph-lab"><span>старт</span><span>${fmt(tot)} ч</span></div>` : "")
+        + `<div class="ph-st" style="margin-top:8px">${stages.map((s) => {
+          const e = b && b.energy ? b.energy.find((x) => x.key === s.key) : null;
+          return `<p class="${s.key === t.stageKey ? "cur" : ""}"><b>Ст.${s.number}</b><span>${esc(String(s.title).replace(/^Стадия \d:\s*/, ""))}</span><em>${s.work}/${s.pauseH} ч${e ? ` • ${fmt(e.hours)} ч` : ""}</em><u style="--w:${(s.work / (s.work + s.pauseH) * 100).toFixed(0)}%"></u></p>`;
+        }).join("")}</div>`;
+
+      // проверки таблицы
+      const checks = [];
+      checks.push([pzOk, pzOk ? `Паузы ≤ <b>${st ? fmt(st.pauseH, 1) : "—"} ч</b>.` : `<b>Пауза ${fmt(maxPz, 1)} ч длиннее предела ${fmt(st.pauseH, 1)} ч</b>.`]);
+      const pz = ph.filter(isPz);
+      const cleanOk = pz.length > 0 && pz.every((p) => Number(p.dehumiMin) === 0 && Number(p.pauseMin) === 60);
+      checks.push([cleanOk, cleanOk ? "Паузы: Dehumi 0 / PauseD 60." : "<b>В паузах не 0 / 60.</b>"]);
+      const diffOk = pz.every((p) => { const prev = ph.find((q) => q.phaseNumber === p.phaseNumber - 1); if (!prev) return true; const d = Number(p.tempSetpointC) - Number(prev.tempSetpointC); return d >= 1 - 1e-9 && d <= 2 + 1e-9; });
+      checks.push([diffOk, diffOk ? "Temp паузы +1…+2°C к сушке." : "<b>Temp паузы не +1…+2°C к сушке.</b>"]);
+      $("ph-checks").innerHTML = `<div class="ph-chk">${checks.map(([ok, txt]) => `<p style="--c:${ok ? "#2DD4BF" : "#F87171"}"><i></i><span>${txt}</span></p>`).join("")}</div>`;
+    }
+
+    window.addEventListener("message", (ev) => {
+      const m = ev.data;
+      if (!m || m.type !== "ARM_MCGS_TABLE") return;
+      const key = JSON.stringify(m);
+      if (key === last) return;
+      last = key;
+      try { render(m); } catch (e) { console.warn("[8 фаз]", e); }
+    });
+    function fit() { const z = parseFloat(getComputedStyle(document.documentElement).zoom) || 1; $("ph").style.height = Math.floor(innerHeight / z) + "px"; }
+    fit(); addEventListener("resize", fit);
+    phCmd("broadcastTelemetrySync");
+  })();
+</script><script src="js/stitch-cockpits.js"></script></body></html>

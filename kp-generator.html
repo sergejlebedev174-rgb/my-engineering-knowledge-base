@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-container": "#5be9ad", "surface-container-highest": "#31353e", "tertiary": "#a8ffd2", "outline-variant": "#3b494c", "secondary-fixed-dim": "#7bd0ff", "secondary": "#7bd0ff", "on-secondary-fixed": "#001e2c", "secondary-container": "#00a6e0", "surface-bright": "#353942", "surface": "#0f131c", "surface-container-high": "#262a33", "on-background": "#dfe2ee", "secondary-fixed": "#c4e7ff", "surface-tint": "#00daf3", "on-primary": "#00363d", "on-secondary-container": "#00374d", "error": "#ffb4ab", "surface-container": "#1c2028", "tertiary-fixed-dim": "#4edea3", "primary-fixed": "#9cf0ff", "on-surface": "#dfe2ee", "on-error-container": "#ffdad6", "on-error": "#690005", "surface-container-lowest": "#0a0e16", "tertiary-fixed": "#6ffbbe", "inverse-primary": "#006875", "on-primary-fixed": "#001f24", "inverse-surface": "#dfe2ee", "primary": "#c3f5ff", "error-container": "#93000a", "on-primary-container": "#00626e", "outline": "#849396", "surface-variant": "#31353e", "primary-fixed-dim": "#00daf3", "on-primary-fixed-variant": "#004f58", "on-secondary-fixed-variant": "#004c69", "on-tertiary-fixed-variant": "#005236", "inverse-on-surface": "#2c3039", "on-tertiary": "#003824", "on-tertiary-container": "#006645", "on-secondary": "#00354a", "on-tertiary-fixed": "#002113", "background": "#0f131c", "primary-container": "#00e5ff", "surface-dim": "#0f131c", "surface-container-low": "#181c24", "on-surface-variant": "#bac9cc" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-lg": "1rem", "space-md": "0.75rem", "margin": "1rem", "space-xs": "0.25rem", "gutter": "0.75rem", "space-2xl": "2rem", "gutter-md": "1rem", "space-2xs": "0.125rem", "margin-desktop": "1.5rem", "space-sm": "0.5rem", "space-xl": "1.5rem" }, "fontFamily": { "headline-sm": ["Space Grotesk"], "label-mono": ["JetBrains Mono"], "telemetry-data-lg": ["JetBrains Mono"], "body-md": ["Inter"], "body-sm": ["Inter"], "display-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-lg": ["Inter"], "display-lg-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "telemetry-data-md": ["JetBrains Mono"], "label-caps": ["Space Grotesk"] }, "fontSize": { "headline-sm": ["16px", {"lineHeight": "22px", "fontWeight": "600"}], "label-mono": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}], "telemetry-data-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "700"}], "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}], "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}], "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "headline-md": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}], "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "headline-lg": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "telemetry-data-md": ["18px", {"lineHeight": "22px", "fontWeight": "600"}], "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700"}] } } } };</script>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/>
+<link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<script src="js/knowledge-base.js"></script>
+<script src="js/bio-tomography.js"></script>
+<script src="js/cockpit-pages-fx.js" defer></script>
+
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)]"><div class="h-20 w-full px-margin-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm" href="index.html"><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-tight uppercase text-primary">Юрмалциемс</span><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Рыбоперерабатывающий комбинат • SCADA-контроль</span></div></a><div class="hidden 2xl:flex items-center gap-space-sm px-space-md py-space-xs bg-surface-container-high rounded-full"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse shadow-[0_0_8px_rgba(78,222,163,0.4)]"></span><span class="font-label-mono text-label-mono text-tertiary uppercase">Производство активно • Камера AIM AGHD-250ELC в работе • Партии 2026</span></div></div><nav class="hidden xl:flex items-center gap-space-xs px-space-xs py-space-2xs bg-surface-container-low rounded-xl" data-active-classes="bg-surface-container-high text-primary font-headline-sm"><a class="px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="katalog-produkcii" href="#">Каталог продукции</a><a class="px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="tehnologiya-vyaleniya" href="#">Технология вяления</a><a class="px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="optovye-postavki" href="#">Оптовые поставки</a><a class="px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="kalkulyator-partii" href="#">Калькулятор партии</a><a class="px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="sertifikaty-laboratoriya" href="#">Сертификаты & Лаборатория</a></nav><div class="flex items-center gap-space-md"><div class="hidden md:flex flex-col text-right"><span class="font-label-mono text-label-mono text-secondary">+371 634 00000</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Отдел B2B поставок</span></div><a class="hidden sm:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-tertiary-fixed-dim hover:bg-surface-container-highest hover:text-on-surface transition-colors font-label-mono text-label-mono uppercase" data-path="optovye-postavki" href="#"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>arrow_back В АРМ SCADA</a><div class="flex items-center pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XyrR9c2Dl2as0kDc10SFkduk3SiH3kydzjzEjHlPpjd3qA7y0E5Vwop91yGJzIXIfKPZ0PggGb6_s5AJkG2fZ4Ui5xTjvZIQ25w6QOt_yOGYSMQpXsXIVJppU-ptQ8JmJ1MHu_GzkDZnzLuIxfLnKrXTVdbbrUd1n5x7DZcy4xmcn5SLzLbM3Ep1T3o6K8YlGw5rFaxq0ouFx2XY0d9uSHCKSc7Kj_gATDftFziHwn"/></div></div></div></header><main class="w-full pt-20 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-header Breadcrumb & Realtime Industrial Status Strip -->
+<div class="w-full bg-surface-container-lowest px-margin-desktop py-space-sm shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm font-label-mono text-label-mono text-on-surface-variant">
+<span class="text-primary uppercase tracking-wider">APM Технолога & B2B Закупки</span>
+<span class="text-outline-variant">/</span>
+<span class="text-tertiary">Калькулятор партии & Оптовые спецификации</span>
+<span class="text-outline-variant">/</span>
+<span class="text-secondary-fixed">AIM AGHD-250ELC v4.8</span>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-label-mono text-label-mono text-tertiary-fixed-dim">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim shadow-[0_0_8px_rgba(78,222,163,0.6)]"></span>
+<span>SCADA ТАРИФЫ АКТИВНЫ</span>
+</div>
+<div class="hidden md:flex items-center gap-space-xs text-on-surface-variant font-label-mono text-label-mono">
+<span>СМЕНА №3</span>
+<span class="text-outline-variant">•</span>
+<span class="text-secondary">ЛИНИЯ ДЕГИДРАТАЦИИ: ОК</span>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full px-margin-desktop py-space-xl">
+<!-- Top SCADA Operational Summary Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md mb-space-xl">
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Выход готовой массы</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary" id="stat-yield-pct">60.0</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">% БАЗИС</span>
+</div>
+<span class="font-label-mono text-label-mono text-secondary">Усушка гидробионтов 40.0%</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Режим посола по 20°Bé</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-tertiary" id="stat-salt-kg">320</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">КГ СОЛИ</span>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant" id="stat-salt-bags">~1.3 мешка (250 кг брутто)</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Энергоемкость цикла</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-secondary" id="stat-cycle-hours">84.0</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">ЧАСОВ</span>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Холодный цикл +14°C…+16°C</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Маржинальность B2B</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-tertiary-fixed" id="stat-margin-pct">63.0</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">% МАРЖА</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary" id="stat-profit-preview">+7 150 € валовая прибыль</span>
+</div>
+</div>
+<!-- Main Workspace Bento Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left & Center: Interactive Telemetry Calculator -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Interactive Batch Builder Card -->
+<div class="bg-surface-container p-space-xl rounded-xl shadow-xl flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_10px_rgba(0,229,255,0.7)] animate-pulse"></span>
+<span class="font-headline-md text-headline-md uppercase text-primary tracking-wide">Параметры варки, посола и дегидратации</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">
+                Расчет выхода готовой вяленой продукции по нормативам ТУ/ГОСТ Юрмалциемс и мощности тепловых насосов.
+              </p>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-xs rounded-lg self-start">
+<span class="material-symbols-outlined text-primary text-body-md">tune</span>
+<span class="font-label-mono text-label-mono text-primary uppercase">AIM AGHD-250ELC ПЛК</span>
+</div>
+</div>
+<!-- Fish Variety Selector Tabs -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-caps text-label-caps uppercase text-on-surface-variant">1. Селектор биологического вида гидробионта</label>
+<div class="grid grid-cols-2 sm:grid-cols-5 gap-space-xs bg-surface-container-lowest p-space-xs rounded-xl">
+<button class="fish-btn px-space-sm py-space-sm rounded-lg bg-surface-container-high text-primary font-headline-sm text-headline-sm uppercase transition-all flex flex-col items-center gap-space-2xs" data-fish="bream" type="button">
+<span>Лещ крупный</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">800+ г (колодка)</span>
+</button>
+<button class="fish-btn px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm uppercase transition-all flex flex-col items-center gap-space-2xs" data-fish="pikeperch" type="button">
+<span>Судак балтийский</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Пластованный</span>
+</button>
+<button class="fish-btn px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm uppercase transition-all flex flex-col items-center gap-space-2xs" data-fish="roach" type="button">
+<span>Вобла каспийская</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Икряная отборная</span>
+</button>
+<button class="fish-btn px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm uppercase transition-all flex flex-col items-center gap-space-2xs" data-fish="sabrefish" type="button">
+<span>Чехонь морская</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Жирная спецпосол</span>
+</button>
+<button class="fish-btn px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm uppercase transition-all flex flex-col items-center gap-space-2xs" data-fish="smelt" type="button">
+<span>Корюшка прибалтийская</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Цельная вяленая</span>
+</button>
+</div>
+</div>
+<!-- Raw Input Volume Slider -->
+<div class="flex flex-col gap-space-sm bg-surface-container-low p-space-lg rounded-xl">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<label class="font-label-caps text-label-caps uppercase text-on-surface-variant" for="raw-input-slider">2. Объем загрузки сырья (Свежемороженое / Охлажденное сырье)</label>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant">Значение оператора:</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-fixed" id="slider-val-display">2 000 кг</span>
+</div>
+</div>
+<div class="relative w-full flex items-center py-space-xs">
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" id="raw-input-slider" max="10000" min="500" step="100" type="range" value="2000"/>
+</div>
+<div class="flex justify-between font-label-mono text-label-mono text-on-surface-variant">
+<span>MIN: 500 кг (Пробная клеть)</span>
+<span>НОМИНАЛ: 2 000 кг (1 Камера)</span>
+<span>МАКС: 10 000 кг (5 Камер)</span>
+</div>
+<!-- Quick Weight Presets -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-2xs">
+<span class="font-label-mono text-label-mono text-on-surface-variant mr-space-xs">Пресеты:</span>
+<button class="preset-pill px-space-sm py-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-mono text-label-mono transition-colors" data-val="500" type="button">500 кг</button>
+<button class="preset-pill px-space-sm py-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-mono text-label-mono transition-colors" data-val="1000" type="button">1 000 кг</button>
+<button class="preset-pill px-space-sm py-space-2xs rounded bg-primary-container text-on-primary font-label-mono text-label-mono transition-colors" data-val="2000" type="button">2 000 кг (1 блок)</button>
+<button class="preset-pill px-space-sm py-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-mono text-label-mono transition-colors" data-val="5000" type="button">5 000 кг</button>
+<button class="preset-pill px-space-sm py-space-2xs rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-mono text-label-mono transition-colors" data-val="10000" type="button">10 000 кг (Фура)</button>
+</div>
+</div>
+<!-- Packaging Selection Matrix -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-caps text-label-caps uppercase text-on-surface-variant">3. Тип фасовки и транспортной упаковки B2B</label>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm">
+<label class="pack-opt cursor-pointer bg-surface-container-high p-space-md rounded-xl flex flex-col justify-between gap-space-sm transition-all shadow-sm">
+<input checked="" class="hidden" name="packaging" type="radio" value="vacuum"/>
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary">layers</span>
+<span class="pack-indicator w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block">Вакуумная фасовка</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Индивидуальный пакет 300-800г</span>
+</div>
+<span class="font-label-mono text-label-mono text-secondary">+0.45 €/кг фасовки</span>
+</label>
+<label class="pack-opt cursor-pointer bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm transition-all shadow-sm opacity-80">
+<input class="hidden" name="packaging" type="radio" value="corrugated"/>
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-on-surface-variant">inventory_2</span>
+<span class="pack-indicator w-2 h-2 rounded-full bg-surface-variant"></span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block">Гофроящик перфорир.</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">5 кг / 10 кг с пергаментом</span>
+</div>
+<span class="font-label-mono text-label-mono text-secondary">+0.15 €/кг фасовки</span>
+</label>
+<label class="pack-opt cursor-pointer bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm transition-all shadow-sm opacity-80">
+<input class="hidden" name="packaging" type="radio" value="semiwholesale"/>
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-on-surface-variant">shopping_bag</span>
+<span class="pack-indicator w-2 h-2 rounded-full bg-surface-variant"></span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block">Крафт-пакет B2B</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">2 кг фасовка для ритейла</span>
+</div>
+<span class="font-label-mono text-label-mono text-secondary">+0.25 €/кг фасовки</span>
+</label>
+<label class="pack-opt cursor-pointer bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm transition-all shadow-sm opacity-80">
+<input class="hidden" name="packaging" type="radio" value="mesh"/>
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-on-surface-variant">grid_view</span>
+<span class="pack-indicator w-2 h-2 rounded-full bg-surface-variant"></span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block">Сетка пищевая</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Традиционная связка по 5 шт</span>
+</div>
+<span class="font-label-mono text-label-mono text-secondary">+0.10 €/кг фасовки</span>
+</label>
+</div>
+</div>
+<!-- Dynamic Output Telemetry Visualizer Sub-panel -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">SCADA Конверсия массы и солевой баланс</span>
+<span class="font-label-mono text-label-mono text-tertiary">ОБРАБОТКА ДАННЫХ В РЕАЛЬНОМ ВРЕМЕНИ</span>
+</div>
+<!-- Visual Flow Bar -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md items-center">
+<div class="flex flex-col gap-space-2xs bg-surface-container p-space-md rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Сырье на входе</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary" id="flow-raw-kg">2 000</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">кг</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-full"></div>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant">100% базовая масса</span>
+</div>
+<div class="flex flex-col gap-space-2xs bg-surface-container p-space-md rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Удаление влаги (усушка)</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-md text-telemetry-data-md text-error" id="flow-loss-kg">-800</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">кг</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full w-2/5" id="flow-loss-bar"></div>
+</div>
+<span class="font-label-mono text-label-mono text-error" id="flow-loss-label">Трап: 6.4 л/ч конденсата</span>
+</div>
+<div class="flex flex-col gap-space-2xs bg-surface-container-high p-space-md rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-tertiary">Готовая продукция</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-md text-telemetry-data-md text-tertiary" id="flow-ready-kg">1 200</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">кг</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full w-3/5" id="flow-ready-bar"></div>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary" id="flow-ready-yield">Выход чистый: 60.0%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tiered Wholesale Volume Pricing Matrix -->
+<div class="bg-surface-container p-space-xl rounded-xl shadow-xl flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<span class="font-headline-md text-headline-md uppercase text-primary">Градация оптовых цен & Условия контрактов</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">Дифференциация отпускных цен в зависимости от квантов заказа и частоты отгрузок.</p>
+</div>
+<span class="font-label-mono text-label-mono text-secondary bg-surface-container-high px-space-md py-space-xs rounded-lg self-start">EXW Юрмалциемс / DDP ЕС</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Tier 1 -->
+<div class="tier-card bg-surface-container-low p-space-lg rounded-xl flex flex-col justify-between gap-space-md transition-all">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-secondary">Tier 1</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-high font-label-mono text-label-mono text-on-surface-variant">Розница / HoReCa</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface">Мелкий опт</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Объем партии: от 100 кг до 999 кг</span>
+<ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant pt-space-xs">
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-sm">check_circle</span>
+<span>Отгрузка со склада готовой продукции</span>
+</li>
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-sm">check_circle</span>
+<span>Срок сборки: от 24 часов</span>
+</li>
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-sm">check_circle</span>
+<span>Предоплата 100%</span>
+</li>
+</ul>
+</div>
+<div class="flex flex-col gap-space-2xs pt-space-sm bg-surface-container p-space-sm rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Базовая цена отгрузки:</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary" id="tier1-price">9.80 €</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">/ кг</span>
+</div>
+</div>
+</div>
+<!-- Tier 2 (Highlighted) -->
+<div class="tier-card bg-surface-container-high p-space-lg rounded-xl flex flex-col justify-between gap-space-md transition-all shadow-md relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary-container text-on-primary px-space-md py-space-2xs font-label-caps text-label-caps uppercase tracking-wider rounded-bl-lg">
+                Популярно B2B
+              </div>
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-tertiary">Tier 2</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container font-label-mono text-label-mono text-tertiary">Дистрибьюторы</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary">Средний опт</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Объем партии: от 1 000 кг до 4 999 кг</span>
+<ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant pt-space-xs">
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-body-sm">check_circle</span>
+<span>Резервирование сырья под график</span>
+</li>
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-body-sm">check_circle</span>
+<span>Отсрочка платежа до 14 дней</span>
+</li>
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-body-sm">check_circle</span>
+<span>Индивидуальная калибровка соли</span>
+</li>
+</ul>
+</div>
+<div class="flex flex-col gap-space-2xs pt-space-sm bg-surface-container-lowest p-space-sm rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Спеццена с дисконтом -12%:</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-md text-telemetry-data-md text-tertiary" id="tier2-price">8.60 €</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">/ кг</span>
+</div>
+</div>
+</div>
+<!-- Tier 3 -->
+<div class="tier-card bg-surface-container-low p-space-lg rounded-xl flex flex-col justify-between gap-space-md transition-all">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps uppercase text-primary-fixed">Tier 3</span>
+<span class="px-space-xs py-space-2xs rounded bg-surface-container-high font-label-mono text-label-mono text-on-surface-variant">Федеральные Сети</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface">Крупный опт / Контракт</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Объем партии: от 5 000 кг (Фура)</span>
+<ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant pt-space-xs">
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-sm">check_circle</span>
+<span>Эксклюзивный запуск камер сушки</span>
+</li>
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-sm">check_circle</span>
+<span>Private Label (СТМ) фасовка</span>
+</li>
+<li class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-sm">check_circle</span>
+<span>Отсрочка 30-45 дней по факторингу</span>
+</li>
+</ul>
+</div>
+<div class="flex flex-col gap-space-2xs pt-space-sm bg-surface-container p-space-sm rounded-lg">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Контрактная цена -22%:</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-data-md text-telemetry-data-md text-primary-fixed" id="tier3-price">7.65 €</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">/ кг</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Cold Chain & Logistics Hub Visual Block -->
+<div class="bg-surface-container p-space-xl rounded-xl shadow-xl flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<span class="font-headline-md text-headline-md uppercase text-primary">Холодовая цепь & Логистика отгрузок</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">Строгий температурный режим транспортировки вяленой рыбы с постоянным телеметрическим GPS/t° мониторингом.</p>
+</div>
+<span class="px-space-md py-space-xs rounded-full bg-surface-container-high font-label-mono text-label-mono text-tertiary flex items-center gap-space-2xs">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>+2°C … +6°C СТАНДАРТ
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined">warehouse</span>
+<span class="font-headline-sm text-headline-sm uppercase">Хаб Юрмалциемс</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Портовый комплекс дегидратации. Прямая погрузка из климатических камер созревания в авторефрижераторы.
+              </p>
+<span class="font-label-mono text-label-mono text-secondary mt-auto">Емкость хранения: 140 тонн</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-headline-sm text-headline-sm uppercase">Терминал Рига (LV)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Центральный кросс-докинг хаб. Экспресс-доставка сборных паллет по странам Балтии (24-48ч) и в Польшу/Германию.
+              </p>
+<span class="font-label-mono text-label-mono text-secondary mt-auto">Ежедневный транзит</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-headline-sm text-headline-sm uppercase">Евросертификация</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Полный комплект ветеринарных сертификатов TRACES NT, фитосанитарных паспортов партий и спецификаций влажности.
+              </p>
+<span class="font-label-mono text-label-mono text-tertiary mt-auto">HACCP / ISO 22000:2018</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Commercial Summary, Financial Telemetry & Action Terminal -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg lg:sticky lg:top-24">
+<!-- Live Batch Quote Card (Matching Right Side of SCADA Screen) -->
+<div class="bg-surface-container-low p-space-xl rounded-xl shadow-xl flex flex-col gap-space-lg">
+<!-- Top Title Bar -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md uppercase text-primary">Паспорт Партии</span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant" id="selected-fish-caption">Лещ (крупный колодкой)</span>
+</div>
+<div class="bg-surface-container-high px-space-sm py-space-xs rounded-lg flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-mono text-label-mono text-tertiary" id="badge-yield-val">60.0% выход</span>
+</div>
+</div>
+<!-- Product Visual Preview Placeholder -->
+<div class="w-full h-44 rounded-xl overflow-hidden relative shadow-inner bg-surface-container-lowest">
+<img class="w-full h-full object-cover" data-alt="High-resolution industrial seafood photography of cured dried bream fish arranged on stainless steel drying racks under electric cyan and warm amber accent studio lights in a modern hygienic processing plant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMhiKYu5LxsQk_9kDicZEe_0COIcjwBM3v2OTR1GbXiA9tMPKzH7g1DSEs3RIZIbbVFxEkPCjS4hgupMY2MFaWh2mMJaPVyffhUaefSdG-W3QeyDkpPLe8-YsDT06v8ZEfuLQrIDIGbCHfUCw5rmJF2wYj7_0p1fK8AbmBoLhvmml1jEbmR6QhommbJmEkAi4xtfo-cCR7nMRgTH0ksfbgVCoVI81BVRuZXfERcts"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute bottom-space-sm left-space-sm flex items-center gap-space-xs font-label-mono text-label-mono text-primary bg-surface-container-lowest/80 backdrop-blur-md px-space-sm py-space-2xs rounded">
+<span class="material-symbols-outlined text-body-sm">check</span>
+<span>Эталон: Контрольный образец ГОСТ</span>
+</div>
+</div>
+<!-- Commercial Matrix Breakdown -->
+<div class="flex flex-col gap-space-sm bg-surface-container p-space-md rounded-xl">
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Объем сырья (сырец):</span>
+<span class="text-on-surface" id="summary-raw-weight">2 000 кг</span>
+</div>
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Выход вяленой рыбы:</span>
+<span class="text-tertiary font-headline-sm text-headline-sm" id="summary-ready-weight">1 200 кг</span>
+</div>
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Потери массы (усушка):</span>
+<span class="text-error" id="summary-loss-weight">-800 кг влаги</span>
+</div>
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Расход соли (20°Bé):</span>
+<span class="text-secondary" id="summary-salt-weight">320 кг (1.3 меш.)</span>
+</div>
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Тип тары:</span>
+<span class="text-primary-fixed" id="summary-pack-type">Вакуум (+0.45€/кг)</span>
+</div>
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Время дегидратации:</span>
+<span class="text-on-surface" id="summary-dry-hours">84 ч в камере</span>
+</div>
+</div>
+<!-- Financial Telemetry Breakdown -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl flex flex-col gap-space-md">
+<div class="flex justify-between items-baseline">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Себестоимость производства:</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant" id="summary-cost-per-kg">3.54 € / кг</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Затраты на партию (сырье+энергия):</span>
+<span class="font-telemetry-data-md text-telemetry-data-md text-on-surface" id="summary-cost-total">4 250 €</span>
+</div>
+<!-- Big Glowing Metric: Total B2B Price & Profit -->
+<div class="pt-space-xs flex flex-col gap-space-2xs">
+<span class="font-label-caps text-label-caps uppercase text-secondary">Оптовая стоимость партии (Выручка B2B):</span>
+<div class="flex items-baseline justify-between">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary" id="summary-wholesale-total">11 400 €</span>
+<span class="font-label-mono text-label-mono text-primary" id="summary-wholesale-rate">9.50 €/кг</span>
+</div>
+</div>
+<!-- Margin Pill -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-high">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary">trending_up</span>
+<span class="font-headline-sm text-headline-sm text-tertiary">Маржа партии:</span>
+</div>
+<span class="font-telemetry-data-md text-telemetry-data-md text-tertiary" id="summary-margin-val">+7 150 € (63%)</span>
+</div>
+</div>
+<!-- CTAs: High Luminescence Actions -->
+<div class="flex flex-col gap-space-sm">
+<button class="w-full py-space-md px-space-lg rounded-xl bg-primary-container hover:bg-secondary text-surface-container-lowest font-headline-sm text-headline-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-space-sm shadow-[0_0_20px_rgba(0,229,255,0.45)]" id="btn-submit-whatsapp" type="button">
+<span class="material-symbols-outlined text-headline-md">send</span>
+<span>Сформировать КП в WhatsApp</span>
+</button>
+<button class="w-full py-space-sm px-space-md rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-mono text-label-mono uppercase transition-colors flex items-center justify-center gap-space-xs" id="btn-submit-pdf" type="button">
+<span class="material-symbols-outlined text-body-md">picture_as_pdf</span>
+<span>Экспорт спецификации (PDF / Смета)</span>
+</button>
+</div>
+<div class="flex items-center justify-center gap-space-xs text-on-surface-variant font-label-mono text-label-mono text-center">
+<span class="material-symbols-outlined text-body-sm text-tertiary">lock</span>
+<span>Фиксация цены на 7 календарных дней</span>
+</div>
+</div>
+<!-- Shift Engineer & Technologist Direct Contacts Card -->
+<div class="bg-surface-container p-space-lg rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">Дежурный технолог B2B линии</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Сергей Влада • Главный технолог сушильного цеха «Юрмалциемс». Прямая консультация по влажности и консистенции рыбы.
+          </p>
+<div class="flex flex-col gap-space-2xs font-label-mono text-label-mono pt-space-xs">
+<span class="text-secondary">+371 634 00000 (доб. 104)</span>
+<span class="text-on-surface-variant">scada-b2b@jurmalciems-fish.eu</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initIndustrialCalculator() {
+    // Fish Biological & SCADA Parameters Data Store
+    const fishData = {
+      bream: {
+        name: "Лещ (крупный колодкой 800+)",
+        yieldPct: 60.0,
+        lossPct: 40.0,
+        saltRate: 0.16, // 160 kg salt per 1000 kg raw
+        saltBagWeight: 250,
+        dryHours: 84,
+        costBasePerKg: 3.54,
+        baseWholesaleRate: 9.50,
+        tempOptimal: "+14°C … +16°C"
+      },
+      pikeperch: {
+        name: "Судак балтийский (пластованный)",
+        yieldPct: 52.0,
+        lossPct: 48.0,
+        saltRate: 0.14,
+        saltBagWeight: 250,
+        dryHours: 96,
+        costBasePerKg: 5.10,
+        baseWholesaleRate: 13.20,
+        tempOptimal: "+13°C … +15°C"
+      },
+      roach: {
+        name: "Вобла каспийская (икряная)",
+        yieldPct: 62.5,
+        lossPct: 37.5,
+        saltRate: 0.18,
+        saltBagWeight: 250,
+        dryHours: 72,
+        costBasePerKg: 4.20,
+        baseWholesaleRate: 11.50,
+        tempOptimal: "+15°C … +17°C"
+      },
+      sabrefish: {
+        name: "Чехонь морская (жирная спецпосол)",
+        yieldPct: 58.0,
+        lossPct: 42.0,
+        saltRate: 0.15,
+        saltBagWeight: 250,
+        dryHours: 68,
+        costBasePerKg: 4.80,
+        baseWholesaleRate: 12.00,
+        tempOptimal: "+14°C … +16°C"
+      },
+      smelt: {
+        name: "Корюшка прибалтийская (цельная)",
+        yieldPct: 48.0,
+        lossPct: 52.0,
+        saltRate: 0.12,
+        saltBagWeight: 250,
+        dryHours: 48,
+        costBasePerKg: 6.30,
+        baseWholesaleRate: 15.80,
+        tempOptimal: "+12°C … +14°C"
+      }
+    };
+
+    const packagingData = {
+      vacuum: { name: "Вакуум", extraCost: 0.45 },
+      corrugated: { name: "Гофроящик", extraCost: 0.15 },
+      semiwholesale: { name: "Крафт-пакет", extraCost: 0.25 },
+      mesh: { name: "Сетка", extraCost: 0.10 }
+    };
+
+    // State Variables
+    let selectedFishKey = "bream";
+    let selectedRawKg = 2000;
+    let selectedPackagingKey = "vacuum";
+
+    // DOM Elements
+    const slider = document.getElementById("raw-input-slider");
+    const sliderValDisplay = document.getElementById("slider-val-display");
+    const fishButtons = document.querySelectorAll(".fish-btn");
+    const presetPills = document.querySelectorAll(".preset-pill");
+    const packLabels = document.querySelectorAll(".pack-opt");
+
+    // Telemetry Outputs
+    const statYieldPct = document.getElementById("stat-yield-pct");
+    const statSaltKg = document.getElementById("stat-salt-kg");
+    const statSaltBags = document.getElementById("stat-salt-bags");
+    const statCycleHours = document.getElementById("stat-cycle-hours");
+    const statMarginPct = document.getElementById("stat-margin-pct");
+    const statProfitPreview = document.getElementById("stat-profit-preview");
+
+    const flowRawKg = document.getElementById("flow-raw-kg");
+    const flowLossKg = document.getElementById("flow-loss-kg");
+    const flowLossBar = document.getElementById("flow-loss-bar");
+    const flowLossLabel = document.getElementById("flow-loss-label");
+    const flowReadyKg = document.getElementById("flow-ready-kg");
+    const flowReadyBar = document.getElementById("flow-ready-bar");
+    const flowReadyYield = document.getElementById("flow-ready-yield");
+
+    const tier1Price = document.getElementById("tier1-price");
+    const tier2Price = document.getElementById("tier2-price");
+    const tier3Price = document.getElementById("tier3-price");
+
+    const selectedFishCaption = document.getElementById("selected-fish-caption");
+    const badgeYieldVal = document.getElementById("badge-yield-val");
+    const summaryRawWeight = document.getElementById("summary-raw-weight");
+    const summaryReadyWeight = document.getElementById("summary-ready-weight");
+    const summaryLossWeight = document.getElementById("summary-loss-weight");
+    const summarySaltWeight = document.getElementById("summary-salt-weight");
+    const summaryPackType = document.getElementById("summary-pack-type");
+    const summaryDryHours = document.getElementById("summary-dry-hours");
+
+    const summaryCostPerKg = document.getElementById("summary-cost-per-kg");
+    const summaryCostTotal = document.getElementById("summary-cost-total");
+    const summaryWholesaleTotal = document.getElementById("summary-wholesale-total");
+    const summaryWholesaleRate = document.getElementById("summary-wholesale-rate");
+    const summaryMarginVal = document.getElementById("summary-margin-val");
+
+    const btnWhatsApp = document.getElementById("btn-submit-whatsapp");
+    const btnPdf = document.getElementById("btn-submit-pdf");
+
+    function formatNumber(num) {
+      return num.toLocaleString("ru-RU");
+    }
+
+    function calculateMetrics() {
+      const fish = fishData[selectedFishKey];
+      const pack = packagingData[selectedPackagingKey];
+
+      const yieldKg = Math.round(selectedRawKg * (fish.yieldPct / 100));
+      const lossKg = selectedRawKg - yieldKg;
+      const saltKg = Math.round(selectedRawKg * fish.saltRate);
+      const saltBags = (saltKg / fish.saltBagWeight).toFixed(1);
+
+      // Tier pricing scale
+      let discountFactor = 1.0;
+      if (selectedRawKg >= 5000) {
+        discountFactor = 0.78; // -22%
+      } else if (selectedRawKg >= 1000) {
+        discountFactor = 0.88; // -12%
+      }
+
+      const activeRatePerKg = (fish.baseWholesaleRate + pack.extraCost) * discountFactor;
+      const totalWholesaleEur = Math.round(yieldKg * activeRatePerKg);
+
+      const productionCostTotal = Math.round(selectedRawKg * fish.costBasePerKg);
+      const profitTotal = totalWholesaleEur - productionCostTotal;
+      const marginPct = totalWholesaleEur > 0 ? Math.round((profitTotal / totalWholesaleEur) * 100) : 0;
+
+      // Update Top Status Cards
+      statYieldPct.innerText = fish.yieldPct.toFixed(1);
+      statSaltKg.innerText = formatNumber(saltKg);
+      statSaltBags.innerText = `~${saltBags} мешка (${fish.saltBagWeight} кг брутто)`;
+      statCycleHours.innerText = fish.dryHours.toFixed(1);
+      statMarginPct.innerText = marginPct.toString();
+      statProfitPreview.innerText = `+${formatNumber(profitTotal)} € валовая прибыль`;
+
+      // Update Dynamic Visual Flow Bar
+      flowRawKg.innerText = formatNumber(selectedRawKg);
+      flowLossKg.innerText = `-${formatNumber(lossKg)}`;
+      flowLossBar.style.width = `${fish.lossPct}%`;
+      flowLossLabel.innerText = `Конденсат: ~${(lossKg / fish.dryHours).toFixed(1)} л/ч`;
+      flowReadyKg.innerText = formatNumber(yieldKg);
+      flowReadyBar.style.width = `${fish.yieldPct}%`;
+      flowReadyYield.innerText = `Выход чистый: ${fish.yieldPct.toFixed(1)}%`;
+
+      // Update Wholesale Tier Display Cards
+      tier1Price.innerText = `${((fish.baseWholesaleRate + pack.extraCost) * 1.03).toFixed(2)} €`;
+      tier2Price.innerText = `${((fish.baseWholesaleRate + pack.extraCost) * 0.88).toFixed(2)} €`;
+      tier3Price.innerText = `${((fish.baseWholesaleRate + pack.extraCost) * 0.78).toFixed(2)} €`;
+
+      // Update Right Summary Passport
+      selectedFishCaption.innerText = fish.name;
+      badgeYieldVal.innerText = `${fish.yieldPct.toFixed(1)}% выход`;
+      summaryRawWeight.innerText = `${formatNumber(selectedRawKg)} кг`;
+      summaryReadyWeight.innerText = `${formatNumber(yieldKg)} кг`;
+      summaryLossWeight.innerText = `-${formatNumber(lossKg)} кг влаги`;
+      summarySaltWeight.innerText = `${formatNumber(saltKg)} кг (${saltBags} меш.)`;
+      summaryPackType.innerText = `${pack.name} (+${pack.extraCost.toFixed(2)}€/кг)`;
+      summaryDryHours.innerText = `${fish.dryHours} ч (${fish.tempOptimal})`;
+
+      summaryCostPerKg.innerText = `${fish.costBasePerKg.toFixed(2)} € / кг`;
+      summaryCostTotal.innerText = `${formatNumber(productionCostTotal)} €`;
+      summaryWholesaleTotal.innerText = `${formatNumber(totalWholesaleEur)} €`;
+      summaryWholesaleRate.innerText = `${activeRatePerKg.toFixed(2)} €/кг`;
+      summaryMarginVal.innerText = `+${formatNumber(profitTotal)} € (${marginPct}%)`;
+    }
+
+    // Slider Event Listener
+    slider.addEventListener("input", function (e) {
+      selectedRawKg = parseInt(e.target.value, 10);
+      sliderValDisplay.innerText = `${formatNumber(selectedRawKg)} кг`;
+      calculateMetrics();
+    });
+
+    // Preset Buttons
+    presetPills.forEach(pill => {
+      pill.addEventListener("click", function () {
+        const val = parseInt(this.getAttribute("data-val"), 10);
+        slider.value = val;
+        selectedRawKg = val;
+        sliderValDisplay.innerText = `${formatNumber(selectedRawKg)} кг`;
+
+        presetPills.forEach(p => {
+          p.classList.remove("bg-primary-container", "text-on-primary");
+          p.classList.add("bg-surface-container-high", "text-on-surface");
+        });
+        this.classList.remove("bg-surface-container-high", "text-on-surface");
+        this.classList.add("bg-primary-container", "text-on-primary");
+
+        calculateMetrics();
+      });
+    });
+
+    // Fish Selection Tabs
+    fishButtons.forEach(btn => {
+      btn.addEventListener("click", function () {
+        selectedFishKey = this.getAttribute("data-fish");
+        fishButtons.forEach(b => {
+          b.classList.remove("bg-surface-container-high", "text-primary");
+          b.classList.add("text-on-surface-variant");
+        });
+        this.classList.remove("text-on-surface-variant");
+        this.classList.add("bg-surface-container-high", "text-primary");
+        calculateMetrics();
+      });
+    });
+
+    // Packaging Radios
+    packLabels.forEach(label => {
+      label.addEventListener("click", function () {
+        const radio = this.querySelector('input[type="radio"]');
+        if (radio) {
+          selectedPackagingKey = radio.value;
+          packLabels.forEach(l => {
+            l.classList.remove("bg-surface-container-high", "opacity-100");
+            l.classList.add("bg-surface-container-low", "opacity-80");
+            const indicator = l.querySelector(".pack-indicator");
+            if (indicator) {
+              indicator.classList.remove("bg-primary-container");
+              indicator.classList.add("bg-surface-variant");
+            }
+          });
+          this.classList.remove("bg-surface-container-low", "opacity-80");
+          this.classList.add("bg-surface-container-high", "opacity-100");
+          const activeIndicator = this.querySelector(".pack-indicator");
+          if (activeIndicator) {
+            activeIndicator.classList.remove("bg-surface-variant");
+            activeIndicator.classList.add("bg-primary-container");
+          }
+          calculateMetrics();
+        }
+      });
+    });
+
+    // WhatsApp Action Link Generation
+    btnWhatsApp.addEventListener("click", function () {
+      const fish = fishData[selectedFishKey];
+      const pack = packagingData[selectedPackagingKey];
+      const yieldKg = Math.round(selectedRawKg * (fish.yieldPct / 100));
+      const msg = encodeURIComponent(
+        `Здравствуйте! Прошу предоставить B2B спецификацию и коммерческое предложение:\n\n` +
+        `• Продукция: ${fish.name}\n` +
+        `• Объем сырья: ${selectedRawKg} кг\n` +
+        `• Готовый объем: ${yieldKg} кг\n` +
+        `• Фасовка: ${pack.name}\n` +
+        `• Расчетный цикл: ${fish.dryHours} ч (AIM AGHD-250ELC)\n\n` +
+        `Уточните ближайший слот в камере и график отгрузки.`
+      );
+      window.open(`https://wa.me/37163400000?text=${msg}`, "_blank");
+    });
+
+    btnPdf.addEventListener("click", function () {
+      const originalText = this.innerText;
+      this.innerText = "Генерация сметы по ТУ...";
+      setTimeout(() => {
+        alert(`Спецификация партии "${fishData[selectedFishKey].name}" (${selectedRawKg} кг) сформирована и готова к отправке.`);
+        this.innerText = originalText;
+      }, 500);
+    });
+
+    // Initial Calculation Run
+    calculateMetrics();
+  })();
+</script></main><footer class="w-full bg-surface-container-lowest py-space-2xl shadow-[0_-1px_12px_rgba(0,0,0,0.4)]"><div class="w-full px-margin-desktop"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl mb-space-2xl"><div class="flex flex-col gap-space-sm"><span class="font-headline-sm text-headline-sm uppercase text-primary">Юрмалциемс SCADA CORE</span><p class="font-body-sm text-body-sm text-on-surface-variant">Автоматизированный комплекс тоннельной и камерной дегидратации гидробионтов Балтийского и Северного бассейнов. Непрерывный мониторинг влажности, температуры и плотности воздушного потока.</p><div class="flex items-center gap-space-sm pt-space-xs"><span class="px-space-sm py-space-2xs rounded bg-surface-container-high font-label-mono text-label-mono text-tertiary">HACCP CERTIFIED</span><span class="px-space-sm py-space-2xs rounded bg-surface-container-high font-label-mono text-label-mono text-tertiary">ISO 22000:2018</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Индустриальные стандарты & SCADA</span><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li>Камеры: AIM AGHD-250ELC Cold Dehydration</li><li>Погрешность rH: ±0.5% по контрольным зонам</li><li>Стабильность t° ядра сырья: +14°C … +18°C</li><li>Спектральный анализ сухих веществ и соли</li><li>Лабораторный контроль каждой выгрузки</li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">География экспорта & Логистика</span><p class="font-body-sm text-body-sm text-on-surface-variant">Регулярные контейнерные и рефрижераторные отгрузки B2B:</p><div class="flex flex-wrap gap-space-xs"><span class="px-space-sm py-space-2xs rounded bg-surface-container-low font-label-mono text-label-mono text-secondary">Балтика (LV, LT, EE)</span><span class="px-space-sm py-space-2xs rounded bg-surface-container-low font-label-mono text-label-mono text-secondary">Европейский Союз</span><span class="px-space-sm py-space-2xs rounded bg-surface-container-low font-label-mono text-label-mono text-secondary">Страны СНГ</span><span class="px-space-sm py-space-2xs rounded bg-surface-container-low font-label-mono text-label-mono text-secondary">Таможенный транзит</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Клиентский B2B портал</span><p class="font-body-sm text-body-sm text-on-surface-variant">Доступ к паспортным протоколам вяления, графику созревания партий и бронированию объемов вылова.</p><a class="inline-flex items-center justify-center px-space-md py-space-sm rounded-lg bg-surface-container-high text-primary hover:bg-surface-container-highest hover:text-on-surface transition-colors font-headline-sm text-headline-sm uppercase" data-path="b2b-portal-auth" href="#">Вход в B2B Терминал</a><div class="flex flex-col gap-space-2xs pt-space-xs font-label-mono text-label-mono text-on-surface-variant"><span>Тел: +371 634 00000 / +371 200 00000</span><span>Email: b2b@jurmalciems-fish.eu</span><span>Порт Юрмалциемс, Южно-Курземский край</span></div></div></div><div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md text-on-surface-variant font-label-mono text-label-mono"><span>© 2026 SIA 'Юрмалциемс'. Все права защищены. SCADA Industrial Telemetry.</span><span class="flex items-center gap-space-xs"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>Системы камер и дегидратации онлайн • ПЛК v4.8</span></div></div></footer>
+<script>
+  // Real printable specification sheet generator
+  document.addEventListener('DOMContentLoaded', function() {
+    const btnPdf = document.getElementById('btn-submit-pdf');
+    if (btnPdf) {
+      btnPdf.onclick = function() {
+        const fishCap = document.getElementById('selected-fish-caption')?.textContent || 'Вяленая рыба';
+        const rawW = document.getElementById('summary-raw-weight')?.textContent || '2 000 кг';
+        const readyW = document.getElementById('summary-ready-weight')?.textContent || '1 200 кг';
+        const saltW = document.getElementById('summary-salt-weight')?.textContent || '320 кг';
+        const packT = document.getElementById('summary-pack-type')?.textContent || 'Вакуум';
+        const costKg = document.getElementById('summary-cost-per-kg')?.textContent || '3.54 €/кг';
+        const costTot = document.getElementById('summary-cost-total')?.textContent || '4 248 €';
+        const whRate = document.getElementById('summary-wholesale-rate')?.textContent || '9.50 €/кг';
+        const whTot = document.getElementById('summary-wholesale-total')?.textContent || '11 400 €';
+        const margin = document.getElementById('summary-margin-val')?.textContent || '+7 152 €';
+        
+        const printWin = window.open('', '_blank');
+        printWin.document.write(`
+          <!DOCTYPE html>
+          <html lang="ru">
+          <head>
+            <meta charset="utf-8"/>
+            <title>Коммерческая спецификация партии • SIA TUBA Юрмалциемс</title>
+            <style>
+              body { font-family: 'Segoe UI', Arial, sans-serif; padding: 30px; color: #111; max-width: 800px; margin: 0 auto; line-height: 1.5; }
+              .header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 25px; }
+              .logo { font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
+              .sub { font-size: 11px; color: #555; }
+              h1 { font-size: 18px; margin: 0 0 15px; text-transform: uppercase; }
+              table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+              th, td { border: 1px solid #ccc; padding: 10px 12px; font-size: 13px; text-align: left; }
+              th { background: #f4f4f4; font-weight: 700; }
+              .total-box { background: #f9f9f9; border-left: 4px solid #000; padding: 15px; margin-bottom: 30px; font-size: 14px; }
+              .sign-row { display: flex; justify-content: space-between; margin-top: 50px; font-size: 12px; }
+              .sign-line { width: 200px; border-bottom: 1px solid #000; display: inline-block; }
+              @media print { button { display: none; } }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <div>
+                <div class="logo">SIA “TUBA” • Юрмалциемс</div>
+                <div class="sub">Рыбоперерабатывающий комплекс AIM AGHD-250ELC<br/>Юрмалциемс, Курземе, Латвия • TRACES NT #LV-0489-EE</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-weight:700;">СПЕЦИФИКАЦИЯ № ${Math.floor(1000 + Math.random()*9000)}</div>
+                <div class="sub">Дата: ${new Date().toLocaleDateString('ru-RU')}</div>
+              </div>
+            </div>
+
+            <h1>Коммерческое предложение / Технологическая смета партии</h1>
+            <p><strong>Позиция:</strong> ${fishCap}</p>
+
+            <table>
+              <tr><th>Параметр</th><th>Значение</th><th>Норматив / Примечание</th></tr>
+              <tr><td>Объем входящего сырья</td><td><strong>${rawW}</strong></td><td>Охлажденный вылов, ГОСТ 1551-93</td></tr>
+              <tr><td>Выход готовой продукции</td><td><strong>${readyW}</strong></td><td>Стабилизированная балыковая вялка</td></tr>
+              <tr><td>Расход соли NaCl (тузлук 20°Bé)</td><td>${saltW}</td><td>Посол чиллером при +2..+4°C</td></tr>
+              <tr><td>Формат упаковки</td><td><strong>${packT}</strong></td><td>Барьерный пакет PA/PE 90 мкм (KOMET)</td></tr>
+              <tr><td>Себестоимость производства</td><td>${costKg} (всего ${costTot})</td><td>Сырье, соль, электроэнергия, упаковка</td></tr>
+              <tr><td>Оптовая отпускная ставка</td><td><strong>${whRate}</strong></td><td>Франко-склад завода (EXW Юрмалциемс)</td></tr>
+            </table>
+
+            <div class="total-box">
+              <div style="font-size: 16px; font-weight: 800; margin-bottom: 5px;">ИТОГО К ОТГРУЗКЕ: ${whTot}</div>
+              <div>Расчетный маржинальный остаток партии: <strong>${margin}</strong></div>
+              <div class="sub" style="margin-top: 5px;">Активность воды: a_w ≤ 0.81 (микробиологический барьер HACCP). Срок хранения: 6 месяцев при 0..+6°C.</div>
+            </div>
+
+            <div class="sign-row">
+              <div>Технолог производства: <span class="sign-line"></span></div>
+              <div>Отдел оптовых поставок: <span class="sign-line"></span></div>
+            </div>
+
+            <div style="margin-top:30px; text-align:center;">
+              <button onclick="window.print()" style="padding:10px 24px; font-weight:bold; cursor:pointer;">Распечатать / Сохранить в PDF</button>
+            </div>
+          </body>
+          </html>
+        `);
+        printWin.document.close();
+      };
+    }
+  });
+</script>
+
+</body></html>

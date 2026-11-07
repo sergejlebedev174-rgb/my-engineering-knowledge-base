@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#081018" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="img/brand/fish-icon-64.png" />
+  <title>База знаний • Юрмалциемс</title>
+  <script src="js/knowledge-base.js"></script>
+  <link rel="stylesheet" href="css/ui-polish.css" />
+  <script src="js/ui-polish.js" defer></script>
+  <style>
+    :root {
+      --bg: #081018;
+      --surface: #0E1824;
+      --card: #111D29;
+      --elevated: #162433;
+      --border: #223648;
+      --text: #F0F6FC;
+      --text-2: #8B9BAE;
+      --cyan: #22D3EE;
+      --cyan-soft: rgba(34, 211, 238, 0.14);
+      --amber: #FBBF24;
+      --amber-soft: rgba(251, 191, 36, 0.14);
+      --emerald: #34D399;
+      --emerald-soft: rgba(52, 211, 153, 0.14);
+      --coral: #F87171;
+      --coral-soft: rgba(248, 113, 113, 0.14);
+      --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { zoom: 0.86; }
+    @media (max-width: 1480px), (max-height: 840px) { html { zoom: 0.82; } }
+    html, body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 13.5px; line-height: 1.45; }
+    body { padding: 12px 14px 28px; max-width: 1280px; margin: 0 auto; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    a { color: var(--cyan); }
+
+    .top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .top img { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border); }
+    .top h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+    .top .sub { color: var(--text-2); font-size: 13px; }
+    .top .back { margin-left: auto; text-decoration: none; font-size: 13px; padding: 7px 12px; border: 1px solid var(--border); border-radius: 10px; color: var(--text-2); }
+    body.in-frame .top .back { display: none; }
+
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 14px; }
+    .panel h2 { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--cyan); margin-bottom: 10px; }
+
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .grow { flex: 1 1 220px; min-width: 0; }
+    .field { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; outline: none; }
+    .field:focus { border-color: var(--cyan); }
+    textarea.field { resize: vertical; min-height: 84px; }
+    select.field { padding: 9px 10px; }
+
+    .btn { border: 1px solid var(--border); background: var(--elevated); border-radius: 10px; padding: 9px 14px; font-weight: 700; font-size: 14px; white-space: nowrap; }
+    .btn:hover { border-color: var(--cyan); }
+    .btn-primary { background: var(--cyan); color: #04131A; border-color: var(--cyan); }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-small { padding: 5px 10px; font-size: 12.5px; font-weight: 600; }
+    .btn-danger:hover { border-color: var(--coral); color: var(--coral); }
+    .btn:disabled { opacity: 0.55; cursor: wait; }
+
+    .answer { margin-top: 12px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--cyan); border-radius: 10px; padding: 12px 14px; white-space: pre-line; }
+    .answer.error { border-left-color: var(--coral); color: #FCA5A5; }
+    .answer .used { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; white-space: normal; }
+    .answer .meta { margin-top: 8px; font-size: 12px; color: var(--text-2); white-space: normal; }
+
+    .chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { border: 1px solid var(--border); background: var(--surface); color: var(--text-2); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .chip.active { background: var(--cyan-soft); color: var(--cyan); border-color: rgba(34, 211, 238, 0.5); }
+    .chip .n { font-family: var(--font-mono); font-size: 11px; opacity: 0.75; margin-left: 4px; }
+
+    .tag { display: inline-block; font-size: 11.5px; font-weight: 700; border-radius: 6px; padding: 1px 7px; background: var(--elevated); color: var(--text-2); border: 1px solid var(--border); white-space: nowrap; }
+    .tag.cyan { color: var(--cyan); background: var(--cyan-soft); border-color: transparent; }
+    .tag.amber { color: var(--amber); background: var(--amber-soft); border-color: transparent; }
+    .tag.emerald { color: var(--emerald); background: var(--emerald-soft); border-color: transparent; }
+    .tag.coral { color: var(--coral); background: var(--coral-soft); border-color: transparent; }
+    button.tag { cursor: pointer; }
+
+    .info { font-size: 13px; color: var(--text-2); background: var(--amber-soft); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 10px; padding: 9px 12px; margin-bottom: 14px; }
+    .info b { color: var(--amber); }
+
+    .list { display: grid; gap: 10px; }
+    .entry { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+    .entry.flash { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--cyan-soft); }
+    .entry-head { display: flex; gap: 8px; align-items: flex-start; flex-wrap: wrap; }
+    .entry-title { font-weight: 800; font-size: 15.5px; flex: 1 1 240px; min-width: 0; }
+    .entry-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+    .entry-text { margin-top: 8px; white-space: pre-line; color: #D6E2EE; font-size: 14px; overflow-wrap: anywhere; }
+    .entry-text.clamped { max-height: 9.2em; overflow: hidden; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+    .entry-text .warn { color: var(--amber); font-weight: 700; }
+    .entry-text mark { background: rgba(34, 211, 238, 0.28); color: var(--text); border-radius: 3px; padding: 0 1px; }
+    .entry-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .empty { color: var(--text-2); text-align: center; padding: 30px 10px; }
+
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-top: 8px; }
+    .form-grid label, .lbl { font-size: 12px; color: var(--text-2); display: block; margin-bottom: 3px; }
+    .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+    .seg button { flex: 1; }
+    .seg button.on-проверено { background: var(--emerald-soft); color: var(--emerald); border-color: rgba(52, 211, 153, 0.5); }
+    .seg button.on-гипотеза { background: var(--amber-soft); color: var(--amber); border-color: rgba(251, 191, 36, 0.5); }
+    .hidden { display: none !important; }
+
+    .toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: var(--elevated); border: 1px solid var(--cyan); border-radius: 12px; padding: 10px 16px; font-weight: 600; font-size: 14px; max-width: calc(100% - 32px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 10; }
+    .toast.show { opacity: 1; }
+
+    .atlas-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .atlas-head h2 { margin: 0; }
+    .atlas-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .atlas-anatomy { display: grid; grid-template-columns: minmax(260px, 1.1fr) 1fr; gap: 12px; margin-bottom: 10px; }
+    @media (max-width: 760px) { .atlas-anatomy { grid-template-columns: 1fr; } }
+    .atlas-anat-img { position: relative; padding: 0; border-radius: 14px; overflow: hidden; border: 1px solid rgba(34, 211, 238, 0.3); background: #05080E; cursor: zoom-in; aspect-ratio: 376 / 268; animation: atlasIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .atlas-anat-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .atlas-anat-img:hover img { transform: scale(1.04); }
+    .atlas-anat-scan { position: absolute; left: 0; right: 0; top: 0; height: 28%; pointer-events: none; background: linear-gradient(180deg, rgba(34, 211, 238, 0.18), transparent); transform: translateY(-100%); animation: atlasScan 4.5s ease-in-out infinite; }
+    @keyframes atlasScan { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(360%); } }
+    .atlas-anat-tag { position: absolute; left: 8px; bottom: 8px; padding: 2px 8px; border-radius: 6px; font: 800 10.5px 'JetBrains Mono', monospace; color: #67E8F9; background: rgba(4, 8, 14, 0.85); border: 1px solid rgba(34, 211, 238, 0.4); }
+    .atlas-anat-info { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .atlas-anat-title { font-size: 18px; font-weight: 800; color: #F8FAFC; }
+    .atlas-anat-sub { font-size: 12.5px; color: var(--text-2); line-height: 1.4; }
+    .atlas-anat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px; }
+    .atlas-anat-grid > div { background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 10px; padding: 6px 8px; min-width: 0; }
+    .atlas-anat-grid span { display: block; font-size: 10px; color: var(--text-2); text-transform: uppercase; }
+    .atlas-anat-grid b { display: block; font: 700 12.5px 'JetBrains Mono', monospace; color: #E2E8F0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .atlas-anat-grid b.a { color: #FBBF24; } .atlas-anat-grid b.c { color: #22D3EE; } .atlas-anat-grid b.r { color: #FDA4AF; }
+    .atlas-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    @media (max-width: 600px) { .atlas-row { grid-template-columns: repeat(5, 70vw); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; } .atlas-card { scroll-snap-align: start; } }
+    .atlas-card { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 271 / 628; max-height: 420px; width: 100%; padding: 0; border: 1px solid rgba(251, 191, 36, 0.25); background: #070912; cursor: zoom-in; opacity: 0; transform: translateY(10px); animation: atlasIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .atlas-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .atlas-card:hover img { transform: scale(1.05); }
+    .atlas-card .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 8px 7px; background: linear-gradient(transparent, rgba(4, 6, 10, 0.92)); text-align: left; }
+    .atlas-card .cap b { display: block; color: #FBBF24; font-size: 15px; font-family: 'JetBrains Mono', monospace; }
+    .atlas-card .cap span { color: #E2E8F0; font-size: 12px; font-weight: 600; }
+    @keyframes atlasIn { to { opacity: 1; transform: none; } }
+    .atlas-prod { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; color: var(--text-2); font-size: 13px; }
+    .atlas-prod button { width: 72px; height: 50px; padding: 0; border-radius: 8px; overflow: hidden; border: 1px solid rgba(251, 191, 36, 0.35); background: #070912; cursor: zoom-in; }
+    .atlas-prod img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .atlas-note { font-size: 12px; }
+    .atlas-lb { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(2, 4, 8, 0.88); cursor: zoom-out; }
+    .atlas-lb img { max-width: 100%; max-height: 100%; border-radius: 14px; border: 1px solid rgba(251, 191, 36, 0.4); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8); }
+    .foot { color: var(--text-2); font-size: 13px; }
+    .foot p + p { margin-top: 6px; }
+    @media (max-width: 600px) {
+      body { font-size: 14.5px; }
+      .top h1 { font-size: 19px; }
+      .btn { padding: 9px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <img src="img/brand/fish-icon-192.png" alt="" style="border-radius:50%" onerror="this.style.display='none'" />
+    <div>
+      <h1>База знаний</h1>
+      <div class="sub" id="kb-counts">Загрузка…</div>
+    </div>
+    <a class="back" id="kb-back" href="index.html">← В АРМ</a>
+  </header>
+
+  <!-- Спросить ИИ по базе -->
+  <section class="panel">
+    <h2>Спросить базу</h2>
+    <div class="row">
+      <input id="ask-input" class="field grow" type="text" placeholder="Например: сколько держать паузу у икряного окуня на 2-й стадии?" />
+      <button id="ask-btn" class="btn btn-primary">Спросить ИИ</button>
+    </div>
+    <div id="ask-answer" class="answer hidden"></div>
+  </section>
+
+  <!-- Атлас стадий вяления: эталонный вид рыбы на 0 / 13 / 35 / 68 / 84 ч (img/vyalka) -->
+  <section class="panel atlas" id="atlas">
+    <div class="atlas-head">
+      <h2>Атлас стадий вяления</h2>
+      <div class="atlas-chips" id="atlas-chips"></div>
+    </div>
+    <div class="atlas-anatomy" id="atlas-anatomy"></div>
+    <div class="atlas-row" id="atlas-row"></div>
+    <div class="atlas-prod">
+      <span>Готовый продукт:</span>
+      <button type="button" data-src="img/vyalka/product-1.webp"><img src="img/vyalka/product-1.webp" alt="Готовая вяленая рыба с икрой" /></button>
+      <button type="button" data-src="img/vyalka/product-2.webp"><img src="img/vyalka/product-2.webp" alt="Вяленая вимба с икрой" /></button>
+      <span class="atlas-note">Сверяйте цвет и усадку партии с эталоном. Нажмите на фото — откроется крупно.</span>
+    </div>
+  </section>
+
+  <div class="info" id="kb-disputed-info">
+    <b>⚠️ спорно</b> — значения, которые в старой программе расходились. Решение по ним за технологом: список с вариантами лежит в файле <b>knowledge/ПРОТИВОРЕЧИЯ.md</b>.
+  </div>
+
+  <!-- 6-Species 3D Tomography & Biological Comparison Matrix -->
+  <div id="bioAnalysisMount"></div>
+
+  <!-- Поиск и фильтры -->
+  <section class="panel">
+    <div class="row">
+      <input id="search-input" class="field grow" type="search" placeholder="Поиск: «пауза», «ЭРВ», «вакуум», «цена леща»…" />
+      <select id="species-filter" class="field" style="width:auto; flex:0 0 auto;"></select>
+    </div>
+    <div class="chips" id="topic-chips" style="margin-top:10px;"></div>
+    <div class="row" style="margin-top:10px;">
+      <button id="add-btn" class="btn btn-primary">+ Добавить знание</button>
+      <button id="export-btn" class="btn" title="Скачать файл notes.js со всеми заметками — им можно заменить knowledge/notes.js">💾 Сохранить в файл</button>
+      <label class="btn" title="Загрузить экспорт «Памяти цеха» (.json) или файл notes.js">
+        📥 Загрузить файл
+        <input id="import-input" type="file" accept=".json,.js,application/json,text/javascript" class="hidden" />
+      </label>
+    </div>
+
+    <!-- Форма добавления / правки -->
+    <div id="note-form" class="hidden" style="margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
+      <label class="lbl" for="nf-text">Знание (своими словами)</label>
+      <textarea id="nf-text" class="field" placeholder="Что узнали: наблюдение на партии, совет поставщика, настройка оборудования, условие клиента…"></textarea>
+      <div class="form-grid">
+        <div>
+          <label for="nf-theme">Тема</label>
+          <select id="nf-theme" class="field">
+            <option value="технология">Технология</option>
+            <option value="оборудование">Оборудование</option>
+            <option value="маркетинг">Маркетинг</option>
+            <option value="другое">Другое</option>
+          </select>
+        </div>
+        <div>
+          <label for="nf-species">Рыба</label>
+          <select id="nf-species" class="field"></select>
+        </div>
+        <div>
+          <label for="nf-stage">Стадия</label>
+          <select id="nf-stage" class="field">
+            <option value="">— любая —</option>
+            <option>Посол</option>
+            <option>Стадия 1</option>
+            <option>Стадия 2</option>
+            <option>Стадия 3</option>
+            <option>Стадия 4</option>
+            <option>Упаковка</option>
+            <option>Хранение</option>
+            <option>Продажа</option>
+          </select>
+        </div>
+        <div>
+          <label for="nf-type">Тип</label>
+          <select id="nf-type" class="field">
+            <option value="заметка">Заметка</option>
+            <option value="правило">Правило</option>
+            <option value="итог партии">Итог партии</option>
+            <option value="настройка">Настройка</option>
+            <option value="идея">Идея</option>
+          </select>
+        </div>
+        <div>
+          <label for="nf-source">Источник</label>
+          <input id="nf-source" class="field" type="text" placeholder="сам, поставщик, клиент, книга…" />
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <span class="lbl">Статус</span>
+        <div class="seg" id="nf-status">
+          <button type="button" class="btn btn-small" data-status="проверено">✅ Проверено на практике</button>
+          <button type="button" class="btn btn-small" data-status="гипотеза">🧪 Гипотеза — проверить</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <button id="nf-save" class="btn btn-primary">Сохранить</button>
+        <button id="nf-cancel" class="btn">Отмена</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="list" id="entries"></div>
+
+  <!-- Настройки и пояснения -->
+  <section class="panel foot" style="margin-top:14px;">
+    <h2>Ключ Gemini и хранение</h2>
+    <div class="row" style="margin-bottom:10px;">
+      <input id="key-input" class="field grow" type="password" placeholder="Ключ Gemini (AIza… или AQ.…) — общий с вкладкой «Чат ИИ»" autocomplete="off" />
+      <button id="key-save" class="btn">Сохранить ключ</button>
+    </div>
+    <p>Ваши новые заметки сразу видны программе и ИИ, но хранятся в этом браузере. Чтобы они попали в базу навсегда (и на другой компьютер), нажмите <b>«💾 Сохранить в файл»</b> и замените им файл <b>knowledge/notes.js</b>.</p>
+    <p>Записи «Памяти цеха» (итоги партий и правила, которые программа выводит сама) подхватываются автоматически.</p>
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function () {
+      "use strict";
+      const KB = window.ARM_KB;
+      const $ = (id) => document.getElementById(id);
+      const params = new URLSearchParams(location.search);
+      const inFrame = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+      if (inFrame) document.body.classList.add("in-frame");
+      if (/Android|iPhone|Mobile/i.test(navigator.userAgent)) $("kb-back").href = "telefon.html";
+
+      const view = { topic: params.get("topic") || "all", species: params.get("species") || "", query: params.get("q") || "", expanded: new Set() };
+      let editingId = null;
+      let formStatus = "гипотеза";
+
+      function escapeHtml(s) {
+        return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+      function toast(msg) {
+        const el = $("toast");
+        el.textContent = msg;
+        el.classList.add("show");
+        clearTimeout(toast._t);
+        toast._t = setTimeout(() => el.classList.remove("show"), 2600);
+      }
+      function plural(n, one, few, many) {
+        const m10 = n % 10, m100 = n % 100;
+        const w = m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many;
+        return `${n} ${w}`;
+      }
+      function stemsOf(q) {
+        return String(q || "").toLowerCase().replace(/ё/g, "е").split(/[^a-zа-я0-9.#]+/i)
+          .filter((w) => w.length >= 3)
+          .map((w) => (w.length > 5 ? w.slice(0, -2) : w.length > 3 ? w.slice(0, -1) : w));
+      }
+      function highlight(html, stems) {
+        if (!stems.length) return html;
+        const re = new RegExp("(" + stems.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")", "gi");
+        // подсвечиваем только текст, не трогая теги
+        return html.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, txt) => (tag ? tag : txt.replace(re, "<mark>$1</mark>")));
+      }
+      function renderText(text, stems) {
+        let html = escapeHtml(text).replace(/⚠️спорно(\s*\([^)]*\))?/g, (m) => `<span class="warn">${m}</span>`);
+        return highlight(html, stems);
+      }
+      function renderAnswer(text) {
+        return escapeHtml(text)
+          .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+          .replace(/^\s*[*-]\s+/gm, "• ")
+          .replace(/^#{1,4}\s*/gm, "");
+      }
+
+      // ---------- Селекты рыбы ----------
+      function fillSpeciesSelects() {
+        const opts = KB.SPECIES_ORDER.map((k) => `<option value="${k}">${escapeHtml(KB.speciesName(k))}</option>`).join("");
+        $("species-filter").innerHTML = `<option value="">Все рыбы</option>` + opts;
+        $("species-filter").value = view.species;
+        $("nf-species").innerHTML = `<option value="">— любая —</option>` + opts;
+      }
+
+      // ---------- Список ----------
+      function render() {
+        const all = KB.getEntries();
+        const notesCount = all.filter((e) => e.topic === "notes").length;
+        $("kb-counts").textContent = `${plural(all.length, "запись", "записи", "записей")} · заметок: ${notesCount}` + (KB.loadErrors.length ? ` · ⚠️ не загрузились: ${KB.loadErrors.join(", ")}` : "");
+
+        const topics = [["all", "Все"]].concat(Object.entries(KB.TOPICS));
+        const counts = {};
+        topics.forEach(([k]) => { counts[k] = KB.search("", { topic: k, species: view.species || undefined }).length; });
+        $("topic-chips").innerHTML = topics.map(([k, label]) =>
+          `<button class="chip ${view.topic === k ? "active" : ""}" data-topic="${k}">${label}<span class="n">${counts[k] || 0}</span></button>`
+        ).join("");
+
+        const list = KB.search(view.query, { topic: view.topic, species: view.species || undefined });
+        const stems = stemsOf(view.query);
+        if (!list.length) {
+          $("entries").innerHTML = `<div class="empty">Ничего не найдено. ${view.query ? "Попробуйте другое слово или " : ""}<a href="#" data-action="add-from-search">добавьте это знание</a>.</div>`;
+          return;
+        }
+        $("entries").innerHTML = list.map((e) => {
+          const tags = [`<span class="tag cyan">${escapeHtml(KB.TOPICS[e.topic])}</span>`];
+          (e.species || []).slice(0, 2).forEach((k) => tags.push(`<span class="tag">${escapeHtml(KB.speciesName(k).split(" (")[0])}</span>`));
+          if (e.topic === "notes") {
+            if (e.theme && e.theme !== "технология") tags.push(`<span class="tag">${escapeHtml(e.theme)}</span>`);
+            const cls = e.status === "проверено" ? "emerald" : e.status === "гипотеза" ? "amber" : "coral";
+            tags.push(`<span class="tag ${cls}">${escapeHtml(e.status || "без статуса")}</span>`);
+            if (e.date) tags.push(`<span class="tag">${escapeHtml(e.date)}</span>`);
+            const origin = e.origin === "memory" ? "Память цеха" : e.origin === "file" ? "из файла" : "моя";
+            tags.push(`<span class="tag">${escapeHtml(e.source || origin)}</span>`);
+          } else if (e.disputed) {
+            tags.push(`<span class="tag amber">есть спорные значения</span>`);
+          }
+          const long = e.text.length > 420 && !view.expanded.has(e.id) && !view.query;
+          const actions = [];
+          if (long) actions.push(`<button class="btn btn-small" data-action="expand" data-id="${escapeHtml(e.id)}">Показать всё</button>`);
+          if (e.topic === "notes") {
+            actions.push(`<button class="btn btn-small" data-action="edit" data-id="${escapeHtml(e.note.id)}">Изменить</button>`);
+            if (e.status !== "проверено") actions.push(`<button class="btn btn-small" data-action="verify" data-id="${escapeHtml(e.note.id)}">✅ Проверено</button>`);
+            actions.push(`<button class="btn btn-small btn-danger" data-action="delete" data-id="${escapeHtml(e.note.id)}">Удалить</button>`);
+          }
+          return `<article class="entry" id="${escapeHtml(e.id)}">
+            <div class="entry-head"><div class="entry-title">${highlight(escapeHtml(e.title), stems)}</div></div>
+            <div class="entry-tags">${tags.join("")}</div>
+            <div class="entry-text ${long ? "clamped" : ""}">${e.empty ? `<span style="color:var(--text-2)">${escapeHtml(e.text)}</span>` : renderText(e.text, stems)}</div>
+            ${actions.length ? `<div class="entry-actions">${actions.join("")}</div>` : ""}
+          </article>`;
+        }).join("");
+      }
+
+      // ---------- Форма заметки ----------
+      function setFormStatus(s) {
+        formStatus = s;
+        document.querySelectorAll("#nf-status button").forEach((b) => {
+          b.className = "btn btn-small" + (b.dataset.status === s ? " on-" + s : "");
+        });
+      }
+      function openForm(note) {
+        editingId = note && note.id ? note.id : null;
+        $("nf-text").value = (note && note.текст) || "";
+        $("nf-theme").value = (note && note.тема) || (view.topic === "marketing" ? "маркетинг" : view.topic === "equipment" ? "оборудование" : "технология");
+        $("nf-species").value = (note && note.рыба) || view.species || "";
+        $("nf-stage").value = (note && note.стадия) || "";
+        $("nf-type").value = (note && note.тип) || "заметка";
+        $("nf-source").value = (note && note.источник && note.источник !== "технолог") ? note.источник : "";
+        setFormStatus(note && note.статус === "проверено" ? "проверено" : "гипотеза");
+        $("nf-save").textContent = editingId ? "Сохранить изменения" : "Сохранить";
+        $("note-form").classList.remove("hidden");
+        $("nf-text").focus();
+      }
+      function closeForm() {
+        editingId = null;
+        $("note-form").classList.add("hidden");
+      }
+      function findNote(id) {
+        return KB.getAllNotes().find((n) => n.id === id);
+      }
+
+      $("add-btn").addEventListener("click", () => openForm(null));
+      $("nf-cancel").addEventListener("click", closeForm);
+      $("nf-status").addEventListener("click", (ev) => {
+        const b = ev.target.closest("button[data-status]");
+        if (b) setFormStatus(b.dataset.status);
+      });
+      $("nf-save").addEventListener("click", () => {
+        const prev = editingId ? findNote(editingId) : null;
+        const saved = KB.saveNote({
+          id: editingId || undefined,
+          дата: prev ? prev.дата : undefined,
+          текст: $("nf-text").value,
+          тема: $("nf-theme").value,
+          рыба: $("nf-species").value || null,
+          стадия: $("nf-stage").value || null,
+          тип: $("nf-type").value,
+          источник: $("nf-source").value.trim() || (prev ? prev.источник : "технолог"),
+          статус: formStatus,
+        });
+        if (!saved) { toast("Напишите текст знания"); return; }
+        const wasEditing = !!editingId;
+        closeForm();
+        view.topic = "notes";
+        render();
+        toast(wasEditing ? "Изменения сохранены" : "Знание добавлено в базу");
+      });
+
+      // ---------- Действия в списке ----------
+      document.addEventListener("click", (ev) => {
+        const chip = ev.target.closest("[data-topic]");
+        if (chip) { view.topic = chip.dataset.topic; render(); return; }
+        const used = ev.target.closest("[data-goto]");
+        if (used) {
+          view.topic = "all"; view.query = ""; view.species = "";
+          $("search-input").value = ""; $("species-filter").value = "";
+          view.expanded.add(used.dataset.goto);
+          render();
+          const target = document.getElementById(used.dataset.goto);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            target.classList.add("flash");
+            setTimeout(() => target.classList.remove("flash"), 1800);
+          }
+          return;
+        }
+        const btn = ev.target.closest("[data-action]");
+        if (!btn) return;
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        if (action === "add-from-search") { ev.preventDefault(); openForm({ текст: view.query }); }
+        else if (action === "expand") { view.expanded.add(id); render(); }
+        else if (action === "edit") { const n = findNote(id); if (n) { openForm(n); $("note-form").scrollIntoView({ behavior: "smooth", block: "center" }); } }
+        else if (action === "verify") { const n = findNote(id); if (n && KB.saveNote({ ...n, статус: "проверено" })) { render(); toast("Отмечено как проверенное"); } }
+        else if (action === "delete") {
+          const n = findNote(id);
+          if (n && confirm("Удалить эту запись из базы?\n\n" + n.текст.slice(0, 160))) { KB.deleteNote(id); render(); toast("Запись удалена"); }
+        }
+      });
+
+      let searchTimer = null;
+      $("search-input").addEventListener("input", (ev) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => { view.query = ev.target.value; render(); }, 150);
+      });
+      $("species-filter").addEventListener("change", (ev) => { view.species = ev.target.value; render(); if (view.species) renderAtlas(view.species); });
+
+      // ---------- Атлас стадий вяления ----------
+      const ATLAS_STAGES = [[0, "Свежая / солёная"], [13, "Подвяливание"], [35, "Активное вяление"], [68, "Готовая вяленая"], [84, "Выдержанная (финиш)"]];
+      let atlasSp = "";
+      function renderAtlas(spKey) {
+        atlasSp = spKey || atlasSp || (KB.getSharedBatch ? KB.getSharedBatch().speciesKey : "VIMBA");
+        const low = KB.toLowerSpeciesKey(atlasSp);
+        $("atlas-chips").innerHTML = KB.SPECIES_ORDER.map((k) =>
+          `<button class="chip ${k === atlasSp ? "active" : ""}" data-atlas="${k}">${escapeHtml(KB.speciesName(k).split(" (")[0])}</button>`).join("");
+        $("atlas-row").innerHTML = ATLAS_STAGES.map(([h, name], i) =>
+          `<button class="atlas-card" style="animation-delay:${i * 70}ms" data-src="img/vyalka/${low}-${i}.jpg" title="${escapeHtml(KB.speciesName(atlasSp))}: ${h} ч — ${name}">
+            <img src="img/vyalka/${low}-${i}.jpg" alt="${escapeHtml(name)}" loading="lazy" />
+            <div class="cap"><b>${h} ч</b><span>${name}</span></div>
+          </button>`).join("");
+        // анатомический разрез + паспорт вида из базы знаний
+        const c = KB.getCanonicalSpecies(atlasSp);
+        const cell = (k, v, cls) => `<div><span>${k}</span><b class="${cls || ""}">${escapeHtml(v)}</b></div>`;
+        $("atlas-anatomy").innerHTML = `
+          <button class="atlas-anat-img" data-src="img/anatomy/${low}.jpg" title="Анатомический разрез — нажмите, чтобы увеличить">
+            <img src="img/anatomy/${low}.jpg" alt="${escapeHtml(c.titleRu)}: анатомический разрез" onerror="this.parentElement.style.display='none'" />
+            <span class="atlas-anat-scan"></span><span class="atlas-anat-tag">БИО-РАЗРЕЗ • ${escapeHtml(c.shortRu.toUpperCase())}</span>
+          </button>
+          <div class="atlas-anat-info">
+            <div class="atlas-anat-title">${escapeHtml(c.titleRu)}</div>
+            <div class="atlas-anat-sub">${escapeHtml(c.subtitleRu)}</div>
+            <div class="atlas-anat-grid">
+              ${cell("Тушка", c.pieceG + " г", "a")}${cell("Жирность", c.fatPercent + " %", "a")}${cell("Калибр", c.caliber)}
+              ${cell("Посол", c.saltingRange + " ч • " + c.saltKgPerTon + " кг/т")}${cell("Коридор T", c.tempRangeText, "c")}${cell("Аварийный порог", "< " + c.emergencyMaxTempC + " °C", "r")}
+              ${cell("Выход", c.yieldRange)}${cell("Цель a_w", "≤ " + c.aw.toFixed(2), "c")}${cell("Тележка", c.trolleyCapKg + " кг • " + c.rodsPerTrolley + " прутков")}
+            </div>
+          </div>`;
+      }
+      $("atlas-chips").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-atlas]");
+        if (b) renderAtlas(b.dataset.atlas);
+      });
+      $("atlas").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-src]");
+        if (!b) return;
+        const lb = document.createElement("div");
+        lb.className = "atlas-lb";
+        lb.innerHTML = `<img src="${b.dataset.src}" alt="" />`;
+        lb.addEventListener("click", () => lb.remove());
+        document.body.appendChild(lb);
+      });
+
+      // ---------- Файлы ----------
+      $("export-btn").addEventListener("click", () => {
+        const blob = new Blob([KB.exportNotesFile()], { type: "text/javascript;charset=utf-8" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "notes.js";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+        toast("Файл notes.js скачан — замените им knowledge/notes.js");
+      });
+      $("import-input").addEventListener("change", (ev) => {
+        const file = ev.target.files && ev.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const n = KB.importText(reader.result);
+            view.topic = "notes";
+            render();
+            toast(`Загружено записей: ${n}`);
+          } catch (e) {
+            toast("❌ " + e.message);
+          }
+          ev.target.value = "";
+        };
+        reader.readAsText(file, "utf-8");
+      });
+
+      // ---------- Ключ Gemini ----------
+      $("key-input").value = KB.getGeminiKey() ? "••••••••" : "";
+      $("key-input").addEventListener("focus", (ev) => { if (ev.target.value === "••••••••") ev.target.value = ""; });
+      $("key-save").addEventListener("click", () => {
+        const v = $("key-input").value.trim();
+        if (v === "••••••••") return;
+        KB.setGeminiKey(v);
+        $("key-input").value = v ? "••••••••" : "";
+        toast(v ? "Ключ сохранён" : "Ключ удалён");
+      });
+
+      // ---------- Спросить ИИ ----------
+      async function ask() {
+        const q = $("ask-input").value.trim();
+        if (!q) { $("ask-input").focus(); return; }
+        const box = $("ask-answer");
+        box.className = "answer";
+        box.textContent = "⏳ Ищу в базе и спрашиваю ИИ…";
+        $("ask-btn").disabled = true;
+        try {
+          const res = await KB.askAi(q, { speciesKey: view.species || null });
+          box.innerHTML = renderAnswer(res.text) +
+            (res.used.length ? `<div class="used"><span class="lbl" style="margin:0 4px 0 0;">Опирался на:</span>${res.used.map((u) => `<button class="tag cyan" data-goto="${escapeHtml(u.id)}">${escapeHtml(u.title)}</button>`).join("")}</div>` : "") +
+            `<div class="meta">Модель: ${escapeHtml(res.modelUsed)}</div>`;
+        } catch (e) {
+          box.className = "answer error";
+          box.textContent = "❌ " + ((e && e.message) || "Ошибка");
+        } finally {
+          $("ask-btn").disabled = false;
+        }
+      }
+      $("ask-btn").addEventListener("click", ask);
+      $("ask-input").addEventListener("keydown", (ev) => { if (ev.key === "Enter") ask(); });
+
+      // Заметки могли измениться в другой вкладке (Память цеха в АРМ, телефон в соседнем окне)
+      window.addEventListener("storage", (ev) => {
+        if (!ev.key || /JURMALCIEMS_(KB_NOTES|AI_MEMORY)/.test(ev.key)) render();
+      });
+
+      KB.ready.then(() => {
+        fillSpeciesSelects();
+        renderAtlas(view.species);
+        $("search-input").value = view.query;
+        render();
+      });
+    })();
+  </script>
+  <script src="js/bio-tomography.js"></script>
+</body>
+</html>

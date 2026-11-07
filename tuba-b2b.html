@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;background-color:#070a0f;}body{overscroll-behavior:none;color:#dfe2ee;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{width:6px;height:6px;}::-webkit-scrollbar-track{background:#0a0e16;}::-webkit-scrollbar-thumb{background:#1c2432;border-radius:3px;}::-webkit-scrollbar-thumb:hover{background:#00daf3;}.glow-gold{box-shadow:0 0 25px rgba(234,179,8,0.25);}.glow-cyan{box-shadow:0 0 25px rgba(0,229,255,0.25);}.gold-text{background:linear-gradient(135deg,#fce98a 0%,#d9a74a 50%,#f5d372 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-container": "#5be9ad", "surface-container-highest": "#31353e", "tertiary": "#a8ffd2", "outline-variant": "#3b494c", "secondary-fixed-dim": "#7bd0ff", "secondary": "#7bd0ff", "on-secondary-fixed": "#001e2c", "secondary-container": "#00a6e0", "surface-bright": "#353942", "surface": "#070a0f", "surface-container-high": "#1e2430", "on-background": "#dfe2ee", "secondary-fixed": "#c4e7ff", "surface-tint": "#00daf3", "on-primary": "#00363d", "on-secondary-container": "#00374d", "error": "#ffb4ab", "surface-container": "#121722", "tertiary-fixed-dim": "#4edea3", "primary-fixed": "#9cf0ff", "on-surface": "#dfe2ee", "on-error-container": "#ffdad6", "on-error": "#690005", "surface-container-lowest": "#05070a", "tertiary-fixed": "#6ffbbe", "inverse-primary": "#006875", "on-primary-fixed": "#001f24", "inverse-surface": "#dfe2ee", "primary": "#c3f5ff", "error-container": "#93000a", "on-primary-container": "#00626e", "outline": "#849396", "surface-variant": "#222a38", "primary-fixed-dim": "#00daf3", "on-primary-fixed-variant": "#004f58", "on-secondary-fixed-variant": "#004c69", "on-tertiary-fixed-variant": "#005236", "inverse-on-surface": "#2c3039", "on-tertiary": "#003824", "on-tertiary-container": "#006645", "on-secondary": "#00354a", "on-tertiary-fixed": "#002113", "background": "#070a0f", "primary-container": "#00e5ff", "surface-dim": "#070a0f", "surface-container-low": "#0d111a", "on-surface-variant": "#9ca9b9", "gold": { "300": "#fef08a", "400": "#facc15", "500": "#eab308", "600": "#ca8a04" } }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "2xl": "0.875rem", "full": "9999px" }, "spacing": { "space-lg": "1rem", "space-md": "0.75rem", "margin": "1rem", "space-xs": "0.25rem", "gutter": "0.75rem", "space-2xl": "2rem", "gutter-md": "1rem", "space-2xs": "0.125rem", "margin-desktop": "2rem", "space-sm": "0.5rem", "space-xl": "1.5rem" }, "fontFamily": { "headline-sm": ["Space Grotesk"], "label-mono": ["JetBrains Mono"], "telemetry-data-lg": ["JetBrains Mono"], "body-md": ["Inter"], "body-sm": ["Inter"], "display-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-lg": ["Inter"], "display-lg-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "telemetry-data-md": ["JetBrains Mono"], "label-caps": ["Space Grotesk"] }, "fontSize": { "headline-sm": ["16px", {"lineHeight": "22px", "fontWeight": "600"}], "label-mono": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}], "telemetry-data-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "700"}], "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}], "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}], "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "headline-md": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}], "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "headline-lg": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "telemetry-data-md": ["18px", {"lineHeight": "22px", "fontWeight": "600"}], "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700"}] } } } };</script>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/>
+<link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<script src="js/knowledge-base.js"></script>
+<script src="js/bio-tomography.js"></script>
+<script src="js/cockpit-pages-fx.js" defer></script>
+
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-black">
+<!-- 1. HEADER & TOP SCADA TELEMETRY STATUS BAR -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#070a0f]/95 backdrop-blur-xl border-b border-primary/20 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+<!-- Micro telemetry row -->
+<div class="w-full bg-[#05070a] border-b border-white/5 px-4 lg:px-8 py-1.5 flex items-center justify-between text-[11px] font-label-mono">
+<div class="flex items-center gap-3 overflow-x-auto no-scrollbar py-0.5">
+<div class="flex items-center gap-2 text-tertiary-fixed-dim whitespace-nowrap">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+<span class="text-white/60 font-semibold tracking-wider">AIM AGHD-250ELC:</span>
+<span class="text-tertiary-fixed-dim font-bold">ОНЛАЙН (30 Гц)</span>
+</div>
+<span class="text-white/20">|</span>
+<div class="flex items-center gap-2 whitespace-nowrap text-on-surface-variant">
+<span>КЛИМАТ:</span>
+<span class="text-primary-container font-semibold">+15.8°C</span>
+<span class="text-secondary font-semibold">58% rH</span>
+<span class="text-yellow-400 font-semibold">VPD 0.75 кПа</span>
+<span class="text-tertiary font-semibold">Отвод -6.4 л/ч</span>
+</div>
+<span class="text-white/20 hidden md:inline">|</span>
+<div class="hidden md:flex items-center gap-2 text-white/50 whitespace-nowrap">
+<span>ЗАВОД:</span>
+<span class="text-white">Юрмалциемс, Курземе (LV) • TRACES NT #LV-0489-EE</span>
+</div>
+</div>
+<div class="flex items-center gap-3 pl-4">
+<button class="group flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-surface-container-high border border-primary/30 hover:border-primary text-primary transition-all cursor-pointer" onclick="copyEmail()">
+<span class="material-symbols-outlined text-xs">mail</span>
+<span class="font-bold text-xs" id="nav-email-text">tuba@inbox.lv</span>
+<span class="material-symbols-outlined text-[11px] text-white/40 group-hover:text-primary">content_copy</span>
+</button>
+<span class="hidden sm:inline-block px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500/40 uppercase tracking-widest font-bold">HACCP EU</span>
+</div>
+</div>
+<!-- Main Luxury Navigation Bar -->
+<div class="h-20 w-full px-4 lg:px-8 flex items-center justify-between gap-6">
+<!-- Brand Identity -->
+<a class="flex items-center gap-3.5 group" href="#">
+<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 via-yellow-500/10 to-transparent border border-cyan-400/40 flex items-center justify-center shadow-[0_0_20px_rgba(0,229,255,0.25)] group-hover:border-primary-container transition-all">
+<span class="material-symbols-outlined text-primary-container text-2xl group-hover:scale-110 transition-transform">set_meal</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-xl tracking-wider text-white font-bold">SIA “TUBA”</span>
+<span class="px-1.5 py-0.5 text-[9px] rounded bg-yellow-500/20 text-yellow-300 font-label-mono border border-yellow-500/40 font-bold uppercase">RESERVE</span>
+</div>
+<span class="font-label-mono text-[10px] uppercase tracking-widest text-primary/80">BALTIC CURED FISH • ЮРМАЛЦИЕМС</span>
+</div>
+</a>
+<!-- Menu Links -->
+<nav class="hidden xl:flex items-center gap-1 bg-[#0d111a]/80 p-1.5 rounded-xl border border-white/10 font-label-mono text-xs">
+<a class="px-4 py-2 rounded-lg text-primary font-semibold hover:bg-surface-container-high transition-colors" href="#hero">Главная</a>
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-white hover:bg-surface-container-high transition-colors" href="#stages">5 Стадий Созревания</a>
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-white hover:bg-surface-container-high transition-colors" href="#packaging">Эталонный Вакуум</a>
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-white hover:bg-surface-container-high transition-colors" href="#catalog">B2B Каталог Срезов</a>
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-white hover:bg-surface-container-high transition-colors" href="#calculator">Калькулятор Партии</a>
+<a class="px-4 py-2 rounded-lg text-yellow-300/90 hover:text-yellow-200 hover:bg-yellow-500/10 transition-colors" href="#contact">Байерам сетей</a>
+</nav>
+<!-- CTAs & Direct Contact -->
+<div class="flex items-center gap-3">
+<a class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-headline-sm text-xs font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.7)] transition-all" href="https://wa.me/37163400000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20SIA%20TUBA!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D0%BE%D0%BF%D1%82%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8%20%D0%B2%D1%8F%D0%BB%D0%B5%D0%BD%D0%BE%D0%B9%20%D1%80%D1%8B%D0%B1%D1%8B." target="_blank">
+<span class="material-symbols-outlined text-sm">chat</span>
+<span>WhatsApp B2B</span>
+</a>
+<a class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container-high border border-primary/40 text-primary-container hover:bg-primary-container hover:text-slate-950 transition-all font-label-mono text-xs font-semibold uppercase" href="#contact">
+<span class="material-symbols-outlined text-sm">lock_open</span>
+<span>АРМ Технолога</span>
+</a>
+</div>
+</div>
+</header>
+<main class="w-full pt-28 bg-[#070a0f] min-h-screen">
+<!-- 2. HERO SECTION: CINEMATIC DARK LUXURY WITH HIGH-END SHOWCASE & INTERACTIVE HOTSPOTS -->
+<section class="relative w-full px-4 lg:px-8 py-12 lg:py-20 overflow-hidden bg-radial from-[#121926] via-[#070a0f] to-[#040609] border-b border-white/10" id="hero">
+<div class="absolute -top-32 -left-32 w-[34rem] h-[34rem] rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none"></div>
+<div class="absolute top-1/3 right-0 w-[42rem] h-[42rem] rounded-full bg-yellow-500/10 blur-[150px] pointer-events-none"></div>
+<div class="max-w-[1720px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-10 items-center relative z-10">
+<!-- Left Hero Column -->
+<div class="xl:col-span-6 flex flex-col gap-6">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 font-label-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+          КУРЗЕМСКИЙ РЕЗЕРВ ВЫДЕРЖКИ
+        </span>
+<span class="px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary-fixed-dim font-label-mono text-xs uppercase">
+          AIM SCADA 2026
+        </span>
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-label-mono text-xs uppercase">
+          TRACES NT • ЕС СЕРТИФИКАТ
+        </span>
+</div>
+<div class="flex flex-col gap-3">
+<h1 class="font-display-lg text-3xl sm:text-5xl lg:text-[54px] lg:leading-[60px] font-bold text-white uppercase tracking-tight">
+          ЗОЛОТОЙ СТАНДАРТ <span class="gold-text">БАЛТИЙСКОГО ВЯЛЕНИЯ.</span> <br/>
+<span class="text-primary-container">ТЕХНОЛОГИИ, КОТОРЫХ НЕТ У ДРУГИХ.</span>
+</h1>
+<p class="font-body-lg text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+<strong class="text-white">SIA “TUBA”</strong> объединяет вековые традиции курземского вяления и прецизионный климат-контроль с непрерывной дегидратацией без окисления жиров. Никакого «загара», 100% стабильность янтарного филе и плотной икры.
+        </p>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-2xl bg-[#0c1018] border border-cyan-500/20 shadow-2xl">
+<div class="p-3 rounded-xl bg-surface-container/80 border border-white/5 flex flex-col">
+<span class="font-label-caps text-[10px] text-white/50 uppercase">Влажность партии</span>
+<span class="font-telemetry-data-md text-2xl text-primary font-bold">38.0<span class="text-xs text-white/50 font-normal">%</span></span>
+<span class="font-label-mono text-[11px] text-emerald-400">Эталон сухости</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container/80 border border-white/5 flex flex-col">
+<span class="font-label-caps text-[10px] text-white/50 uppercase">Активность воды</span>
+<span class="font-telemetry-data-md text-2xl text-yellow-400 font-bold">0.812<span class="text-xs text-white/50 font-normal"> aw</span></span>
+<span class="font-label-mono text-[11px] text-yellow-300">Абсолютный микро-щит</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container/80 border border-white/5 flex flex-col">
+<span class="font-label-caps text-[10px] text-white/50 uppercase">Янтарный жир</span>
+<span class="font-telemetry-data-md text-2xl text-emerald-300 font-bold">0%<span class="text-xs text-white/50 font-normal"> окисления</span></span>
+<span class="font-label-mono text-[11px] text-emerald-400">Без прогорклости</span>
+</div>
+<div class="p-3 rounded-xl bg-surface-container/80 border border-white/5 flex flex-col">
+<span class="font-label-caps text-[10px] text-white/50 uppercase">Срок в вакууме</span>
+<span class="font-telemetry-data-md text-2xl text-cyan-300 font-bold">180<span class="text-xs text-white/50 font-normal"> дней</span></span>
+<span class="font-label-mono text-[11px] text-cyan-400">PA/PE 90 мкм</span>
+</div>
+</div>
+<!-- Hero Actions -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-400 via-primary-container to-cyan-300 text-slate-950 font-headline-sm text-sm uppercase font-bold tracking-wider shadow-[0_0_30px_rgba(0,229,255,0.4)] hover:shadow-[0_0_45px_rgba(0,229,255,0.7)] hover:scale-[1.02] transition-all" href="#contact">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span>Запросить дегустационный бокс байера</span>
+</a>
+<a class="inline-flex items-center gap-2.5 px-6 py-4 rounded-xl bg-[#141b27] border border-cyan-500/40 text-primary-fixed-dim hover:text-white hover:bg-surface-container-high transition-all font-label-mono text-xs uppercase font-semibold" href="#stages">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+<span>5 Стадий вяления онлайн</span>
+</a>
+</div>
+<!-- Trust credentials strip -->
+<div class="flex items-center gap-6 pt-2 text-xs font-label-mono text-white/60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-400 text-base">verified</span>
+<span>Прямой контракт с заводом SIA “TUBA”</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-400 text-base">local_shipping</span>
+<span>Поставки: Прибалтика, ЕС, СНГ</span>
+</div>
+</div>
+</div>
+<!-- Right Hero Showcase (Basalt Luxury Plate with Interactive Fish Hotspots) -->
+<div class="xl:col-span-6 relative">
+<div class="relative rounded-3xl p-2 bg-gradient-to-b from-cyan-500/30 via-yellow-500/20 to-black/80 border border-white/20 shadow-[0_0_60px_rgba(0,0,0,0.9)]">
+<!-- Main Basalt Slab Image with Hotspots -->
+<div class="relative w-full h-[460px] sm:h-[560px] rounded-2xl overflow-hidden bg-black group">
+<img alt="Gourmet cured fish on basalt slab SIA TUBA" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" id="hero-main-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdaSDaQxjQN5GWgsKas11XQ9pTawfSMgOkXL5w1d_LEIU6GPiJIoWaW304KwXN8ucRSNJhRLxxPV8P9kAqGIZrqEeXJ72AyDFz3idx7PYPo3bnpRgzcJ34Z4xWWea6K2LPBKsFTNQH9OQBhvO6AFd4w06f5fechjOktkKx6tsi8AAjgsQOowVWXDIMAV_nfa7cJLEwGCwRkkjyw5Wnc_9Tl-SIGZvVDMD5nx3KGBMntzj0Wu0ghoV4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#070a0f] via-transparent to-black/40 pointer-events-none"></div>
+<!-- Top Badge Overlay -->
+<div class="absolute top-4 left-4 flex items-center gap-2 bg-[#05070a]/90 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-yellow-500/40 text-yellow-300 font-label-mono text-xs shadow-lg">
+<span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+<span>ЭТАЛОННЫЙ СРЕЗ: ИКРЯНАЯ ПЛОТВА • ЮРМАЛЦИЕМС</span>
+</div>
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-label-mono text-xs font-bold shadow-md" id="btn-hero-view1" onclick="toggleHeroImage(1)">Вид 1: Базальт</button>
+<button class="px-3 py-1.5 rounded-lg bg-black/70 text-white/80 border border-white/20 font-label-mono text-xs hover:text-white" id="btn-hero-view2" onclick="toggleHeroImage(2)">Вид 2: Макро-жир</button>
+</div>
+<!-- Hotspot 1: Янтарный жир -->
+<div class="absolute top-[35%] left-[58%] group/spot z-20">
+<div class="relative cursor-pointer">
+<span class="absolute -inset-2 rounded-full bg-yellow-400/40 animate-ping"></span>
+<div class="w-7 h-7 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold text-xs shadow-[0_0_15px_rgba(250,204,21,1)]">
+                1
+              </div>
+</div>
+<div class="hidden sm:block absolute left-8 -top-8 w-56 p-3 rounded-xl bg-[#090d14]/95 backdrop-blur-lg border border-yellow-500/50 shadow-2xl text-xs pointer-events-none transition-all">
+<div class="font-headline-sm text-yellow-300 uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">water_drop</span>
+                Янтарный жир
+              </div>
+<p class="text-white/80 text-[11px] mt-1 leading-snug">Чистая прозрачность без потемнения. Равномерное созревание при +15.8°C.</p>
+</div>
+</div>
+<!-- Hotspot 2: Крупная икра ястыка -->
+<div class="absolute top-[56%] left-[62%] group/spot z-20">
+<div class="relative cursor-pointer">
+<span class="absolute -inset-2 rounded-full bg-cyan-400/40 animate-ping"></span>
+<div class="w-7 h-7 rounded-full bg-cyan-400 text-black flex items-center justify-center font-bold text-xs shadow-[0_0_15px_rgba(0,229,255,1)]">
+                2
+              </div>
+</div>
+<div class="hidden sm:block absolute left-8 -top-8 w-56 p-3 rounded-xl bg-[#090d14]/95 backdrop-blur-lg border border-cyan-400/50 shadow-2xl text-xs pointer-events-none transition-all">
+<div class="font-headline-sm text-cyan-300 uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">grain</span>
+                Крупная икра ястыка
+              </div>
+<p class="text-white/80 text-[11px] mt-1 leading-snug">100% наполнение. Упругие монолитные икринки, деликатный тузлучный посол.</p>
+</div>
+</div>
+<!-- Hotspot 3: Базальтовая подача -->
+<div class="absolute bottom-[22%] left-[28%] group/spot z-20">
+<div class="relative cursor-pointer">
+<span class="absolute -inset-2 rounded-full bg-white/40 animate-ping"></span>
+<div class="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-lg">
+                3
+              </div>
+</div>
+<div class="hidden sm:block absolute left-8 -top-8 w-56 p-3 rounded-xl bg-[#090d14]/95 backdrop-blur-lg border border-white/40 shadow-2xl text-xs pointer-events-none transition-all">
+<div class="font-headline-sm text-white uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">stars</span>
+                Премиальная ресторанная подача
+              </div>
+<p class="text-white/80 text-[11px] mt-1 leading-snug">Эталонная эстетика для ритейла премиум-класса, пивных бутиков и HoReCa.</p>
+</div>
+</div>
+<!-- Bottom Telemetry HUD overlay -->
+<div class="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-[#05070a]/90 backdrop-blur-md border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-label-mono">
+<div class="flex items-center gap-4">
+<div>
+<span class="text-white/40 block text-[10px]">КАЛИБР:</span>
+<span class="text-white font-bold">22+ см (L-класс)</span>
+</div>
+<div>
+<span class="text-white/40 block text-[10px]">ВЛАЖНОСТЬ:</span>
+<span class="text-cyan-300 font-bold">38% rH</span>
+</div>
+<div>
+<span class="text-white/40 block text-[10px]">АКТИВНОСТЬ:</span>
+<span class="text-emerald-400 font-bold">aw 0.812</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-yellow-500/20 text-yellow-300 text-[11px] font-bold border border-yellow-500/30 uppercase">РЕЗЕРВ SIA “TUBA”</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. INTERACTIVE TIMELINE BLOCK: "ИНЖЕНЕРИЯ СОЗРЕВАНИЯ: 5 СТАДИЙ ВЯЛЕНИЯ В РЕАЛЬНОМ ВРЕМЕНИ" -->
+<section class="w-full px-4 lg:px-8 py-20 bg-[#090d14] border-b border-white/10" id="stages">
+<div class="max-w-[1720px] mx-auto flex flex-col gap-10">
+<!-- Header of Stages -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+<span class="font-label-caps text-xs text-primary uppercase tracking-widest font-bold">SCADA TIME-LAPSE • ТЕРМОДИНАМИЧЕСКИЙ ЦИКЛ</span>
+</div>
+<h2 class="font-headline-lg text-2xl sm:text-4xl text-white uppercase font-bold tracking-tight">
+          ИНЖЕНЕРИЯ СОЗРЕВАНИЯ: <span class="gold-text">5 СТАДИЙ ВЯЛЕНИЯ</span> В РЕАЛЬНОМ ВРЕМЕНИ
+        </h2>
+<p class="font-body-md text-slate-400 max-w-3xl">
+          Следите, как меняется мышечная плотность, интенсивность испарения влаги и благородный янтарный оттенок на разных видах балтийской рыбы в камере AIM AGHD-250ELC.
+        </p>
+</div>
+<!-- Fish Species Switcher -->
+<div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="timeline-tab px-4 py-2.5 rounded-xl bg-primary-container text-slate-950 font-label-mono text-xs font-bold uppercase transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)]" onclick="selectTimelineSpecies('bream', this)">
+          Лещ крупный
+        </button>
+<button class="timeline-tab px-4 py-2.5 rounded-xl bg-surface-container-high text-white/70 hover:text-white font-label-mono text-xs uppercase transition-all" onclick="selectTimelineSpecies('roach', this)">
+          Плотва икряная 22+
+        </button>
+<button class="timeline-tab px-4 py-2.5 rounded-xl bg-surface-container-high text-white/70 hover:text-white font-label-mono text-xs uppercase transition-all" onclick="selectTimelineSpecies('smelt', this)">
+          Корюшка икряная
+        </button>
+<button class="timeline-tab px-4 py-2.5 rounded-xl bg-surface-container-high text-white/70 hover:text-white font-label-mono text-xs uppercase transition-all" onclick="selectTimelineSpecies('perch', this)">
+          Окунь речной
+        </button>
+<button class="timeline-tab px-4 py-2.5 rounded-xl bg-surface-container-high text-white/70 hover:text-white font-label-mono text-xs uppercase transition-all" onclick="selectTimelineSpecies('goby', this)">
+          Бычок балтийский
+        </button>
+<button class="timeline-tab px-4 py-2.5 rounded-xl bg-surface-container-high text-white/70 hover:text-white font-label-mono text-xs uppercase transition-all" onclick="selectTimelineSpecies('vimba', this)">
+          Вимба (сырть)
+        </button>
+</div>
+</div>
+<!-- Active Timeline Photographic Panorama Board -->
+<div class="relative w-full rounded-2xl bg-black border border-cyan-500/30 overflow-hidden shadow-2xl">
+<!-- Species Header Banner -->
+<div class="p-4 bg-[#06090e] border-b border-white/10 flex flex-wrap items-center justify-between gap-4 font-label-mono text-xs">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">science</span>
+<span class="text-white font-bold uppercase tracking-wider" id="timeline-species-title">ЛЕЩ КРУПНЫЙ (КОЛОДКОЙ 850+ Г) • ФОТОТАЙМЛАЙН 84 ЧАСА</span>
+</div>
+<div class="flex items-center gap-4 text-white/60">
+<span>Среда: <strong class="text-white">+15.8°C | 58% rH</strong></span>
+<span>Вентиляция: <strong class="text-cyan-300">2.8 м/с Cantoni</strong></span>
+<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">AIM INVERTER STABLE</span>
+</div>
+</div>
+<!-- Main Photo Panorama Container -->
+<div class="relative w-full aspect-[16/9] sm:max-h-[580px] bg-black flex items-center justify-center overflow-hidden">
+<img alt="Stages of Fish Curing SIA TUBA" class="w-full h-full object-contain object-center transition-all duration-500" id="timeline-panorama-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqBDOSbou1zpmPHvYrAmMiJbOMyUUQlH7LQMfmc_VWXGTVsfrOpzvbLq7xbumdl-_4yCeZyK9zPhM29QFyJJe8HMzDO3kluMUpujcgSgeylF7Yp3w3G7iCjxT2XsX9CL9lWzcXjYtweWGRXyStgC71py8pvdMofcvdusIUga0LUP4bRDIeQ5nTe1sjC9vNBO5WI4zZTECQ1paIHY2tI4EWNmwGEVM6D_WZ_-S8ndxWD8R3ealTsXnK"/>
+</div>
+<!-- 5-Stage Step Markers Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-5 border-t border-white/10 bg-[#0c1018] divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+<!-- Stage 1 -->
+<div class="p-4 flex flex-col gap-1.5 hover:bg-white/5 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs text-primary font-bold">0 ЧАСОВ</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/10 text-white/70 font-label-mono">СТАРТ</span>
+</div>
+<span class="font-headline-sm text-sm text-white font-bold">Свежий / Засоленный</span>
+<p class="text-xs text-slate-400">Плотный тузлучный посол 20°Bé. Влага 72%. Ткани насыщены солевым раствором.</p>
+<div class="font-label-mono text-[11px] text-cyan-300 mt-1">Испарение: 0 л/ч</div>
+</div>
+<!-- Stage 2 -->
+<div class="p-4 flex flex-col gap-1.5 hover:bg-white/5 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs text-cyan-300 font-bold">13 ЧАСОВ</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 font-label-mono">ФАЗА 1</span>
+</div>
+<span class="font-headline-sm text-sm text-white font-bold">Подвяливание</span>
+<p class="text-xs text-slate-400">Снятие поверхностной пленки влаги. Формирование защитного липидного барьера.</p>
+<div class="font-label-mono text-[11px] text-cyan-300 mt-1">Испарение: -8.2 л/ч</div>
+</div>
+<!-- Stage 3 -->
+<div class="p-4 flex flex-col gap-1.5 hover:bg-white/5 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs text-yellow-400 font-bold">35 ЧАСОВ</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-yellow-950 text-yellow-300 font-label-mono">ФАЗА 2</span>
+</div>
+<span class="font-headline-sm text-sm text-white font-bold">Активное вяление</span>
+<p class="text-xs text-slate-400">Глубинная диффузия влаги из спинки. Появление янтарного свечения чешуи.</p>
+<div class="font-label-mono text-[11px] text-yellow-300 mt-1">Влага спинки: 54%</div>
+</div>
+<!-- Stage 4 -->
+<div class="p-4 flex flex-col gap-1.5 hover:bg-white/5 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs text-emerald-400 font-bold">68 ЧАСОВ</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-label-mono">ФАЗА 3</span>
+</div>
+<span class="font-headline-sm text-sm text-white font-bold">Готовый вяленый</span>
+<p class="text-xs text-slate-400">Упругая эластичная структура. Консолидация икры и янтарного жира без горечи.</p>
+<div class="font-label-mono text-[11px] text-emerald-400 mt-1">aw ≤ 0.82 Норма</div>
+</div>
+<!-- Stage 5 -->
+<div class="p-4 flex flex-col gap-1.5 bg-yellow-500/5 hover:bg-yellow-500/10 transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-xs text-yellow-300 font-bold">84 ЧАСА</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 font-label-mono font-bold">ФИНИШ</span>
+</div>
+<span class="font-headline-sm text-sm text-yellow-200 font-bold">Выдержанный Эталон</span>
+<p class="text-xs text-slate-300">Ресторанный глянцевый монолит. Влажность 38%. Готов к передаче в вакуумную линию.</p>
+<div class="font-label-mono text-[11px] text-yellow-300 mt-1">Выход: 60.0% эталон</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. WOW PACKAGING MODULE: GERMAN INDUSTRIAL VACUUM (KOMET PLUSVAC 25 / PA-PE 90 MKM) -->
+<section class="w-full px-4 lg:px-8 py-20 bg-[#070a0f] border-b border-white/10" 
+    <!-- SCADA vs Traditional Comparison Section -->
+    <section class="max-w-[1440px] mx-auto px-margin-desktop py-space-xl" id="comparison">
+      <!-- Tier 3: Comparison Matrix: 'Традиционная кустарная сушка vs. SCADA Юрмалциемс' -->
+<div class="bg-surface-container-low rounded-xl p-space-lg shadow-md flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">СРАВНИТЕЛЬНЫЙ АНАЛИЗ ТЕХНОЛОГИЙ</span>
+<h2 class="font-headline-lg text-headline-lg text-primary">
+              Традиционная кустарная сушка vs. SCADA Климат Юрмалциемс
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Почему оптовые дистрибьюторы и сетевой ритейл выбирают индустриальную дегидратацию вместо нестабильного гаражного или атмосферного производства.
+            </p>
+</div>
+<!-- Comparison Table Structure -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-on-surface">
+<th class="py-space-sm px-space-md font-headline-sm text-headline-sm uppercase text-on-surface-variant">Критерий оценки</th>
+<th class="py-space-sm px-space-md font-headline-sm text-headline-sm text-error bg-error-container/20">Кустарный цех / Навесы</th>
+<th class="py-space-sm px-space-md font-headline-sm text-headline-sm text-primary bg-primary-container/10">Комплекс Юрмалциемс SCADA</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest">
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-on-surface">
+                    Микробиологическая чистота & Насекомые
+                  </td>
+<td class="py-space-sm px-space-md text-on-surface-variant">
+                    Контакт с мухами, уличной пылью, спорами плесени. Высокий титр КМАФАнМ.
+                  </td>
+<td class="py-space-sm px-space-md text-tertiary-fixed-dim font-medium bg-surface-container/30">
+                    Герметичная камера с HEPA-фильтрацией и УФ-стерилизацией контура. Ноль контакта с внешней средой.
+                  </td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-on-surface">
+                    Окисление подкожного жира (Прогоркание)
+                  </td>
+<td class="py-space-sm px-space-md text-on-surface-variant">
+                    Высокая температура воздуха (+25°C и выше) вызывает прогоркание жиров и жёлтый «ржавый» налет.
+                  </td>
+<td class="py-space-sm px-space-md text-tertiary-fixed-dim font-medium bg-surface-container/30">
+                    Холодная дегидратация при +15.8°C. Омега-3 и натуральные липиды не окисляются. Янтарное полупрозрачное мясо.
+                  </td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-on-surface">
+                    Стабильность органолептики и выхода
+                  </td>
+<td class="py-space-sm px-space-md text-on-surface-variant">
+                    Зависит от погоды за окном. Разброс влажности в одной партии от 35% до 65%. Постоянный пересух или плесень.
+                  </td>
+<td class="py-space-sm px-space-md text-tertiary-fixed-dim font-medium bg-surface-container/30">
+                    Точность поддержания влажности ±0.5% rH. 100% повторяемость вкуса, соли и эластичности в каждой поставке.
+                  </td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-on-surface">
+                    Срок реализации в вакууме
+                  </td>
+<td class="py-space-sm px-space-md text-on-surface-variant">
+                    До 25–40 суток. Риск бомбажа пакетов из-за неконтролируемой активности свободной воды.
+                  </td>
+<td class="py-space-sm px-space-md text-tertiary-fixed-dim font-medium bg-surface-container/30">
+                    До 180 суток в модифицированной газовой среде (MAP) и вакууме благодаря строгому показателю a_w ≤ 0.82.
+                  </td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="py-space-sm px-space-md font-semibold text-on-surface">
+                    Документооборот для сетей (X5, Ритейл EU)
+                  </td>
+<td class="py-space-sm px-space-md text-on-surface-variant">
+                    Отсутствие автоматических журналов HACCP. Сложности с прохождением внешнего аудита.
+                  </td>
+<td class="py-space-sm px-space-md text-tertiary-fixed-dim font-medium bg-surface-container/30">
+                    Индивидуальный цифровой паспорт партии со SCADA-графиком термограммы и лабораторным протоколом.
+                  </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+    </section>
+    
+id="packaging">
+<div class="max-w-[1720px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-10 items-center">
+<!-- Image Box -->
+<div class="xl:col-span-7 relative">
+<div class="relative rounded-3xl p-2 bg-gradient-to-tr from-cyan-500/30 via-white/10 to-yellow-500/20 border border-cyan-400/40 shadow-[0_0_50px_rgba(0,229,255,0.15)]">
+<div class="rounded-2xl overflow-hidden bg-[#03060a]">
+<img alt="Industrial Vacuum Packaging KOMET PlusVac SIA TUBA" class="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsbu7TsxdP41bF41FOn9A6259RjO1lUFSWp2BqNE0baFdc-fhr0E52BWS6LL6iTmJHfwkksgbU-a_kpXJVusmh8Cv8l05Ip9DFjvvioyySAv1Le1khHbNRK_GbTwzcex4xb5WoN9lF8hVuEqgQ0KT0MxwBieVYTQD9jx3HOCkF_VaBLd0qodVAwKC8au3mKcGvuUz--ou0GkG_nweVAC6lxw5FcQ5KnHJX6TnB2ewRtLwOkUcpmITx"/>
+</div>
+<div class="absolute -bottom-4 -right-4 hidden sm:flex items-center gap-3 px-5 py-3 rounded-2xl bg-[#090d14]/95 backdrop-blur-xl border border-cyan-400/60 shadow-2xl font-label-mono text-xs">
+<span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+<span class="text-white">BUSCH VACUUM PUMPS • 99.2% ГЛУБИНА</span>
+</div>
+</div>
+</div>
+<!-- Technical Specs & Proofs -->
+<div class="xl:col-span-5 flex flex-col gap-6">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-label-mono text-xs uppercase font-bold">
+          НЕМЕЦКИЙ ТЕХСТАНДАРТ KOMET PLUSVAC
+        </span>
+</div>
+<h2 class="font-headline-lg text-2xl sm:text-4xl text-white uppercase font-bold tracking-tight">
+        ЭТАЛОННАЯ УПАКОВКА: <span class="text-primary-container">БАРЬЕРНЫЙ ПАКЕТ PA/PE 90 МКМ</span>
+</h2>
+<p class="font-body-md text-base text-slate-300 leading-relaxed">
+        Спецификация разработана специально для крупных логистических плеч и дистрибьюторских складов. Никакого расвакуума из-за острых плавников, пожелтения или прогорклости жира.
+      </p>
+<!-- Key Packaging Points -->
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container-high border border-white/5">
+<span class="material-symbols-outlined text-primary-container text-2xl">verified</span>
+<div>
+<span class="font-headline-sm text-sm text-white font-bold uppercase">Герметичность 99.2% • Двойной шов 2x3.5 мм</span>
+<p class="text-xs text-slate-400 mt-0.5">Двухконтурная спайка исключает проникновение кислорода даже при длительной транспортировке.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container-high border border-white/5">
+<span class="material-symbols-outlined text-yellow-400 text-2xl">shield</span>
+<div>
+<span class="font-headline-sm text-sm text-white font-bold uppercase">Защита от прокола костями и реберными дугами</span>
+<p class="text-xs text-slate-400 mt-0.5">Усиленный сополимер полиамида (PA 90 мкм) держит давление даже колючих плавников окуня и леща.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container-high border border-white/5">
+<span class="material-symbols-outlined text-emerald-400 text-2xl">schedule</span>
+<div>
+<span class="font-headline-sm text-sm text-white font-bold uppercase">Хранение до 180 суток без «загара» спинки</span>
+<p class="text-xs text-slate-400 mt-0.5">Полное отсутствие окисления омега-3 жиров. Товарный вид сохраняется на полке в первозданном сиянии.</p>
+</div>
+</div>
+</div>
+<!-- Quick order sample CTA -->
+<div class="pt-2 flex items-center gap-4">
+<a class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-headline-sm text-xs uppercase font-bold shadow-lg hover:shadow-cyan-400/50 transition-all" href="#contact">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+<span>Запросить образцы в вакууме</span>
+</a>
+<span class="font-label-mono text-xs text-white/50">Гофрокороб 5 / 10 / 15 кг</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. B2B SPECTRAL CATALOG: 6 CORE SIGNATURE PRODUCTS WITH 3D SCAN STYLE -->
+<section class="w-full px-4 lg:px-8 py-20 bg-[#090d14] border-b border-white/10" id="catalog">
+<div class="max-w-[1720px] mx-auto flex flex-col gap-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse"></span>
+<span class="font-label-caps text-xs text-yellow-300 uppercase tracking-widest font-bold">АРМ ТЕХНОЛОГА • ТОМОГРАФИЧЕСКИЙ СПЕКТРАЛЬНЫЙ АТЛАС</span>
+</div>
+<h2 class="font-headline-lg text-2xl sm:text-4xl text-white uppercase font-bold tracking-tight">
+          ГОТОВАЯ ПРОДУКЦИЯ: <span class="gold-text">СЕРТИФИЦИРОВАННЫЕ ПАРТИИ 2026</span>
+</h2>
+<p class="font-body-md text-slate-400 max-w-3xl">
+          Спектральный анализ мышечной ткани, уровень солености, жировые капсулы и плотность ястыка. Полная прозрачность лабораторных показателей для заключения оптовых B2B договоров.
+        </p>
+</div>
+<div class="flex items-center gap-2 font-label-mono text-xs">
+<span class="text-white/60">Стандарт партии:</span>
+<span class="px-3 py-1.5 rounded-lg bg-surface-container-high border border-white/10 text-primary-container font-bold uppercase">ВЕСОВОЙ КОНТРОЛЬ ПОШТУЧНО</span>
+</div>
+</div>
+<!-- 6 Signature Fish Product Bento Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1: Лещ крупный 850+ г -->
+<div class="flex flex-col justify-between bg-[#0e131d] rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-400/60 shadow-xl transition-all group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between font-label-mono text-xs pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,229,255,1)]"></span>
+<span class="text-primary font-bold">LECH_RESERVE_850.SCADA</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-yellow-300 font-bold">КОЛОДКА</span>
+</div>
+<div class="relative w-full h-56 rounded-xl overflow-hidden bg-black border border-white/10">
+<img alt="Лещ крупный колодкой" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqBDOSbou1zpmPHvYrAmMiJbOMyUUQlH7LQMfmc_VWXGTVsfrOpzvbLq7xbumdl-_4yCeZyK9zPhM29QFyJJe8HMzDO3kluMUpujcgSgeylF7Yp3w3G7iCjxT2XsX9CL9lWzcXjYtweWGRXyStgC71py8pvdMofcvdusIUga0LUP4bRDIeQ5nTe1sjC9vNBO5WI4zZTECQ1paIHY2tI4EWNmwGEVM6D_WZ_-S8ndxWD8R3ealTsXnK"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#06090f]/90 backdrop-blur-md text-[11px] font-label-mono text-yellow-300 border border-yellow-500/30">
+              ЯНТАРНАЯ КРИСТАЛЛИЗАЦИЯ ЖИРА
+            </div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded bg-cyan-400 text-slate-950 font-label-mono text-xs font-bold shadow-md">
+              7.20 € / кг
+            </div>
+<div class="absolute bottom-3 left-3 right-3 p-2 rounded bg-[#06090f]/90 backdrop-blur-md flex items-center justify-between font-label-mono text-[11px] text-white/80">
+<span>Плотность: 1.18 г/см³</span>
+<span class="text-emerald-400 font-bold">aw 0.81</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-lg text-white font-bold uppercase">Лещ крупный (колодкой)</h3>
+<span class="text-yellow-400 font-label-mono text-xs font-bold">850–1400 г</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">
+              Золотисто-бронзовый цвет, сочная спинка без запала. Сохранение межмышечного жира в AIM-камере без окисления.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#090d14] border border-white/5 font-label-mono text-[11px]">
+<div>
+<span class="text-white/40 block text-[9px]">ЖИРНОСТЬ</span>
+<span class="text-white font-bold">9.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">ВЫХОД</span>
+<span class="text-cyan-300 font-bold">60.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">МИН. ЗАКАЗ</span>
+<span class="text-emerald-400 font-bold">от 50 кг</span>
+</div>
+</div>
+</div>
+<div class="pt-5 grid grid-cols-2 gap-2 font-label-mono text-xs">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-white/10 text-white font-bold uppercase transition-colors border border-white/10 flex items-center justify-center gap-1" onclick="quickOrder('Лещ крупный (колодкой)', '7.20 €/кг')">
+<span class="material-symbols-outlined text-sm text-cyan-400">description</span>
+<span>Паспорт aw</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-bold uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-1" onclick="quickOrder('Лещ крупный (колодкой)', '7.20 €/кг')">
+<span class="material-symbols-outlined text-sm">bookmark_add</span>
+<span>Бронь партии</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Плотва икряная 22+ -->
+<div class="flex flex-col justify-between bg-[#0e131d] rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-400/60 shadow-xl transition-all group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between font-label-mono text-xs pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)]"></span>
+<span class="text-emerald-300 font-bold">PLOTVA_ROE_L22.SCADA</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-emerald-400 font-bold">100% ИКРА</span>
+</div>
+<div class="relative w-full h-56 rounded-xl overflow-hidden bg-black border border-white/10">
+<img alt="Плотва икряная отборная" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbhfVlzNxxF49JYWUHBqArZJhrJ1brq91NnildzbsMirV8BkvzfTCvHQ_jFZmLBxNx4jG8kLQ32JrdT3H9oqCF88VqOcaAbOAtRBLKUGCu9XTd-r4JWE2eE7WZ4cLzsiqD7QoeF3HGdvSPHlcEpHk3bvVU18h0vlJNvZYF2Ekxk25q6OpQn_Ldadry3kg5pkSKwGxQUwVHmxwnQr38fFTlPZmQJ80Xhsr9okJqhBbHfLvTK_jdFtjf"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#06090f]/90 backdrop-blur-md text-[11px] font-label-mono text-emerald-300 border border-emerald-500/30">
+              ЯСТЫК МОНОЛИТ • ПОЛНЫЙ
+            </div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded bg-cyan-400 text-slate-950 font-label-mono text-xs font-bold shadow-md">
+              10.40 € / кг
+            </div>
+<div class="absolute bottom-3 left-3 right-3 p-2 rounded bg-[#06090f]/90 backdrop-blur-md flex items-center justify-between font-label-mono text-[11px] text-white/80">
+<span>Зернистость: 100%</span>
+<span class="text-emerald-400 font-bold">aw 0.79</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-lg text-white font-bold uppercase">Плотва икряная отборная</h3>
+<span class="text-yellow-400 font-label-mono text-xs font-bold">калибр 22+ см</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">
+              Отборная калибровка. Тугое упругое брюшко, янтарная икра с легкой соленостью без горечи и отпотевания.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#090d14] border border-white/5 font-label-mono text-[11px]">
+<div>
+<span class="text-white/40 block text-[9px]">ЖИРНОСТЬ</span>
+<span class="text-white font-bold">4.2%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">ВЫХОД</span>
+<span class="text-cyan-300 font-bold">52.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">МИН. ЗАКАЗ</span>
+<span class="text-emerald-400 font-bold">от 40 кг</span>
+</div>
+</div>
+</div>
+<div class="pt-5 grid grid-cols-2 gap-2 font-label-mono text-xs">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-white/10 text-white font-bold uppercase transition-colors border border-white/10 flex items-center justify-center gap-1" onclick="quickOrder('Плотва икряная отборная', '10.40 €/кг')">
+<span class="material-symbols-outlined text-sm text-cyan-400">description</span>
+<span>Паспорт aw</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-bold uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-1" onclick="quickOrder('Плотва икряная отборная', '10.40 €/кг')">
+<span class="material-symbols-outlined text-sm">bookmark_add</span>
+<span>Бронь партии</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Корюшка балтийская с икрой -->
+<div class="flex flex-col justify-between bg-[#0e131d] rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-400/60 shadow-xl transition-all group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between font-label-mono text-xs pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,229,255,1)]"></span>
+<span class="text-cyan-300 font-bold">SMELT_BALTIC_ROE.AIM</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-cyan-300 font-bold">ДЕЛИКАТЕС</span>
+</div>
+<div class="relative w-full h-56 rounded-xl overflow-hidden bg-black border border-white/10">
+<img alt="Корюшка балтийская с икрой" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlXiGgc3PRxFLdic9Bzv9PNwv4j4f7JBCWB65RSa7GcQu46S-guF2SSLr3iwQxEB84pFUV7YGO5U7D0dTic7LEtyIMYFmkxkHZuO-SbADSWoB16Ks5MU_f9iQzFzRYri4jm43eYs74fIHHAv9iUrHX0dwLnR5JxfIbR0RHCu5MptXHcHRQuvoDvCGukHk5iF7P0Yt7b5L2ERCjcvMwjwruxNowuIhSBSVNW8PT1Bcl76idO3kzlu8h"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#06090f]/90 backdrop-blur-md text-[11px] font-label-mono text-cyan-300 border border-cyan-500/30">
+              СВЕЖИЙ ОГУРЕЧНЫЙ АРОМАТ
+            </div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded bg-cyan-400 text-slate-950 font-label-mono text-xs font-bold shadow-md">
+              18.40 € / кг
+            </div>
+<div class="absolute bottom-3 left-3 right-3 p-2 rounded bg-[#06090f]/90 backdrop-blur-md flex items-center justify-between font-label-mono text-[11px] text-white/80">
+<span>Холодный старт: +12°C</span>
+<span class="text-emerald-400 font-bold">aw 0.77</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-lg text-white font-bold uppercase">Корюшка балтийская (икряная)</h3>
+<span class="text-yellow-400 font-label-mono text-xs font-bold">14–18 см</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">
+              Знаменитая балтийская корюшка весеннего вылова. Янтарная прозрачность на просвет, крупная хрустящая икра.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#090d14] border border-white/5 font-label-mono text-[11px]">
+<div>
+<span class="text-white/40 block text-[9px]">ЖИРНОСТЬ</span>
+<span class="text-white font-bold">5.5%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">ВЫХОД</span>
+<span class="text-cyan-300 font-bold">48.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">МИН. ЗАКАЗ</span>
+<span class="text-emerald-400 font-bold">от 25 кг</span>
+</div>
+</div>
+</div>
+<div class="pt-5 grid grid-cols-2 gap-2 font-label-mono text-xs">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-white/10 text-white font-bold uppercase transition-colors border border-white/10 flex items-center justify-center gap-1" onclick="quickOrder('Корюшка балтийская икряная', '18.40 €/кг')">
+<span class="material-symbols-outlined text-sm text-cyan-400">description</span>
+<span>Паспорт aw</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-bold uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-1" onclick="quickOrder('Корюшка балтийская икряная', '18.40 €/кг')">
+<span class="material-symbols-outlined text-sm">bookmark_add</span>
+<span>Бронь партии</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Вимба (сырть) жирная -->
+<div class="flex flex-col justify-between bg-[#0e131d] rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-400/60 shadow-xl transition-all group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between font-label-mono text-xs pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_8px_rgba(250,204,21,1)]"></span>
+<span class="text-yellow-300 font-bold">VIMBA_KURSH_350.AIM</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-yellow-300 font-bold">КУРЗЕМЕ</span>
+</div>
+<div class="relative w-full h-56 rounded-xl overflow-hidden bg-black border border-white/10">
+<img alt="Вимба сырть жирная вяленая" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHjRtpAjmQCnzuflysKPTOeZWs6Vfg4DFSeioaJgawNRdDDstgQJUcifJgdrC_maJfYVLcW6PF_bo7sdDB-323Fw2nCxziZkDYrSJU1MxJUuBE5f7FDkcX-tJ099Rp0EtJ-w4Jxy6uEnZel151IHAhDA2w65YwftAwJ4CH6Bes1nasUPxBy-sudvq_7KE-twrVJRTZ21ZFzTgZCl7Yfk7nUwUNkkdIXasvdagNamvjv_eXJ4E1vZy2"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#06090f]/90 backdrop-blur-md text-[11px] font-label-mono text-yellow-300 border border-yellow-500/30">
+              СОЧНОЕ МЯСО СПИНКИ
+            </div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded bg-cyan-400 text-slate-950 font-label-mono text-xs font-bold shadow-md">
+              13.20 € / кг
+            </div>
+<div class="absolute bottom-3 left-3 right-3 p-2 rounded bg-[#06090f]/90 backdrop-blur-md flex items-center justify-between font-label-mono text-[11px] text-white/80">
+<span>Липидный слой: 8.5%</span>
+<span class="text-emerald-400 font-bold">aw 0.80</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-lg text-white font-bold uppercase">Вимба (сырть) жирная</h3>
+<span class="text-yellow-400 font-label-mono text-xs font-bold">300–450 г</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">
+              Главный курземский деликатес. Нежнейшее сочное волокно с высоким содержанием полиненасыщенных балтийских омега-жиров.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#090d14] border border-white/5 font-label-mono text-[11px]">
+<div>
+<span class="text-white/40 block text-[9px]">ЖИРНОСТЬ</span>
+<span class="text-white font-bold">8.5%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">ВЫХОД</span>
+<span class="text-cyan-300 font-bold">55.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">МИН. ЗАКАЗ</span>
+<span class="text-emerald-400 font-bold">от 30 кг</span>
+</div>
+</div>
+</div>
+<div class="pt-5 grid grid-cols-2 gap-2 font-label-mono text-xs">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-white/10 text-white font-bold uppercase transition-colors border border-white/10 flex items-center justify-center gap-1" onclick="quickOrder('Вимба (сырть) жирная', '13.20 €/кг')">
+<span class="material-symbols-outlined text-sm text-cyan-400">description</span>
+<span>Паспорт aw</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-bold uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-1" onclick="quickOrder('Вимба (сырть) жирная', '13.20 €/кг')">
+<span class="material-symbols-outlined text-sm">bookmark_add</span>
+<span>Бронь партии</span>
+</button>
+</div>
+</div>
+<!-- Card 5: Окунь янтарный в чешуе -->
+<div class="flex flex-col justify-between bg-[#0e131d] rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-400/60 shadow-xl transition-all group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between font-label-mono text-xs pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(0,229,255,1)]"></span>
+<span class="text-primary font-bold">PERCH_SCALE_GOLD.AIM</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-bold">В ЧЕШУЕ</span>
+</div>
+<div class="relative w-full h-56 rounded-xl overflow-hidden bg-black border border-white/10">
+<img alt="Окунь янтарный в чешуе" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA04S7kwprgxgxshB3_OmEY83LmSculENXE7-voCA6jRQcYMboTcxiG2hpSGXJy9g96VlsYLij4r3F4qdJAGHz4pSeA2JTM7cQRofTquecs-7HXvN0inEqMs0v-EBHhMCv-0JwCCHeJacaepKRsMWXZH-jcF_SLWtzMWBTpHMXpfmvQzNQ2q8NfnjmHlbN5HeCf-neTTDe-qjko8pS84vtMtumc-0zuIQNb49N7IrZO8hfsgPPljDdd"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#06090f]/90 backdrop-blur-md text-[11px] font-label-mono text-cyan-300 border border-cyan-500/30">
+              МОНОЛИТНОЕ БЕЛОЕ ФИЛЕ
+            </div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded bg-cyan-400 text-slate-950 font-label-mono text-xs font-bold shadow-md">
+              11.80 € / кг
+            </div>
+<div class="absolute bottom-3 left-3 right-3 p-2 rounded bg-[#06090f]/90 backdrop-blur-md flex items-center justify-between font-label-mono text-[11px] text-white/80">
+<span>Плотность чешуи: 100%</span>
+<span class="text-emerald-400 font-bold">aw 0.78</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-lg text-white font-bold uppercase">Окунь янтарный (в чешуе)</h3>
+<span class="text-yellow-400 font-label-mono text-xs font-bold">250–400 г</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">
+              Целиком в чешуе, благодаря чему сохраняется сочность мышечного корсета. Мясо отделяется целыми лепестками.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#090d14] border border-white/5 font-label-mono text-[11px]">
+<div>
+<span class="text-white/40 block text-[9px]">ЖИРНОСТЬ</span>
+<span class="text-white font-bold">3.1%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">ВЫХОД</span>
+<span class="text-cyan-300 font-bold">54.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">МИН. ЗАКАЗ</span>
+<span class="text-emerald-400 font-bold">от 35 кг</span>
+</div>
+</div>
+</div>
+<div class="pt-5 grid grid-cols-2 gap-2 font-label-mono text-xs">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-white/10 text-white font-bold uppercase transition-colors border border-white/10 flex items-center justify-center gap-1" onclick="quickOrder('Окунь янтарный в чешуе', '11.80 €/кг')">
+<span class="material-symbols-outlined text-sm text-cyan-400">description</span>
+<span>Паспорт aw</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-bold uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-1" onclick="quickOrder('Окунь янтарный в чешуе', '11.80 €/кг')">
+<span class="material-symbols-outlined text-sm">bookmark_add</span>
+<span>Бронь партии</span>
+</button>
+</div>
+</div>
+<!-- Card 6: Бычок балтийский -->
+<div class="flex flex-col justify-between bg-[#0e131d] rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-400/60 shadow-xl transition-all group">
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between font-label-mono text-xs pb-3 border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)]"></span>
+<span class="text-emerald-300 font-bold">GOBY_BALTIC_SNACK.AIM</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-emerald-400 font-bold">ХИТ ДЛЯ СЕТЕЙ</span>
+</div>
+<div class="relative w-full h-56 rounded-xl overflow-hidden bg-black border border-white/10">
+<img alt="Бычок балтийский вяленый" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_2EtZHILQXzYTqDs81Xd5D4so05uG5r0UJL6aL1_xAkaXgpiOlwO1NHZencFqVbta13T4VkNXkygtpUkAPVJVN_1dZ3Xgeu5MLPd5kSXn8xgm4LI7r4VraTy8jEWPQuoeOuMux7b7RLNtC-BxFFur39Zrqw5UYEoJMx3kRpnsq2CppYE-T3jGnBQat1eNRIf5xOV_T5YU0lBrTldaoxD4B95YF9d4GURXYjs_mqNY1s4gStwdXYGS"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#06090f]/90 backdrop-blur-md text-[11px] font-label-mono text-emerald-300 border border-emerald-500/30">
+              СНЕКОВАЯ ПЛОТНОСТЬ
+            </div>
+<div class="absolute top-3 right-3 px-3 py-1 rounded bg-cyan-400 text-slate-950 font-label-mono text-xs font-bold shadow-md">
+              8.90 € / кг
+            </div>
+<div class="absolute bottom-3 left-3 right-3 p-2 rounded bg-[#06090f]/90 backdrop-blur-md flex items-center justify-between font-label-mono text-[11px] text-white/80">
+<span>Сухие вещества: 55%</span>
+<span class="text-emerald-400 font-bold">aw 0.76</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-lg text-white font-bold uppercase">Бычок балтийский</h3>
+<span class="text-yellow-400 font-label-mono text-xs font-bold">120–180 г</span>
+</div>
+<p class="text-xs text-slate-400 leading-relaxed">
+              Высокомаржинальная позиция для снекового и пивного ритейла. Плотный, насыщенный вкус без горечи внутренностей.
+            </p>
+</div>
+<div class="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-[#090d14] border border-white/5 font-label-mono text-[11px]">
+<div>
+<span class="text-white/40 block text-[9px]">ЖИРНОСТЬ</span>
+<span class="text-white font-bold">3.5%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">ВЫХОД</span>
+<span class="text-cyan-300 font-bold">46.0%</span>
+</div>
+<div>
+<span class="text-white/40 block text-[9px]">МИН. ЗАКАЗ</span>
+<span class="text-emerald-400 font-bold">от 50 кг</span>
+</div>
+</div>
+</div>
+<div class="pt-5 grid grid-cols-2 gap-2 font-label-mono text-xs">
+<button class="py-2.5 px-3 rounded-xl bg-surface-container-high hover:bg-white/10 text-white font-bold uppercase transition-colors border border-white/10 flex items-center justify-center gap-1" onclick="quickOrder('Бычок балтийский', '8.90 €/кг')">
+<span class="material-symbols-outlined text-sm text-cyan-400">description</span>
+<span>Паспорт aw</span>
+</button>
+<button class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-400 to-primary-container text-slate-950 font-bold uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-1" onclick="quickOrder('Бычок балтийский', '8.90 €/кг')">
+<span class="material-symbols-outlined text-sm">bookmark_add</span>
+<span>Бронь партии</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. HIGH-PRECISION CALCULATOR & B2B SPECIFICATION / BUYER SAMPLE REQUEST FORM -->
+<section class="w-full px-4 lg:px-8 py-20 bg-[#070a0f] border-b border-white/10" id="calculator">
+<div class="max-w-[1720px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-10">
+<!-- Interactive Batch Economics Calculator -->
+<div class="xl:col-span-6 flex flex-col gap-6 bg-[#0c1018] p-6 lg:p-8 rounded-3xl border border-cyan-500/30 shadow-2xl">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+<span class="font-label-caps text-xs text-primary uppercase font-bold tracking-wider">МАТЕМАТИЧЕСКИЙ МОДУЛЬ SCADA</span>
+</div>
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-lg text-2xl sm:text-3xl text-white uppercase font-bold">
+          КАЛЬКУЛЯТОР ТОННАЖА И ВЫХОДА ПАРТИИ
+        </h2>
+<p class="text-xs sm:text-sm text-slate-400">
+          Точный расчет партии на базе алгоритмов дегидратации завода SIA “TUBA”.
+        </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-[11px] text-white/70 uppercase">Позиция рыбы</label>
+<select class="bg-[#141b27] border border-white/10 text-white p-3 rounded-xl font-label-mono text-xs focus:border-cyan-400 focus:outline-none" id="calc-fish" onchange="runBatchCalculator()">
+<option value="0.60|7.20">Лещ крупный (колодка 850+ г) • 7.20 €</option>
+<option value="0.52|10.40">Плотва икряная отборная (22+) • 10.40 €</option>
+<option value="0.48|18.40">Корюшка балтийская с икрой • 18.40 €</option>
+<option value="0.55|13.20">Вимба (сырть) жирная • 13.20 €</option>
+<option value="0.54|11.80">Окунь янтарный (в чешуе) • 11.80 €</option>
+<option value="0.46|8.90">Бычок балтийский • 8.90 €</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-caps text-[11px] text-white/70 uppercase">Объем сырого вылова (кг)</label>
+<input class="bg-[#141b27] border border-white/10 text-cyan-300 p-3 rounded-xl font-label-mono text-base font-bold focus:border-cyan-400 focus:outline-none" id="calc-kg" min="100" oninput="runBatchCalculator()" step="100" type="number" value="2500"/>
+</div>
+</div>
+<!-- Realtime Computation Output Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-[#070a0f] border border-white/10 font-label-mono text-xs">
+<div class="flex flex-col">
+<span class="text-white/40 text-[10px]">ВЫХОД ГОТОВОЙ:</span>
+<span class="text-primary-container text-lg font-bold" id="out-ready-kg">1 500 кг</span>
+<span class="text-[10px] text-white/50" id="out-boxes">150 коробов</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white/40 text-[10px]">СБРОС ВЛАГИ:</span>
+<span class="text-cyan-300 text-lg font-bold" id="out-water">-1 000 л</span>
+<span class="text-[10px] text-white/50">через трап AIM</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white/40 text-[10px]">ТУЗЛУЧНАЯ СОЛЬ:</span>
+<span class="text-yellow-400 text-lg font-bold" id="out-salt">400 кг</span>
+<span class="text-[10px] text-white/50">Морская помол #2</span>
+</div>
+<div class="flex flex-col">
+<span class="text-white/40 text-[10px]">ОРИЕНТ. СУММА:</span>
+<span class="text-emerald-400 text-lg font-bold" id="out-sum">10 800 €</span>
+<span class="text-[10px] text-emerald-300">FCA Юрмалциемс</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+<div class="flex items-center gap-2 text-xs font-label-mono text-white/70">
+<span class="material-symbols-outlined text-cyan-400 text-sm">schedule</span>
+<span>Цикл камеры: <strong>84 часа</strong> • Резервирование тележек</span>
+</div>
+<a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-label-mono text-xs font-bold uppercase transition-all shadow-lg" href="#" id="btn-calc-wa" target="_blank">
+<span class="material-symbols-outlined text-sm">send</span>
+<span>Отправить расчет технологу</span>
+</a>
+</div>
+</div>
+<!-- B2B Contract / Buyer Sample Request Form -->
+<div class="xl:col-span-6 flex flex-col gap-6 bg-[#0c1018] p-6 lg:p-8 rounded-3xl border border-yellow-500/30 shadow-2xl" id="contact">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse"></span>
+<span class="font-label-caps text-xs text-yellow-300 uppercase font-bold tracking-wider">B2B ДИСПЕТЧЕРИЗАЦИЯ • ПОСТАВКИ 2026</span>
+</div>
+<span class="px-2.5 py-1 rounded bg-yellow-500/10 text-yellow-400 font-label-mono text-[10px] border border-yellow-500/30 font-bold uppercase">
+          TRACES NT #LV-0489
+        </span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg text-2xl sm:text-3xl text-white uppercase font-bold">
+          ЗАПРОС ДЕГУСТАЦИОННОГО СЕТА ДЛЯ БАЙЕРА
+        </h2>
+<p class="text-xs sm:text-sm text-slate-400">
+          Отправьте параметры вашей торговой сети или дистрибьюторской базы. Прямой ответ коммерческого директора в течение 15 минут.
+        </p>
+</div>
+<form class="flex flex-col gap-3.5" onsubmit="handleB2BForm(event)">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-white/70 uppercase">Компания / Юрлицо</label>
+<input class="bg-[#141b27] border border-white/10 text-white p-3 rounded-xl font-label-mono text-xs focus:border-yellow-400 focus:outline-none" id="form-company" placeholder="SIA / UAB / ООО / Сеть" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-white/70 uppercase">Телефон / WhatsApp байера</label>
+<input class="bg-[#141b27] border border-white/10 text-white p-3 rounded-xl font-label-mono text-xs focus:border-yellow-400 focus:outline-none" id="form-phone" placeholder="+371 / +370 / +372 ..." required="" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-white/70 uppercase">Интересующая позиция</label>
+<select class="bg-[#141b27] border border-white/10 text-white p-3 rounded-xl font-label-mono text-xs focus:border-yellow-400 focus:outline-none" id="form-species">
+<option value="Дегустационный сет (все 6 позиций)">Дегустационный сет (все 6 позиций)</option>
+<option value="Лещ крупный (колодкой)">Лещ крупный (колодкой)</option>
+<option value="Плотва икряная отборная">Плотва икряная отборная</option>
+<option value="Корюшка балтийская с икрой">Корюшка балтийская с икрой</option>
+<option value="Вимба (сырть) жирная">Вимба (сырть) жирная</option>
+<option value="Окунь янтарный в чешуе">Окунь янтарный в чешуе</option>
+<option value="Бычок балтийский">Бычок балтийский</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-white/70 uppercase">Планируемый объем</label>
+<select class="bg-[#141b27] border border-white/10 text-white p-3 rounded-xl font-label-mono text-xs focus:border-yellow-400 focus:outline-none" id="form-volume">
+<option>Тестовый бокс байера (5–10 кг)</option>
+<option>Партия 100 – 500 кг</option>
+<option>Опт 500 – 2 000 кг</option>
+<option>Контракт от 5 тонн в месяц</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-white/70 uppercase">Город поставки и особые требования</label>
+<textarea class="bg-[#141b27] border border-white/10 text-white p-3 rounded-xl font-label-mono text-xs focus:border-yellow-400 focus:outline-none" id="form-notes" placeholder="Рига, Вильнюс, Таллинн... Требования по весу тушки, маркировке или отсрочке платежа..." rows="2"></textarea>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+<div class="flex flex-col text-xs font-label-mono text-white/60">
+<span>Официальный e-mail завода:</span>
+<span class="text-yellow-300 font-bold">tuba@inbox.lv</span>
+</div>
+<button class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-slate-950 font-headline-sm text-xs uppercase font-bold tracking-wider shadow-[0_0_25px_rgba(234,179,8,0.4)] hover:shadow-[0_0_35px_rgba(234,179,8,0.7)] transition-all" type="submit">
+            Отправить в отдел поставок
+          </button>
+</div>
+</form>
+<!-- Success feedback notification -->
+<div class="hidden p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 font-label-mono text-xs flex items-center gap-3" id="form-success">
+<span class="material-symbols-outlined text-lg">verified</span>
+<span>Заявка передана на факс и e-mail завода tuba@inbox.lv. Главный технолог SIA “TUBA” свяжется с вами!</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- 7. LUXURY FOOTER -->
+<footer class="w-full bg-[#040609] border-t border-white/10 py-16 text-slate-400 font-body-sm text-xs">
+<div class="max-w-[1720px] mx-auto px-4 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+<!-- Col 1 -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-lg text-white font-bold">SIA “TUBA”</span>
+<span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-300 text-[10px] font-label-mono uppercase font-bold">EST. JURMALCIEMS</span>
+</div>
+<p class="leading-relaxed text-slate-400">
+        Рыбоперерабатывающий комплекс премиальной холодной дегидратации. Производство деликатесной вяленой рыбы эталонной влажности с контролем aw.
+      </p>
+<div class="flex items-center gap-2 font-label-mono text-[11px] text-emerald-400 pt-1">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span>TRACES NT ЕС Сертификация</span>
+</div>
+</div>
+<!-- Col 2 -->
+<div class="flex flex-col gap-2.5">
+<span class="font-label-caps text-xs text-white uppercase font-bold">Технологический комплекс</span>
+<ul class="flex flex-col gap-1.5 text-slate-400 font-label-mono text-[11px]">
+<li>• Камеры: AIM AGHD-250ELC Dehydration</li>
+<li>• Посолочный цех: Tuzluk 20°Bé (+3°C)</li>
+<li>• Вакуумная линия: KOMET PlusVac (90 мкм)</li>
+<li>• Ротационный гигрометр Rotronic aw</li>
+<li>• Постоянный запас сырья: до 40 тонн</li>
+</ul>
+</div>
+<!-- Col 3 -->
+<div class="flex flex-col gap-2.5">
+<span class="font-label-caps text-xs text-white uppercase font-bold">B2B Логистика • Экспорт</span>
+<p class="text-slate-400 leading-relaxed">
+        Еженедельные отгрузки с температурным режимом 0°C … +6°C:
+      </p>
+<div class="flex flex-wrap gap-1.5 font-label-mono text-[11px]">
+<span class="px-2 py-1 rounded bg-[#0d121c] border border-white/10 text-cyan-300">Латвия (LV)</span>
+<span class="px-2 py-1 rounded bg-[#0d121c] border border-white/10 text-cyan-300">Литва (LT)</span>
+<span class="px-2 py-1 rounded bg-[#0d121c] border border-white/10 text-cyan-300">Эстония (EE)</span>
+<span class="px-2 py-1 rounded bg-[#0d121c] border border-white/10 text-cyan-300">Евросоюз</span>
+</div>
+</div>
+<!-- Col 4 -->
+<div class="flex flex-col gap-2.5 font-label-mono text-[11px]">
+<span class="font-label-caps text-xs text-white uppercase font-bold">Прямой контакт завода</span>
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-sm text-yellow-400">mail</span>
+<span class="font-bold text-yellow-300">tuba@inbox.lv</span>
+</div>
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-sm text-emerald-400">chat</span>
+<span>WhatsApp / Telegram B2B отдел</span>
+</div>
+<div class="text-slate-500 pt-1">
+        Адрес: Юрмалциемс, Южно-Курземский край, Латвия
+      </div>
+</div>
+</div>
+<div class="max-w-[1720px] mx-auto px-4 lg:px-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-label-mono text-[11px] text-white/50">
+<div>
+      © 2026 SIA “TUBA”. Baltic Cured Fish Reserve. Все права защищены.
+    </div>
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1.5 text-cyan-400">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+        SCADA LIVE v4.88
+      </span>
+<span>HACCP Standard EU 853/2004</span>
+</div>
+</div>
+</footer>
+<!-- INTERACTIVE SCRIPTS -->
+<script>
+  // Image assets map for 5-stage timeline
+  const speciesData = {
+    bream: {
+      title: "ЛЕЩ КРУПНЫЙ (КОЛОДКОЙ 850+ Г) • ФОТОТАЙМЛАЙН 84 ЧАСА",
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqBDOSbou1zpmPHvYrAmMiJbOMyUUQlH7LQMfmc_VWXGTVsfrOpzvbLq7xbumdl-_4yCeZyK9zPhM29QFyJJe8HMzDO3kluMUpujcgSgeylF7Yp3w3G7iCjxT2XsX9CL9lWzcXjYtweWGRXyStgC71py8pvdMofcvdusIUga0LUP4bRDIeQ5nTe1sjC9vNBO5WI4zZTECQ1paIHY2tI4EWNmwGEVM6D_WZ_-S8ndxWD8R3ealTsXnK"
+    },
+    roach: {
+      title: "ПЛОТВА ИКРЯНАЯ (КАЛИБР 22+) • ФОТОТАЙМЛАЙН 84 ЧАСА",
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAbhfVlzNxxF49JYWUHBqArZJhrJ1brq91NnildzbsMirV8BkvzfTCvHQ_jFZmLBxNx4jG8kLQ32JrdT3H9oqCF88VqOcaAbOAtRBLKUGCu9XTd-r4JWE2eE7WZ4cLzsiqD7QoeF3HGdvSPHlcEpHk3bvVU18h0vlJNvZYF2Ekxk25q6OpQn_Ldadry3kg5pkSKwGxQUwVHmxwnQr38fFTlPZmQJ80Xhsr9okJqhBbHfLvTK_jdFtjf"
+    },
+    smelt: {
+      title: "КОРЮШКА ИКРЯНАЯ БАЛТИЙСКАЯ • ФОТОТАЙМЛАЙН 84 ЧАСА",
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAlXiGgc3PRxFLdic9Bzv9PNwv4j4f7JBCWB65RSa7GcQu46S-guF2SSLr3iwQxEB84pFUV7YGO5U7D0dTic7LEtyIMYFmkxkHZuO-SbADSWoB16Ks5MU_f9iQzFzRYri4jm43eYs74fIHHAv9iUrHX0dwLnR5JxfIbR0RHCu5MptXHcHRQuvoDvCGukHk5iF7P0Yt7b5L2ERCjcvMwjwruxNowuIhSBSVNW8PT1Bcl76idO3kzlu8h"
+    },
+    perch: {
+      title: "ОКУНЬ РЕЧНОЙ В ЧЕШУЕ • ФОТОТАЙМЛАЙН 84 ЧАСА",
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuA04S7kwprgxgxshB3_OmEY83LmSculENXE7-voCA6jRQcYMboTcxiG2hpSGXJy9g96VlsYLij4r3F4qdJAGHz4pSeA2JTM7cQRofTquecs-7HXvN0inEqMs0v-EBHhMCv-0JwCCHeJacaepKRsMWXZH-jcF_SLWtzMWBTpHMXpfmvQzNQ2q8NfnjmHlbN5HeCf-neTTDe-qjko8pS84vtMtumc-0zuIQNb49N7IrZO8hfsgPPljDdd"
+    },
+    goby: {
+      title: "БЫЧОК БАЛТИЙСКИЙ • ФОТОТАЙМЛАЙН 84 ЧАСА",
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_2EtZHILQXzYTqDs81Xd5D4so05uG5r0UJL6aL1_xAkaXgpiOlwO1NHZencFqVbta13T4VkNXkygtpUkAPVJVN_1dZ3Xgeu5MLPd5kSXn8xgm4LI7r4VraTy8jEWPQuoeOuMux7b7RLNtC-BxFFur39Zrqw5UYEoJMx3kRpnsq2CppYE-T3jGnBQat1eNRIf5xOV_T5YU0lBrTldaoxD4B95YF9d4GURXYjs_mqNY1s4gStwdXYGS"
+    },
+    vimba: {
+      title: "ВИМБА (СЫРТЬ) КУРЗЕМСКАЯ • ФОТОТАЙМЛАЙН 84 ЧАСА",
+      img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDHjRtpAjmQCnzuflysKPTOeZWs6Vfg4DFSeioaJgawNRdDDstgQJUcifJgdrC_maJfYVLcW6PF_bo7sdDB-323Fw2nCxziZkDYrSJU1MxJUuBE5f7FDkcX-tJ099Rp0EtJ-w4Jxy6uEnZel151IHAhDA2w65YwftAwJ4CH6Bes1nasUPxBy-sudvq_7KE-twrVJRTZ21ZFzTgZCl7Yfk7nUwUNkkdIXasvdagNamvjv_eXJ4E1vZy2"
+    }
+  };
+
+  function selectTimelineSpecies(key, btn) {
+    const data = speciesData[key];
+    if (!data) return;
+
+    // Switch image & title with smooth fade
+    const imgEl = document.getElementById('timeline-panorama-img');
+    const titleEl = document.getElementById('timeline-species-title');
+
+    imgEl.style.opacity = '0.3';
+    setTimeout(() => {
+      imgEl.src = data.img;
+      titleEl.textContent = data.title;
+      imgEl.style.opacity = '1';
+    }, 200);
+
+    // Update active tab styles
+    document.querySelectorAll('.timeline-tab').forEach(t => {
+      t.className = 'timeline-tab px-4 py-2.5 rounded-xl bg-surface-container-high text-white/70 hover:text-white font-label-mono text-xs uppercase transition-all';
+    });
+    btn.className = 'timeline-tab px-4 py-2.5 rounded-xl bg-primary-container text-slate-950 font-label-mono text-xs font-bold uppercase transition-all shadow-[0_0_15px_rgba(0,229,255,0.4)]';
+  }
+
+  // Hero Basalt view toggle
+  function toggleHeroImage(viewNum) {
+    const heroImg = document.getElementById('hero-main-image');
+    const btn1 = document.getElementById('btn-hero-view1');
+    const btn2 = document.getElementById('btn-hero-view2');
+
+    if (viewNum === 1) {
+      heroImg.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuCdaSDaQxjQN5GWgsKas11XQ9pTawfSMgOkXL5w1d_LEIU6GPiJIoWaW304KwXN8ucRSNJhRLxxPV8P9kAqGIZrqEeXJ72AyDFz3idx7PYPo3bnpRgzcJ34Z4xWWea6K2LPBKsFTNQH9OQBhvO6AFd4w06f5fechjOktkKx6tsi8AAjgsQOowVWXDIMAV_nfa7cJLEwGCwRkkjyw5Wnc_9Tl-SIGZvVDMD5nx3KGBMntzj0Wu0ghoV4";
+      btn1.className = "px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-label-mono text-xs font-bold shadow-md";
+      btn2.className = "px-3 py-1.5 rounded-lg bg-black/70 text-white/80 border border-white/20 font-label-mono text-xs hover:text-white";
+    } else {
+      heroImg.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuAkYAS0XNJpvyoU_SZo6BpMS9_y4BDDtweBmz4LnJQFDUIgb14tOvXDb0OeRY6W3cWNuphPliOtSM_jwFkO9f0EPFv-ME1tKF3QpuXj3gBdfNlwNU1us2lpcul7q4YRXf_lonHZun8J31n-eyPxvMWGNZickJQLcavZwXWA2XetI1BpEsz2f2hX4mOtuJpXfXXtYW3uZfoDm9iXwWub0SjtuLiS0_pwkOhZ0pHKZg1_oec8FNVDW11K";
+      btn2.className = "px-3 py-1.5 rounded-lg bg-yellow-400 text-slate-950 font-label-mono text-xs font-bold shadow-md";
+      btn1.className = "px-3 py-1.5 rounded-lg bg-black/70 text-white/80 border border-white/20 font-label-mono text-xs hover:text-white";
+    }
+  }
+
+  // Copy email helper
+  function copyEmail() {
+    navigator.clipboard.writeText("tuba@inbox.lv").then(() => {
+      const textEl = document.getElementById('nav-email-text');
+      const original = textEl.textContent;
+      textEl.textContent = "СКОПИРОВАНО!";
+      setTimeout(() => {
+        textEl.textContent = original;
+      }, 2000);
+    });
+  }
+
+  // Fast Batch Calculator
+  function runBatchCalculator() {
+    const fishSelect = document.getElementById('calc-fish');
+    const kgInput = document.getElementById('calc-kg');
+
+    const [yieldStr, priceStr] = fishSelect.value.split('|');
+    const yieldRatio = parseFloat(yieldStr) || 0.6;
+    const pricePerKg = parseFloat(priceStr) || 7.2;
+    const rawKg = parseFloat(kgInput.value) || 0;
+
+    const readyKg = Math.round(rawKg * yieldRatio);
+    const waterLoss = Math.round(rawKg - readyKg);
+    const saltKg = Math.round(rawKg * 0.16);
+    const totalPrice = Math.round(readyKg * pricePerKg);
+    const boxes = Math.round(readyKg / 10); // 10 kg standard corrugated box
+
+    document.getElementById('out-ready-kg').textContent = readyKg.toLocaleString('ru-RU') + ' кг';
+    document.getElementById('out-boxes').textContent = boxes + ' коробов (по 10кг)';
+    document.getElementById('out-water').textContent = '-' + waterLoss.toLocaleString('ru-RU') + ' л';
+    document.getElementById('out-salt').textContent = saltKg.toLocaleString('ru-RU') + ' кг';
+    document.getElementById('out-sum').textContent = totalPrice.toLocaleString('ru-RU') + ' €';
+
+    const speciesName = fishSelect.options[fishSelect.selectedIndex].text.split('•')[0].trim();
+    const msg = encodeURIComponent(`Здравствуйте, SIA "TUBA"! Прошу забронировать партию вяленой рыбы: ${speciesName}, готовый объем ${readyKg} кг (~${totalPrice} €). Уточните сроки выпуска партии.`);
+    document.getElementById('btn-calc-wa').href = `https://wa.me/37163400000?text=${msg}`;
+  }
+
+  // Quick book helper from catalog
+  function quickOrder(productName, price) {
+    const formSelect = document.getElementById('form-species');
+    if (formSelect) {
+      for (let i = 0; i < formSelect.options.length; i++) {
+        if (formSelect.options[i].text.includes(productName)) {
+          formSelect.selectedIndex = i;
+          break;
+        }
+      }
+    }
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // B2B Form Handler
+  function handleB2BForm(e) {
+    e.preventDefault();
+    const company = document.getElementById('form-company').value;
+    const phone = document.getElementById('form-phone').value;
+    const species = document.getElementById('form-species').value;
+    const volume = document.getElementById('form-volume').value;
+    const notes = document.getElementById('form-notes').value;
+
+    const successBanner = document.getElementById('form-success');
+    successBanner.classList.remove('hidden');
+
+    // Also compose WhatsApp link for instant click
+    const text = encodeURIComponent(`Заявка от ${company} (${phone}): Интересует ${species}, объем ${volume}. Примечание: ${notes}`);
+    window.open(`https://wa.me/37163400000?text=${text}`, '_blank');
+  }
+
+  // Initialize calculator on DOM load
+  document.addEventListener('DOMContentLoaded', () => {
+    runBatchCalculator();
+  });
+</script>
+</body></html>

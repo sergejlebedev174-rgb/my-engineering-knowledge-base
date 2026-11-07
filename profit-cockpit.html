@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>Прибыль партии • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<style>
+  html,body{margin:0;padding:0;background:#0b0f19}
+  ::-webkit-scrollbar{display:none}
+  :root{--cy:#00F0FF;--tq:#2DD4BF;--am:#FFB95F;--vi:#A78BFA;--rd:#F87171;--tx:#F1F5F9;--mu:#94A3B8;--dim:#64748B;--line:rgba(148,163,184,.14)}
+  .pf{display:flex;flex-direction:column;gap:12px;padding:14px 16px 16px;height:100vh;box-sizing:border-box;color:var(--tx);font-family:Inter,"Segoe UI",sans-serif;
+    background:radial-gradient(900px 420px at 85% -10%,rgba(0,240,255,.07),transparent 60%),radial-gradient(700px 380px at 0% 110%,rgba(255,185,95,.05),transparent 60%),#0b0f19}
+  .pf-card{position:relative;border-radius:16px;padding:12px 14px;background:linear-gradient(135deg,rgba(27,31,43,.82),rgba(12,17,27,.92));border:1px solid rgba(0,240,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden;min-width:0}
+  .pf-card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(120deg,transparent 20%,rgba(0,240,255,.5) 45%,rgba(255,185,95,.4) 55%,transparent 80%);background-size:300% 100%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:pfBorder 8s linear infinite;pointer-events:none}
+  @keyframes pfBorder{0%{background-position:150% 0}100%{background-position:-150% 0}}
+  .pf-cap{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+  .pf-cap > span{font:700 10px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;display:flex;align-items:center;gap:6px}
+  .pf-cap > span i{width:6px;height:6px;border-radius:50%;background:var(--cy);box-shadow:0 0 8px var(--cy)}
+  .pf-cap em{font-style:normal;font:600 11px "JetBrains Mono",monospace;color:#CBD5E1}
+  .pf-cap em b{color:var(--cy)}
+  /* шапка */
+  .pf-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+  .pf-title .k{font:700 10px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--cy);display:flex;align-items:center;gap:6px}
+  .pf-title .k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 10px var(--cy);animation:pfDot 2s ease-in-out infinite}
+  @keyframes pfDot{50%{opacity:.35}}
+  .pf-title h1{margin:2px 0 0;font:700 21px/1.15 "Space Grotesk",Inter,sans-serif;letter-spacing:-.01em;background:linear-gradient(90deg,#E0FBFF,#67E8F9 60%,#FFD08A);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pf-chips{display:flex;flex-wrap:wrap;gap:5px;padding:4px;border-radius:13px;background:rgba(9,14,25,.8);border:1px solid var(--line)}
+  .pf-chips button{height:30px;padding:0 13px;border-radius:9px;border:0;background:transparent;color:var(--mu);font:700 12px Inter,sans-serif;cursor:pointer;transition:all .25s}
+  .pf-chips button:hover{color:var(--tx);background:rgba(0,240,255,.06)}
+  .pf-chips button.active{color:#00363D;background:linear-gradient(90deg,#22D3EE,#00F0FF 50%,#5EEAD4);box-shadow:0 0 16px rgba(0,240,255,.45)}
+  .pf-acts{display:flex;flex-wrap:wrap;gap:6px}
+  .pf-btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:10px;cursor:pointer;text-decoration:none;font:700 11px/1 "JetBrains Mono",monospace;letter-spacing:.03em;color:#C3F5FF;background:rgba(27,31,43,.85);border:1px solid rgba(0,240,255,.22);transition:border-color .2s,box-shadow .2s,transform .1s}
+  .pf-btn:hover{border-color:rgba(0,240,255,.6);box-shadow:0 0 14px rgba(0,240,255,.22)}
+  .pf-btn:active{transform:scale(.97)}
+  .pf-btn .material-symbols-outlined{font-size:16px}
+  .pf-btn.amber{color:var(--am);border-color:rgba(255,185,95,.35)}
+  .pf-btn.green{color:#6FFBBE;border-color:rgba(111,251,190,.3)}
+  .pf-btn.main{color:#00363D;background:linear-gradient(90deg,#22D3EE,#00F0FF 50%,#5EEAD4);border-color:rgba(255,255,255,.35);box-shadow:0 0 16px rgba(0,240,255,.4)}
+  /* ползунки */
+  .pf-ctrl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .pf-sl{padding:9px 14px 8px}
+  .pf-sl .top{display:flex;justify-content:space-between;align-items:baseline}
+  .pf-sl .top span{font:700 10px "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase}
+  .pf-sl .top b{font:800 18px "JetBrains Mono",monospace;color:var(--c,var(--cy));text-shadow:0 0 14px color-mix(in srgb,var(--c,var(--cy)) 50%,transparent)}
+  .pf-sl .sc{display:flex;justify-content:space-between;font:600 10px "JetBrains Mono",monospace;color:var(--dim)}
+  .pf-range{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:var(--track,linear-gradient(90deg,#0891B2,#22D3EE));outline:none;margin:7px 0 4px;cursor:pointer;box-shadow:inset 0 1px 2px rgba(0,0,0,.6)}
+  .pf-range::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#F8FAFC;border:3px solid var(--c,var(--cy));box-shadow:0 0 12px var(--c,var(--cy));cursor:grab}
+  /* KPI */
+  .pf-kpis{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:12px}
+  .pf-kpi{display:flex;flex-direction:column;gap:4px}
+  .pf-kpi .l{font:700 10px "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+  .pf-kpi .v{font:800 26px/1.1 "JetBrains Mono",monospace;color:var(--tx)}
+  .pf-kpi .v small{font-size:13px;color:var(--mu);margin-left:4px;font-weight:600}
+  .pf-kpi .s{font:500 11px/1.4 Inter,sans-serif;color:var(--mu)}
+  .pf-kpi .s b{color:#E2E8F0}
+  .pf-kpi.hero{background:radial-gradient(120% 140% at 0% 0%,rgba(0,240,255,.16),transparent 55%),linear-gradient(135deg,rgba(27,31,43,.85),rgba(12,17,27,.95))}
+  .pf-kpi.hero .v{font-size:34px;color:#67E8F9;text-shadow:0 0 24px rgba(0,240,255,.45)}
+  .pf-chip{font:800 10px "JetBrains Mono",monospace;color:#00363D;background:var(--tq);border-radius:6px;padding:3px 7px;letter-spacing:.04em}
+  .pf-mini{display:flex;height:7px;border-radius:999px;overflow:hidden;gap:2px;margin-top:4px}
+  .pf-mini i{display:block;height:100%}
+  .pf-ceil{position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,rgba(45,212,191,.75),rgba(255,185,95,.55) 75%,rgba(248,113,113,.7));margin:6px 0 2px}
+  .pf-ceil i{position:absolute;top:-4px;width:3px;height:16px;border-radius:2px;background:#F8FAFC;box-shadow:0 0 10px #fff;transition:left .6s cubic-bezier(.2,.8,.2,1)}
+  /* основная сетка */
+  .pf-main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:12px;flex:1;min-height:0}
+  .pf-col{display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
+  .pf-fill{display:flex;flex-direction:column}
+  #pf-bars,#pf-sens{flex:1;display:flex;flex-direction:column;min-height:0}
+  .pf-bars{width:100%;flex:1 1 0;height:0;min-height:150px;display:block}
+  .pf-bar{cursor:pointer}
+  .pf-bar:hover .front{filter:brightness(1.18)}
+  .pf-anim .pf-bar .grow{animation:pfGrow .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d);transform-box:fill-box;transform-origin:50% 100%}
+  @keyframes pfGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  .pf-logi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .pf-logi > div{padding:8px 10px;border-radius:11px;background:rgba(6,11,20,.75);border:1px solid var(--line)}
+  .pf-logi span{display:block;font:700 9.5px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--mu);text-transform:uppercase}
+  .pf-logi b{display:block;font:800 18px "JetBrains Mono",monospace;color:var(--tx);margin:2px 0}
+  .pf-logi em{font-style:normal;font:500 10.5px Inter,sans-serif;color:var(--dim)}
+  .pf-detail{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center}
+  .pf-donut{width:150px;height:150px}
+  .pf-lines{display:flex;flex-direction:column;gap:5px}
+  .pf-lines > div{display:grid;grid-template-columns:10px 1fr auto auto;gap:8px;align-items:center;font:500 11.5px Inter,sans-serif;color:#CBD5E1;padding:4px 8px;border-radius:8px;background:rgba(6,11,20,.55)}
+  .pf-lines > div i{width:9px;height:9px;border-radius:3px}
+  .pf-lines b{font:700 12px "JetBrains Mono",monospace;color:var(--tx);text-align:right}
+  .pf-lines em{font-style:normal;font:600 10.5px "JetBrains Mono",monospace;color:var(--dim);min-width:34px;text-align:right}
+  .pf-lines > div.tot{background:rgba(0,240,255,.07)}
+  .pf-lines > div.tot b{color:var(--cy)}
+  .pf-lines > div.res b{font-size:14px}
+  .pf-sens{width:100%;flex:1 1 0;height:0;min-height:100px;display:block}
+  .pf-anim .pf-draw{stroke-dasharray:1;stroke-dashoffset:1;animation:pfDraw 1.3s ease-out forwards}
+  @keyframes pfDraw{to{stroke-dashoffset:0}}
+  .pf-note{font:500 11px/1.45 Inter,sans-serif;color:var(--mu)}
+  .pf-note b{color:var(--am)}
+  .pf-anim .pf-in{animation:pfIn .5s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes pfIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .pf-toast{position:fixed;right:18px;bottom:18px;z-index:50;padding:10px 14px;border-radius:12px;background:#111827;border:1px solid rgba(0,240,255,.35);box-shadow:0 10px 30px rgba(0,0,0,.6);font:500 12.5px Inter,sans-serif;color:var(--tx);opacity:0;transform:translateY(16px);transition:all .3s;pointer-events:none}
+  .pf-toast.on{opacity:1;transform:none}
+  @media (max-width:1150px){.pf{height:auto;min-height:100vh}.pf-kpis{grid-template-columns:1fr 1fr}.pf-main{grid-template-columns:1fr}.pf-ctrl{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion:reduce){.pf-card::before,.pf-title .k::before,.pf-anim .pf-bar .grow,.pf-anim .pf-draw,.pf-anim .pf-in{animation:none!important;stroke-dashoffset:0}}
+</style>
+<script src="js/knowledge-base.js"></script><script src="js/cockpit-pages-fx.js" defer></script>
+</head><body class="bg-surface"><main class="pf" id="pf">
+
+<!-- Шапка: что за экран, вид рыбы, действия -->
+<div class="pf-head">
+  <div class="pf-title"><div class="k">ПРОДАЖА ПАРТИИ • ДЕНЬГИ</div><h1>Фасовка и прибыль партии</h1></div>
+  <div class="pf-chips" id="pf-chips">
+    <button class="species-chip active" data-species="VIMBA">Вимба</button>
+    <button class="species-chip" data-species="BREAM">Лещ</button>
+    <button class="species-chip" data-species="ROACH">Плотва</button>
+    <button class="species-chip" data-species="SMELT">Корюшка</button>
+    <button class="species-chip" data-species="PERCH">Окунь</button>
+    <button class="species-chip" data-species="ROUND_GOBY">Бычок</button>
+  </div>
+  <div class="pf-acts">
+    <button class="pf-btn amber" onclick="pfCall('ckOpenCostEditor','Цены')" title="Цены сырья, продажи, соли, тарифа и упаковки — база знаний + ваши правки"><span class="material-symbols-outlined">edit</span>Цены</button>
+    <a class="pf-btn" href="kp-generator.html" target="_blank"><span class="material-symbols-outlined">description</span>Генератор КП</a>
+    <a class="pf-btn" href="client-cabinet.html" target="_blank"><span class="material-symbols-outlined">verified</span>Кабинет B2B</a>
+    <a class="pf-btn" href="vitrina.html" target="_blank"><span class="material-symbols-outlined">storefront</span>Витрина</a>
+    <button class="pf-btn" onclick="pfCall('setAppUiMode','Торговый Дом',['OWNER'])"><span class="material-symbols-outlined">account_balance_wallet</span>Торговый Дом</button>
+  </div>
+</div>
+
+<!-- Ползунки: сырьё, выход, доля в вакуум -->
+<div class="pf-ctrl">
+  <div class="pf-card pf-sl" style="--c:#00F0FF"><div class="top"><span>Сырьё в партии</span><b id="pf-raw-v">1 850 кг</b></div>
+    <input class="pf-range" id="raw-slider" type="range" min="300" max="2550" step="50" value="1850"/>
+    <div class="sc"><span>300 кг</span><span id="pf-raw-max">камера: 15 × 170 = 2 550 кг</span></div></div>
+  <div class="pf-card pf-sl" style="--c:#FFB95F"><div class="top"><span>Выход готовой</span><b id="pf-yield-v">61.5 %</b></div>
+    <input class="pf-range" id="yield-slider" type="range" min="45" max="70" step="0.5" value="61.5"/>
+    <div class="sc"><span>45 %</span><span id="pf-yield-norm">норма 60–63 %</span><span>70 %</span></div></div>
+  <div class="pf-card pf-sl" style="--c:#2DD4BF"><div class="top"><span>Микс: доля в вакуум</span><b id="pf-vac-v">50 %</b></div>
+    <input class="pf-range" id="vac-slider" type="range" min="0" max="100" step="5" value="50" style="--track:linear-gradient(90deg,#94A3B8,#2DD4BF)"/>
+    <div class="sc"><span>всё оптом</span><span>всё в вакуум</span></div></div>
+</div>
+
+<!-- KPI -->
+<div class="pf-kpis" id="pf-kpis"></div>
+
+<!-- Каналы + детали -->
+<div class="pf-main">
+  <div class="pf-col">
+    <div class="pf-card pf-fill" style="flex:1">
+      <div class="pf-cap"><span><i></i>Прибыль по каналам продажи</span><em id="pf-bars-cap">нажмите столбик — детали справа</em></div>
+      <div id="pf-bars"></div>
+    </div>
+    <div class="pf-card">
+      <div class="pf-cap"><span><i style="background:var(--tq);box-shadow:0 0 8px var(--tq)"></i>Фасовка выбранного канала</span>
+        <span style="gap:6px;letter-spacing:0;text-transform:none">
+          <button class="pf-btn green" onclick="pfCall('openWhatsAppReportModal','Рапорт WhatsApp')"><span class="material-symbols-outlined">send</span>Рапорт</button>
+          <button class="pf-btn" onclick="pfCall('printEurotankPassport','Паспорт еврокуба')"><span class="material-symbols-outlined">print</span>Паспорт еврокуба</button>
+          <button class="pf-btn" onclick="pfCall('exportAllBatchLogsCsv','Экспорт CSV')"><span class="material-symbols-outlined">file_download</span>CSV</button>
+        </span></div>
+      <div class="pf-logi" id="pf-logi"></div>
+    </div>
+  </div>
+  <div class="pf-col">
+    <div class="pf-card">
+      <div class="pf-cap"><span><i style="background:var(--am);box-shadow:0 0 8px var(--am)"></i><span id="pf-det-title">Канал</span></span><em id="pf-det-sub"></em></div>
+      <div class="pf-detail" id="pf-detail"></div>
+    </div>
+    <div class="pf-card pf-fill" style="flex:1">
+      <div class="pf-cap"><span><i style="background:var(--vi);box-shadow:0 0 8px var(--vi)"></i>Что если: прибыль при другом выходе</span><em id="pf-sens-cap"></em></div>
+      <div id="pf-sens"></div>
+    </div>
+  </div>
+</div>
+<div class="pf-toast" id="pf-toast"></div>
+</main>
+
+<script>
+  // Прибыль партии. Все цифры — модель базы знаний (window.ARM_KB): виды, цены сырья и продажи, соль, тариф, упаковка
+  // (marketing.js и ваши правки «Цены»), часы стадий (stages.js). Данных датчиков на экране нет — это расчёт.
+  (function () {
+    const TROLLEYS = 15;
+    const RECUP_KW = 14; // equipment.js, узел [10]: термокороб рекуперации, 14 кВт в цех зимой
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n, d) => Number(n || 0).toLocaleString("ru-RU", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+    const eur = (n) => (n < 0 ? "−" : "+") + fmt(Math.abs(Math.round(n))) + " €";
+    const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+    const kb = () => window.ARM_KB;
+    const raw = $("raw-slider"), yld = $("yield-slider"), vacS = $("vac-slider");
+    let speciesKey = "VIMBA", sel = null, lastSpecies = null;
+    const prev = {};
+
+    function toast(msg) { const t = $("pf-toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 3000); }
+    // Команда главному окну АРМ (вне АРМ — честно говорим, что открыть негде)
+    window.pfCall = function (cmd, label, args) {
+      const ok = window.parent !== window && typeof window.stitchCallParent === "function" && window.stitchCallParent(cmd, args || []);
+      if (!ok) toast("«" + label + "» работает внутри АРМ (index.html)");
+    };
+
+    const CH = [
+      { id: "wholesale", name: "Опт", sub: "еврокубы", c1: "#CBD5E1", c2: "#64748B" },
+      { id: "semi", name: "Полуопт", sub: "еврокубы", c1: "#7DD3FC", c2: "#0369A1" },
+      { id: "vacuum", name: "Вакуум", sub: "KOMET, 3 тушки", c1: "#67E8F9", c2: "#0891B2" },
+      { id: "retail", name: "Розница", sub: "премиум 300 г", c1: "#FFD08A", c2: "#D97706" },
+      { id: "mix", name: "Микс", sub: "", c1: "#5EEAD4", c2: "#0F766E" },
+    ];
+    const priceOf = (c, id, share) => id === "wholesale" ? c.wholesalePriceEur : id === "semi" ? c.semiPriceEur : id === "vacuum" ? c.vacuumPriceEur : id === "retail" ? c.retailPriceEur : (share * c.vacuumPriceEur + (1 - share) * c.wholesalePriceEur);
+
+    function econ(c, rawKg, outKg, id, share) {
+      const e = kb().computeBatchEconomics({ speciesKey: c.key, rawKg, outKg, channel: id, vacShare: share });
+      e.roi = e.totalCost > 0 ? e.profit / e.totalCost * 100 : 0;
+      e.ceiling = rawKg > 0 ? (e.revenue - e.saltCost - e.energy.eur - e.packCost) / rawKg : 0;
+      return e;
+    }
+
+    // Подсчёт чисел от прошлого значения
+    function countUp(root) {
+      root.querySelectorAll("[data-cu]").forEach((el) => {
+        const key = el.dataset.cu, to = Number(el.dataset.v) || 0, from = prev["cu_" + key], pre = el.dataset.pre || "", suf = el.dataset.suf || "";
+        prev["cu_" + key] = to;
+        if (from == null || from === to || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const t0 = performance.now();
+        const step = (now) => { const k = Math.min(1, (now - t0) / 650), e = 1 - Math.pow(1 - k, 3), v = from + (to - from) * e; el.textContent = pre + (v < 0 ? "−" : (pre === "+" ? "" : "")) + fmt(Math.abs(v)) + suf; if (k < 1) requestAnimationFrame(step); };
+        requestAnimationFrame(step);
+      });
+    }
+
+    // Объёмные столбики каналов с отражением
+    function barsSvg(rows, selId) {
+      const W = 640, base = 228, maxH = 168, n = rows.length, slot = W / n, bw = Math.min(64, slot * .46), dx = 15, dy = -9;
+      const maxP = Math.max(1, ...rows.map((r) => Math.abs(r.e.profit)));
+      const cols = rows.map((r, i) => {
+        const h = Math.max(4, Math.abs(r.e.profit) / maxP * maxH), x = slot * i + (slot - bw - dx) / 2, y = base - h;
+        const on = r.ch.id === selId, neg = r.e.profit < 0, c1 = neg ? "#FCA5A5" : r.ch.c1, c2 = neg ? "#B91C1C" : r.ch.c2, gid = "pfG" + i;
+        return `<g class="pf-bar" style="--d:${i * 90}ms" onclick="pfSelect('${r.ch.id}')">
+            <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient>
+              <linearGradient id="${gid}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${c2}" stop-opacity=".35"/><stop offset="100%" stop-color="${c2}" stop-opacity="0"/></linearGradient></defs>
+            ${on ? `<ellipse cx="${x + bw / 2 + dx / 2}" cy="${base + 3}" rx="${bw * .95}" ry="9" fill="${c1}" opacity=".35" filter="url(#pfBlur)"><animate attributeName="opacity" values=".2;.5;.2" dur="2.2s" repeatCount="indefinite"/></ellipse>` : ""}
+            <rect x="${x}" y="${base + 2}" width="${bw}" height="${Math.min(h * .45, 60)}" fill="url(#${gid}r)" opacity=".7"/>
+            <g class="grow">
+              <polygon points="${x + bw},${y} ${x + bw + dx},${y + dy} ${x + bw + dx},${base + dy} ${x + bw},${base}" fill="${c2}" opacity=".85"/>
+              <polygon points="${x},${y} ${x + dx},${y + dy} ${x + bw + dx},${y + dy} ${x + bw},${y}" fill="${c1}" opacity=".95"/>
+              <rect class="front" x="${x}" y="${y}" width="${bw}" height="${h}" fill="url(#${gid})" ${on ? 'filter="url(#pfGlow)"' : ""}/>
+              <rect x="${x}" y="${y}" width="${bw}" height="${h}" fill="url(#pfShine)" opacity=".55"><animate attributeName="x" values="${x - bw};${x + bw}" dur="3.4s" begin="${i * .4}s" repeatCount="indefinite"/></rect>
+              <rect x="${x + 4}" y="${y + 4}" width="3" height="${Math.max(0, h - 8)}" rx="1.5" fill="#fff" opacity=".35"/>
+            </g>
+            <text x="${x + bw / 2 + dx / 2}" y="${y + dy - 8}" fill="${neg ? "#F87171" : (on ? "#F8FAFC" : "#CBD5E1")}" font-family="JetBrains Mono" font-size="${on ? 15 : 13}" font-weight="800" text-anchor="middle">${eur(r.e.profit)}</text>
+            <text x="${x + bw / 2 + dx / 2}" y="${base + 26}" fill="${on ? r.ch.c1 : "#E2E8F0"}" font-family="Inter" font-size="12.5" font-weight="700" text-anchor="middle">${esc(r.ch.name)}</text>
+            <text x="${x + bw / 2 + dx / 2}" y="${base + 41}" fill="#64748B" font-family="JetBrains Mono" font-size="10" text-anchor="middle">ROI ${fmt(r.e.roi)}%</text>
+            ${r.best ? `<text x="${x + bw / 2 + dx / 2}" y="${y + dy - 26}" fill="#2DD4BF" font-family="JetBrains Mono" font-size="9.5" font-weight="800" text-anchor="middle">ЛУЧШИЙ</text>` : ""}
+          </g>`;
+      }).join("");
+      const grid = [0, .25, .5, .75, 1].map((f) => `<line x1="0" x2="${W}" y1="${base - maxH * f}" y2="${base - maxH * f}" stroke="rgba(148,163,184,${f ? .08 : .25})" ${f ? 'stroke-dasharray="3 6"' : ""}/>`).join("");
+      return `<svg class="pf-bars" viewBox="0 0 ${W} 280" preserveAspectRatio="xMidYMid meet">
+          <defs><linearGradient id="pfShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="50%" stop-color="#fff" stop-opacity=".45"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <filter id="pfGlow" x="-40%" y="-20%" width="180%" height="140%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="pfBlur"><feGaussianBlur stdDeviation="6"/></filter></defs>
+          ${grid}${cols}
+        </svg>`;
+    }
+
+    // Бублик затрат + строки
+    function donutSvg(parts, total, center, sub) {
+      const R = 54, C = 2 * Math.PI * R;
+      let acc = 0;
+      const segs = parts.map((p, i) => {
+        const len = total > 0 ? p.v / total * C : 0, off = -acc; acc += len;
+        const key = "d" + i, pl = prev[key] == null ? 0 : prev[key]; prev[key] = len;
+        return `<circle cx="70" cy="70" r="${R}" fill="none" stroke="${p.c}" stroke-width="16" stroke-dasharray="${len.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 70 70)">
+            <animate attributeName="stroke-dasharray" from="${pl.toFixed(1)} ${C.toFixed(1)}" to="${len.toFixed(1)} ${C.toFixed(1)}" dur=".8s" fill="freeze" calcMode="spline" keySplines="0.2 0.9 0.25 1" keyTimes="0;1"/></circle>`;
+      }).join("");
+      return `<svg class="pf-donut" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="${R}" fill="none" stroke="rgba(148,163,184,.12)" stroke-width="16"/>${segs}
+          <circle cx="70" cy="70" r="40" fill="rgba(6,11,20,.9)"/>
+          <text x="70" y="68" fill="#F8FAFC" font-family="JetBrains Mono" font-size="17" font-weight="800" text-anchor="middle">${center}</text>
+          <text x="70" y="84" fill="#94A3B8" font-family="JetBrains Mono" font-size="8.5" font-weight="700" text-anchor="middle">${sub}</text>
+        </svg>`;
+    }
+
+    // Чувствительность: прибыль выбранного канала при выходе 45–70 %
+    function sensSvg(c, rawKg, id, share, y, yMin, yMax) {
+      const W = 560, H = 200, pl = 46, pr = 12, pt = 12, pb = 24, pts = [];
+      for (let v = 45; v <= 70.001; v += 0.5) pts.push([v, econ(c, rawKg, rawKg * v / 100, id, share).profit]);
+      const lo = Math.min(0, ...pts.map((p) => p[1])), hi = Math.max(...pts.map((p) => p[1])) * 1.08 || 1;
+      const X = (v) => pl + (v - 45) / 25 * (W - pl - pr), Y = (p) => pt + (1 - (p - lo) / (hi - lo)) * (H - pt - pb);
+      const line = pts.map((p, i) => (i ? "L" : "M") + X(p[0]).toFixed(1) + " " + Y(p[1]).toFixed(1)).join(" ");
+      const cur = econ(c, rawKg, rawKg * y / 100, id, share).profit, step = econ(c, rawKg, rawKg * (y + 1) / 100, id, share).profit - cur;
+      const yt = [0, .5, 1].map((f) => { const v = lo + (hi - lo) * f; return `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(148,163,184,.1)" stroke-dasharray="3 6"/><text x="${pl - 6}" y="${Y(v) + 3}" fill="#64748B" font-family="JetBrains Mono" font-size="9.5" text-anchor="end">${fmt(v / 1000, 1)}к</text>`; }).join("");
+      const xt = [45, 50, 55, 60, 65, 70].map((v) => `<text x="${X(v)}" y="${H - 6}" fill="#64748B" font-family="JetBrains Mono" font-size="9.5" text-anchor="middle">${v}%</text>`).join("");
+      const cx = X(y), cy = Y(cur);
+      return { svg: `<svg class="pf-sens" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+          <defs><linearGradient id="pfSensA" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A78BFA" stop-opacity=".35"/><stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/></linearGradient>
+            <linearGradient id="pfSensL" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFB95F"/><stop offset="50%" stop-color="#2DD4BF"/><stop offset="100%" stop-color="#A78BFA"/></linearGradient></defs>
+          <rect x="${X(yMin)}" y="${pt}" width="${X(yMax) - X(yMin)}" height="${H - pt - pb}" fill="rgba(45,212,191,.09)" stroke="rgba(45,212,191,.35)" stroke-dasharray="3 4"/>
+          <text x="${(X(yMin) + X(yMax)) / 2}" y="${pt + 11}" fill="#2DD4BF" font-family="JetBrains Mono" font-size="9" font-weight="800" text-anchor="middle">НОРМА</text>
+          ${yt}${xt}
+          ${lo < 0 ? `<line x1="${pl}" x2="${W - pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="rgba(248,113,113,.6)"/>` : ""}
+          <path d="${line} L ${X(70)} ${H - pb} L ${X(45)} ${H - pb} Z" fill="url(#pfSensA)"/>
+          <path class="pf-draw" pathLength="1" d="${line}" fill="none" stroke="url(#pfSensL)" stroke-width="2.6" vector-effect="non-scaling-stroke"/>
+          <line x1="${cx}" x2="${cx}" y1="${pt}" y2="${H - pb}" stroke="rgba(248,250,252,.25)" stroke-dasharray="2 4"/>
+          <circle cx="${cx}" cy="${cy}" r="5" fill="#F8FAFC" stroke="#A78BFA" stroke-width="2"/>
+          <circle cx="${cx}" cy="${cy}" r="5" fill="none" stroke="#A78BFA" stroke-width="2"><animate attributeName="r" values="5;16" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".8;0" dur="1.8s" repeatCount="indefinite"/></circle>
+        </svg>`, step, cur };
+    }
+
+    function render() {
+      if (!kb()) return;
+      const c = kb().getCanonicalSpecies(speciesKey);
+      const cap = c.trolleyCapKg, maxRaw = Math.floor(TROLLEYS * cap / 50) * 50;
+      if (Number(raw.max) !== maxRaw) raw.max = String(maxRaw);
+      const rawKg = Math.min(maxRaw, Number(raw.value) || 1850);
+      if (Number(raw.value) !== rawKg) raw.value = String(rawKg);
+      const y = Number(yld.value) || c.yieldNorm, outKg = Math.round(rawKg * y / 100), share = (Number(vacS.value) || 0) / 100;
+      const speciesChanged = lastSpecies !== c.key; lastSpecies = c.key;
+      $("pf").classList.toggle("pf-anim", speciesChanged);
+
+      // Ползунки
+      $("pf-raw-v").textContent = fmt(rawKg) + " кг";
+      $("pf-raw-max").textContent = "камера: 15 × " + cap + " = " + fmt(TROLLEYS * cap) + " кг";
+      $("pf-yield-v").textContent = y.toFixed(1) + " % • " + fmt(outKg) + " кг";
+      $("pf-yield-norm").textContent = "норма " + c.yieldMin + "–" + c.yieldMax + " %";
+      const a = ((c.yieldMin - 45) / 25 * 100).toFixed(1), z = ((c.yieldMax - 45) / 25 * 100).toFixed(1);
+      yld.style.setProperty("--track", `linear-gradient(90deg, rgba(255,185,95,.4) 0%, rgba(255,185,95,.4) ${a}%, #2DD4BF ${a}%, #22D3EE ${z}%, rgba(167,139,250,.4) ${z}%, rgba(167,139,250,.4) 100%)`);
+      $("pf-vac-v").textContent = Math.round(share * 100) + " % • " + fmt(outKg * share) + " кг";
+
+      // Каналы
+      const rows = CH.map((ch) => ({ ch, sub: ch.id === "mix" ? "вакуум " + Math.round(share * 100) + "%" : ch.sub, e: econ(c, rawKg, outKg, ch.id, share) }));
+      const best = rows.reduce((m, r) => (r.e.profit > m.e.profit ? r : m), rows[0]);
+      best.best = true;
+      if (!sel || !rows.find((r) => r.ch.id === sel)) sel = best.ch.id;
+      const s = rows.find((r) => r.ch.id === sel);
+      const base = s.e.rawCost + s.e.saltCost + s.e.energy.eur;
+      const en = s.e.energy;
+      const dryH = en.stages.reduce((t, st) => t + st.dryH, 0);
+      const heatKwh = dryH * RECUP_KW;
+
+      // KPI
+      const ceilPct = Math.max(2, Math.min(98, s.e.rawPrice.eur / Math.max(0.01, s.e.ceiling) * 100));
+      $("pf-kpis").innerHTML = `
+        <div class="pf-card pf-kpi hero pf-in">
+          <div class="l"><span>Прибыль • ${esc(s.ch.name)}${s === best ? " • лучший канал" : ""}</span><span class="pf-chip">ROI ${fmt(s.e.roi)}%</span></div>
+          <div class="v" data-cu="profit" data-v="${Math.round(s.e.profit)}" data-pre="${s.e.profit < 0 ? "" : "+"}" data-suf=" €">${eur(s.e.profit)}</div>
+          <div class="s">выручка <b>${fmt(s.e.revenue)} €</b> − затраты <b>${fmt(s.e.totalCost)} €</b> • <b>${fmt(outKg > 0 ? s.e.profit / outKg : 0, 2)} €</b> с 1 кг готовой${s !== best ? " • лучший: " + esc(best.ch.name) + " " + eur(best.e.profit) : ""}</div>
+        </div>
+        <div class="pf-card pf-kpi pf-in">
+          <div class="l"><span>Себестоимость 1 кг</span><span class="material-symbols-outlined" style="font-size:16px;color:var(--am)">receipt_long</span></div>
+          <div class="v">${fmt(outKg > 0 ? base / outKg : 0, 2)}<small>€/кг</small></div>
+          <div class="pf-mini"><i style="flex:${s.e.rawCost};background:#FFB95F"></i><i style="flex:${s.e.saltCost};background:#E2E8F0"></i><i style="flex:${en.eur};background:#A78BFA"></i></div>
+          <div class="s">до упаковки: сырьё ${fmt(s.e.rawCost)} € • соль ${fmt(s.e.saltCost)} € • энергия ${fmt(en.eur)} €</div>
+        </div>
+        <div class="pf-card pf-kpi pf-in">
+          <div class="l"><span>Потолок цены сырья</span><span class="material-symbols-outlined" style="font-size:16px;color:var(--tq)">gavel</span></div>
+          <div class="v" style="color:#2DD4BF">≤ ${fmt(s.e.ceiling, 2)}<small>€/кг</small></div>
+          <div class="pf-ceil"><i style="left:${ceilPct}%"></i></div>
+          <div class="s">сейчас <b>${fmt(s.e.rawPrice.eur, 2)} €/кг</b>${s.e.rawPrice.edited ? " (ваша цена)" : ""} • выше потолка канал «${esc(s.ch.name)}» в минус</div>
+        </div>
+        <div class="pf-card pf-kpi pf-in">
+          <div class="l"><span>Энергия цикла</span><span class="material-symbols-outlined" style="font-size:16px;color:var(--cy)">bolt</span></div>
+          <div class="v" data-cu="kwh" data-v="${Math.round(en.kWh)}" data-suf="">${fmt(en.kWh)}<small>кВт·ч</small></div>
+          <div class="s"><b>${fmt(en.eur)} €</b> • ${fmt(outKg > 0 ? en.eur / outKg : 0, 2)} €/кг • ${Math.round(en.hours)} ч</div>
+          <div class="s">зимой тепло в цех ≈ <b>${fmt(Math.round(heatKwh / 10) * 10)} кВт·ч</b> (узел [10], 14 кВт × ${Math.round(dryH)} ч сушки — оценка)</div>
+        </div>`;
+
+      // Столбики
+      $("pf-bars").innerHTML = barsSvg(rows, sel);
+      $("pf-bars-cap").innerHTML = "из <b>" + fmt(outKg) + " кг</b> готовой • нажмите столбик";
+
+      // Детали выбранного канала
+      const parts = [
+        { n: "Сырьё", v: s.e.rawCost, c: "#FFB95F", d: fmt(rawKg) + " кг × " + fmt(s.e.rawPrice.eur, 2) + " €" },
+        { n: "Упаковка", v: s.e.packCost, c: "#00F0FF", d: s.e.packText },
+        { n: "Энергия", v: en.eur, c: "#A78BFA", d: fmt(en.kWh) + " кВт·ч" },
+        { n: "Соль", v: s.e.saltCost, c: "#E2E8F0", d: fmt(s.e.saltKg) + " кг" },
+      ];
+      $("pf-det-title").textContent = "Канал «" + s.ch.name + "» • " + fmt(priceOf(c, s.ch.id, share), 2) + " €/кг";
+      $("pf-det-sub").innerHTML = "цены — <b>база знаний</b>";
+      $("pf-detail").innerHTML = donutSvg(parts, s.e.totalCost, fmt(s.e.costPerKgOut, 2) + " €", "ЗАТРАТЫ НА 1 КГ") + `
+        <div class="pf-lines">
+          ${parts.map((p) => `<div><i style="background:${p.c}"></i><span>${p.n} <span style="color:#64748B">• ${esc(p.d)}</span></span><b>${fmt(p.v)} €</b><em>${s.e.totalCost > 0 ? Math.round(p.v / s.e.totalCost * 100) : 0}%</em></div>`).join("")}
+          <div class="tot"><i></i><span>Все затраты</span><b>${fmt(s.e.totalCost)} €</b><em></em></div>
+          <div class="res"><i></i><span>Выручка ${fmt(s.e.revenue)} € → прибыль</span><b style="color:${s.e.profit >= 0 ? "#2DD4BF" : "#F87171"}">${eur(s.e.profit)}</b><em></em></div>
+        </div>`;
+
+      // Чувствительность к выходу
+      const sv = sensSvg(c, rawKg, s.ch.id, share, y, c.yieldMin, c.yieldMax);
+      $("pf-sens").innerHTML = sv.svg + `<div class="pf-note">Каждый <b>+1 %</b> выхода в канале «${esc(s.ch.name)}» — это <b>${eur(sv.step)}</b> к партии.</div>`;
+      $("pf-sens-cap").innerHTML = "сейчас <b>" + eur(sv.cur) + "</b>";
+
+      // Фасовка
+      const sp = kb().splitUnload(outKg, s.ch.id === "vacuum" ? 1 : s.ch.id === "mix" ? share : 0);
+      const cb = sp.base;
+      const pcs = Math.round(outKg / cb.prem.pcKg);
+      const isRetail = s.ch.id === "retail";
+      $("pf-logi").innerHTML = isRetail ? `
+          <div><span>Премиум 300 г</span><b>${fmt(pcs)} шт</b><em>по ${fmt(cb.prem.eurPerPc, 2)} € за штуку</em></div>
+          <div><span>Упаковка</span><b>${fmt(pcs * cb.prem.eurPerPc)} €</b><em>подложка + пакет</em></div>
+          <div><span>Готовая рыба</span><b>${fmt(outKg)} кг</b><em>${fmt(c.pieceG)} г тушка сырья</em></div>
+          <div><span>Тушек</span><b>≈ ${fmt(rawKg * 1000 / c.pieceG)}</b><em>до сушки</em></div>` : `
+          <div><span>Вакуум KOMET</span><b>${fmt(sp.packs)} пак.</b><em>${fmt(sp.vacKg)} кг • ${fmt(sp.fish)} тушек</em></div>
+          <div><span>Время на вакууме</span><b>${sp.vacMin >= 60 ? Math.floor(sp.vacMin / 60) + " ч " + String(Math.round(sp.vacMin % 60)).padStart(2, "0") + " мин" : Math.round(sp.vacMin) + " мин"}</b><em>~${cb.vac.packsPerMin} пакета в минуту</em></div>
+          <div><span>Еврокубы</span><b>${sp.cubes} шт</b><em>${fmt(sp.bulkKg)} кг • ~${sp.kgPerCubeNow || cb.cube.kgPerCube} кг в кубе</em></div>
+          <div><span>Картон</span><b>${sp.sheetsMin}–${sp.sheetsMax} л.</b><em>${cb.cube.sheetsMin}–${cb.cube.sheetsMax} листа на куб</em></div>`;
+
+      countUp($("pf"));
+    }
+
+    // Общий стиль кокпитов уменьшает страницу (zoom 0.81–0.92) — высоту экрана считаем с учётом масштаба
+    function fitHeight() {
+      const z = parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
+      const pf = $("pf");
+      if (innerWidth / z <= 1150) { pf.style.height = ""; return; }
+      pf.style.height = Math.floor(innerHeight / z) + "px";
+    }
+    fitHeight();
+    window.addEventListener("resize", fitHeight);
+
+    window.pfSelect = function (id) { sel = id; render(); };
+    window.setCalcsSpecies = function (key, updateYield) {
+      if (!kb()) return;
+      const c = kb().getCanonicalSpecies(key);
+      speciesKey = c.key;
+      if (updateYield !== false) yld.value = String(c.yieldNorm);
+      document.querySelectorAll(".species-chip").forEach((b) => b.classList.toggle("active", b.dataset.species === c.key));
+      render();
+    };
+    document.querySelectorAll(".species-chip").forEach((b) => b.addEventListener("click", () => window.setCalcsSpecies(b.dataset.species, true)));
+    [raw, yld, vacS].forEach((el) => el.addEventListener("input", render));
+    window.addEventListener("arm-cost-changed", render);
+    window.addEventListener("storage", (e) => { if (e.key === "JURMALCIEMS_COST_OVERRIDES_V1") render(); });
+    if (kb() && kb().ready) kb().ready.then(() => window.setCalcsSpecies(speciesKey, true)); else render();
+  })();
+</script><script src="js/stitch-cockpits.js"></script></body></html>

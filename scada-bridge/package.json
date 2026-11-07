@@ -1,0 +1,12 @@
+{
+  "name": "jurmalciems-scada-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SCADA-мост Modbus TCP/RTU (шлюз Delock) для АРМ технолога Юрмалциемс. Без внешних зависимостей.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/run-sim-test.js"
+  },
+  "engines": { "node": ">=18" }
+}

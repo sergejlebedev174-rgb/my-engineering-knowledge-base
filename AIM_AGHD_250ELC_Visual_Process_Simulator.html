@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JŪRMALCIEMS ARM • 3D-Симулятор Камеры AIM AGHD-250ELC</title>
+<link rel="icon" type="image/png" href="logo-icon.png"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<script src="js/knowledge-base.js"></script>
+<style>
+  :root {
+    --bg-canvas: #06070B;
+    --card-bg: #0F121B;
+    --well-bg: #0A0D15;
+    --border-hairline: rgba(255, 255, 255, 0.08);
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+  body {
+    background-color: var(--bg-canvas);
+    background-image:
+      radial-gradient(45% 40% at 20% 25%, rgba(245, 158, 11, 0.06), transparent 70%),
+      radial-gradient(50% 45% at 75% 20%, rgba(37, 99, 235, 0.08), transparent 70%);
+    color: #F8FAFC;
+    font-family: var(--font-sans);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 12px 18px;
+    gap: 6px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .hud-bar {
+    width: 100%; max-width: 1820px;
+    background: linear-gradient(165deg, rgba(19, 23, 34, 0.94) 0%, rgba(11, 14, 22, 0.96) 100%);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border-hairline);
+    border-top: 1px solid rgba(96, 165, 250, 0.32);
+    border-radius: 14px; padding: 6px 12px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 28px rgba(0, 0, 0, 0.85);
+  }
+  .brand-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px 4px 6px; border-radius: 9px;
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.35), rgba(15, 23, 42, 0.75));
+    border: 1px solid rgba(96, 165, 250, 0.35);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    font-size: 11.5px; font-weight: 800; color: #F8FAFC;
+  }
+  .brand-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: #2DD4BF; box-shadow: 0 0 8px #2DD4BF; }
+  .group-left, .group-center, .group-right { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .back-btn {
+    background: rgba(37, 99, 235, 0.16); color: #93C5FD;
+    border: 1px solid rgba(96, 165, 250, 0.38); border-radius: 9px;
+    padding: 4px 9px; font-size: 11px; font-weight: 700; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .back-btn:hover { background: rgba(37, 99, 235, 0.28); color: #FFF; }
+  .view-toggle { display: flex; background: #07090F; padding: 2px; border-radius: 9px; border: 1px solid var(--border-hairline); }
+  .view-btn {
+    background: transparent; color: #94A3B8; border: none; border-radius: 7px;
+    padding: 4px 9px; font-size: 10.5px; font-weight: 700; cursor: pointer; transition: 0.18s;
+  }
+  .view-btn.active { background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #FFF; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45); }
+  .play-btn {
+    background: linear-gradient(135deg, #2DD4BF 0%, #0D9488 100%); color: #041412;
+    border: 1px solid rgba(153, 246, 228, 0.6); border-radius: 9px;
+    padding: 4px 10px; font-size: 11px; font-weight: 800; cursor: pointer;
+  }
+  .play-btn.playing { background: linear-gradient(135deg, #F43F5E 0%, #BE123C 100%); color: #FFF; }
+  .timeline-pill { display: flex; align-items: center; gap: 6px; background: var(--well-bg); padding: 3px 9px; border-radius: 9px; border: 1px solid var(--border-hairline); }
+  .timeline-pill input[type=range] { width: 96px; accent-color: #38BDF8; cursor: pointer; }
+  .st-pill, .sp-btn {
+    background: var(--well-bg); color: #94A3B8; border: 1px solid var(--border-hairline);
+    border-radius: 8px; padding: 4px 9px; font-size: 10.5px; font-weight: 600; cursor: pointer; transition: 0.18s;
+  }
+  .st-pill.active { background: rgba(37, 99, 235, 0.24); color: #93C5FD; border-color: rgba(96, 165, 250, 0.6); }
+  .sp-btn.active { background: rgba(245, 158, 11, 0.18); color: #FDE68A; border-color: rgba(245, 158, 11, 0.5); }
+
+  .kpi-deck {
+    width: 100%; max-width: 1820px;
+    background: linear-gradient(165deg, #11141E 0%, #0A0D15 100%);
+    border: 1px solid var(--border-hairline); border-radius: 14px; padding: 6px 12px;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px;
+  }
+  @media (max-width: 1150px) { .kpi-deck { grid-template-columns: 1fr; } }
+  .stage-title { font-size: 13px; font-weight: 800; color: #F8FAFC; display: flex; align-items: center; gap: 7px; }
+  .stage-sub { font-size: 10.5px; color: #94A3B8; margin-top: 1px; line-height: 1.25; }
+  .kpi-metrics-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .kpi-card { background: #07090F; border: 1px solid var(--border-hairline); border-radius: 9px; padding: 4px 9px; min-width: 98px; text-align: center; }
+  .kpi-lbl { font-size: 8px; font-weight: 700; color: #64748B; text-transform: uppercase; }
+  .kpi-val { font-family: var(--font-mono); font-size: 12px; font-weight: 700; margin-top: 1px; }
+
+  .viewport-container {
+    width: min(100%, calc((100vh - 128px) * 1376 / 768));
+    width: min(100%, calc((100dvh - 128px) * 1376 / 768));
+    max-width: 1820px;
+    max-height: calc(100dvh - 128px);
+    margin: 0 auto;
+    position: relative; border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--border-hairline); background: #05060A;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 50px rgba(0, 0, 0, 0.92);
+    aspect-ratio: 1376 / 768;
+  }
+  @media (max-height: 640px) {
+    .viewport-container {
+      width: min(100%, calc(420px * 1376 / 768));
+      max-height: none;
+    }
+  }
+  .viewport-container.is-zoomed { cursor: grab; }
+  .viewport-container.is-zoomed:active { cursor: grabbing; }
+  .zoom-stage {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    transform-origin: 0 0; transform: translate3d(0, 0, 0) scale(1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform;
+  }
+  .zoom-stage.dragging { transition: none; }
+  .render-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; transition: 0.35s; }
+  .svg-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; transition: 0.35s; }
+  .svg-layer * { pointer-events: auto; }
+  #particle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  .mode-render .render-layer { opacity: 1; filter: brightness(1.02) contrast(1.03); }
+  .mode-render .svg-layer { opacity: 0.96; }
+  .mode-hud .render-layer { opacity: 0.48; filter: brightness(0.72) contrast(1.15); }
+  .mode-cad .render-layer { opacity: 0.08; filter: grayscale(100%); }
+
+  .hotspot-node { cursor: pointer; transition: transform 0.2s ease, filter 0.2s ease; }
+  .hotspot-node:hover { transform: scale(1.14); }
+  .hotspot-node.active-hotspot { filter: drop-shadow(0 0 14px #38BDF8); }
+  @keyframes hsPulse { 0% { transform: scale(0.8); opacity: 0.95; } 100% { transform: scale(2.3); opacity: 0; } }
+  .pulse-ring { transform-origin: center; transform-box: fill-box; animation: hsPulse 2.2s infinite ease-out; }
+  @keyframes dashMove { to { stroke-dashoffset: -48; } }
+  .streamline-line { animation: dashMove 1.0s linear infinite; }
+  .streamline-fast { animation: dashMove 0.65s linear infinite; }
+
+  .viewport-camera-hud {
+    position: absolute; top: 10px; left: 12px; display: flex; align-items: center; gap: 5px;
+    background: rgba(10, 13, 21, 0.86); backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 4px 8px; z-index: 25; flex-wrap: wrap;
+  }
+  .cam-btn {
+    background: #080A12; color: #94A3B8; border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 7px; padding: 4px 8px; font-size: 10.5px; font-weight: 700; cursor: pointer;
+  }
+  .cam-btn:hover { color: #FFF; border-color: rgba(56, 189, 248, 0.5); }
+  .zoom-level-badge { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; color: #FDE68A; padding: 0 4px; }
+
+  .node-inspector-drawer {
+    position: absolute; bottom: 12px; right: 12px; width: 310px; max-width: calc(100% - 24px);
+    max-height: calc(100% - 56px); overflow-y: auto;
+    background: rgba(10, 13, 21, 0.92); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 14px; padding: 10px 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85); z-index: 20;
+  }
+  .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  .drawer-tag { font-size: 8.5px; font-weight: 800; color: #38BDF8; background: rgba(56, 189, 248, 0.12); padding: 2px 7px; border-radius: 5px; }
+  .drawer-title { font-size: 12px; font-weight: 800; color: #FFF; margin-bottom: 3px; }
+  .drawer-desc { font-size: 10.5px; color: #CBD5E1; line-height: 1.32; margin-bottom: 8px; }
+  .drawer-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; background: #06080E; padding: 7px 8px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); }
+  .d-stat-label { font-size: 8px; color: #64748B; font-weight: 600; }
+  .d-stat-val { font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #FDE68A; margin-top: 1px; }
+
+  .bento-macro-grid { width: 100%; max-width: 1820px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media (max-width: 1280px) { .bento-macro-grid { grid-template-columns: 1fr; } }
+  .macro-card { background: linear-gradient(165deg, #11141E 0%, #090B12 100%); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 14px 16px; }
+  .macro-card-title { font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .macro-card-title span.badge { padding: 2px 7px; border-radius: 6px; font-size: 9.5px; font-family: var(--font-mono); }
+</style>
+</head>
+<body>
+
+<div class="hud-bar">
+  <div class="group-left">
+    <a href="index.html" class="back-btn" onclick="if(window.parent && window.parent !== window && typeof window.parent.ckSwitchMainDeck === 'function'){ window.parent.ckSwitchMainDeck('dashboard'); return false; }">
+      <img src="logo-icon.png" onerror="this.style.display='none'" style="width:18px;height:18px;border-radius:4px;" alt=""/>
+      ← В Кокпит АРМ
+    </a>
+    <span class="brand-chip"><span class="dot"></span>Юрмалциемс • 3D-Симулятор</span>
+    <div class="view-toggle">
+      <button class="view-btn active" id="viewBtnRender" onclick="setViewMode('render')">3D Фоторендер</button>
+      <button class="view-btn" id="viewBtnHud" onclick="setViewMode('hud')">Совмещённый HUD</button>
+      <button class="view-btn" id="viewBtnCad" onclick="setViewMode('cad')">CAD Схема</button>
+    </div>
+    <button class="play-btn" id="btnPlay" onclick="toggleAutoPlay()">АВТО-ЦИКЛ (0→84ч)</button>
+    <div class="timeline-pill">
+      <span style="font-size:11px; font-weight:600; color:#64748B;">Час:</span>
+      <input id="hourSlider" max="84" min="0" oninput="onSliderChange(this.value)" step="1" type="range" value="8"/>
+      <span id="hourLabel" style="font-family:var(--font-mono); font-size:12.5px; font-weight:800; color:#38BDF8; min-width:42px;">08 ч</span>
+    </div>
+  </div>
+  <div class="group-center">
+    <button class="st-pill active" id="stBtn1" onclick="selectStage(1)">1. Подвяливание (75 л/ч)</button>
+    <button class="st-pill" id="stBtn2" onclick="selectStage(2)">2. Основная сушка (52 л/ч)</button>
+    <button class="st-pill" id="stBtn3" onclick="selectStage(3)">3. Отволаживание (4ч/1ч)</button>
+    <button class="st-pill" id="stBtn4" onclick="selectStage(4)">4. Финиш 44%</button>
+  </div>
+  <div class="group-right">
+    <span style="font-size:11px; font-weight:600; color:#64748B;">Партия:</span>
+    <button class="sp-btn active" id="sp-vimba" onclick="selectSpecies('vimba')">Вимба</button>
+    <button class="sp-btn" id="sp-bream" onclick="selectSpecies('bream')">Лещ</button>
+    <button class="sp-btn" id="sp-roach" onclick="selectSpecies('roach')">Плотва</button>
+    <button class="sp-btn" id="sp-smelt" onclick="selectSpecies('smelt')">Корюшка</button>
+    <button class="sp-btn" id="sp-perch" onclick="selectSpecies('perch')">Окунь</button>
+    <button class="sp-btn" id="sp-goby" onclick="selectSpecies('goby')">Бычок</button>
+  </div>
+</div>
+
+<div class="kpi-deck">
+  <div>
+    <div class="stage-title">
+      <span style="width:9px; height:9px; border-radius:50%; background:#38BDF8; display:inline-block; box-shadow:0 0 10px #38BDF8;"></span>
+      <span id="hdrStageTitle">ЭТАП 1: ПОДВЯЛИВАНИЕ И СНЯТИЕ ПОВЕРХНОСТНОЙ ВЛАГИ</span>
+    </div>
+    <div class="stage-sub" id="hdrStageSub">Замкнутый контур AIM AGHD-250ELC: обдув Cantoni 30 Гц сквозь 15 тележек → конденсация на V-испарителе (+5.1°C, до 75 л/ч в трап) → бесплатный догрев Reheat (+68°C) и +14 кВт в цех</div>
+  </div>
+  <div class="kpi-metrics-row">
+    <div class="kpi-card" style="border-color:rgba(245,158,11,0.35);"><div class="kpi-lbl">Поток в рыбу</div><div class="kpi-val" id="kpiAirIn" style="color:#F59E0B;">+15.5°C | 48%</div></div>
+    <div class="kpi-card" style="border-color:rgba(56,189,248,0.35);"><div class="kpi-lbl">Слив в трап</div><div class="kpi-val" id="kpiWaterRate" style="color:#38BDF8;">75.0 л/ч</div></div>
+    <div class="kpi-card" style="border-color:rgba(45,212,191,0.35);"><div class="kpi-lbl">Рекуперация</div><div class="kpi-val" id="kpiHeatWorkshop" style="color:#2DD4BF;">+14.0 кВт</div></div>
+    <div class="kpi-card" style="border-color:rgba(59,130,246,0.35);"><div class="kpi-lbl">Cantoni</div><div class="kpi-val" id="kpiFanHz" style="color:#60A5FA;">30.0 Гц</div></div>
+    <div class="kpi-card" style="border-color:rgba(251,191,36,0.35);"><div class="kpi-lbl">Кость / Чешуя</div><div class="kpi-val" id="kpiMoisturePair" style="color:#FDE68A;">75% / 65%</div></div>
+  </div>
+</div>
+
+<div class="viewport-container mode-render" id="viewportWrap">
+  <div class="viewport-camera-hud">
+    <button class="cam-btn" onclick="zoomIn()">Зум +</button>
+    <button class="cam-btn" onclick="zoomOut()">Зум −</button>
+    <span class="zoom-level-badge" id="zoomLevelBadge">1.0x</span>
+    <button class="cam-btn" onclick="resetZoomAndPan()" style="color:#38BDF8;">Сброс (ESC)</button>
+    <button class="cam-btn" id="btnToggleDrops" onclick="toggleDropsAnimation()" style="color:#2DD4BF;">Капли: ВКЛ</button>
+    <button class="cam-btn" id="btnToggleFlows" onclick="toggleFlows()" style="color:#60A5FA;">Потоки: ВКЛ</button>
+    <span style="font-size:9.5px; color:#64748B;">Ctrl+Колесо / Кнопки — Зум • Клик по точке [1–7] — Фокус узла</span>
+  </div>
+
+  <div class="zoom-stage" id="zoomStage">
+    <img alt="AIM AGHD-250ELC 3D Cutaway" class="render-layer" id="renderImg" src="aim-3d.png" onerror="if(!this.dataset.jpg){this.dataset.jpg='1';this.src='aim-3d.jpg';}"/>
+
+    <svg class="svg-layer" id="svgViewport" preserveAspectRatio="none" viewBox="0 0 1376 768">
+      <defs>
+        <marker id="m-amber" markerHeight="6" markerWidth="6" orient="auto" refX="5" refY="3"><polygon fill="#F59E0B" points="0 0, 6 3, 0 6"/></marker>
+        <marker id="m-sky" markerHeight="6" markerWidth="6" orient="auto" refX="5" refY="3"><polygon fill="#38BDF8" points="0 0, 6 3, 0 6"/></marker>
+        <marker id="m-red" markerHeight="6" markerWidth="6" orient="auto" refX="5" refY="3"><polygon fill="#EF4444" points="0 0, 6 3, 0 6"/></marker>
+        <marker id="m-teal" markerHeight="6" markerWidth="6" orient="auto" refX="5" refY="3"><polygon fill="#2DD4BF" points="0 0, 6 3, 0 6"/></marker>
+      </defs>
+
+      <g id="cad-flows-layer">
+        <!-- Поток воздуха сквозь тележки и в V-испаритель -->
+        <path class="streamline-line" d="M 810,165 Q 520,140 210,185" fill="none" marker-end="url(#m-amber)" stroke="#F59E0B" stroke-dasharray="14 8" stroke-width="3.5" opacity="0.8"/>
+        <path class="streamline-line" d="M 160,340 L 520,340" fill="none" marker-end="url(#m-sky)" stroke="#38BDF8" stroke-dasharray="12 8" stroke-width="3" opacity="0.75"/>
+        <path class="streamline-line" d="M 160,460 L 520,460" fill="none" marker-end="url(#m-sky)" stroke="#38BDF8" stroke-dasharray="12 8" stroke-width="3" opacity="0.75"/>
+        <!-- Холодный поток в V-испаритель и горячий в Reheat Coil -->
+        <path class="streamline-fast" d="M 650,150 Q 715,180 715,380" fill="none" marker-end="url(#m-sky)" stroke="#38BDF8" stroke-dasharray="12 6" stroke-width="4" opacity="0.85"/>
+        <path class="streamline-fast" d="M 840,520 L 840,210" fill="none" marker-end="url(#m-red)" stroke="#EF4444" stroke-dasharray="12 6" stroke-width="4" opacity="0.85"/>
+        <!-- Контур фреона R410A от компрессора Panasonic -->
+        <path class="streamline-fast" d="M 1060,440 L 1060,260 L 855,260" fill="none" marker-end="url(#m-red)" stroke="#F97316" stroke-dasharray="8 6" stroke-width="3" opacity="0.85"/>
+        <path class="streamline-line" d="M 960,430 L 740,430" fill="none" marker-end="url(#m-sky)" stroke="#38BDF8" stroke-dasharray="8 6" stroke-width="3" opacity="0.85"/>
+        <!-- Выхлоп рекуперации +14 кВт -->
+        <path class="streamline-fast" d="M 960,125 L 1220,105" fill="none" marker-end="url(#m-teal)" stroke="#2DD4BF" stroke-dasharray="12 6" stroke-width="3.5" opacity="0.85"/>
+      </g>
+
+      <!-- 7 ТОЧЕК-МАЯЧКОВ ПОВЕРХ РЕАЛЬНЫХ УЗЛОВ РЕНДЕРА AIM-3D.PNG -->
+      <g class="hotspot-node" id="node-fans" onclick="selectNodeAndZoom('fans', event)" transform="translate(355, 165)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(56,189,248,0.32)" r="22"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#38BDF8" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">1</text>
+        <rect fill="rgba(7,9,18,0.9)" height="28" rx="6" stroke="rgba(56,189,248,0.5)" width="162" x="16" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="24" y="-1">[1] ТУРБИНЫ CANTONI</text>
+        <text fill="#38BDF8" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudFanHz" x="24" y="9">4×3 кВт • 30.0 Гц</text>
+      </g>
+
+      <g class="hotspot-node" id="node-trolleys" onclick="selectNodeAndZoom('trolleys', event)" transform="translate(340, 410)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(245,158,11,0.3)" r="22"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#F59E0B" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">2</text>
+        <rect fill="rgba(7,9,18,0.9)" height="28" rx="6" stroke="rgba(245,158,11,0.5)" width="166" x="16" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="24" y="-1">[2] 15 ТЕЛЕЖЕК SS304</text>
+        <text fill="#FDE68A" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudFishWeight" x="24" y="9">2 500 кг • Влага 65%</text>
+      </g>
+
+      <g class="hotspot-node" id="node-evaporator" onclick="selectNodeAndZoom('evaporator', event)" transform="translate(715, 355)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(56,189,248,0.38)" r="24"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#38BDF8" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">3</text>
+        <rect fill="rgba(7,9,18,0.92)" height="28" rx="6" stroke="rgba(56,189,248,0.55)" width="174" x="-190" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="-182" y="-1">[3] V-ИСПАРИТЕЛЬ AIM</text>
+        <text fill="#38BDF8" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudEvapRate" x="-182" y="9">+5.1°C • Отжим 75 л/ч</text>
+      </g>
+
+      <g class="hotspot-node" id="node-reheat" onclick="selectNodeAndZoom('reheat', event)" transform="translate(840, 365)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(245,158,11,0.34)" r="22"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#F59E0B" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">4</text>
+        <rect fill="rgba(7,9,18,0.92)" height="28" rx="6" stroke="rgba(245,158,11,0.5)" width="168" x="16" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="24" y="-1">[4] ДОГРЕВ REHEAT COIL</text>
+        <text fill="#FDE68A" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudReheatTemp" x="24" y="9">Газ +68°C • ТЭНы 0 кВт</text>
+      </g>
+
+      <g class="hotspot-node" id="node-drain" onclick="selectNodeAndZoom('drain', event)" transform="translate(730, 635)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(45,212,191,0.36)" r="22"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#2DD4BF" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">5</text>
+        <rect fill="rgba(7,9,18,0.92)" height="28" rx="6" stroke="rgba(45,212,191,0.5)" width="166" x="16" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="24" y="-1">[5] ТРАП СЛИВА 60 СМ [21]</text>
+        <text fill="#2DD4BF" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudTotalWater" x="24" y="9">Слив: 260 л / 1350 л</text>
+      </g>
+
+      <g class="hotspot-node" id="node-compressor" onclick="selectNodeAndZoom('compressor', event)" transform="translate(1060, 515)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(239,68,68,0.34)" r="24"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#EF4444" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">6</text>
+        <rect fill="rgba(7,9,18,0.92)" height="28" rx="6" stroke="rgba(239,68,68,0.5)" width="172" x="16" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="24" y="-1">[6] PANASONIC SCROLL</text>
+        <text fill="#FCA5A5" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudCompCurrent" x="24" y="9">11.4 А • 24 бар • COP 4.2</text>
+      </g>
+
+      <g class="hotspot-node" id="node-recovery" onclick="selectNodeAndZoom('recovery', event)" transform="translate(1085, 130)">
+        <circle class="pulse-ring" cx="0" cy="0" fill="rgba(45,212,191,0.35)" r="22"/>
+        <circle class="hotspot-center" cx="0" cy="0" fill="#070912" r="10" stroke="#2DD4BF" stroke-width="2.5"/>
+        <text fill="#FFF" font-size="9" font-weight="800" text-anchor="middle" x="0" y="3.5">7</text>
+        <rect fill="rgba(7,9,18,0.92)" height="28" rx="6" stroke="rgba(45,212,191,0.5)" width="166" x="16" y="-14"/>
+        <text fill="#FFF" font-size="9" font-weight="800" x="24" y="-1">[7] РЕКУПЕРАЦИЯ [20]</text>
+        <text fill="#2DD4BF" font-family="JetBrains Mono" font-size="8" font-weight="700" id="hudRecoveryKw" x="24" y="9">+14.0 кВт • Тепло +35°C</text>
+      </g>
+    </svg>
+
+    <canvas height="768" id="particle-canvas" width="1376"></canvas>
+  </div>
+
+  <div class="node-inspector-drawer" id="nodeDrawer">
+    <div class="drawer-header">
+      <span class="drawer-tag" id="drawerTag">УЗЕЛ [3] • V-ИСПАРИТЕЛЬ</span>
+      <button onclick="closeDrawer()" style="background:none; border:none; color:#64748B; font-size:15px; cursor:pointer;">✕</button>
+    </div>
+    <div class="drawer-title" id="drawerTitle">Slanted V-Evaporator (1#Dehumicoil)</div>
+    <div id="drawerTrolleyPreview" style="display:none; margin-bottom:10px; border-radius:10px; overflow:hidden; border:1px solid rgba(0,240,255,0.4); background:#050810;">
+      <img src="trolley-3d.png" onerror="this.src='chamber-3d.png'" alt="Труль AISI 304 3D" style="width:100%; height:150px; object-fit:cover; display:block;"/>
+    </div>
+    <div class="drawer-desc" id="drawerDesc">Наклонный V-образный испаритель охлаждает влажный воздух ниже точки росы без обмерзания (+5.1°C / 8.4 бар R410A), конденсируя до 75 л/ч воды прямо в дренажный трап [21].</div>
+    <div class="drawer-stats-grid">
+      <div><div class="d-stat-label">ТЕМПЕРАТУРА СОТ</div><div class="d-stat-val" id="dStat1">+5.1°C</div></div>
+      <div><div class="d-stat-label">ОТЖИМ ВОДЫ</div><div class="d-stat-val" id="dStat2">75.0 л/ч</div></div>
+      <div><div class="d-stat-label">ДАВЛЕНИЕ НД</div><div class="d-stat-val" id="dStat3">8.4 бар</div></div>
+      <div><div class="d-stat-label">КЛАПАН 1#EEV</div><div class="d-stat-val" id="dStat4">315 step</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="bento-macro-grid">
+  <div class="macro-card">
+    <div class="macro-card-title"><span>БИОМЕТРИЯ ТУШКИ: ГРАДИЕНТ ВЛАГИ</span><span class="badge" style="background:rgba(56,189,248,0.15); color:#38BDF8;">VIMBA 2.5т</span></div>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#94A3B8;">Хребет / Позвоночник:</span><span id="cardCorePct" style="font-family:var(--font-mono); font-weight:700; color:#FDE68A;">75%</span></div>
+      <div style="width:100%; height:6px; background:#070912; border-radius:3px; overflow:hidden;"><div id="cardCoreBar" style="width:94%; height:100%; background:linear-gradient(90deg, #F59E0B, #EF4444);"></div></div>
+      <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#94A3B8;">Срединный слой и ястык икры:</span><span id="cardMidPct" style="font-family:var(--font-mono); font-weight:700; color:#38BDF8;">70%</span></div>
+      <div style="width:100%; height:6px; background:#070912; border-radius:3px; overflow:hidden;"><div id="cardMidBar" style="width:87%; height:100%; background:linear-gradient(90deg, #38BDF8, #60A5FA);"></div></div>
+      <div style="display:flex; justify-content:space-between; font-size:11px;"><span style="color:#94A3B8;">Чешуя и подкожный жир:</span><span id="cardSurfPct" style="font-family:var(--font-mono); font-weight:700; color:#2DD4BF;">65%</span></div>
+      <div style="width:100%; height:6px; background:#070912; border-radius:3px; overflow:hidden;"><div id="cardSurfBar" style="width:81%; height:100%; background:linear-gradient(90deg, #2DD4BF, #10B981);"></div></div>
+      <div id="cardBioComment" style="font-size:11px; color:#94A3B8; margin-top:4px; line-height:1.4;">Свободная поверхностная влага испаряется. Мягкая температура +15.5°C предотвращает окисление жиров.</div>
+    </div>
+  </div>
+
+  <div class="macro-card">
+    <div class="macro-card-title"><span>ПСИХРОМЕТРИЯ ЗАМКНУТОГО КОЛЬЦА</span><span class="badge" style="background:rgba(245,158,11,0.15); color:#F59E0B;">I-D ДИАГРАММА</span></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <div style="background:#070912; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);"><div style="font-size:9px; color:#64748B;">ПОДАЧА В КАМЕРУ</div><div id="pm1Temp" style="font-family:var(--font-mono); font-size:13px; font-weight:700; color:#F59E0B;">+15.5°C</div><div id="pm1Rh" style="font-size:10px; color:#94A3B8;">RH 48% (Сухой)</div></div>
+      <div style="background:#070912; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);"><div style="font-size:9px; color:#64748B;">ВЫХОД ИЗ ТЕЛЕЖЕК</div><div id="pm2Temp" style="font-family:var(--font-mono); font-size:13px; font-weight:700; color:#38BDF8;">+12.2°C</div><div id="pm2Rh" style="font-size:10px; color:#94A3B8;">RH 82% (Влажный)</div></div>
+      <div style="background:#070912; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);"><div style="font-size:9px; color:#64748B;">КОНДЕНСАЦИЯ V-COIL</div><div id="pm3Rate" style="font-family:var(--font-mono); font-size:13px; font-weight:700; color:#2DD4BF;">-75.0 л/ч в трап</div><div style="font-size:10px; color:#94A3B8;">Кипение: +5.1°C</div></div>
+      <div style="background:#070912; padding:8px; border-radius:8px; border:1px solid rgba(255,255,255,0.05);"><div style="font-size:9px; color:#64748B;">ПОСЛЕ REHEAT COIL</div><div id="pm4Temp" style="font-family:var(--font-mono); font-size:13px; font-weight:700; color:#EF4444;">+16.0°C</div><div id="pm4Rh" style="font-size:10px; color:#94A3B8;">RH 45% (+68°C газ)</div></div>
+    </div>
+  </div>
+
+  <div class="macro-card">
+    <div class="macro-card-title"><span>ДИНАМИКА ОТЖИМА ВЛАГИ (0 → 84 Ч)</span><span class="badge" style="background:rgba(45,212,191,0.15); color:#2DD4BF;">AIM ТЕХНОЛОГИЯ</span></div>
+    <svg style="width:100%; height:92px; overflow:visible;" viewBox="0 0 400 110">
+      <line stroke="rgba(255,255,255,0.1)" x1="0" x2="400" y1="100" y2="100"/>
+      <line stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4" x1="0" x2="400" y1="60" y2="60"/>
+      <line stroke="rgba(255,255,255,0.06)" stroke-dasharray="4 4" x1="0" x2="400" y1="20" y2="20"/>
+      <path d="M 0,20 C 60,25 120,48 180,62 C 240,74 320,86 400,94" fill="none" stroke="#38BDF8" stroke-width="2.5"/>
+      <line id="graphCursorLine" stroke="#F59E0B" stroke-dasharray="2 2" stroke-width="1.5" x1="38" x2="38" y1="10" y2="100"/>
+      <circle cx="38" cy="24" fill="#F59E0B" id="graphCursorDot" r="4.5" stroke="#FFF" stroke-width="1.5"/>
+      <text fill="#64748B" font-family="var(--font-mono)" font-size="9" x="10" y="108">0ч</text>
+      <text fill="#64748B" font-family="var(--font-mono)" font-size="9" x="130" y="108">28ч</text>
+      <text fill="#64748B" font-family="var(--font-mono)" font-size="9" x="260" y="108">56ч</text>
+      <text fill="#64748B" font-family="var(--font-mono)" font-size="9" x="375" y="108">84ч</text>
+    </svg>
+  </div>
+</div>
+
+<script>
+  const STAGE_DATA = {
+    1: { hour: 8, title: 'ЭТАП 1: ПОДВЯЛИВАНИЕ И СНЯТИЕ ПОВЕРХНОСТНОЙ ВЛАГИ (0–12 Ч)', sub: 'Мощный ламинарный обдув 30 Гц → Свободная влага испаряется с чешуи → V-испаритель AIM AGHD-250ELC (+5.1°C) отжимает до 75 л/ч конденсата в трап [21]', tIn: 15.5, rhIn: 48, tOut: 12.2, rhOut: 82, rate: 75.0, heatKw: 14.0, hz: 30.0, eev: 315, coreM: 75, midM: 70, surfM: 65, bio: 'Свободная поверхностная влага легко испаряется. Мягкая температура +15.5°C предотвращает окисление жиров.' },
+    2: { hour: 26, title: 'ЭТАП 2: ОСНОВНАЯ СУШКА МЫШЕЧНОЙ ТКАНИ (12–38 Ч)', sub: 'Горячий фреон (+68°C) держит в камере +17.0°C без ТЭНов → Активный диффузионный выход влаги из толщи спинки (52 л/ч)', tIn: 17.0, rhIn: 45, tOut: 13.8, rhOut: 76, rate: 52.0, heatKw: 13.8, hz: 30.0, eev: 295, coreM: 64, midM: 56, surfM: 50, bio: 'Поверхность подсохла до 50%, градиент с хребтом (64%) возрастает. Активная вытяжка от кости.' },
+    3: { hour: 54, title: 'ЭТАП 3: ЦИКЛИЧЕСКОЕ ОТВОЛАЖИВАНИЕ (4 ЧАСА ОТДЫХ / 1 ЧАС СЪЁМ)', sub: 'При 25.3 Гц влага из позвоночника подтягивается наружу, а ценные Омега-3 жиры равномерно пропитывают балык', tIn: 14.0, rhIn: 46, tOut: 12.6, rhOut: 68, rate: 28.0, heatKw: 9.8, hz: 25.3, eev: 215, coreM: 51, midM: 49, surfM: 48, bio: 'За 4 часа паузы влага от позвоночника выравнивается с кожей (51% → 48%). Исключён закал.' },
+    4: { hour: 80, title: 'ЭТАП 4: ЯНТАРНЫЙ ФИНИШ И ГОТОВНОСТЬ ДЕЛИКАТЕСА (72–84 Ч)', sub: 'Влажность по всему сечению равномерна (44–45%) → Филе плотное, янтарно-просвечивающееся, готово к вакуумированию KOMET', tIn: 14.5, rhIn: 44, tOut: 13.7, rhOut: 55, rate: 10.0, heatKw: 6.2, hz: 25.0, eev: 175, coreM: 45, midM: 44, surfM: 44, bio: 'Деликатес высшего сорта: янтарная прозрачность, упругая спинка, влажность 44% едина у кости и у чешуи.' }
+  };
+
+  const NODE_DETAILS = {
+    fans: { tag: 'УЗЕЛ [1] • ТУРБИНЫ', title: 'Осевые турбины камеры Cantoni (4×3.0 кВт)', desc: 'Расположены в верхнем пленуме камеры. Создают равномерный односторонний продув 2.8 м/с сквозь все 15 тележек с рыбой.', s1: '30.0 Гц', s2: '2.8 м/с', s3: '12.0 кВт', s4: 'HAPN VFD', cx: 355, cy: 165, zoom: 2.3 },
+    trolleys: { tag: 'УЗЕЛ [2] • ПАРТИЯ', title: '15 Тележек из нержавеющей стали AISI 304', desc: 'Загрузка партии до 2 500 кг. Рыба развешена на прутках в 7 ярусов. Суммарный отжим воды за цикл: 1 350 литров.', s1: '2 500 кг', s2: '15 шт', s3: 'AISI 304', s4: '7 ярусов', cx: 340, cy: 410, zoom: 2.2 },
+    evaporator: { tag: 'УЗЕЛ [3] • ИСПАРИТЕЛЬ', title: 'Slanted V-Evaporator 1#Dehumicoil (+5.1°C)', desc: 'Наклонная V-образная конструкция охлаждает поток ниже точки росы без обмерзания (+4.5...+5.8°C), конденсируя до 75 л/ч воды в дренажный трап [21].', s1: '+5.1°C', s2: '75.0 л/ч', s3: '8.4 бар', s4: '315 step', cx: 715, cy: 355, zoom: 2.5 },
+    reheat: { tag: 'УЗЕЛ [4] • ДОГРЕВ', title: 'Золотой конденсатор догрева (Reheat Coil)', desc: 'Горячий газ R410A (+68°C от компрессора) бесплатно нагревает осушенный воздух с +5°C до +16°C, снижая RH с 95% до 48%.', s1: '+68.0°C', s2: '0 кВт ТЭН', s3: 'COP 4.2', s4: '24.0 бар', cx: 840, cy: 365, zoom: 2.4 },
+    drain: { tag: 'УЗЕЛ [5] • ДРЕНАЖ', title: 'Нержавеющий трап слива конденсата 60 см [21]', desc: 'Принимает весь поток отжатой из рыбы влаги с нижнего желоба V-испарителя (до 75 л/ч на первой стадии).', s1: '75.0 л/ч', s2: '1 350 л', s3: '60×60 см', s4: 'AISI 304', cx: 730, cy: 635, zoom: 2.4 },
+    compressor: { tag: 'УЗЕЛ [6] • КОМПРЕССОР', title: 'Спиральный компрессор Panasonic Scroll C-SCP400', desc: 'Сердце теплового насоса R410A (4.2 кВт, масло FV68S). Перекачивает энергию фазового перехода с коэффициентом COP 4.2.', s1: '11.4 А', s2: '24.0 бар', s3: 'FV68S', s4: '4.2 кВт', cx: 1060, cy: 515, zoom: 2.4 },
+    recovery: { tag: 'УЗЕЛ [7] • РЕКУПЕРАЦИЯ', title: 'Магистраль рекуперации тепла в цех (+14.0 кВт)', desc: 'Утилизирует избыточное тепло конденсации на бесплатный обогрев цеха Юрмалциемс (+35°C над рабочей зоной).', s1: '+14.0 кВт', s2: '+35.0°C', s3: '22–24 бар', s4: 'Зима', cx: 1085, cy: 130, zoom: 2.3 }
+  };
+
+  let currentStage = 1, currentHour = 8, currentSpecies = 'vimba', currentBatchKg = 2500, autoPlayTimer = null;
+  let currentBatchYield = 0, currentBatchMode = 'mono';
+  let cameraScale = 1.0, cameraPanX = 0, cameraPanY = 0, isDropsEnabled = true, isFlowsEnabled = true;
+  const zoomStageEl = document.getElementById('zoomStage');
+  const viewportWrapEl = document.getElementById('viewportWrap');
+  const zoomBadgeEl = document.getElementById('zoomLevelBadge');
+
+  function clampCameraPan() {
+    if (cameraScale <= 1.01) {
+      cameraScale = 1.0; cameraPanX = 0; cameraPanY = 0; return;
+    }
+    const rect = viewportWrapEl.getBoundingClientRect();
+    const minPanX = -(rect.width * (cameraScale - 1));
+    const minPanY = -(rect.height * (cameraScale - 1));
+    cameraPanX = Math.max(minPanX, Math.min(0, cameraPanX));
+    cameraPanY = Math.max(minPanY, Math.min(0, cameraPanY));
+  }
+
+  function zoomAroundPoint(newScale, focalX, focalY, smooth = true) {
+    const oldScale = cameraScale;
+    cameraScale = Math.max(1.0, Math.min(3.0, newScale));
+    if (cameraScale <= 1.02) {
+      resetZoomAndPan();
+      return;
+    }
+    const rect = viewportWrapEl.getBoundingClientRect();
+    const fx = (typeof focalX === 'number') ? focalX : (rect.width / 2);
+    const fy = (typeof focalY === 'number') ? focalY : (rect.height / 2);
+    const stageX = (fx - cameraPanX) / oldScale;
+    const stageY = (fy - cameraPanY) / oldScale;
+    cameraPanX = fx - stageX * cameraScale;
+    cameraPanY = fy - stageY * cameraScale;
+    applyCameraTransform(smooth);
+  }
+
+  function applyCameraTransform(smooth = true) {
+    clampCameraPan();
+    zoomStageEl.classList.toggle('dragging', !smooth);
+    zoomStageEl.style.transform = `translate3d(${cameraPanX}px, ${cameraPanY}px, 0px) scale(${cameraScale})`;
+    zoomBadgeEl.textContent = cameraScale.toFixed(1) + 'x';
+    viewportWrapEl.classList.toggle('is-zoomed', cameraScale > 1.05);
+  }
+
+  function resetZoomAndPan() {
+    cameraScale = 1.0; cameraPanX = 0; cameraPanY = 0;
+    document.querySelectorAll('.hotspot-node').forEach(el => el.classList.remove('active-hotspot'));
+    applyCameraTransform(true);
+  }
+
+  function zoomIn() { zoomAroundPoint(cameraScale + 0.35); }
+  function zoomOut() { zoomAroundPoint(cameraScale - 0.35); }
+
+  function toggleDropsAnimation() {
+    isDropsEnabled = !isDropsEnabled;
+    document.getElementById('btnToggleDrops').textContent = isDropsEnabled ? 'Капли: ВКЛ' : 'Капли: ВЫКЛ';
+  }
+  function toggleFlows() {
+    isFlowsEnabled = !isFlowsEnabled;
+    document.getElementById('cad-flows-layer').style.display = isFlowsEnabled ? 'block' : 'none';
+    document.getElementById('btnToggleFlows').textContent = isFlowsEnabled ? 'Потоки: ВКЛ' : 'Потоки: ВЫКЛ';
+  }
+
+  function selectNodeAndZoom(key, event) {
+    if (event) event.stopPropagation();
+    const node = NODE_DETAILS[key];
+    if (!node) return;
+    document.getElementById('nodeDrawer').style.display = 'block';
+    document.getElementById('drawerTag').textContent = node.tag;
+    document.getElementById('drawerTitle').textContent = node.title;
+    document.getElementById('drawerDesc').textContent = node.desc;
+    document.getElementById('dStat1').textContent = node.s1;
+    document.getElementById('dStat2').textContent = node.s2;
+    document.getElementById('dStat3').textContent = node.s3;
+    document.getElementById('dStat4').textContent = node.s4;
+    const trPrev = document.getElementById('drawerTrolleyPreview');
+    if (trPrev) trPrev.style.display = (key === 'trolleys') ? 'block' : 'none';
+
+    const rect = viewportWrapEl.getBoundingClientRect();
+    cameraScale = node.zoom || 2.35;
+    const relX = (node.cx / 1376) * rect.width;
+    const relY = (node.cy / 768) * rect.height;
+    cameraPanX = Math.max(-(rect.width * (cameraScale - 1)), Math.min(0, (rect.width / 2) - relX * cameraScale));
+    cameraPanY = Math.max(-(rect.height * (cameraScale - 1)), Math.min(0, (rect.height / 2) - relY * cameraScale));
+
+    document.querySelectorAll('.hotspot-node').forEach(el => el.classList.remove('active-hotspot'));
+    const activeEl = document.getElementById('node-' + key);
+    if (activeEl) activeEl.classList.add('active-hotspot');
+    applyCameraTransform(true);
+  }
+
+  function closeDrawer() { document.getElementById('nodeDrawer').style.display = 'none'; }
+
+  let isDragging = false, dragStartX = 0, dragStartY = 0, startPanX = 0, startPanY = 0;
+  viewportWrapEl.addEventListener('mousedown', (e) => {
+    if (e.target.closest('.viewport-camera-hud') || e.target.closest('.node-inspector-drawer') || cameraScale <= 1.05) return;
+    isDragging = true; dragStartX = e.clientX; dragStartY = e.clientY; startPanX = cameraPanX; startPanY = cameraPanY;
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    cameraPanX = startPanX + (e.clientX - dragStartX);
+    cameraPanY = startPanY + (e.clientY - dragStartY);
+    applyCameraTransform(false);
+  });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+  viewportWrapEl.addEventListener('wheel', (e) => {
+    if (e.target.closest('.node-inspector-drawer')) return;
+    // Перехватываем колесо только если зажат Ctrl/Meta или пользователь уже включил зум (>1.02x),
+    // чтобы обычная прокрутка страницы вниз к карточкам работала свободно и не вызывала случайный зум 1.6x!
+    if (!e.ctrlKey && !e.metaKey && cameraScale <= 1.02) return;
+    e.preventDefault();
+    const rect = viewportWrapEl.getBoundingClientRect();
+    const fx = e.clientX - rect.left;
+    const fy = e.clientY - rect.top;
+    const nextScale = cameraScale * (e.deltaY < 0 ? 1.14 : 0.88);
+    zoomAroundPoint(nextScale, fx, fy, true);
+  }, { passive: false });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') resetZoomAndPan(); });
+  window.addEventListener('resize', () => { if (cameraScale > 1.01) applyCameraTransform(false); });
+
+  function setViewMode(mode) {
+    viewportWrapEl.classList.remove('mode-render', 'mode-hud', 'mode-cad');
+    ['viewBtnRender', 'viewBtnHud', 'viewBtnCad'].forEach(id => document.getElementById(id).classList.remove('active'));
+    viewportWrapEl.classList.add('mode-' + mode);
+    document.getElementById(mode === 'render' ? 'viewBtnRender' : mode === 'hud' ? 'viewBtnHud' : 'viewBtnCad').classList.add('active');
+  }
+
+  function selectStage(st) { currentStage = st; currentHour = STAGE_DATA[st].hour; document.getElementById('hourSlider').value = currentHour; updateAll(); }
+  function selectSpecies(sp, fromBus = false) {
+    currentSpecies = sp;
+    ['vimba', 'smelt', 'bream', 'roach', 'perch', 'goby'].forEach(k => {
+      const el = document.getElementById('sp-' + k);
+      if (el) el.classList.toggle('active', k === sp);
+    });
+    // общая партия программы хранит вид в поле speciesKey (раньше уходило species — и вид терялся)
+    if (!fromBus && window.ARM_KB && typeof window.ARM_KB.setSharedBatch === 'function') {
+      window.ARM_KB.setSharedBatch({ speciesKey: sp }, 'simulator');
+    }
+    updateAll();
+  }
+  function onSliderChange(val) {
+    currentHour = parseInt(val, 10);
+    currentStage = currentHour <= 12 ? 1 : currentHour <= 38 ? 2 : currentHour <= 72 ? 3 : 4;
+    updateAll();
+  }
+  function toggleAutoPlay() {
+    const btn = document.getElementById('btnPlay');
+    if (autoPlayTimer) {
+      clearInterval(autoPlayTimer); autoPlayTimer = null; btn.classList.remove('playing'); btn.textContent = 'АВТО-ЦИКЛ (0→84ч)';
+    } else {
+      btn.classList.add('playing'); btn.textContent = 'ПАУЗА ЦИКЛА';
+      autoPlayTimer = setInterval(() => { currentHour = (currentHour + 1) % 85; document.getElementById('hourSlider').value = currentHour; onSliderChange(currentHour); }, 400);
+    }
+  }
+
+  function updateAll() {
+    const st = STAGE_DATA[currentStage];
+    const spCanon = (window.ARM_KB && typeof window.ARM_KB.getCanonicalSpecies === 'function') ? window.ARM_KB.getCanonicalSpecies(currentSpecies) : null;
+    // температурный профиль сдвигается к коридору вида из базы знаний (knowledge/species.js);
+    // база профиля — вимба 15–16.5°C (середина 15.75), для неё сдвиг 0
+    let offset = (currentSpecies === 'smelt' ? 2.2 : currentSpecies === 'roach' ? 1.4 : currentSpecies === 'goby' ? 0.8 : currentSpecies === 'perch' ? 0.6 : currentSpecies === 'bream' ? 0.3 : 0);
+    if (spCanon) {
+      const rng = currentBatchMode === 'mixed' ? spCanon.tempRangeWithVimbaC : spCanon.tempRangeMonoC;
+      if (rng && rng.length === 2) offset = +(((Number(rng[0]) + Number(rng[1])) / 2) - 15.75).toFixed(2);
+    }
+    const totalCycleHours = 84;
+    const batchWeightKg = currentBatchKg || 2500;
+    const batchWeightStr = batchWeightKg.toLocaleString('ru-RU') + ' кг';
+    // вода, которая уйдёт за цикл = сырьё × (1 − выход готовой); выход — норма вида из базы знаний
+    const yieldPct = currentBatchYield || (spCanon ? spCanon.yieldNorm : 46);
+    const totalWaterTarget = Math.round(batchWeightKg * (1 - yieldPct / 100));
+
+    [1, 2, 3, 4].forEach(n => document.getElementById('stBtn' + n).classList.toggle('active', n === currentStage));
+    document.getElementById('hourLabel').textContent = (currentHour < 10 ? '0' : '') + currentHour + ' ч';
+    document.getElementById('hdrStageTitle').textContent = st.title;
+    document.getElementById('hdrStageSub').textContent = st.sub;
+
+    const tIn = (st.tIn + offset).toFixed(1), tOut = (st.tOut + offset).toFixed(1);
+    document.getElementById('kpiAirIn').textContent = '+' + tIn + '°C | ' + st.rhIn + '%';
+    document.getElementById('kpiWaterRate').textContent = st.rate.toFixed(1) + ' л/ч';
+    document.getElementById('kpiHeatWorkshop').textContent = '+' + st.heatKw.toFixed(1) + ' кВт';
+    document.getElementById('kpiFanHz').textContent = st.hz.toFixed(1) + ' Гц';
+    document.getElementById('kpiMoisturePair').textContent = st.coreM + '% / ' + st.surfM + '%';
+
+    document.getElementById('hudFanHz').textContent = '4×3 кВт • ' + st.hz.toFixed(1) + ' Гц';
+    document.getElementById('hudFishWeight').textContent = batchWeightStr + ' • Влага ' + st.surfM + '%';
+    document.getElementById('hudEvapRate').textContent = '+5.1°C • Отжим ' + st.rate.toFixed(1) + ' л/ч';
+    const liters = Math.round(Math.pow(Math.min(1, currentHour / 84), 0.7) * totalWaterTarget);
+    document.getElementById('hudTotalWater').textContent = 'Слив: ' + liters + ' л / ' + totalWaterTarget + ' л';
+    if (NODE_DETAILS.trolleys) {
+      NODE_DETAILS.trolleys.s1 = batchWeightStr;
+      NODE_DETAILS.trolleys.desc = `Загрузка партии ${batchWeightStr} (${spCanon ? spCanon.titleRu : currentSpecies.toUpperCase()}, модель цикла ${totalCycleHours} ч). Рыба развешена на прутках в 7 ярусов. Суммарный отжим воды за цикл: ${totalWaterTarget.toLocaleString('ru-RU')} литров.`;
+    }
+    const bioBadge = document.querySelector('.macro-card-title span.badge');
+    if (bioBadge) bioBadge.textContent = `${currentSpecies.toUpperCase()} ${(batchWeightKg / 1000).toFixed(1)}т`;
+
+    document.getElementById('cardCorePct').textContent = st.coreM + '%';
+    document.getElementById('cardCoreBar').style.width = Math.round((st.coreM / 80) * 100) + '%';
+    document.getElementById('cardMidPct').textContent = st.midM + '%';
+    document.getElementById('cardMidBar').style.width = Math.round((st.midM / 80) * 100) + '%';
+    document.getElementById('cardSurfPct').textContent = st.surfM + '%';
+    document.getElementById('cardSurfBar').style.width = Math.round((st.surfM / 80) * 100) + '%';
+    document.getElementById('cardBioComment').textContent = st.bio;
+
+    document.getElementById('pm1Temp').textContent = '+' + tIn + '°C';
+    document.getElementById('pm1Rh').textContent = 'RH ' + st.rhIn + '% (Сухой)';
+    document.getElementById('pm2Temp').textContent = '+' + tOut + '°C';
+    document.getElementById('pm2Rh').textContent = 'RH ' + st.rhOut + '% (Влажный)';
+    document.getElementById('pm3Rate').textContent = '-' + st.rate.toFixed(1) + ' л/ч в трап';
+    document.getElementById('pm4Temp').textContent = '+' + (parseFloat(tIn) + 0.5).toFixed(1) + '°C';
+
+    const gx = Math.round((currentHour / 84) * 400);
+    const gy = Math.round(20 + Math.pow(currentHour / 84, 0.75) * 74);
+    document.getElementById('graphCursorLine').setAttribute('x1', gx);
+    document.getElementById('graphCursorLine').setAttribute('x2', gx);
+    document.getElementById('graphCursorDot').setAttribute('cx', gx);
+    document.getElementById('graphCursorDot').setAttribute('cy', gy);
+  }
+
+  // КАПЛИ КОНДЕНСАТА И КРУГИ НА ВОДЕ (ОТКАЛИБРОВАНЫ ПОД V-ИСПАРИТЕЛЬ И ТРАП НА AIM-3D.PNG)
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  const condensDrops = [], splashRipples = [];
+
+  function resetDrop(p, init = false) {
+    p.side = Math.random() < 0.5 ? 'left' : 'right';
+    p.phase = 'sliding';
+    p.t = init ? Math.random() : 0;
+    p.speed = 0.008 + Math.random() * 0.008;
+    // Координаты левого и правого крыла голубого V-испарителя на рендере aim-3d.png (1376x768)
+    if (p.side === 'left') {
+      p.sx = 655 + Math.random() * 14; p.sy = 250 + Math.random() * 50;
+      p.ex = 710 + Math.random() * 12; p.ey = 490 + Math.random() * 14;
+    } else {
+      p.sx = 775 + Math.random() * 14; p.sy = 250 + Math.random() * 50;
+      p.ex = 720 + Math.random() * 12; p.ey = 490 + Math.random() * 14;
+    }
+    p.x = p.sx; p.y = p.sy; p.vy = 0; p.size = 1.4 + Math.random() * 1.4;
+  }
+  for (let i = 0; i < 85; i++) { const d = {}; resetDrop(d, true); condensDrops.push(d); }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (isDropsEnabled) {
+      const ratio = currentStage === 1 ? 1.0 : currentStage === 2 ? 0.72 : currentStage === 3 ? 0.38 : 0.16;
+      const count = Math.max(6, Math.round(condensDrops.length * ratio));
+      for (let i = 0; i < count; i++) {
+        const p = condensDrops[i];
+        if (p.phase === 'sliding') {
+          p.t += p.speed;
+          p.x = p.sx + (p.ex - p.sx) * p.t;
+          p.y = p.sy + (p.ey - p.sy) * p.t;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(125, 211, 252, 0.85)'; ctx.fill();
+          if (p.t >= 1.0) { p.phase = 'dripping'; p.vy = 1.5 + Math.random(); p.x = 706 + Math.random() * 26; p.y = 505; }
+        } else {
+          p.vy += 0.28; p.y += p.vy;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y - Math.min(14, p.vy * 1.6)); ctx.lineTo(p.x, p.y);
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.9)'; ctx.lineWidth = p.size; ctx.lineCap = 'round'; ctx.stroke();
+          if (p.y >= 625) {
+            splashRipples.push({ x: p.x, y: 632 + Math.random() * 10, r: 1.5, maxR: 13 * ratio, alpha: 0.85 });
+            resetDrop(p, false);
+          }
+        }
+      }
+      for (let i = splashRipples.length - 1; i >= 0; i--) {
+        const r = splashRipples[i]; r.r += 0.42; r.alpha -= 0.03;
+        if (r.alpha <= 0) { splashRipples.splice(i, 1); continue; }
+        ctx.beginPath(); ctx.ellipse(r.x, r.y, r.r * 1.5, r.r * 0.55, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(56, 189, 248, ${r.alpha})`; ctx.lineWidth = 1.2; ctx.stroke();
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  function applySharedBatch(batch) {
+    if (!batch) return;
+    if (batch.rawKg && batch.rawKg > 0) currentBatchKg = batch.rawKg;
+    if (batch.yieldPct) currentBatchYield = Number(batch.yieldPct);
+    currentBatchMode = batch.mode === 'mixed' ? 'mixed' : 'mono';
+    const rawSp = batch.speciesKey || batch.species;
+    const spLower = window.ARM_KB.toLowerSpeciesKey ? window.ARM_KB.toLowerSpeciesKey(rawSp) : String(rawSp || '').toLowerCase();
+    if (spLower && ['vimba', 'smelt', 'bream', 'roach', 'perch', 'goby'].includes(spLower)) {
+      selectSpecies(spLower, true);
+    } else {
+      updateAll();
+    }
+  }
+  if (window.ARM_KB && typeof window.ARM_KB.onBatchChange === 'function') {
+    window.ARM_KB.onBatchChange(applySharedBatch);
+    // стартуем с текущей партии программы (вид, сырьё, выход), а не с заглушки 2 500 кг
+    applySharedBatch(window.ARM_KB.getSharedBatch());
+    // файлы базы знаний грузятся отдельно — когда придут, пересчитываем по данным вида
+    if (window.ARM_KB.ready) window.ARM_KB.ready.then(() => updateAll());
+  } else {
+    updateAll();
+  }
+  animate();
+</script>
+<!-- Паспорт партии, живая рыба, стеллаж 15 тележек и анимации тумана/потоков (?fx=0 — без анимаций) -->
+<script src="js/sim-batch.js"></script>
+<script src="js/draw-trolley.js"></script>
+</body>
+</html>

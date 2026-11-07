@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+  <meta content="mobile_tab" name="shell-type">
+  <title>Конвейер партии • Юрмалциемс АРМ</title>
+  <style>
+    @layer base {
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #0e131e;
+      }
+      body {
+        overscroll-behavior: none;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090e19;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.25);
+      border-radius: 9999px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    body {
+      min-height: 100dvh;
+    }
+    @keyframes hud-scanline {
+      0% { top: 0%; opacity: 0.15; }
+      50% { opacity: 0.9; }
+      100% { top: 100%; opacity: 0.15; }
+    }
+    @keyframes wind-flow {
+      0% { transform: translateX(-6px); opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { transform: translateX(6px); opacity: 0.2; }
+    }
+    @keyframes shimmer-sweep {
+      0% { transform: translateX(-150%) skewX(-20deg); }
+      100% { transform: translateX(200%) skewX(-20deg); }
+    }
+    @keyframes pulse-glow-cyan {
+      0%, 100% { box-shadow: 0 0 15px rgba(0,240,255,0.25), inset 0 0 10px rgba(0,240,255,0.1); }
+      50% { box-shadow: 0 0 28px rgba(0,240,255,0.5), inset 0 0 18px rgba(0,240,255,0.25); }
+    }
+    .animate-scanline {
+      animation: hud-scanline 3.2s ease-in-out infinite;
+    }
+    .animate-wind {
+      animation: wind-flow 1.4s ease-in-out infinite;
+    }
+    .shimmer-effect::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+      animation: shimmer-sweep 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      pointer-events: none;
+    }
+    .cyber-glass {
+      background: linear-gradient(135deg, rgba(27, 31, 43, 0.78) 0%, rgba(14, 19, 30, 0.88) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 240, 255, 0.18);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+    /* Раскладка «Партии»: вид рыбы и источник в одну строку, компактные тележки */
+    .bc-select-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .bc-src { font: 600 9.5px/1 "JetBrains Mono", monospace; letter-spacing: .06em; color: #94A3B8; border: 1px solid rgba(148,163,184,.28); border-radius: 999px; padding: 5px 10px; white-space: nowrap; }
+    .bc-src b { color: #2DD4BF; font-weight: 700; }
+    .bc-money { transition: border-color .2s, box-shadow .2s; }
+    .bc-money:hover { border-color: rgba(0,240,255,.45); box-shadow: 0 0 18px rgba(0,240,255,.18); }
+    .bc-pos { color: #2DD4BF; } .bc-neg { color: #F87171; }
+    /* Высота тележек подстраивается под экран: на ноутбуке не обрезается, на большом мониторе нет пустоты внизу */
+    .bc-tile { height: clamp(56px, calc((100vh - 430px) / 3), 110px); }
+    /* Кнопки действий в шапке */
+    .bc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .bc-act { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 10px; cursor: pointer;
+      font: 700 11px/1 "JetBrains Mono", monospace; letter-spacing: .04em; color: #C3F5FF; background: rgba(27,31,43,.8); border: 1px solid rgba(0,240,255,.25); transition: border-color .2s, box-shadow .2s, transform .1s; }
+    .bc-act:hover { border-color: rgba(0,240,255,.6); box-shadow: 0 0 14px rgba(0,240,255,.25); }
+    .bc-act:active { transform: scale(.97); }
+    .bc-act .material-symbols-outlined { font-size: 18px; }
+    .bc-act-main { color: #00363D; background: linear-gradient(90deg, #22D3EE, #00F0FF 50%, #5EEAD4); border-color: rgba(255,255,255,.35); box-shadow: 0 0 20px rgba(0,240,255,.45); }
+    .bc-act-wa { color: #6FFBBE; border-color: rgba(111,251,190,.3); }
+    /* Фото среза тянется на всю высоту колонки — без пустоты под паспортом вида */
+    .bc-left > section, .bc-left > section > div { flex: 1 1 auto; }
+    .bc-left .bc-photo { flex: 1 1 auto; aspect-ratio: auto !important; max-height: none !important; min-height: 130px; }
+    /* Фото среза целиком (без обрезки): снимок 4:3 по центру, по бокам — его размытая копия */
+    .bc-left #tomoHeroBg { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(16px) brightness(.42) saturate(1.2); pointer-events: none; }
+    .bc-left #tomoHeroImg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 1; filter: drop-shadow(0 8px 24px rgba(0,0,0,.65)); transition: opacity .4s; }
+    .bc-left > section:first-child { flex: 1 1 auto; }
+    .bc-left > section.cyber-glass { flex: 0 0 auto; }
+    /* Чек-лист цеха */
+    .bc-check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: 128px; overflow-y: auto; scrollbar-width: thin; }
+    .bc-check li { display: grid; grid-template-columns: 16px 1fr; gap: 8px; align-items: start; font: 500 11px/1.35 Inter, "Segoe UI", sans-serif; color: #CBD5E1; padding: 4px 8px; border-radius: 8px; background: rgba(15,23,42,.45); cursor: pointer; transition: background .2s, color .2s; }
+    .bc-check li:hover { background: rgba(255,185,95,.08); }
+    .bc-check li .box { width: 14px; height: 14px; margin-top: 2px; border-radius: 4px; border: 1.5px solid rgba(255,185,95,.6); }
+    .bc-check li.done { color: #64748B; text-decoration: line-through; }
+    .bc-check li.done .box { background: #2DD4BF; border-color: #2DD4BF; box-shadow: 0 0 8px rgba(45,212,191,.5); }
+    .bc-check li.empty { cursor: default; color: #94A3B8; grid-template-columns: 1fr; }
+    #checkCount { cursor: pointer; }
+    .bc-head-dot { margin-right: 6px; }
+    /* Ряд «Посол / Навеска / Сушка / Выгрузка» не должен упираться в блоки ниже */
+    .bc-pipe { margin-bottom: 12px; }
+    .bc-pipe > section { gap: 10px !important; }
+    @media (min-width: 1500px) { .bc-tile { height: 86px; } }
+    .cyber-card-active {
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    }
+  </style>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/><script src="js/knowledge-base.js"></script><script src="js/cockpit-pages-fx.js" defer></script></head>
+<body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen selection:bg-primary-container selection:text-black">
+
+  <!-- Top Telemetry Header -->
+  <header id="batchTopHeader" class="sticky top-0 inset-x-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl pt-safe shadow-[0_1px_16px_rgba(0,0,0,0.65)] border-b border-primary/15">
+    <div class="max-w-[1600px] mx-auto px-margin py-2.5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-xs">
+      <div class="flex items-center justify-between gap-space-sm">
+        <div class="flex items-center gap-space-sm min-w-0">
+          <div class="relative">
+            <img alt="logo-icon.png" class="h-8 w-8 rounded-lg object-cover flex-shrink-0 drop-shadow-[0_0_8px_rgba(0,240,255,0.5)] border border-primary-container/30" src="img/brand/fish-icon-192.png" style="border-radius:50%" onerror="this.onerror=null;this.src='img/brand/tuba-mark.svg'">
+            <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <div class="flex items-center gap-space-xs">
+              <span class="font-headline-md text-headline-md text-primary tracking-tight truncate drop-shadow-[0_0_8px_rgba(0,240,255,0.4)]">Юрмалциемс АРМ</span>
+              <span class="font-label-caps text-label-caps text-secondary bg-surface-container-high px-space-xs py-0.5 rounded border border-secondary/30 shadow-[0_0_6px_rgba(255,185,95,0.2)]">СУ-304</span>
+            </div>
+            <span class="font-label-caps text-label-caps text-on-surface-variant truncate flex items-center gap-1">
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>3D Камера • Телеметрия SCADA • Конвейер Партии
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between lg:justify-end gap-space-sm bg-surface-container-low/80 backdrop-blur-md px-space-md py-1.5 rounded-lg border border-white/5">
+        <div class="flex items-center gap-space-xs whitespace-nowrap">
+          <span class="font-label-caps text-label-caps text-outline">СРЕДА:</span>
+          <span class="font-metric-md text-metric-md text-primary font-semibold drop-shadow-[0_0_4px_rgba(0,240,255,0.3)]" id="hdrTemp">+15.8°C</span>
+          <span class="text-outline-variant">•</span>
+          <span class="font-metric-md text-metric-md text-primary-fixed" id="hdrRh">58% rH</span>
+          <span class="text-outline-variant">•</span>
+          <span class="font-metric-md text-metric-md text-tertiary-fixed font-semibold" id="hdrVpd">VPD 0.75</span>
+        </div>
+        <button onclick="returnToScada()" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-primary-container/15 hover:bg-primary-container/25 text-primary border border-primary-container/40 font-label-caps text-label-caps cursor-pointer transition-all">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          <span>В 3D-Кокпит SCADA</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex flex-col relative w-full pb-24 lg:pb-8 bg-surface overflow-x-hidden">
+    <div class="max-w-[1600px] mx-auto w-full flex flex-col text-on-surface">
+
+      <!-- Header Banner: Context & Tactical Info -->
+      <section class="px-margin pt-space-md pb-space-sm flex flex-col gap-space-sm relative">
+        <div class="absolute -top-12 left-1/4 w-72 h-44 bg-primary-container/10 rounded-full blur-[80px] pointer-events-none"></div>
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-space-sm relative z-10">
+          <div class="flex flex-col gap-1">
+            <div class="flex items-center gap-space-xs">
+              <span class="bc-head-dot relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container shadow-[0_0_8px_#00f0ff]"></span>
+              </span>
+              <span class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest font-semibold">ПАРТИЯ В ЦЕХУ</span>
+            </div>
+            <h1 class="font-headline-xl-mobile lg:text-[28px] text-primary tracking-tight drop-shadow-[0_0_14px_rgba(0,240,255,0.3)]">Посол, навеска, сушка и выгрузка</h1>
+          </div>
+          <!-- Действия: таблица фаз MCGS (ввод на панели вручную), расчёты, рапорт, печать -->
+          <div class="bc-actions">
+            <button type="button" onclick="goArmTab('mcgs')" class="bc-act bc-act-main shimmer-effect" title="Связи с контроллером из этой вкладки нет: таблицу фаз вводят на панели вручную">
+              <span class="material-symbols-outlined">table_view</span><span>Таблица фаз MCGS</span>
+            </button>
+            <button type="button" onclick="goArmTab('calcs')" class="bc-act" title="Себестоимость, энергия по стадиям и прибыль по каналам">
+              <span class="material-symbols-outlined">payments</span><span>Деньги → «Расчеты»</span>
+            </button>
+            <button type="button" onclick="callArm('openWhatsAppReportModal', [])" class="bc-act bc-act-wa" title="Рапорт по партии в WhatsApp">
+              <span class="material-symbols-outlined">send</span><span>WhatsApp</span>
+            </button>
+            <button type="button" onclick="printBatchPassport()" class="bc-act" title="Печать этой страницы">
+              <span class="material-symbols-outlined">print</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Вид рыбы и режим камеры — одной строкой -->
+        <div class="bc-select-row relative z-10">
+        <div class="flex items-center gap-space-xs overflow-x-auto py-1 no-scrollbar" id="speciesSelectorRow">
+          <button data-species="vimba" onclick="selectBatchSpecies('vimba')" class="species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-gradient-to-r from-primary-container to-cyan-400 text-on-primary font-headline-md text-body-md shadow-[0_0_16px_rgba(0,240,255,0.45)] border border-white/20 flex-shrink-0 transition-transform active:scale-95 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px] animate-pulse">set_meal</span>
+            <span class="font-semibold tracking-wide">Вимба (Рыбец)</span>
+          </button>
+          <button data-species="bream" onclick="selectBatchSpecies('bream')" class="species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container-high/80 border border-white/5 text-on-surface-variant font-body-md text-body-md flex-shrink-0 transition-all active:scale-95 hover:text-primary hover:border-primary/30 cursor-pointer">
+            <span>Лещ (Колодка)</span>
+          </button>
+          <button data-species="roach" onclick="selectBatchSpecies('roach')" class="species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container-high/80 border border-white/5 text-on-surface-variant font-body-md text-body-md flex-shrink-0 transition-all active:scale-95 hover:text-primary hover:border-primary/30 cursor-pointer">
+            <span>Плотва (22+)</span>
+          </button>
+          <button data-species="smelt" onclick="selectBatchSpecies('smelt')" class="species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container-high/80 border border-white/5 text-on-surface-variant font-body-md text-body-md flex-shrink-0 transition-all active:scale-95 hover:text-primary hover:border-primary/30 cursor-pointer">
+            <span>Корюшка (Икряная)</span>
+          </button>
+          <button data-species="perch" onclick="selectBatchSpecies('perch')" class="species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container-high/80 border border-white/5 text-on-surface-variant font-body-md text-body-md flex-shrink-0 transition-all active:scale-95 hover:text-primary hover:border-primary/30 cursor-pointer">
+            <span>Окунь (В чешуе)</span>
+          </button>
+          <button data-species="goby" onclick="selectBatchSpecies('goby')" class="species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container-high/80 border border-white/5 text-on-surface-variant font-body-md text-body-md flex-shrink-0 transition-all active:scale-95 hover:text-primary hover:border-primary/30 cursor-pointer">
+            <span>Бычок (Балтийский)</span>
+          </button>
+        </div>
+
+          <span class="bc-src" title="Цифры видов, цены и себестоимость — из базы знаний (knowledge/*.js) и ваших правок цен. Это расчёт, а не показания датчиков.">источник: <b>база знаний</b> • расчёт</span>
+        </div>
+
+      </section>
+
+      <!-- Работа в цеху: сырьё и выход + 4 шага (посол, навеска, сушка, выгрузка) -->
+      <div class="px-margin bc-pipe">
+          <section class="flex flex-col gap-space-sm">
+            <!-- Ползунки -->
+            <div class="cyber-glass p-space-md rounded-xl grid grid-cols-1 md:grid-cols-2 gap-space-lg shadow-xl border border-primary/20">
+              <div class="flex flex-col gap-1">
+                <div class="flex justify-between items-center">
+                  <span class="font-label-caps text-label-caps text-on-surface-variant uppercase font-semibold">СЫРЬЁ В ПАРТИИ</span>
+                  <span class="font-metric-md text-metric-md text-primary font-bold drop-shadow-[0_0_6px_rgba(0,240,255,0.4)]" id="weightDisplay">1 850 кг</span>
+                </div>
+                <div class="relative w-full flex items-center h-7">
+                  <input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary-container focus:outline-none" id="weightSlider" max="2550" min="300" step="50" type="range" value="1850">
+                </div>
+                <div class="flex justify-between font-label-caps text-label-caps text-outline">
+                  <span>300 кг</span>
+                  <span id="weightMaxTxt">камера: 15 × 170 = 2 550 кг</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-1">
+                <div class="flex justify-between items-center">
+                  <span class="font-label-caps text-label-caps text-on-surface-variant uppercase font-semibold" id="cureLabelText">ВЫХОД ГОТОВОЙ</span>
+                  <span class="font-metric-md text-metric-md text-secondary font-bold drop-shadow-[0_0_6px_rgba(255,185,95,0.4)]" id="cureStatusBadge">61.5% • В НОРМЕ</span>
+                </div>
+                <div class="relative w-full flex items-center h-7">
+                  <input class="w-full h-2 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-secondary focus:outline-none" id="cureSlider" max="75" min="45" step="0.5" type="range" value="61.5">
+                </div>
+                <div class="flex justify-between font-label-caps text-label-caps text-outline">
+                  <span id="cureDrySpan">сухая 54.5%</span>
+                  <span id="cureNormSpan">норма 60–63%</span>
+                  <span id="cureSoftSpan">мягкая 63.5%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 шага цеха -->
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-space-sm">
+              <div class="cyber-glass flex flex-col p-space-md rounded-xl relative overflow-hidden transition-all duration-300 hover:border-secondary/40 group">
+                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-secondary/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-label-caps text-label-caps text-outline font-semibold">1. ПОСОЛ В ТУЗЛУКЕ</span>
+                  <span class="material-symbols-outlined text-secondary text-[18px] drop-shadow-[0_0_8px_rgba(255,185,95,0.5)]">water_drop</span>
+                </div>
+                <div class="flex items-baseline gap-1 my-1">
+                  <span class="font-metric-display text-metric-display text-secondary leading-none drop-shadow-[0_0_10px_rgba(255,185,95,0.4)]" id="wsSaltH">48–72</span>
+                  <span class="font-label-code text-label-code text-secondary-fixed font-medium">ч</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant" id="wsSaltSub">соль ≈ 296 кг (12 мешков) • отмочка 2–3 ч</span>
+              </div>
+              <div class="cyber-glass flex flex-col p-space-md rounded-xl relative overflow-hidden transition-all duration-300 hover:border-primary/40 group">
+                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-primary/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-label-caps text-label-caps text-outline font-semibold">2. НАВЕСКА</span>
+                  <span class="material-symbols-outlined text-primary text-[18px] drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]">shelves</span>
+                </div>
+                <div class="flex items-baseline gap-1 my-1">
+                  <span class="font-metric-display text-metric-display text-primary leading-none drop-shadow-[0_0_10px_rgba(0,240,255,0.4)]" id="wsFish">5 286</span>
+                  <span class="font-label-code text-label-code text-on-surface-variant font-medium">рыб</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant" id="wsFishSub">≈ 353 прутка по 15 шт. • 11 тележек</span>
+              </div>
+              <div class="cyber-glass flex flex-col p-space-md rounded-xl relative overflow-hidden transition-all duration-300 hover:border-secondary-container/40 group" id="wsDryCard">
+                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-secondary-container/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-label-caps text-label-caps text-outline font-semibold">3. СУШКА</span>
+                  <span class="material-symbols-outlined text-secondary-container text-[18px] drop-shadow-[0_0_8px_rgba(238,152,0,0.5)]">thermostat</span>
+                </div>
+                <div class="flex items-baseline gap-1 my-1">
+                  <span class="font-metric-display text-metric-display text-secondary-container leading-none drop-shadow-[0_0_10px_rgba(238,152,0,0.4)]" id="wsDryT">15.0–16.5</span>
+                  <span class="font-label-code text-label-code text-secondary-fixed font-medium">°C</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-on-surface-variant" id="wsDrySub">старт rH ≥ 58% • аварийный предел 18°C</span>
+              </div>
+              <div class="cyber-glass flex flex-col p-space-md rounded-xl relative overflow-hidden transition-all duration-300 hover:border-tertiary-fixed/40 group">
+                <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-tertiary-fixed/10 rounded-full blur-xl pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-label-caps text-label-caps text-outline font-semibold">4. ВЫГРУЗКА</span>
+                  <span class="material-symbols-outlined text-tertiary-fixed text-[18px] drop-shadow-[0_0_8px_rgba(111,251,190,0.5)]">inventory_2</span>
+                </div>
+                <div class="flex items-baseline gap-1 my-1">
+                  <span class="font-metric-display text-metric-display text-tertiary-fixed leading-none drop-shadow-[0_0_10px_rgba(111,251,190,0.4)]" id="wsOut">1 138</span>
+                  <span class="font-label-code text-label-code text-tertiary font-medium">кг</span>
+                </div>
+                <span class="font-body-sm text-body-sm text-tertiary-fixed-dim" id="wsOutSub">≈ 1 339 пакетов KOMET или 5 еврокубов</span>
+              </div>
+            </div>
+          </section>
+      </div>
+
+      <!-- Responsive 12-Column SCADA Cockpit Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md px-margin">
+
+        <!-- LEFT COLUMN (6 cols on desktop): 3D Tomography + Brine Calculator -->
+        <div class="bc-left lg:col-span-5 flex flex-col gap-space-md">
+
+          <!-- Interactive 3D Holographic Fish Maturity View with Shader Integration -->
+          <section class="flex flex-col relative">
+            <div class="relative w-full rounded-2xl overflow-hidden bg-surface-container-lowest shadow-[0_12px_40px_rgba(0,0,0,0.7)] border border-primary-container/30 flex flex-col">
+              <!-- Embedded Shader as Telemetry Dynamic Backdrop -->
+              <div class="absolute inset-0 w-full h-full opacity-40 pointer-events-none rounded-2xl z-0" style="display:block;">
+                <canvas id="shader-canvas-ANIMATION_16" style="display:block;width:100%;height:100%" width="640" height="400"></canvas>
+                <script>
+                (function() {
+                  const canvas = document.getElementById('shader-canvas-ANIMATION_16');
+                  function syncSize() {
+                    const w = canvas.clientWidth  || 640;
+                    const h = canvas.clientHeight || 400;
+                    if (canvas.width !== w || canvas.height !== h) {
+                      canvas.width  = w;
+                      canvas.height = h;
+                    }
+                  }
+                  if (typeof ResizeObserver !== 'undefined') {
+                    new ResizeObserver(syncSize).observe(canvas);
+                  }
+                  syncSize();
+
+                  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                  if (!gl) return;
+                  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+                  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 st = gl_FragCoord.xy / u_resolution.xy;
+    vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+    
+    float t = u_time * 0.7;
+    float wave1 = sin(p.x * 3.5 + t + sin(p.y * 2.0 + t * 0.5)) * 0.25;
+    float wave2 = cos(p.x * 5.0 - t * 0.8) * 0.15;
+    float dist = abs(p.y - wave1 - wave2);
+    
+    vec3 cyan = vec3(0.0, 0.94, 1.0);
+    vec3 amber = vec3(0.96, 0.62, 0.04);
+    vec3 bgDark = vec3(0.055, 0.075, 0.12);
+    
+    float glow1 = 0.02 / (dist + 0.03);
+    float glow2 = 0.01 / (abs(p.y + wave1 * 0.8) + 0.04);
+    
+    vec2 grid = abs(fract(st * vec2(20.0, 40.0) - 0.5) - 0.5) / 0.05;
+    float line = min(grid.x, grid.y);
+    float gridAlpha = (1.0 - min(line, 1.0)) * 0.04;
+    
+    vec3 col = bgDark;
+    col += cyan * glow1 * 0.45;
+    col += amber * glow2 * 0.3;
+    col += cyan * gridAlpha;
+    col *= 1.0 - length(p) * 0.25;
+    
+    gl_FragColor = vec4(col, 0.85);
+}`;
+                  function cs(type, src) {
+                    const s = gl.createShader(type);
+                    gl.shaderSource(s, src);
+                    gl.compileShader(s);
+                    return s;
+                  }
+                  const prog = gl.createProgram();
+                  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+                  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+                  gl.linkProgram(prog);
+                  gl.useProgram(prog);
+                  const buf = gl.createBuffer();
+                  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+                  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+                  const pos = gl.getAttribLocation(prog, 'a_position');
+                  gl.enableVertexAttribArray(pos);
+                  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+                  const uTime = gl.getUniformLocation(prog, 'u_time');
+                  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+                  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+                  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+                  window.addEventListener('mousemove', (event) => {
+                    const rect = canvas.getBoundingClientRect();
+                    if (rect.width && rect.height) {
+                      const nx = (event.clientX - rect.left) / rect.width;
+                      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+                      mouse.x = nx * canvas.width;
+                      mouse.y = ny * canvas.height;
+                    }
+                  });
+
+                  function render(t) {
+                    if (typeof ResizeObserver === 'undefined') syncSize();
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                    if (uTime) gl.uniform1f(uTime, t * 0.001);
+                    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+                    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+                    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                    requestAnimationFrame(render);
+                  }
+                  render(0);
+                })();
+                </script>
+              </div>
+
+              <!-- Шапка среза: вид рыбы и a_w из базы знаний -->
+              <div class="relative z-20 flex items-center justify-between p-space-sm bg-gradient-to-b from-surface-container-lowest/95 via-surface-container-lowest/70 to-transparent border-b border-primary/15">
+                <div class="flex items-center gap-space-xs">
+                  <span class="font-label-caps text-label-caps text-primary-container bg-surface-container-high/90 px-space-xs py-0.5 rounded border border-primary-container/30 shadow-[0_0_8px_rgba(0,240,255,0.3)]">⚛ СРЕЗ ГОТОВОЙ РЫБЫ</span>
+                  <span class="font-label-code text-label-code text-secondary font-semibold drop-shadow-[0_0_6px_rgba(255,185,95,0.4)]" id="tomoSpeciesTag">ВИМБА</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <button type="button" onclick="openCutZoom()" class="px-2 py-0.5 rounded bg-primary/15 border border-primary/40 text-primary font-label-caps text-[10px] hover:bg-primary/25 cursor-pointer">🔍 КРУПНО</button>
+                  <div class="flex items-center gap-1.5 bg-surface-container-lowest/80 px-2 py-0.5 rounded-full border border-tertiary-container/30 shadow-[0_0_8px_rgba(101,242,181,0.2)]">
+                    <span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse shadow-[0_0_6px_#65f2b5]"></span>
+                    <span class="font-label-caps text-label-caps text-tertiary-fixed font-bold" id="tomoAwBadge">a_w: 0.81</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Фото среза -->
+              <div onclick="openCutZoom()" title="Нажмите — эталон среза крупно" class="bc-photo relative w-full aspect-[16/10] bg-surface-container flex items-center justify-center overflow-hidden z-10 cursor-zoom-in">
+                <img id="tomoHeroBg" aria-hidden="true" alt="" src="img/vyalka/cut-vimba.jpg">
+                <img id="tomoHeroImg" class="select-none pointer-events-none" alt="Срез готовой рыбы" src="img/vyalka/cut-vimba.jpg">
+                <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-surface-container-lowest/40 pointer-events-none"></div>
+                <div class="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-primary-container to-transparent shadow-[0_0_12px_#00f0ff] animate-scanline pointer-events-none z-20"></div>
+                <div class="absolute bottom-2 left-3 z-20 bg-surface-container-lowest/85 backdrop-blur-md px-space-xs py-1 rounded-lg border border-secondary/40 font-label-caps text-label-caps text-secondary font-semibold" id="tomoCaliber">КАЛИБР М-2 (ВИМБА)</div>
+              </div>
+
+              <!-- Паспорт вида (база знаний) -->
+              <div class="p-space-sm bg-surface-container-high/90 backdrop-blur-md grid grid-cols-3 gap-space-xs z-20 border-t border-primary/15">
+                <div class="flex flex-col items-center text-center bg-surface-container-lowest/80 py-1.5 rounded-lg border border-primary/15">
+                  <span class="font-label-caps text-[10px] text-outline">ТУШКА</span>
+                  <span class="font-metric-md text-metric-md text-primary font-bold" id="passPiece">350 г</span>
+                </div>
+                <div class="flex flex-col items-center text-center bg-surface-container-lowest/80 py-1.5 rounded-lg border border-secondary/20">
+                  <span class="font-label-caps text-[10px] text-outline">ЖИРНОСТЬ</span>
+                  <span class="font-metric-md text-metric-md text-secondary font-bold" id="passFat">8.5%</span>
+                </div>
+                <div class="flex flex-col items-center text-center bg-surface-container-lowest/80 py-1.5 rounded-lg border border-tertiary-fixed/20">
+                  <span class="font-label-caps text-[10px] text-outline">A_W ГОТОВОЙ</span>
+                  <span class="font-metric-md text-metric-md text-tertiary-fixed font-bold" id="passTemp">0.81</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Чек-лист подготовки вида (species.js → чек_лист_подготовки) -->
+          <section class="cyber-glass rounded-2xl p-space-md flex flex-col gap-space-xs border border-secondary/25">
+            <div class="flex items-center justify-between">
+              <span class="font-label-caps text-label-caps text-secondary font-semibold flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px]">checklist</span> ЧЕК-ЛИСТ ЦЕХА • <span id="checkSpecies">ВИМБА</span>
+              </span>
+              <span class="font-label-code text-[10px] text-outline" id="checkCount">0 / 0</span>
+            </div>
+            <ul class="bc-check" id="checkList"></ul>
+          </section>
+        </div>
+
+        <!-- Справа: 15 тележек камеры -->
+        <div class="lg:col-span-7 flex flex-col gap-space-md">
+          <section class="flex flex-col gap-space-sm">
+            <div class="flex items-center justify-between">
+              <h2 class="font-headline-md text-headline-md text-primary tracking-tight flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-primary-container text-[20px] drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]">shelves</span>
+                15 тележек • камера AGHD-250
+              </h2>
+              <div class="flex items-center gap-1.5 bg-surface-container-high/90 px-space-sm py-1 rounded-lg border border-primary-container/30 shadow-[0_0_8px_rgba(0,240,255,0.15)]">
+                <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_6px_#00f0ff]"></span>
+                <span class="font-label-code text-label-code text-primary font-bold" id="trolleyOccupiedBadge">11 / 15 ЗАНЯТО</span>
+              </div>
+            </div>
+
+            <div class="cyber-glass p-space-md rounded-2xl shadow-xl flex flex-col gap-space-sm border border-primary/20">
+              <!-- Выбранная тележка -->
+              <div class="relative rounded-xl overflow-hidden bg-surface-container-lowest border border-primary-container/40 p-space-sm flex gap-space-sm items-center shadow-[0_4px_20px_rgba(0,0,0,0.6)] group">
+                <div class="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border border-primary-container/40 bg-surface-container-high shadow-[0_0_14px_rgba(0,240,255,0.3)]">
+                  <img id="inspTrolleyImg" data-trolley-3d="1" alt="Тележка SS304" class="trolley-3d-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="trolley-3d.png" onerror="if(window.__TROLLEY_3D_DATA_URL__)this.src=window.__TROLLEY_3D_DATA_URL__;">
+                  <span class="absolute top-1 left-1 bg-surface-container-lowest/90 px-1 py-0.5 rounded font-label-code text-[9px] text-primary font-bold border border-primary-container/30" id="inspBadge">№1</span>
+                </div>
+                <div class="flex flex-col flex-1 min-w-0 gap-1">
+                  <div class="flex items-center justify-between gap-space-xs">
+                    <span class="font-label-caps text-label-caps text-primary-container font-bold" id="inspTitle">ТЕЛЕЖКА №1</span>
+                    <span class="font-label-code text-label-code text-secondary font-bold bg-secondary/10 px-1.5 py-0.5 rounded border border-secondary/30" id="inspKgBadge">170 кг</span>
+                  </div>
+                  <span class="font-body-sm text-[11px] text-on-surface-variant truncate" id="inspDesc">30 прутков по 15 шт. • ≈ 486 рыб</span>
+                  <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden mt-0.5">
+                    <div class="h-full bg-gradient-to-r from-primary-container to-teal-300 shadow-[0_0_6px_#00f0ff]" id="inspProgressBar" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 15 тележек: 5 рядов по 3 -->
+              <div class="grid grid-cols-5 gap-space-xs" id="trolleysMatrixGrid"></div>
+
+              <div class="flex items-center justify-between pt-1 border-t border-surface-container-highest/60 gap-space-xs">
+                <span class="font-label-caps text-label-caps text-on-surface-variant font-mono font-medium" id="rackSummaryLeft">170 кг на тележку</span>
+                <span class="font-label-caps text-label-caps text-tertiary-fixed bg-tertiary-container/10 px-2 py-0.5 rounded-full border border-tertiary-fixed/30 shadow-[0_0_8px_rgba(101,242,181,0.2)]" id="rackSummaryRight">войдёт ещё ≈ 700 кг</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+
+  <!-- Bottom Tactical Navigation Bar -->
+  <nav id="batchBottomNav" class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl border-t border-primary/15 shadow-[0_-4px_24px_rgba(0,0,0,0.7)] lg:hidden">
+    <div class="flex justify-around items-center h-16 px-space-xs">
+      <a onclick="navFromBatch('scada'); return false;" class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors active:scale-95 hover:text-primary" href="#scada">
+        <span class="material-symbols-outlined text-[22px]">dashboard</span>
+        <span class="font-label-caps text-label-caps">SCADA</span>
+      </a>
+      <a onclick="navFromBatch('simulator'); return false;" class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors active:scale-95 hover:text-primary" href="#3d-kamera">
+        <span class="material-symbols-outlined text-[22px]">view_in_ar</span>
+        <span class="font-label-caps text-label-caps">3D Камера</span>
+      </a>
+      <a class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-primary-container font-semibold drop-shadow-[0_0_8px_rgba(0,240,255,0.4)] transition-colors active:scale-95" href="#partiya">
+        <span class="material-symbols-outlined text-[22px]">inventory_2</span>
+        <span class="font-label-caps text-label-caps">Партия</span>
+      </a>
+      <a onclick="navFromBatch('console'); return false;" class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors active:scale-95 hover:text-primary" href="#pult">
+        <span class="material-symbols-outlined text-[22px]">tune</span>
+        <span class="font-label-caps text-label-caps">Пульт</span>
+      </a>
+      <a onclick="navFromBatch('voice'); return false;" class="flex flex-col items-center justify-center gap-1 w-16 h-14 text-on-surface-variant transition-colors active:scale-95 hover:text-primary" href="#ai-shturman">
+        <span class="material-symbols-outlined text-[22px]">psychology</span>
+        <span class="font-label-caps text-label-caps">AI-Штурман</span>
+      </a>
+    </div>
+  </nav>
+
+  <script src="js/draw-trolley.js"></script>
+  <script>
+    // Конвейер партии. Все цифры — расчёт по базе знаний (window.ARM_KB): виды (species.js), цены и себестоимость (marketing.js),
+    // часы стадий (stages.js). Показаний датчиков на этой странице нет.
+    const TROLLEYS = 15;
+    const BAG_KG = 25;
+    const LOWER = { VIMBA: "vimba", BREAM: "bream", ROACH: "roach", SMELT: "smelt", PERCH: "perch", ROUND_GOBY: "goby" };
+    const LIGHTBOX_KEY = { ROUND_GOBY: "GOBY" };
+    let TROLLEY_IMG_URL = window.__TROLLEY_3D_DATA_URL__ || "trolley-3d.png";
+
+    let currentSpeciesKey = "VIMBA";
+    let selectedTrolleyIndex = 1;
+    let isApplyingRemoteBatch = false;
+
+    const $ = (id) => document.getElementById(id);
+    const setText = (id, v) => { const el = $(id); if (el) el.textContent = v; };
+    const fmtNum = (n) => Math.round(n).toLocaleString("ru-RU");
+    const eur = (n) => (n < 0 ? "−" : "+") + fmtNum(Math.abs(n)) + " €";
+    const kb = () => window.ARM_KB;
+    const species = () => kb().getCanonicalSpecies(currentSpeciesKey);
+
+    // Команда главному окну АРМ: напрямую, а при file:// — через postMessage
+    function callArm(cmd, args) {
+      if (!window.parent || window.parent === window) return false;
+      try {
+        if (typeof window.parent[cmd] === "function") { window.parent[cmd].apply(window.parent, args || []); return true; }
+      } catch (e) {}
+      try { window.parent.postMessage({ type: "arm-cmd", cmd: cmd, args: args || [] }, "*"); return true; } catch (e) { return false; }
+    }
+    window.callArm = callArm;
+    window.goArmTab = function (tab) {
+      if (!callArm("selectTab", [tab])) alert("Эта кнопка работает внутри АРМ (index.html)");
+    };
+    window.openCutZoom = function () {
+      if (window.BIO_TOMO && window.BIO_TOMO.openBioLightbox) window.BIO_TOMO.openBioLightbox(LIGHTBOX_KEY[currentSpeciesKey] || currentSpeciesKey, "3d");
+    };
+    window.printBatchPassport = function () { window.print(); };
+
+    function updateBatchCalculations() {
+      if (!kb()) return;
+      const c = species();
+      const cb = kb().getCostBase();
+      const cap = c.trolleyCapKg;
+      const weightSlider = $("weightSlider"), cureSlider = $("cureSlider");
+      const maxRaw = Math.floor(TROLLEYS * cap / 50) * 50;
+      if (Number(weightSlider.max) !== maxRaw) weightSlider.max = String(maxRaw);
+      const rawKg = Math.min(maxRaw, Number(weightSlider.value) || 1850);
+      if (Number(weightSlider.value) !== rawKg) weightSlider.value = String(rawKg);
+      const yieldPct = Number(cureSlider.value) || c.yieldNorm;
+      const outKg = Math.round(rawKg * yieldPct / 100);
+      const waterKg = rawKg - outKg;
+      const fish = Math.round(rawKg * 1000 / c.pieceG);
+
+      // Ползунки
+      setText("weightDisplay", fmtNum(rawKg) + " кг");
+      setText("weightMaxTxt", "камера: 15 × " + cap + " = " + fmtNum(TROLLEYS * cap) + " кг");
+      const inNorm = yieldPct >= c.yieldMin && yieldPct <= c.yieldMax;
+      setText("cureLabelText", "ВЫХОД ГОТОВОЙ");
+      setText("cureStatusBadge", yieldPct.toFixed(1) + "% • " + (inNorm ? "В НОРМЕ" : yieldPct < c.yieldMin ? "СУШЕ НОРМЫ" : "МЯГЧЕ НОРМЫ"));
+      setText("cureDrySpan", "сухая " + c.yieldDry + "%");
+      setText("cureNormSpan", "норма " + c.yieldMin + "–" + c.yieldMax + "%");
+      setText("cureSoftSpan", "мягкая " + c.yieldSoft + "%");
+
+      // 1. Посол: часы и отмочка — из карточки вида, соль — по модели себестоимости (кг на 100 кг сырья)
+      const saltKg = Math.round(rawKg * cb.saltKgPer100 / 100);
+      setText("wsSaltH", c.saltingRange);
+      setText("wsSaltSub", "соль ≈ " + fmtNum(saltKg) + " кг (" + Math.ceil(saltKg / BAG_KG) + " мешков) • отмочка " + c.soakHours.join("–") + " ч");
+
+      // 2. Навеска: рыб, прутков, тележек
+      const rods = Math.ceil(fish / c.fishPerRod);
+      const usedTrolleys = Math.ceil(rawKg / cap);
+      setText("wsFish", fmtNum(fish));
+      setText("wsFishSub", "≈ " + fmtNum(rods) + " пр. по " + c.fishPerRod + " шт. • тележек: " + usedTrolleys + " из 15");
+
+      // 3. Сушка: режим вида
+      setText("wsDryT", c.tempRangeText.replace("°C", ""));
+      setText("wsDrySub", "старт rH ≥ " + c.minStartRhPercent + "% • аварийный предел " + c.emergencyMaxTempC + "°C");
+      const dryCard = $("wsDryCard");
+      if (dryCard) dryCard.title = c.durationDaysDesc || "";
+
+      // 4. Выгрузка: упаковка
+      const packs = Math.round(outKg / cb.vac.packKg);
+      const cubes = outKg > 0 ? Math.ceil(outKg / cb.cube.kgPerCube) : 0;
+      setText("wsOut", fmtNum(outKg));
+      setText("wsOutSub", "≈ " + fmtNum(packs) + " пакетов KOMET или " + cubes + " еврокуб. • вода в трап ≈ " + fmtNum(waterKg) + " л");
+
+      // Срез, паспорт и чек-лист вида
+      const img = $("tomoHeroImg");
+      const src = "img/vyalka/cut-" + LOWER[c.key] + ".jpg";
+      if (img && img.getAttribute("src") !== src) img.setAttribute("src", src);
+      const bg = $("tomoHeroBg");
+      if (bg && bg.getAttribute("src") !== src) bg.setAttribute("src", src);
+      setText("tomoSpeciesTag", c.shortRu.toUpperCase());
+      setText("tomoAwBadge", "a_w: " + c.aw.toFixed(2));
+      setText("tomoCaliber", (c.caliber || c.titleRu).toUpperCase());
+      setText("passPiece", c.pieceG + " г");
+      setText("passFat", c.fatPercent + "%");
+      setText("passTemp", c.aw.toFixed(2));
+      renderChecklist(c);
+
+      renderTrolleysGrid(rawKg, c);
+    }
+
+    // Чек-лист подготовки вида. Отметки — только в этом браузере, на текущую партию (сбрасываются кнопкой «сброс»).
+    const CHECK_KEY = "JURMALCIEMS_BATCH_CHECK_V1";
+    function readChecks() { try { return JSON.parse(localStorage.getItem(CHECK_KEY) || "{}") || {}; } catch (e) { return {}; } }
+    function writeChecks(o) { try { localStorage.setItem(CHECK_KEY, JSON.stringify(o)); } catch (e) {} }
+    const escHtml = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+    function renderChecklist(c) {
+      const list = $("checkList");
+      if (!list) return;
+      const items = c.prepChecklistRu || [];
+      const done = readChecks()[c.key] || [];
+      setText("checkSpecies", c.shortRu.toUpperCase());
+      list.innerHTML = items.length
+        ? items.map((t, i) => '<li class="' + (done.includes(i) ? "done" : "") + '" onclick="toggleCheck(' + i + ')"><span class="box"></span><span>' + escHtml(t) + "</span></li>").join("")
+        : '<li class="empty">В базе знаний для этого вида чек-листа нет (species.js → чек_лист_подготовки).</li>';
+      setText("checkCount", items.length ? done.filter((i) => i < items.length).length + " / " + items.length + " • сброс" : "");
+    }
+    window.toggleCheck = function (i) {
+      const all = readChecks();
+      const cur = new Set(all[currentSpeciesKey] || []);
+      cur.has(i) ? cur.delete(i) : cur.add(i);
+      all[currentSpeciesKey] = [...cur];
+      writeChecks(all);
+      renderChecklist(species());
+    };
+    document.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "checkCount") {
+        const all = readChecks(); delete all[currentSpeciesKey]; writeChecks(all); renderChecklist(species());
+      }
+    });
+
+    function renderTrolleysGrid(rawKg, c) {
+      const cap = c.trolleyCapKg;
+      const fullCount = Math.min(TROLLEYS, Math.floor(rawKg / cap));
+      const remainderKg = Math.min(cap, Math.max(0, Math.round(rawKg - fullCount * cap)));
+      const occupied = Math.min(TROLLEYS, fullCount + (remainderKg > 0 ? 1 : 0));
+      const loadOf = (i) => (i <= fullCount ? cap : (i === fullCount + 1 ? remainderKg : 0));
+
+      setText("trolleyOccupiedBadge", occupied + " / 15 ЗАНЯТО");
+      setText("rackSummaryLeft", cap + " кг на тележку • " + c.rodsPerTrolley + " пр. по " + c.fishPerRod + " шт.");
+      const freeKg = TROLLEYS * cap - rawKg;
+      setText("rackSummaryRight", freeKg > 0 ? "войдёт ещё ≈ " + fmtNum(freeKg) + " кг" : "камера полная");
+
+      const gridEl = $("trolleysMatrixGrid");
+      if (!gridEl) return;
+      const src = window.__TROLLEY_3D_DATA_URL__ || TROLLEY_IMG_URL;
+      let html = "";
+      for (let row = 1; row <= 5; row++) {
+        const first = (row - 1) * 3 + 1;
+        html += '<div class="flex flex-col gap-1 ' + (first <= occupied ? "" : "opacity-65") + '">';
+        html += '<span class="font-label-caps text-label-caps text-outline text-center">РЯД ' + row + "</span>";
+        for (let pos = 0; pos < 3; pos++) {
+          const i = first + pos;
+          const kg = loadOf(i);
+          const sel = i === selectedTrolleyIndex;
+          if (kg > 0) {
+            const partial = kg < cap;
+            const border = sel ? "border-2 border-primary-container shadow-[0_0_14px_rgba(0,240,255,0.45)]"
+              : partial ? "border border-secondary/60 shadow-[0_0_8px_rgba(255,185,95,0.25)]" : "border border-primary-container/40 shadow-[0_0_8px_rgba(0,240,255,0.15)]";
+            html += '<div onclick="selectTrolley(' + i + ')" title="Тележка №' + i + ' — двойной клик: 3D-осмотр" ondblclick="callArm(\'ckOpenTrolley3DModal\',[' + i + ',\'Ряд ' + row + '\'])" class="relative rounded-lg overflow-hidden ' + border + ' bc-tile group cursor-pointer active:scale-95 transition-transform">' +
+              '<img data-trolley-3d="1" alt="Тележка №' + i + '" class="trolley-3d-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="' + src + '">' +
+              '<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 via-surface-container-lowest/25 to-transparent"></div>' +
+              '<div class="absolute bottom-0 inset-x-0 p-0.5 flex items-center justify-center gap-1 leading-none bg-surface-container-lowest/85">' +
+              '<span class="font-label-code text-[11px] ' + (partial ? "text-secondary" : "text-primary") + ' font-bold">№' + i + '</span>' +
+              '<span class="font-label-caps text-[9px] ' + (partial ? "text-secondary" : "text-on-surface-variant") + '">' + kg + ' кг</span></div></div>';
+          } else {
+            html += '<div onclick="selectTrolley(' + i + ')" class="relative rounded-lg overflow-hidden border border-dashed ' + (sel ? "border-primary-container/60" : "border-outline/30") + ' bg-surface-container-lowest/60 bc-tile group cursor-pointer">' +
+              '<img data-trolley-3d="1" alt="Тележка №' + i + ' (свободна)" class="trolley-3d-img absolute inset-0 w-full h-full object-cover opacity-35 grayscale" src="' + src + '">' +
+              '<div class="absolute bottom-0 inset-x-0 p-0.5 flex items-center justify-center gap-1 leading-none bg-surface-container-lowest/85">' +
+              '<span class="font-label-code text-[10px] text-outline font-bold">№' + i + '</span><span class="font-label-caps text-[8px] text-outline">свободна</span></div></div>';
+          }
+        }
+        html += "</div>";
+      }
+      gridEl.innerHTML = html;
+      if (typeof window.applyTrolley3DImages === "function") {
+        window.applyTrolley3DImages().then((url) => { if (url) TROLLEY_IMG_URL = url; });
+      }
+
+      // Выбранная тележка
+      const kg = loadOf(selectedTrolleyIndex);
+      const rods = kg > 0 ? Math.max(1, Math.round(kg / cap * c.rodsPerTrolley)) : 0;
+      setText("inspBadge", "№" + selectedTrolleyIndex);
+      setText("inspTitle", "ТЕЛЕЖКА №" + selectedTrolleyIndex + " • РЯД " + Math.ceil(selectedTrolleyIndex / 3));
+      setText("inspKgBadge", kg > 0 ? kg + " кг" : "свободна");
+      setText("inspDesc", kg > 0 ? c.shortRu + " • " + rods + " прутков • ≈ " + fmtNum(kg * 1000 / c.pieceG) + " рыб" : "Можно догрузить до " + cap + " кг");
+      $("inspProgressBar").style.width = Math.round(kg / cap * 100) + "%";
+    }
+
+    window.selectTrolley = function (idx) {
+      selectedTrolleyIndex = idx;
+      updateBatchCalculations();
+    };
+
+    window.selectBatchSpecies = function (key, keepYield) {
+      if (!kb()) return;
+      const c = kb().getCanonicalSpecies(key);
+      currentSpeciesKey = c.key;
+      if (!keepYield) $("cureSlider").value = String(c.yieldNorm);
+      document.querySelectorAll(".species-btn").forEach((btn) => {
+        const on = kb().normalizeSpeciesKey(btn.getAttribute("data-species")) === c.key;
+        const spans = btn.querySelectorAll("span");
+        const label = btn.dataset.label || (btn.dataset.label = (spans.length ? spans[spans.length - 1].textContent : btn.textContent).trim());
+        btn.className = on
+          ? "species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-gradient-to-r from-primary-container to-cyan-400 text-on-primary font-body-md text-body-md shadow-[0_0_16px_rgba(0,240,255,0.45)] border border-white/20 flex-shrink-0 transition-transform active:scale-95 cursor-pointer"
+          : "species-btn flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-surface-container-high/80 border border-white/5 text-on-surface-variant font-body-md text-body-md flex-shrink-0 transition-all active:scale-95 hover:text-primary hover:border-primary/30 cursor-pointer";
+        btn.innerHTML = on ? '<span class="material-symbols-outlined text-[16px] animate-pulse">set_meal</span><span class="font-semibold tracking-wide">' + label + "</span>" : "<span>" + label + "</span>";
+      });
+      updateBatchCalculations();
+      if (!keepYield) syncToParentCockpit(false);
+    };
+
+    function syncToParentCockpit(switchToScada) {
+      if (isApplyingRemoteBatch) return;
+      const rawKg = Number($("weightSlider").value || 1850);
+      const yieldPct = Number($("cureSlider").value || 61.5);
+      callArm("syncBatchFromIframe", [{ speciesKey: LOWER[currentSpeciesKey], rawKg, yieldPct, mode: "mono", switchToScada: !!switchToScada }]);
+      if (kb() && typeof kb().setSharedBatch === "function") {
+        kb().setSharedBatch({ speciesKey: currentSpeciesKey, rawKg, yieldPct, mode: "mono" }, "batch-cockpit");
+      }
+    }
+
+    function applySharedBatchToUi(batch) {
+      if (!batch || !kb()) return;
+      isApplyingRemoteBatch = true;
+      try {
+        if (batch.rawKg) $("weightSlider").value = String(batch.rawKg);
+        const key = kb().getCanonicalSpecies(batch.speciesKey || batch.lowerKey || "VIMBA").key;
+        if (batch.yieldPct) $("cureSlider").value = String(batch.yieldPct);
+        window.selectBatchSpecies(key, !!batch.yieldPct);
+      } finally {
+        isApplyingRemoteBatch = false;
+      }
+    }
+
+    window.returnToScada = function () {
+      if (callArm("selectTab", ["scada"])) return;
+      window.location.href = "index.html";
+    };
+    window.navFromBatch = function (target) {
+      if (target === "simulator") { callArm("selectTab", ["scada"]); callArm("ckSwitchMainDeck", ["sim3d"]); return; }
+      callArm("selectTab", [target]);
+    };
+
+    ["weightSlider", "cureSlider"].forEach((id) => {
+      $(id).addEventListener("input", () => { updateBatchCalculations(); syncToParentCockpit(false); });
+    });
+    window.addEventListener("arm-cost-changed", updateBatchCalculations);
+    window.addEventListener("storage", (e) => { if (e.key === "JURMALCIEMS_COST_OVERRIDES_V1") updateBatchCalculations(); });
+
+    if (kb()) {
+      kb().ready.then(() => {
+        const shared = kb().getSharedBatch();
+        if (shared && shared.updatedAt > 0) applySharedBatchToUi(shared);
+        else window.selectBatchSpecies("VIMBA");
+      });
+      kb().onBatchChange((batch, source) => {
+        if (source === "batch-cockpit") return;
+        applySharedBatchToUi(batch);
+      });
+    }
+  </script>
+  <script src="js/bio-tomography.js"></script>
+</body>
+</html>

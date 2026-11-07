@@ -1,0 +1,49 @@
+{
+  "name": "JŪRMALCIEMS ARM • SCADA System (AIM AGHD-250ELC)",
+  "short_name": "Jūrmalciems ARM",
+  "description": "АРМ технолога вяления рыбы цеха Юрмалциемс: AIM AGHD-250ELC, влагосъем, 1#EEV, MCGS, логгер Parkside 527 точек, склад готовой продукции.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07080C",
+  "theme_color": "#07080C",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "./logo-icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./img/brand/fish-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Пульт SCADA",
+      "short_name": "Пульт",
+      "description": "3D Пульт камеры AIM AGHD-250ELC и телеметрия",
+      "url": "./index.html?tab=console",
+      "icons": [{ "src": "./logo-icon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Партия и Весы",
+      "short_name": "Партия",
+      "description": "Расчет партии, усушки и 15 тележек SS304",
+      "url": "./index.html?tab=batch",
+      "icons": [{ "src": "./logo-icon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Прибыль и Склад",
+      "short_name": "Прибыль",
+      "description": "Экономика фасовки KOMET и чистая прибыль в евро",
+      "url": "./index.html?tab=profit",
+      "icons": [{ "src": "./logo-icon.png", "sizes": "192x192" }]
+    }
+  ]
+}

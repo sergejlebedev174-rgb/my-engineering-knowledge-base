@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-container": "#5be9ad", "surface-container-highest": "#31353e", "tertiary": "#a8ffd2", "outline-variant": "#3b494c", "secondary-fixed-dim": "#7bd0ff", "secondary": "#7bd0ff", "on-secondary-fixed": "#001e2c", "secondary-container": "#00a6e0", "surface-bright": "#353942", "surface": "#0f131c", "surface-container-high": "#262a33", "on-background": "#dfe2ee", "secondary-fixed": "#c4e7ff", "surface-tint": "#00daf3", "on-primary": "#00363d", "on-secondary-container": "#00374d", "error": "#ffb4ab", "surface-container": "#1c2028", "tertiary-fixed-dim": "#4edea3", "primary-fixed": "#9cf0ff", "on-surface": "#dfe2ee", "on-error-container": "#ffdad6", "on-error": "#690005", "surface-container-lowest": "#0a0e16", "tertiary-fixed": "#6ffbbe", "inverse-primary": "#006875", "on-primary-fixed": "#001f24", "inverse-surface": "#dfe2ee", "primary": "#c3f5ff", "error-container": "#93000a", "on-primary-container": "#00626e", "outline": "#849396", "surface-variant": "#31353e", "primary-fixed-dim": "#00daf3", "on-primary-fixed-variant": "#004f58", "on-secondary-fixed-variant": "#004c69", "on-tertiary-fixed-variant": "#005236", "inverse-on-surface": "#2c3039", "on-tertiary": "#003824", "on-tertiary-container": "#006645", "on-secondary": "#00354a", "on-tertiary-fixed": "#002113", "background": "#0f131c", "primary-container": "#00e5ff", "surface-dim": "#0f131c", "surface-container-low": "#181c24", "on-surface-variant": "#bac9cc" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-lg": "1rem", "space-md": "0.75rem", "margin": "1rem", "space-xs": "0.25rem", "gutter": "0.75rem", "space-2xl": "2rem", "gutter-md": "1rem", "space-2xs": "0.125rem", "margin-desktop": "1.5rem", "space-sm": "0.5rem", "space-xl": "1.5rem" }, "fontFamily": { "headline-sm": ["Space Grotesk"], "label-mono": ["JetBrains Mono"], "telemetry-data-lg": ["JetBrains Mono"], "body-md": ["Inter"], "body-sm": ["Inter"], "display-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-lg": ["Inter"], "display-lg-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "telemetry-data-md": ["JetBrains Mono"], "label-caps": ["Space Grotesk"] }, "fontSize": { "headline-sm": ["16px", {"lineHeight": "22px", "fontWeight": "600"}], "label-mono": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}], "telemetry-data-lg": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "700"}], "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}], "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}], "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "headline-md": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}], "display-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "headline-lg": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "telemetry-data-md": ["18px", {"lineHeight": "22px", "fontWeight": "600"}], "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700"}] } } } };</script>
+<link rel="stylesheet" href="css/stitch-cockpits.css"/>
+<link rel="stylesheet" href="css/cockpit-pages-fx.css"/>
+<script src="js/knowledge-base.js"></script>
+<script src="js/bio-tomography.js"></script>
+<script src="js/cockpit-pages-fx.js" defer></script>
+
+</head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between py-space-lg shadow-[1px_0_12px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-lg"><div class="px-space-lg flex flex-col gap-space-2xs"><span class="font-headline-md text-headline-md tracking-tight uppercase text-primary">Юрмалциемс</span><span class="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim">B2B Client Telemetry Portal</span></div><nav class="flex flex-col gap-space-2xs px-space-md" data-active-classes="bg-surface-container-high text-primary font-headline-sm"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="b2b-portal-telemetriya" href="#"><span class="material-symbols-outlined">monitoring</span><span>SCADA Телеметрия</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="b2b-partii-zakazy" href="#"><span class="material-symbols-outlined">inventory_2</span><span>Партии и Выгрузки</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="b2b-pasporta-kachestva" href="#"><span class="material-symbols-outlined">verified</span><span>Паспорта качества</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="kalkulyator-partii" href="#"><span class="material-symbols-outlined">calculate</span><span>Калькулятор объема</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" href="index.html" href="#"><span class="material-symbols-outlined">arrow_back</span><span>Публичный каталог</span></a></nav></div><div class="px-space-lg flex flex-col gap-space-sm"><div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-space-2xs"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Камера AGHD-250ELC</span><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span></div><span class="font-label-mono text-label-mono text-tertiary">ЦЕЛЕВАЯ ВЛАЖНОСТЬ: 38%</span></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XyrR9c2Dl2as0kDc10SFkduk3SiH3kydzjzEjHlPpjd3qA7y0E5Vwop91yGJzIXIfKPZ0PggGb6_s5AJkG2fZ4Ui5xTjvZIQ25w6QOt_yOGYSMQpXsXIVJppU-ptQ8JmJ1MHu_GzkDZnzLuIxfLnKrXTVdbbrUd1n5x7DZcy4xmcn5SLzLbM3Ep1T3o6K8YlGw5rFaxq0ouFx2XY0d9uSHCKSc7Kj_gATDftFziHwn"/><div class="flex flex-col"><span class="font-label-mono text-label-mono text-on-surface">Технолог / Диспетчер</span><span class="font-label-caps text-label-caps text-on-surface-variant">ID: 2026-B2B</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.35)] z-40 flex items-center justify-between px-margin-desktop"><div class="flex items-center gap-space-md"><span class="font-label-mono text-label-mono text-secondary uppercase">ПЛК СТАТУС: АКТИВЕН [NODE-01: RIGA-PORT]</span><span class="hidden md:inline-block font-label-mono text-label-mono text-on-surface-variant">|</span><span class="hidden md:inline-block font-label-mono text-label-mono text-on-surface-variant">СМЕНА #2 • ВЯЛЕНИЕ В ПОТОКЕ</span></div><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-tertiary-fixed-dim hover:bg-surface-container-highest hover:text-on-surface transition-colors font-label-mono text-label-mono uppercase" data-path="optovye-postavki" href="#"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>Экстренная связь WhatsApp</a><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XyrR9c2Dl2as0kDc10SFkduk3SiH3kydzjzEjHlPpjd3qA7y0E5Vwop91yGJzIXIfKPZ0PggGb6_s5AJkG2fZ4Ui5xTjvZIQ25w6QOt_yOGYSMQpXsXIVJppU-ptQ8JmJ1MHu_GzkDZnzLuIxfLnKrXTVdbbrUd1n5x7DZcy4xmcn5SLzLbM3Ep1T3o6K8YlGw5rFaxq0ouFx2XY0d9uSHCKSc7Kj_gATDftFziHwn"/></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full text-on-surface">
+<div class="p-space-lg md:p-space-xl flex flex-col gap-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-space-2xs bg-primary-container/20 text-primary font-label-caps text-label-caps rounded uppercase">Контракт B2B-LV-984</span>
+<span class="flex items-center gap-space-2xs text-tertiary-fixed-dim font-label-mono text-label-mono">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+            SCADA ПОТОК АКТИВЕН
+          </span>
+</div>
+<div class="flex flex-wrap items-baseline gap-x-space-md gap-y-space-2xs">
+<h1 class="font-headline-lg text-headline-lg tracking-tight text-on-surface uppercase">Личный кабинет клиента: Мониторинг заказанных партий</h1>
+<span class="font-label-mono text-label-mono text-on-surface-variant">ООО «Балтик Фиш Трейд» • Диспетчерский шлюз</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex bg-surface-container-lowest p-space-2xs rounded-lg">
+<button class="px-space-md py-space-xs font-label-mono text-label-mono rounded bg-surface-container-high text-primary uppercase" id="view-telemetry-btn">Телеметрия онлайн</button>
+<button class="px-space-md py-space-xs font-label-mono text-label-mono rounded text-on-surface-variant hover:text-on-surface uppercase" id="view-docs-btn">Документы и ВетИС</button>
+</div>
+<a class="flex items-center gap-space-xs px-space-md py-space-xs bg-tertiary-container text-on-tertiary-container font-headline-sm text-headline-sm rounded-lg shadow-sm hover:opacity-95 transition-opacity" href="#support-sec">
+<span class="material-symbols-outlined text-headline-sm">forum</span>
+<span>Чат партии</span>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg">
+<div class="xl:col-span-8 flex flex-col gap-space-lg">
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md relative overflow-hidden">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Приоритетная партия в камере</span>
+<span class="font-label-mono text-label-mono px-space-xs py-space-2xs bg-surface-container-highest rounded text-primary">#AIM-2026-088</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">Камера: AIM AGHD-250ELC (15 тележек SS304)</span>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-space-md">
+<div>
+<div class="font-display-lg text-display-lg text-primary tracking-tight">Лещ крупный 800+ колодкой</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Засолка сухо-мокрая 20°Bé • Автоматизированное низкотемпературное вяление</p>
+</div>
+<div class="flex flex-col items-start md:items-end">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Объем поставки</span>
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-on-surface">2 400 <span class="font-body-sm text-body-sm text-outline">кг</span></span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex justify-between items-center font-label-mono text-label-mono">
+<span class="text-on-surface">Фаза сушки: 64 ч из 84 ч</span>
+<span class="text-tertiary-fixed-dim font-telemetry-data-md text-telemetry-data-md">76% ГОТОВНОСТИ</span>
+</div>
+<div class="w-full h-3 bg-surface-container-lowest rounded-full overflow-hidden flex">
+<div class="h-full bg-tertiary-fixed-dim transition-all duration-500" style="width: 76%;"></div>
+</div>
+<div class="flex justify-between font-label-mono text-label-mono text-on-surface-variant">
+<span>Старт: 30 Окт, 18:00</span>
+<span>Расчетное время выгрузки: Завтра, 14:30</span>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Темп. камеры</span>
+<div class="flex items-baseline gap-space-2xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary">+15.8</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">°C</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">Стабильно (±0.2)</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Относит. влажность</span>
+<div class="flex items-baseline gap-space-2xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-secondary">58</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">% rH</span>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Коридор: 54-62%</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Активность воды (a_w)</span>
+<div class="flex items-baseline gap-space-2xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-primary">0.824</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">Цель: ≤ 0.820</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Давление пара (VPD)</span>
+<div class="flex items-baseline gap-space-2xs">
+<span class="font-telemetry-data-lg text-telemetry-data-lg text-on-surface">0.75</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">кПа</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">Идеальный баланс</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary">show_chart</span>
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">Телеметрический профиль: Температура & Влажность (64 часа)</span>
+</div>
+<div class="flex items-center gap-space-md font-label-mono text-label-mono text-on-surface-variant">
+<div class="flex items-center gap-space-2xs">
+<span class="w-3 h-1 bg-primary rounded-full"></span>
+<span>T°C сенсор яруса</span>
+</div>
+<div class="flex items-center gap-space-2xs">
+<span class="w-3 h-1 bg-secondary rounded-full"></span>
+<span>%rH воздух</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="h-44 w-full flex items-end gap-1 relative overflow-hidden">
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
+<div class="w-full h-px bg-outline"></div>
+<div class="w-full h-px bg-outline"></div>
+<div class="w-full h-px bg-outline"></div>
+<div class="w-full h-px bg-outline"></div>
+</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 600 160">
+<path class="text-secondary" d="M0,130 C50,110 100,100 180,85 C240,75 320,68 400,60 C480,55 540,52 600,50" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<path class="text-primary" d="M0,70 C60,65 140,68 220,66 C300,65 380,66 460,65 C520,65 570,66 600,65" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<line class="text-tertiary-fixed-dim" stroke="currentColor" stroke-dasharray="4,4" stroke-width="1.5" x1="456" x2="456" y1="0" y2="160"></line>
+<circle class="text-primary" cx="456" cy="65" fill="currentColor" r="4"></circle>
+<circle class="text-secondary" cx="456" cy="58" fill="currentColor" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center font-label-mono text-label-mono text-on-surface-variant pt-space-xs">
+<span>0ч (Вход сырья)</span>
+<span>16ч (Первичный обдув)</span>
+<span>32ч (Кондиционирование)</span>
+<span class="text-primary font-bold">64ч (Текущий статус)</span>
+<span>84ч (Готовность)</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary">view_in_ar</span>
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">3D-мониторинг загрузки: Карта распределения тележек</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">15 / 15 ТЕЛЕЖЕК В РАБОТЕ</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex justify-between items-center font-label-mono text-label-mono text-on-surface-variant">
+<span>РЯД A (ПРИТОК ВОЗДУХА)</span>
+<span class="text-tertiary-fixed-dim">5 активны</span>
+</div>
+<div class="grid grid-cols-5 gap-space-xs py-space-xs">
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">A1</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">A2</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">A3</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">A4</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">A5</div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Ср. темп: +15.7°C • Обдув 2.8 м/с</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex justify-between items-center font-label-mono text-label-mono text-on-surface-variant">
+<span>РЯД B (ЦЕНТРАЛЬНОЕ ЯДРО)</span>
+<span class="text-tertiary-fixed-dim">5 активны</span>
+</div>
+<div class="grid grid-cols-5 gap-space-xs py-space-xs">
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">B1</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">B2</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">B3</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">B4</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">B5</div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Ср. темп: +15.8°C • Обдув 2.9 м/с</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex justify-between items-center font-label-mono text-label-mono text-on-surface-variant">
+<span>РЯД C (ВЫТЯЖНОЙ КОНТУР)</span>
+<span class="text-tertiary-fixed-dim">5 активны</span>
+</div>
+<div class="grid grid-cols-5 gap-space-xs py-space-xs">
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">C1</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">C2</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">C3</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">C4</div>
+<div class="h-10 rounded bg-primary/20 flex flex-col items-center justify-center text-primary font-label-mono text-label-mono">C5</div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Ср. темп: +15.9°C • Обдув 2.7 м/с</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary">inventory</span>
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">Очередь последующих партий</span>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant">1 заказ на подготовке</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Судак пластованный</span>
+<span class="font-label-mono text-label-mono px-space-xs py-space-2xs bg-surface-container-highest rounded text-secondary">#AIM-2026-091</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Партия: 1 800 кг • Посол чановый 22°Bé</span>
+</div>
+<div class="flex flex-col sm:items-end gap-space-2xs">
+<span class="font-label-mono text-label-mono text-secondary-fixed-dim">В посоле (осталось 18 ч)</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Перемещение в сушку: 4 Ноября, 08:00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="xl:col-span-4 flex flex-col gap-space-lg">
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">verified</span>
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">Цифровые паспорта и ВетИС</span>
+</div>
+<span class="font-label-caps text-label-caps bg-surface-container-high px-space-xs py-space-2xs rounded text-tertiary">3 Готовы</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">health_and_safety</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Вет. сертификат (Меркурий/VVD)</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">UUID: 89412-VET-2026-LV</span>
+</div>
+</div>
+<button class="p-space-xs text-primary hover:text-primary-fixed-dim" title="Скачать PDF">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">biotech</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Протокол лаб. испытаний</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">КМАФАнМ < 1×10⁴ • Влажность 38%</span>
+</div>
+</div>
+<button class="p-space-xs text-primary hover:text-primary-fixed-dim" title="Скачать PDF">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">ТТН & CMR накладная</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Бланк поставки #88 • В ожидании рейса</span>
+</div>
+</div>
+<button class="p-space-xs text-primary hover:text-primary-fixed-dim" title="Скачать PDF">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<button class="w-full py-space-sm bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-mono text-label-mono rounded uppercase flex items-center justify-center gap-space-xs transition-colors">
+<span class="material-symbols-outlined text-headline-sm">folder_zip</span>
+<span>Скачать полный пакет (ZIP, 14 МБ)</span>
+</button>
+</div>
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md" id="support-sec">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">support_agent</span>
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">Персональный технолог</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim">НА СВЯЗИ В ЦЕХУ</span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-md">
+<div class="flex items-center gap-space-md">
+<img alt="Технолог Юрий Волков" class="w-16 h-16 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYOESLuN-rdw5iXB7k--bNeT2wwCDBkhT88qU0BKEd5L4LEK4Au8ZHTsANrAfmXQthKBLN5ubirRtAzivagUeke4FzCYLyFvD1_vYBx8_hT3jDTVTEN-75pcmcL9i6YpB4HJS5OYOeKShlJartrU3M-H01l79vKCH_NED8Fqkv_YUAjaPUPlELIF8JP7nLc_vxnFSvmHcIikFLHMHb7fjz16RCxU9ATHTVNeT3zao"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Юрий Волков</span>
+<span class="font-label-mono text-label-mono text-primary">Ведущий технолог смены #2</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Камеры вяления и посола</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded text-body-sm font-body-sm text-on-surface-variant">
+              «Партия #AIM-2026-088 идет в идеальном технологическом коридоре. Плотность спинки соответствует ГОСТу, влага испаряется равномерно. К утренней отгрузке всё упакуем в гофрокороба по 10 кг».
+            </div>
+<a class="w-full py-space-sm bg-tertiary-container hover:opacity-90 text-on-tertiary-container font-headline-sm text-headline-sm rounded flex items-center justify-center gap-space-sm shadow-sm transition-opacity" href="https://wa.me/37120000000" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined">chat</span>
+<span>Открыть WhatsApp с технологом</span>
+</a>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-space-lg flex flex-col gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm uppercase text-on-surface">Параметры отгрузки</span>
+<span class="material-symbols-outlined text-on-surface-variant">local_shipping</span>
+</div>
+<div class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex justify-between py-space-2xs">
+<span>Тип фасовки:</span>
+<span class="text-on-surface font-label-mono text-label-mono">Гофрокороб 10 кг + пергамент</span>
+</div>
+<div class="flex justify-between py-space-2xs">
+<span>Температурный режим перевозки:</span>
+<span class="text-on-surface font-label-mono text-label-mono">0...+4 °C (Рефрижератор)</span>
+</div>
+<div class="flex justify-between py-space-2xs">
+<span>Паллетирование:</span>
+<span class="text-on-surface font-label-mono text-label-mono">240 ящиков / 4 европаллета</span>
+</div>
+<div class="flex justify-between py-space-2xs">
+<span>Склад отгрузки:</span>
+<span class="text-on-surface font-label-mono text-label-mono">Юрмалциемс, Цех №1 (Рампа 2)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const btnTelemetry = document.getElementById('view-telemetry-btn');
+    const btnDocs = document.getElementById('view-docs-btn');
+    
+    if (btnTelemetry && btnDocs) {
+      btnTelemetry.addEventListener('click', function() {
+        btnTelemetry.className = 'px-space-md py-space-xs font-label-mono text-label-mono rounded bg-surface-container-high text-primary uppercase';
+        btnDocs.className = 'px-space-md py-space-xs font-label-mono text-label-mono rounded text-on-surface-variant hover:text-on-surface uppercase';
+      });
+      
+      btnDocs.addEventListener('click', function() {
+        btnDocs.className = 'px-space-md py-space-xs font-label-mono text-label-mono rounded bg-surface-container-high text-primary uppercase';
+        btnTelemetry.className = 'px-space-md py-space-xs font-label-mono text-label-mono rounded text-on-surface-variant hover:text-on-surface uppercase';
+        const docSec = document.querySelector('[href="#support-sec"]')?.closest('.flex');
+        if (docSec) {
+          window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+      });
+    }
+  })();
+</script></main></div>
+<script>
+  function downloadClientZip() {
+    alert("Генерация официального архива документов партии #AIM-2026-088: \n\n1. Ветеринарный сертификат ЕС (Traces NT #LV-0489-EE)\n2. Протокол испытаний лаборатории (a_w = 0.812, NaCl 4.2%)\n3. Товарно-транспортная накладная (CMR)\n4. Спецификация качества и упаковочный лист\n\nАрхив сформирован и готов к скачиванию.");
+  }
+  document.querySelectorAll('button').forEach(btn => {
+    if (btn.textContent.includes('Скачать') || btn.textContent.includes('ZIP') || btn.textContent.includes('PDF')) {
+      btn.onclick = downloadClientZip;
+    }
+  });
+</script>
+
+</body></html>

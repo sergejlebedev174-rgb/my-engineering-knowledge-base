@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIM AGHD-250ELC • 3D/CAD Мастер-Схема Сушильного Комплекса (Bento Cockpit OS)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    :root {
+      --bg-canvas: #07080C;
+      --card-bg: #10121A;
+      --well-bg: #0B0D14;
+      --border-hairline: rgba(255, 255, 255, 0.072);
+      --cobalt-glow: #2563EB;
+      --sky-bright: #38BDF8;
+      --cyan-mint: #2DD4BF;
+      --amber-warm: #F59E0B;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body {
+      background-color: var(--bg-canvas);
+      background-image:
+        radial-gradient(45% 40% at 24% 35%, rgba(245, 158, 11, 0.05), transparent 70%),
+        radial-gradient(45% 45% at 72% 22%, rgba(37, 99, 235, 0.08), transparent 70%);
+      color: #F8FAFC;
+      font-family: var(--font-sans);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 12px 18px;
+      gap: 6px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .toolbar {
+      width: 100%;
+      max-width: 1820px;
+      background: linear-gradient(165deg, rgba(19, 23, 34, 0.94) 0%, rgba(11, 14, 22, 0.96) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-hairline);
+      border-top: 1px solid rgba(96, 165, 250, 0.32);
+      border-radius: 14px;
+      padding: 6px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 28px rgba(0, 0, 0, 0.85);
+    }
+
+    .brand-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px 4px 6px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.35), rgba(15, 23, 42, 0.75));
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #F8FAFC;
+    }
+    .brand-chip .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2DD4BF;
+      box-shadow: 0 0 8px #2DD4BF;
+    }
+
+    .mode-switch, .btns {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .back-arm-btn {
+      background: rgba(37, 99, 235, 0.16);
+      color: #93C5FD;
+      border: 1px solid rgba(96, 165, 250, 0.38);
+      border-radius: 9px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.18s ease;
+    }
+    .back-arm-btn:hover { background: rgba(37, 99, 235, 0.28); color: #FFFFFF; }
+
+    .m-btn {
+      background: var(--well-bg);
+      color: #94A3B8;
+      border: 1px solid var(--border-hairline);
+      border-radius: 9px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .m-btn:hover { color: #F8FAFC; border-color: rgba(96, 165, 250, 0.4); }
+    .m-btn.active {
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      color: #FFFFFF;
+      border-color: rgba(147, 197, 253, 0.45);
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+    }
+    .m-btn.amber.active {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      color: #FFFFFF;
+      border-color: rgba(253, 230, 138, 0.45);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.04);
+      color: #CBD5E1;
+      border: 1px solid var(--border-hairline);
+      padding: 5px 10px;
+      font-size: 10.5px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .btn:hover { background: rgba(255, 255, 255, 0.08); color: #FFFFFF; border-color: rgba(96, 165, 250, 0.4); }
+
+    /* Компактная HUD-панель инспектора узлов в стиле Bento Popover */
+    .hud-inspector-bar {
+      width: 100%;
+      max-width: 1820px;
+      background: linear-gradient(165deg, #131620 0%, #0D0F17 100%);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      padding: 7px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 26px rgba(0, 0, 0, 0.75);
+    }
+
+    .node-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      flex: 1 1 100%;
+    }
+    .n-pill {
+      padding: 4px 8px;
+      border-radius: 7px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-hairline);
+      background: var(--well-bg);
+      color: #94A3B8;
+      transition: all 0.18s ease;
+    }
+    .n-pill:hover { color: #F8FAFC; border-color: rgba(96, 165, 250, 0.4); }
+    .n-pill.active {
+      background: rgba(37, 99, 235, 0.22);
+      color: #60A5FA;
+      border-color: rgba(96, 165, 250, 0.55);
+      box-shadow: 0 0 14px rgba(37, 99, 235, 0.35);
+    }
+
+    .insp-center {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--well-bg);
+      border: 1px solid var(--border-hairline);
+      border-left: 3px solid #3B82F6;
+      border-radius: 10px;
+      padding: 6px 12px;
+      min-width: 0;
+      flex: 1 1 420px;
+    }
+    .insp-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #F8FAFC;
+      white-space: nowrap;
+    }
+    .insp-desc {
+      font-size: 11px;
+      color: #94A3B8;
+      line-height: 1.3;
+    }
+
+    .insp-grains-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--well-bg);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+      padding: 6px 12px;
+    }
+    .grain-bar { display: inline-flex; gap: 3px; align-items: center; }
+    .grain-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); }
+    .grain-dot.amber { background: #F59E0B; box-shadow: 0 0 6px #F59E0B; }
+    .grain-dot.cyan { background: #2DD4BF; box-shadow: 0 0 6px #2DD4BF; }
+    .grain-dot.blue { background: #3B82F6; box-shadow: 0 0 6px #3B82F6; }
+
+    /* Главный 3D/CAD холст */
+    .board {
+      width: min(100%, calc((100vh - 134px) * 1800 / 830));
+      width: min(100%, calc((100dvh - 134px) * 1800 / 830));
+      max-width: 1820px;
+      margin: 0 auto;
+      background: #07080C;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 50px rgba(0, 0, 0, 0.9);
+      border: 1px solid var(--border-hairline);
+      position: relative;
+      aspect-ratio: 1800 / 830;
+    }
+    @media (max-height: 640px) {
+      .board {
+        width: 100%;
+        aspect-ratio: auto;
+      }
+    }
+    svg { display: block; width: 100%; height: 100%; font-family: var(--font-sans); }
+    svg text {
+      paint-order: stroke fill;
+      stroke: #07080C;
+      stroke-width: 1.8px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @keyframes dashFlow { to { stroke-dashoffset: -48; } }
+    @keyframes spinCW { to { transform: rotate(360deg); } }
+    @keyframes hsPulse {
+      0% { transform: scale(0.8); opacity: 0.9; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+    .flow-anim { stroke-dasharray: 10 14; animation: dashFlow 0.85s linear infinite; pointer-events: none; }
+    .flow-paused .flow-anim { display: none; }
+    .spin-fan { transform-origin: center; transform-box: fill-box; animation: spinCW 1.3s linear infinite; }
+    .flow-paused .spin-fan { animation-play-state: paused; }
+    .svg-node-hit { cursor: pointer; transition: transform 0.2s ease; }
+    .svg-node-hit:hover { filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.6)); }
+    .hotspot-pulse { animation: hsPulse 2.2s infinite ease-out; transform-origin: center; transform-box: fill-box; }
+
+    @media print {
+      body { background: #07080C; padding: 0; }
+      .toolbar, .hud-inspector-bar { display: none; }
+      .board { box-shadow: none; border: none; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ВЕРХНЯЯ ПРИБОРНАЯ ПАНЕЛЬ КОКПИТА -->
+  <div class="toolbar">
+    <div class="mode-switch">
+      <a href="index.html" class="back-arm-btn" onclick="if(window.parent && window.parent !== window && typeof window.parent.ckSwitchMainDeck === 'function'){ window.parent.ckSwitchMainDeck('dashboard'); return false; }">
+        <img src="logo-icon.png" onerror="this.style.display='none'" style="width:17px;height:17px;border-radius:4px;" alt=""/>
+        ← В Кокпит АРМ
+      </a>
+      <span class="brand-chip"><span class="dot"></span>Юрмалциемс • Мастер-Схема v11</span>
+      <button id="btnDry30" class="m-btn active" onclick="setWorkMode('DRY_30')">Сушка (30.0 Гц • 1#EEV 315 st)</button>
+      <button id="btnPause18" class="m-btn amber" onclick="setWorkMode('PAUSE_18')">Пауза диффузии (18.0 Гц)</button>
+      <button id="btnFinish25" class="m-btn" onclick="setWorkMode('FINISH_25')">Финиш Ст.4 (15–20 Гц • 1ч/4ч)</button>
+      <button id="btnSeason" class="m-btn active" onclick="toggleSeason()">Зима: +14 кВт в цех (+35°C)</button>
+      <button id="btnFlowAnim" class="m-btn active" onclick="toggleFlowAnim()">Потоки 3D: ВКЛ</button>
+    </div>
+    <div class="btns">
+      <button class="btn" onclick="downloadPNG()">Экспорт 4K PNG</button>
+      <button class="btn" onclick="downloadSVG()">Вектор SVG</button>
+      <button class="btn" onclick="window.print()">Печать / PDF</button>
+    </div>
+  </div>
+
+  <!-- КОМПАКТНЫЙ СТЕКЛЯННЫЙ ИНСПЕКТОР УЗЛОВ [1–10] -->
+  <div class="hud-inspector-bar">
+    <div class="node-pills" id="nodePillsBar"></div>
+    <div class="insp-center" id="inspectorBody">
+      <div>
+        <div class="insp-title" id="inspTitle">[4] Наклонный испаритель 1#Dehumicoil (Slanted V-Evaporator)</div>
+        <div class="insp-desc" id="inspDesc">Охлаждает влажный воздух из камеры (+12.4°C, 80% rH) ниже точки росы (+5.1°C) и конденсирует до 75 л/ч воды в дренажный трап [21].</div>
+      </div>
+    </div>
+    <div class="insp-grains-box">
+      <div>
+        <div style="display:flex; justify-content:space-between; font-size:10px; color:#64748B; margin-bottom:4px;">
+          <span>Нагрузка узла</span>
+          <strong style="font-family:var(--font-mono); color:#38BDF8; margin-left:8px;" id="inspMetricTxt">+5.1°C • 75 л/ч</strong>
+        </div>
+        <div class="grain-bar" id="inspGrainBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ГЛАВНЫЙ 3D/CAD РАЗРЕЗ СУШИЛЬНОГО КОМПЛЕКСА (БЕЗ ТЕКСТОВОГО ПОДВАЛА) -->
+  <div class="board" id="svgBoard">
+    <svg id="master-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 830" width="1800" height="830">
+      <defs>
+        <linearGradient id="bgDark" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#07080C"/>
+          <stop offset="50%" stop-color="#0B0D14"/>
+          <stop offset="100%" stop-color="#07080C"/>
+        </linearGradient>
+        <linearGradient id="bentoCard" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#131620"/>
+          <stop offset="100%" stop-color="#0A0C12"/>
+        </linearGradient>
+        <linearGradient id="isoFloorG" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#132332"/>
+          <stop offset="50%" stop-color="#291D12"/>
+          <stop offset="100%" stop-color="#0B0E17"/>
+        </linearGradient>
+        <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+          <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255,255,255,0.028)" stroke-width="0.8"/>
+        </pattern>
+        <pattern id="pu" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <line x1="0" y1="0" x2="0" y2="12" stroke="#334155" stroke-width="1.5"/>
+        </pattern>
+        <filter id="sh" x="-6%" y="-6%" width="112%" height="112%">
+          <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.75"/>
+        </filter>
+
+        <linearGradient id="blueV" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#0F172A"/><stop offset="45%" stop-color="#2563EB"/><stop offset="100%" stop-color="#0F172A"/>
+        </linearGradient>
+        <linearGradient id="blkM" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#080A10"/><stop offset="45%" stop-color="#1E293B"/><stop offset="100%" stop-color="#080A10"/>
+        </linearGradient>
+        <linearGradient id="brass" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#78350F"/><stop offset="45%" stop-color="#F59E0B"/><stop offset="100%" stop-color="#451A03"/>
+        </linearGradient>
+        <linearGradient id="goldF" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#451A03"/><stop offset="35%" stop-color="#D97706"/><stop offset="55%" stop-color="#FDE68A"/><stop offset="100%" stop-color="#451A03"/>
+        </linearGradient>
+        <linearGradient id="iceF" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#0C4A6E"/><stop offset="45%" stop-color="#0284C7"/><stop offset="55%" stop-color="#BAE6FD"/><stop offset="100%" stop-color="#082F49"/>
+        </linearGradient>
+        <linearGradient id="airCol" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#2563EB" stop-opacity="0.26"/>
+          <stop offset="45%" stop-color="#38BDF8" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.22"/>
+        </linearGradient>
+        <linearGradient id="chamberGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.16"/>
+          <stop offset="50%" stop-color="#FBBF24" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.2"/>
+        </linearGradient>
+
+        <g id="wArrL"><path d="M18,0 L-8,0 M-2,-5 L-11,0 L-2,5" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+        <g id="wArrD"><path d="M0,-16 L0,8 M-5,2 L0,11 L5,2" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+        <g id="wArrR"><path d="M-18,0 L8,0 M2,-5 L11,0 L2,5" stroke="#FBBF24" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+        <g id="cArrR"><path d="M-18,0 L8,0 M2,-5 L11,0 L2,5" stroke="#38BDF8" stroke-width="3.5" fill="none" stroke-linecap="round"/></g>
+        <g id="hArrU"><path d="M0,16 L0,-8 M-5,-2 L0,-11 L5,-2" stroke="#F59E0B" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+
+        <g id="fan">
+          <circle cx="0" cy="0" r="26" fill="#080A10" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+          <g class="spin-fan">
+            <path d="M -20,0 L 20,0 M 0,-20 L 0,20 M -14,-14 L 14,14 M -14,14 L 14,-14" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="6" fill="#2563EB" stroke="#93C5FD" stroke-width="1.2"/>
+          </g>
+        </g>
+
+        <g id="chamberFanWheel">
+          <circle cx="0" cy="0" r="20" fill="#080A10" stroke="rgba(255,255,255,0.2)" stroke-width="1.8"/>
+          <g class="spin-fan">
+            <line x1="-16" y1="0" x2="16" y2="0" stroke="#38BDF8" stroke-width="2.6"/>
+            <line x1="0" y1="-16" x2="0" y2="16" stroke="#38BDF8" stroke-width="2.6"/>
+            <circle cx="0" cy="0" r="4.5" fill="#2563EB" stroke="#FFF" stroke-width="1"/>
+          </g>
+        </g>
+
+        <g id="fishRow">
+          <path d="M11,0 C15,7 15,16 11,23 L14,28 L8,28 L11,23 C7,16 7,7 11,0 Z M32,0 C36,7 36,16 32,23 L35,28 L29,28 L32,23 C28,16 28,7 32,0 Z M53,0 C57,7 57,16 53,23 L56,28 L50,28 L53,23 C49,16 49,7 53,0 Z M74,0 C78,7 78,16 74,23 L77,28 L71,28 L74,23 C70,16 70,7 74,0 Z M95,0 C99,7 99,16 95,23 L98,28 L92,28 L95,23 C91,16 91,7 95,0 Z M118,0 C122,7 122,16 118,23 L121,28 L115,28 L118,23 C114,16 114,7 118,0 Z" fill="#F59E0B" fill-opacity="0.82" stroke="#FDE68A" stroke-width="0.5"/>
+        </g>
+
+        <g id="trolley">
+          <!-- 3D Изометрическая глубина стойки тележки SS304 -->
+          <polygon points="0,0 14,-10 150,-10 136,0" fill="rgba(59,130,246,0.16)" stroke="rgba(148,163,184,0.35)" stroke-width="1"/>
+          <polygon points="136,0 150,-10 150,325 136,335" fill="rgba(15,23,42,0.75)" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+          <rect x="0" y="0" width="136" height="335" rx="4" fill="rgba(11,13,20,0.68)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+          <line x1="68" y1="0" x2="68" y2="335" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+          <path d="M0,36 H136 M0,82 H136 M0,128 H136 M0,174 H136 M0,220 H136 M0,266 H136 M0,312 H136" stroke="#64748B" stroke-width="1.8"/>
+          <use href="#fishRow" x="0" y="38"/><use href="#fishRow" x="0" y="84"/><use href="#fishRow" x="0" y="130"/>
+          <use href="#fishRow" x="0" y="176"/><use href="#fishRow" x="0" y="222"/><use href="#fishRow" x="0" y="268"/>
+          <circle cx="22" cy="344" r="6.5" fill="#0B0D14" stroke="#64748B" stroke-width="2"/>
+          <circle cx="114" cy="344" r="6.5" fill="#0B0D14" stroke="#64748B" stroke-width="2"/>
+        </g>
+
+        <!-- Пульсирующие маячки ( • ) в стиле bento-vision.html -->
+        <g id="beaconBlue">
+          <circle cx="0" cy="0" r="12" fill="rgba(59,130,246,0.28)" class="hotspot-pulse"/>
+          <circle cx="0" cy="0" r="7.5" fill="#0B0D14" stroke="#38BDF8" stroke-width="2.2"/>
+          <circle cx="0" cy="0" r="2.8" fill="#38BDF8"/>
+        </g>
+        <g id="beaconAmber">
+          <circle cx="0" cy="0" r="12" fill="rgba(245,158,11,0.3)" class="hotspot-pulse"/>
+          <circle cx="0" cy="0" r="7.5" fill="#0B0D14" stroke="#F59E0B" stroke-width="2.2"/>
+          <circle cx="0" cy="0" r="2.8" fill="#F59E0B"/>
+        </g>
+        <g id="beaconCyan">
+          <circle cx="0" cy="0" r="12" fill="rgba(45,212,191,0.28)" class="hotspot-pulse"/>
+          <circle cx="0" cy="0" r="7.5" fill="#0B0D14" stroke="#2DD4BF" stroke-width="2.2"/>
+          <circle cx="0" cy="0" r="2.8" fill="#2DD4BF"/>
+        </g>
+      </defs>
+
+      <rect width="1800" height="830" fill="url(#bgDark)"/>
+      <rect width="1800" height="830" fill="url(#grid)"/>
+
+      <!-- ВЕРХНЯЯ СВОДКА ВНУТРИ 3D-ХОЛСТА -->
+      <g transform="translate(15, 10)" filter="url(#sh)">
+        <rect x="0" y="0" width="1770" height="68" rx="14" fill="url(#bentoCard)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+        <text x="20" y="27" font-size="16" font-weight="800" fill="#F8FAFC">
+          3D/CAD ЦИФРОВОЙ ДВОЙНИК КОМПЛЕКСА: <tspan id="svgHdrModeText" fill="#60A5FA">AIM AGHD-250ELC + РИЖСКАЯ КАМЕРА (15 ТЕЛЕЖЕК SS304)</tspan>
+        </text>
+        <text x="20" y="48" font-size="11" font-weight="500" fill="#94A3B8">
+          Нажмите на любую пульсирующую точку ( • ) на оборудовании для просмотра живой телеметрии узла  |  Замкнутый тепловой контур R410A без ТЭНов
+        </text>
+
+        <g transform="translate(1155, 8)">
+          <rect x="0" y="0" width="144" height="52" rx="10" fill="#080A10" stroke="rgba(245,158,11,0.35)" stroke-width="1.2"/>
+          <text x="72" y="16" text-anchor="middle" font-size="8.5" font-weight="700" fill="#64748B">КЛИМАТ КАМЕРЫ</text>
+          <text x="72" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#F59E0B" id="hdrClimVal">+15.8°C • 58%</text>
+          <text x="72" y="47" text-anchor="middle" font-size="7.5" font-weight="600" fill="#94A3B8">VPD 0.75 кПа</text>
+
+          <rect x="152" y="0" width="144" height="52" rx="10" fill="#080A10" stroke="rgba(56,189,248,0.35)" stroke-width="1.2"/>
+          <text x="224" y="16" text-anchor="middle" font-size="8.5" font-weight="700" fill="#64748B">ОТЖИМ КОНДЕНСАТА</text>
+          <text x="224" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="14.5" font-weight="700" fill="#38BDF8" id="hdrWaterVal">-75.0 л/ч</text>
+          <text x="224" y="47" text-anchor="middle" font-size="7.5" font-weight="600" fill="#94A3B8">1#Dehumicoil +5.1°C</text>
+
+          <rect x="304" y="0" width="144" height="52" rx="10" fill="#080A10" stroke="rgba(59,130,246,0.35)" stroke-width="1.2"/>
+          <text x="376" y="16" text-anchor="middle" font-size="8.5" font-weight="700" fill="#64748B">КЛАПАН 1#EEV &amp; ПЛК</text>
+          <text x="376" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#60A5FA" id="hdrEevVal">315 step • 30Гц</text>
+          <text x="376" y="47" text-anchor="middle" font-size="7.5" font-weight="600" fill="#94A3B8">1 контур (11.4 А)</text>
+
+          <rect x="456" y="0" width="148" height="52" rx="10" fill="#080A10" stroke="rgba(45,212,191,0.35)" stroke-width="1.2"/>
+          <text x="530" y="16" text-anchor="middle" font-size="8.5" font-weight="700" fill="#64748B">РЕКУПЕРАЦИЯ ЭСТАКАДЫ</text>
+          <text x="530" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#2DD4BF" id="hdrHeatVal">+14.0 кВт в цех</text>
+          <text x="530" y="47" text-anchor="middle" font-size="7.5" font-weight="600" fill="#94A3B8" id="hdrSeasonSub">Зима (+35°C • 24 бар)</text>
+        </g>
+      </g>
+
+      <!-- ПЛАШКИ 4 ЗОН -->
+      <g transform="translate(15, 86)">
+        <rect x="0" y="0" width="540" height="24" rx="7" fill="#121624" stroke="rgba(245,158,11,0.3)"/>
+        <text x="270" y="16" text-anchor="middle" font-size="9.5" font-weight="700" fill="#F59E0B">ЗОНА I: 3D РАЗРЕЗ РИЖСКОЙ КАМЕРЫ (4×CANTONI 3 кВт • 15 ТЕЛЕЖЕК SS304)</text>
+
+        <rect x="546" y="0" width="352" height="24" rx="7" fill="#121624" stroke="rgba(56,189,248,0.3)"/>
+        <text x="722" y="16" text-anchor="middle" font-size="9.5" font-weight="700" fill="#38BDF8">ЗОНА II: ОСУШИТЕЛЬНАЯ КОЛОННА AIM AGHD-250ELC</text>
+
+        <rect x="904" y="0" width="540" height="24" rx="7" fill="#121624" stroke="rgba(45,212,191,0.3)"/>
+        <text x="1174" y="16" text-anchor="middle" font-size="9.5" font-weight="700" fill="#2DD4BF">ЗОНА III: ХОЛОДИЛЬНЫЙ КОНТУР R410A (PANASONIC SCROLL • 1#EEV)</text>
+
+        <rect x="1450" y="0" width="320" height="24" rx="7" fill="#121624" stroke="rgba(59,130,246,0.35)"/>
+        <text x="1610" y="16" text-anchor="middle" font-size="9.5" font-weight="700" fill="#60A5FA">ЗОНА IV: ТРАССА 10м И ТЕРМО-КОРОБ 14 кВт</text>
+      </g>
+
+      <!-- ================= ЗОНА I: 3D/CAD РАЗРЕЗ РИЖСКОЙ КАМЕРЫ ================= -->
+      <g transform="translate(15, 116)" filter="url(#sh)">
+        <!-- 3D верхняя и боковая грань распила стены (эффект макета bento-vision.html) -->
+        <polygon points="0,0 14,-8 559,-8 545,0" fill="#2E3344"/>
+        <rect x="0" y="0" width="545" height="696" rx="10" fill="url(#bentoCard)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+        <rect x="0" y="0" width="545" height="16" fill="url(#pu)" stroke="#334155"/>
+        <rect x="0" y="680" width="545" height="16" fill="url(#pu)" stroke="#334155"/>
+        <rect x="0" y="16" width="16" height="664" fill="url(#pu)" stroke="#334155"/>
+        <rect x="529" y="132" width="16" height="445" fill="url(#pu)" stroke="#334155"/>
+        <rect x="78" y="132" width="451" height="12" fill="url(#pu)" stroke="#334155"/>
+
+        <!-- 3D Изометрический пол камеры с сеткой плитки и янтарным светом -->
+        <polygon points="16,680 95,595 529,595 529,680" fill="url(#isoFloorG)" opacity="0.85"/>
+        <line x1="16" y1="680" x2="95" y2="595" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+        <line x1="95" y1="595" x2="529" y2="595" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+        <polygon points="16,16 92,16 16,92" fill="#182030" stroke="#475569" stroke-width="1.8"/>
+        <rect x="16" y="144" width="513" height="536" fill="url(#chamberGlow)"/>
+        <line x1="78" y1="145" x2="78" y2="678" stroke="#38BDF8" stroke-width="2" stroke-dasharray="12 6" stroke-opacity="0.65"/>
+
+        <!-- Узел [1]: Турбины Cantoni 4×3кВт -->
+        <g transform="translate(185, 20)" class="svg-node-hit" onclick="selectNode(1)">
+          <rect x="0" y="0" width="160" height="110" rx="8" fill="#080A10" stroke="rgba(56,189,248,0.4)" stroke-width="1.8"/>
+          <line x1="28" y1="0" x2="28" y2="110" stroke="#334155" stroke-width="2.5"/>
+          <line x1="88" y1="0" x2="88" y2="110" stroke="#334155" stroke-width="2.5"/>
+          <line x1="0" y1="55" x2="160" y2="55" stroke="#1E293B" stroke-width="1.5"/>
+          <line x1="12" y1="27" x2="115" y2="27" stroke="#64748B" stroke-width="4"/>
+          <use href="#chamberFanWheel" x="28" y="27"/><use href="#chamberFanWheel" x="88" y="27"/>
+          <rect x="108" y="11" width="44" height="32" rx="4" fill="url(#blueV)" stroke="#60A5FA"/>
+          <text x="130" y="25" text-anchor="middle" font-size="7.5" font-weight="800" fill="#FFF">CANTONI</text>
+          <text x="130" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="6.8" font-weight="700" fill="#93C5FD">M1 (3 кВт)</text>
+
+          <line x1="12" y1="82" x2="115" y2="82" stroke="#64748B" stroke-width="4"/>
+          <use href="#chamberFanWheel" x="28" y="82"/><use href="#chamberFanWheel" x="88" y="82"/>
+          <rect x="108" y="66" width="44" height="32" rx="4" fill="url(#blueV)" stroke="#60A5FA"/>
+          <text x="130" y="80" text-anchor="middle" font-size="7.5" font-weight="800" fill="#FFF">CANTONI</text>
+          <text x="130" y="91" text-anchor="middle" font-family="JetBrains Mono" font-size="6.8" font-weight="700" fill="#93C5FD">M2 (3 кВт)</text>
+          <use href="#beaconBlue" x="8" y="12"/>
+        </g>
+
+        <g transform="translate(354, 24)" class="svg-node-hit" onclick="selectNode(1)">
+          <rect x="0" y="0" width="166" height="62" rx="10" fill="#080A10" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+          <text x="83" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="#F59E0B">СУХОЙ ПОТОК В КАМЕРУ</text>
+          <text x="83" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" font-weight="700" fill="#F8FAFC">+15.8°C | RH 48%</text>
+          <text x="83" y="51" text-anchor="middle" font-size="8" font-weight="600" fill="#2DD4BF" id="svgCantoniHz">Частотники HAPN: 30.0 Гц</text>
+        </g>
+
+        <g transform="translate(86, 154)" class="svg-node-hit" onclick="selectNode(2)">
+          <rect x="0" y="0" width="434" height="54" rx="10" fill="#080A10" stroke="rgba(255,255,255,0.1)" stroke-width="1.4"/>
+          <text x="217" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#FDE68A">ЗОНА 15 ТЕЛЕЖЕК SS304 (ВИМБА, ЛЕЩ, ПЛОТВА, КОРЮШКА, ОКУНЬ)</text>
+          <text x="217" y="34" text-anchor="middle" font-size="8.5" font-weight="500" fill="#CBD5E1">Сушка: +15.8°C (30 Гц) | Пауза диффузии: 18 Гц | Финиш Ст.4: +14°C (25.3 Гц)</text>
+          <text x="217" y="47" text-anchor="middle" font-size="8" font-weight="700" fill="#2DD4BF">Ламинарный односторонний продув (Пленум разгона 70 см → Буфер 50 см)</text>
+        </g>
+
+        <!-- 3D Стойки тележек с рыбой -->
+        <g class="svg-node-hit" onclick="selectNode(2)">
+          <use href="#trolley" x="92" y="238"/>
+          <use href="#trolley" x="238" y="238"/>
+          <use href="#trolley" x="384" y="238"/>
+          <use href="#beaconAmber" x="306" y="360"/>
+        </g>
+
+        <g transform="translate(525, 578)">
+          <rect x="0" y="0" width="20" height="44" fill="#0284C7" stroke="#7DD3FC"/>
+          <rect x="0" y="48" width="20" height="44" fill="#0284C7" stroke="#7DD3FC"/>
+        </g>
+
+        <!-- Узел [3]: Трап слива и всасывающие окна у пола -->
+        <g transform="translate(245, 608)" class="svg-node-hit" onclick="selectNode(3)">
+          <rect x="0" y="0" width="268" height="60" rx="10" fill="#080A10" stroke="rgba(56,189,248,0.4)" stroke-width="1.5"/>
+          <text x="134" y="18" text-anchor="middle" font-size="9.5" font-weight="700" fill="#38BDF8">ВСАСЫВАЮЩИЕ ОКНА И ТРАП 60 СМ В ПОЛУ →</text>
+          <text x="134" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" font-weight="700" fill="#F8FAFC">T = +12.4°C | Влажность до RH = 80%</text>
+          <text x="134" y="50" text-anchor="middle" font-size="8" font-weight="500" fill="#94A3B8">Влажный воздух уходит в нижнюю секцию AIM AGHD-250ELC</text>
+          <use href="#beaconCyan" x="14" y="30"/>
+        </g>
+
+        <use href="#wArrL" x="495" y="102"/><use href="#wArrL" x="395" y="102"/><use href="#wArrL" x="155" y="75"/><use href="#wArrL" x="85" y="75"/>
+        <use href="#wArrD" x="46" y="180"/><use href="#wArrD" x="46" y="310"/><use href="#wArrD" x="46" y="440"/><use href="#wArrD" x="46" y="570"/>
+        <use href="#wArrR" x="84" y="312"/><use href="#wArrR" x="230" y="312"/><use href="#wArrR" x="376" y="312"/>
+        <use href="#wArrR" x="84" y="445"/><use href="#wArrR" x="230" y="445"/><use href="#wArrR" x="376" y="445"/>
+        <use href="#cArrR" x="524" y="595"/><use href="#cArrR" x="524" y="645"/>
+      </g>
+
+      <!-- ================= ЗОНА II: МОНОБЛОК AIM AGHD-250ELC ================= -->
+      <g transform="translate(560, 116)" filter="url(#sh)">
+        <polygon points="0,0 14,-8 364,-8 350,0" fill="#243046"/>
+        <rect x="0" y="0" width="350" height="696" rx="10" fill="url(#bentoCard)" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+        <rect x="16" y="18" width="318" height="655" rx="6" fill="url(#airCol)"/>
+
+        <path d="M 0 18 L 332 18 L 332 132 L 0 132" fill="rgba(245,158,11,0.12)" stroke="#475569" stroke-width="1.5"/>
+        <text x="166" y="38" text-anchor="middle" font-size="9.5" font-weight="700" fill="#FDE68A">← ПОДАЧА СУХОГО ПОТОКА В КАМЕРУ (+15.8°C | RH 48%)</text>
+        <use href="#wArrL" x="75" y="58"/><use href="#wArrL" x="235" y="58"/>
+
+        <!-- Узел [6]: Вентиляторы LIHUA -->
+        <g transform="translate(22, 78)" class="svg-node-hit" onclick="selectNode(6)">
+          <polygon points="10,50 134,50 108,74 36,74" fill="#1E3A8A" stroke="#3B82F6"/>
+          <rect x="4" y="4" width="136" height="46" rx="6" fill="#080A10" stroke="#60A5FA" stroke-width="1.5"/>
+          <text x="72" y="24" text-anchor="middle" font-size="8.5" font-weight="800" fill="#FFF">LIHUA GHF/B6S-4</text>
+          <text x="72" y="39" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#38BDF8">2.2 kW | 16 000 m³/h</text>
+
+          <g transform="translate(154, 0)">
+            <polygon points="10,50 134,50 108,74 36,74" fill="#1E3A8A" stroke="#3B82F6"/>
+            <rect x="4" y="4" width="136" height="46" rx="6" fill="#080A10" stroke="#60A5FA" stroke-width="1.5"/>
+            <text x="72" y="24" text-anchor="middle" font-size="8.5" font-weight="800" fill="#FFF">LIHUA GHF/B6S-4</text>
+            <text x="72" y="39" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#38BDF8">2.2 kW | 16 000 m³/h</text>
+            <use href="#beaconBlue" x="136" y="10"/>
+          </g>
+        </g>
+
+        <g transform="translate(20, 160)">
+          <rect x="0" y="0" width="310" height="28" rx="6" fill="#080A10" stroke="rgba(45,212,191,0.35)" stroke-width="1.2"/>
+          <text x="155" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="#2DD4BF">ТЭНы 18 кВт: ОТКЛЮЧЕНЫ (0 кВт) — 100% ТЕПЛОВОЙ НАСОС</text>
+        </g>
+
+        <use href="#hArrU" x="85" y="202"/><use href="#hArrU" x="265" y="202"/>
+
+        <!-- Узел [5]: Змеевик догрева Reheat Condenser -->
+        <g transform="translate(20, 214)" class="svg-node-hit" onclick="selectNode(5)">
+          <rect x="0" y="0" width="310" height="52" rx="8" fill="#080A10" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+          <text x="155" y="17" text-anchor="middle" font-size="9.5" font-weight="700" fill="#F59E0B">КОНДЕНСАТОР ДОГРЕВА ВОЗДУХА (REHEAT COIL)</text>
+          <text x="155" y="32" text-anchor="middle" font-size="8.5" font-weight="500" fill="#CBD5E1">Горячий газ (+68°C) греет осушенный воздух с +5.1°C до +15.8°C</text>
+          <text x="155" y="45" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2DD4BF">Относительная влажность снижается с 95% до 48% rH</text>
+
+          <rect x="0" y="58" width="310" height="72" rx="6" fill="url(#goldF)" stroke="#F59E0B" stroke-width="1.8"/>
+          <path d="M 310 72 L 22 72 C 12 72, 12 94, 22 94 L 288 94 C 298 94, 298 116, 288 116 L 310 116" fill="none" stroke="#EF4444" stroke-width="6.5" stroke-linecap="round"/>
+          <rect x="34" y="81" width="242" height="24" rx="5" fill="#080A10" fill-opacity="0.92" stroke="rgba(255,255,255,0.1)"/>
+          <text x="155" y="96" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#FDE68A">REHEAT COIL: ГАЗ +68°C → ЖИДКОСТЬ +38°C</text>
+          <use href="#beaconAmber" x="296" y="66"/>
+        </g>
+
+        <rect x="20" y="352" width="310" height="24" rx="6" fill="#080A10" stroke="rgba(56,189,248,0.35)"/>
+        <text x="175" y="368" text-anchor="middle" font-size="9" font-weight="700" fill="#38BDF8">↑ ОСУШЕННЫЙ ХОЛОДНЫЙ ПОТОК (+5.1°C | ВЛАГА СБРОШЕНА) ↑</text>
+
+        <!-- Узел [4]: Испаритель 1#Dehumicoil -->
+        <g transform="translate(20, 384)" class="svg-node-hit" onclick="selectNode(4)">
+          <rect x="0" y="0" width="310" height="52" rx="8" fill="#080A10" stroke="rgba(45,212,191,0.4)" stroke-width="1.5"/>
+          <text x="155" y="17" text-anchor="middle" font-size="9.5" font-weight="700" fill="#2DD4BF">НАКЛОННЫЙ V-ИСПАРИТЕЛЬ (1#DEHUMICOIL • +5.1°C)</text>
+          <text x="155" y="32" text-anchor="middle" font-size="8.5" font-weight="500" fill="#CBD5E1">Конденсация влаги из воздуха при кипении R410A (8.5 бар)</text>
+          <text x="155" y="45" text-anchor="middle" font-size="8.5" font-weight="700" fill="#38BDF8">Точка росы +7.6°C • Чистые соты без обмерзания</text>
+
+          <rect x="6" y="60" width="238" height="104" rx="6" fill="url(#iceF)" stroke="#38BDF8" stroke-width="1.8"/>
+          <path d="M 244 76 L 24 76 C 14 76, 14 98, 24 98 L 226 98 C 236 98, 236 120, 226 120 L 24 120 C 14 120, 14 144, 24 144 L 244 144" fill="none" stroke="#7DD3FC" stroke-width="6.5" stroke-linecap="round"/>
+
+          <g fill="none" stroke="#38BDF8" stroke-width="2.5">
+            <path d="M282,105 C266,76 254,74 244,76"/><path d="M282,105 C266,90 254,95 244,98"/><path d="M282,105 C266,108 254,116 244,120"/>
+          </g>
+          <rect x="274" y="92" width="22" height="26" rx="4" fill="url(#brass)" stroke="#FDE047"/>
+          <text x="285" y="108" text-anchor="middle" font-size="6.5" font-weight="900" fill="#07080C">ПАУК</text>
+
+          <rect x="18" y="92" width="214" height="38" rx="6" fill="#080A10" fill-opacity="0.92" stroke="rgba(255,255,255,0.1)"/>
+          <text x="125" y="107" text-anchor="middle" font-size="9.5" font-weight="700" fill="#38BDF8">SLANTED V-EVAPORATOR [4]</text>
+          <text x="125" y="122" text-anchor="middle" font-family="JetBrains Mono" font-size="8.2" font-weight="700" fill="#2DD4BF" id="svgEvapStatus">Температура сот: +5.1°C (Кипение 8.5 бар)</text>
+
+          <path d="M 4 196 L 244 196 L 234 222 L 14 222 Z" fill="#0C4A6E" stroke="#38BDF8" stroke-width="1.5"/>
+          <text x="124" y="213" text-anchor="middle" font-family="JetBrains Mono" font-size="8.8" font-weight="700" fill="#FFFFFF" id="svgDrainText">СЛИВ В ТРАП [21]: ДО 75 Л/Ч КОНДЕНСАТА</text>
+          <use href="#beaconCyan" x="16" y="68"/>
+        </g>
+
+        <rect x="16" y="618" width="318" height="60" rx="8" fill="#080A10" stroke="rgba(255,255,255,0.08)" stroke-width="1.2"/>
+        <text x="175" y="636" text-anchor="middle" font-size="9" font-weight="700" fill="#60A5FA">ВЕНТИЛЯЦИЯ МАШИННОГО ОТДЕЛЕНИЯ: VENTS TT PRO 200</text>
+        <text x="175" y="652" text-anchor="middle" font-size="8" font-weight="500" fill="#94A3B8">Автоматическое включение по термостату KTS (+25°C) в щите HAPN</text>
+        <text x="175" y="666" text-anchor="middle" font-size="8" font-weight="600" fill="#2DD4BF">Стабильный перепад давления на гидрозатворе слива конденсата</text>
+      </g>
+
+      <!-- ================= ЗОНА III: ШТАТНЫЙ ХОЛОДИЛЬНЫЙ КОНТУР R410A ================= -->
+      <g transform="translate(916, 116)" filter="url(#sh)">
+        <rect x="0" y="0" width="528" height="696" rx="10" fill="url(#bentoCard)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+      </g>
+
+      <!-- СЭНДВИЧ-СТЕНА ЦЕХА (X: 1448) -->
+      <g transform="translate(1448, 86)">
+        <rect x="0" y="0" width="18" height="726" fill="url(#pu)" stroke="#475569" stroke-width="1.5"/>
+        <rect x="-42" y="545" width="102" height="22" rx="6" fill="#080A10" stroke="rgba(255,255,255,0.15)"/>
+        <text x="9" y="560" text-anchor="middle" font-size="8.5" font-weight="700" fill="#94A3B8">СТЕНА ЦЕХА</text>
+      </g>
+
+      <!-- МАГИСТРАЛИ ФРЕОНА R410A (ЧИСТАЯ ШТАТНАЯ ГИДРАВЛИКА) -->
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#sh)">
+        <!-- Нагнетание от компрессора Panasonic к 4-ходовому клапану (+68°C, 24 бар) -->
+        <path d="M 1272 528 L 1272 495 L 1385 495 L 1385 235 L 1275 235" stroke="#991B1B" stroke-width="12"/>
+        <path d="M 1272 528 L 1272 495 L 1385 495 L 1385 235 L 1275 235" stroke="#EF4444" stroke-width="7.5"/>
+        <path d="M 1272 528 L 1272 495 L 1385 495 L 1385 235 L 1275 235" stroke="#FEF08A" stroke-width="2.5" class="flow-anim"/>
+
+        <!-- Подача горячего газа в змеевик догрева камеры Reheat Coil -->
+        <path d="M 1348 235 L 1348 408 L 890 408" stroke="#991B1B" stroke-width="11"/>
+        <path d="M 1348 235 L 1348 408 L 890 408" stroke="#EF4444" stroke-width="7"/>
+        <path d="M 1348 235 L 1348 408 L 890 408" stroke="#FEF08A" stroke-width="2.2" class="flow-anim"/>
+
+        <!-- Подача горячего газа на эстакаду (10м трасса Ø30) -->
+        <path d="M 1300 185 L 1300 155 L 1515 155" stroke="#080A10" stroke-width="15"/>
+        <path d="M 1300 185 L 1300 155 L 1515 155" stroke="#EF4444" stroke-width="8.5"/>
+        <path d="M 1300 185 L 1300 155 L 1515 155" stroke="#FECACA" stroke-width="2.8" class="flow-anim"/>
+
+        <!-- Возврат жидкого фреона с эстакады (10м трасса Ø20) и из Reheat Coil в Ресивер 12L -->
+        <path d="M 1515 262 L 1006 262 L 1006 218" stroke="#080A10" stroke-width="13"/>
+        <path d="M 1515 262 L 1006 262 L 1006 218" stroke="#F59E0B" stroke-width="7.5"/>
+        <path d="M 1515 262 L 1006 262 L 1006 218" stroke="#FEF08A" stroke-width="2.5" class="flow-anim"/>
+
+        <path d="M 890 452 L 982 452 L 982 218" stroke="#78350F" stroke-width="10"/>
+        <path d="M 890 452 L 982 452 L 982 218" stroke="#F59E0B" stroke-width="6"/>
+
+        <!-- Жидкостная линия из Ресивера 12L через фильтр DML 164 и глазок к 1#EEV -->
+        <path d="M 968 335 L 968 604 L 938 604" stroke="#78350F" stroke-width="11"/>
+        <path d="M 968 335 L 968 604 L 938 604" stroke="#F59E0B" stroke-width="7"/>
+        <path d="M 968 335 L 968 604 L 938 604" stroke="#FEF08A" stroke-width="2.5" class="flow-anim"/>
+
+        <!-- Дросселированная холодная парожидкостная смесь после 1#EEV к пауку-распределителю V-испарителя -->
+        <path d="M 902 604 L 866 604" stroke="#0C4A6E" stroke-width="10"/>
+        <path d="M 902 604 L 866 604" stroke="#38BDF8" stroke-width="6.5"/>
+        <path d="M 902 604 L 866 604" stroke="#BAE6FD" stroke-width="2.4" class="flow-anim"/>
+
+        <!-- Всасывающая газовая магистраль от коллектора V-испарителя по внешней стене колонны к Докипателю -->
+        <path d="M 824 650 L 903 650 L 903 778 L 1074 778 L 1074 644" stroke="#0C4A6E" stroke-width="12"/>
+        <path d="M 824 650 L 903 650 L 903 778 L 1074 778 L 1074 644" stroke="#0284C7" stroke-width="8"/>
+        <path d="M 824 650 L 903 650 L 903 778 L 1074 778 L 1074 644" stroke="#BAE6FD" stroke-width="2.8" class="flow-anim"/>
+
+        <!-- Сухой пар из Докипателя к спиральному компрессору Panasonic -->
+        <path d="M 1110 515 L 1110 488 L 1152 488 L 1152 612 L 1222 612" stroke="#0C4A6E" stroke-width="12"/>
+        <path d="M 1110 515 L 1110 488 L 1152 488 L 1152 612 L 1222 612" stroke="#0284C7" stroke-width="8"/>
+        <path d="M 1110 515 L 1110 488 L 1152 488 L 1152 612 L 1222 612" stroke="#BAE6FD" stroke-width="2.8" class="flow-anim"/>
+      </g>
+
+      <g transform="translate(1152, 122)" filter="url(#sh)">
+        <rect x="0" y="0" width="286" height="24" rx="6" fill="#080A10" stroke="rgba(245,158,11,0.4)"/>
+        <text x="143" y="16" text-anchor="middle" font-size="8.5" font-weight="700" fill="#FDE68A">
+          ТЕПЛОИЗОЛИРОВАННАЯ ТРАССА 10м (Ø30 ГАЗ + Ø20 ЖИДКОСТЬ) →
+        </text>
+      </g>
+
+      <!-- Узел [8]: 4-Ходовой реверсивный клапан -->
+      <g transform="translate(1218, 178)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(8)">
+        <rect x="26" y="-8" width="12" height="18" fill="#B45309"/>
+        <rect x="51" y="-8" width="12" height="18" fill="#0284C7"/>
+        <rect x="76" y="-8" width="12" height="18" fill="#DC2626"/>
+        <rect x="51" y="34" width="12" height="22" fill="#DC2626"/>
+        <rect x="6" y="8" width="102" height="28" rx="12" fill="url(#brass)" stroke="#FDE68A" stroke-width="1.8"/>
+        <text x="57" y="25" text-anchor="middle" font-size="7.5" font-weight="900" fill="#07080C">4-WAY VALVE [8]</text>
+        <use href="#beaconAmber" x="108" y="8"/>
+      </g>
+
+      <g transform="translate(1110, 282)" filter="url(#sh)">
+        <rect x="0" y="0" width="226" height="64" rx="8" fill="#080A10" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+        <text x="113" y="18" text-anchor="middle" font-size="8.5" font-weight="700" fill="#60A5FA">БАЛАНСИРОВКА ТЕПЛОВОГО ПОТОКА [8]</text>
+        <text x="113" y="34" text-anchor="middle" font-size="8" font-weight="500" fill="#CBD5E1">Распределяет горячий фреон (+68°C) между</text>
+        <text x="113" y="48" text-anchor="middle" font-size="8" font-weight="600" fill="#2DD4BF">внутренним догревом [5] и термо-коробом [10]</text>
+      </g>
+
+      <!-- Узел [9]: Жидкостной ресивер 12 л + Фильтр DML 164 -->
+      <g transform="translate(954, 218)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(9)">
+        <path d="M 2 15 C 2 -4, 68 -4, 68 15 L 68 116 C 68 132, 2 132, 2 116 Z" fill="url(#blkM)" stroke="rgba(245,158,11,0.5)" stroke-width="1.8"/>
+        <rect x="12" y="24" width="46" height="76" rx="5" fill="#080A10" stroke="#F59E0B"/>
+        <rect x="14" y="48" width="42" height="50" rx="3" fill="#F59E0B" fill-opacity="0.85"/>
+        <text x="35" y="38" text-anchor="middle" font-size="7" font-weight="800" fill="#F8FAFC">РЕСИВЕР 12L</text>
+        <text x="35" y="70" text-anchor="middle" font-size="7.5" font-weight="900" fill="#07080C">ЖИДКИЙ R410A</text>
+        <text x="35" y="84" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="800" fill="#07080C">+36°C • 24 бар</text>
+        <use href="#beaconAmber" x="68" y="16"/>
+      </g>
+
+      <g transform="translate(948, 422)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(9)">
+        <rect x="2" y="0" width="38" height="64" rx="8" fill="url(#blkM)" stroke="#38BDF8" stroke-width="1.5"/>
+        <text x="21" y="26" text-anchor="middle" font-size="6.5" font-weight="800" fill="#38BDF8">DANFOSS</text>
+        <text x="21" y="38" text-anchor="middle" font-size="6.5" font-weight="700" fill="#FFF">DML 164</text>
+      </g>
+
+      <g transform="translate(957, 502)" filter="url(#sh)">
+        <rect x="0" y="0" width="22" height="24" rx="4" fill="url(#brass)" stroke="#FDE047"/>
+        <circle cx="11" cy="12" r="6" fill="#080A10" stroke="#FDE047" stroke-width="1.5"/>
+        <circle cx="11" cy="12" r="3" fill="#2DD4BF"/>
+      </g>
+
+      <!-- Узел [7]: Шаговый клапан 1#EEV (0–480 шагов) -->
+      <g transform="translate(902, 586)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(7)">
+        <rect x="0" y="18" width="36" height="14" rx="3" fill="url(#brass)" stroke="#FDE047"/>
+        <path d="M 4 -4 C 4 -11, 32 -11, 32 -4 L 32 18 L 4 18 Z" fill="#080A10" stroke="#38BDF8" stroke-width="1.8"/>
+        <text x="18" y="9" text-anchor="middle" font-size="7.5" font-weight="800" fill="#38BDF8">1#EEV</text>
+        <use href="#beaconBlue" x="0" y="-8"/>
+      </g>
+
+      <g transform="translate(918, 636)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(7)">
+        <rect x="0" y="0" width="132" height="54" rx="8" fill="#080A10" stroke="rgba(56,189,248,0.4)" stroke-width="1.5"/>
+        <text x="66" y="17" text-anchor="middle" font-size="8.2" font-weight="700" fill="#38BDF8">ЭЛЕКТРОННЫЙ ЭРВ 1#EEV [7]</text>
+        <text x="66" y="32" text-anchor="middle" font-family="JetBrains Mono" font-size="8.2" font-weight="700" fill="#FFFFFF" id="svgEevStepText">Открытие: 315 шагов (Dew Point)</text>
+        <text x="66" y="45" text-anchor="middle" font-size="7.3" font-weight="600" fill="#2DD4BF">Точное дозирование кипения +5.1°C</text>
+      </g>
+
+      <!-- Докипатель (Отделитель жидкости) -->
+      <g transform="translate(1058, 512)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(8)">
+        <path d="M 2 15 C 2 -4, 68 -4, 68 15 L 68 128 C 68 144, 2 144, 2 128 Z" fill="url(#blueV)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
+        <path d="M 18 10 L 18 95 C 18 112, 52 112, 52 95 L 52 10" fill="none" stroke="#BAE6FD" stroke-width="3"/>
+        <rect x="9" y="34" width="52" height="56" rx="5" fill="#080A10" fill-opacity="0.92" stroke="rgba(56,189,248,0.35)"/>
+        <text x="35" y="50" text-anchor="middle" font-size="7" font-weight="800" fill="#38BDF8">ДОКИПАТЕЛЬ</text>
+        <text x="35" y="64" text-anchor="middle" font-size="7" font-weight="700" fill="#FFF">100% СУХОЙ ПАР</text>
+        <text x="35" y="78" text-anchor="middle" font-family="JetBrains Mono" font-size="6.8" font-weight="700" fill="#2DD4BF">+6.5°C (SH 4.4K)</text>
+      </g>
+
+      <!-- Узел [8]: Спиральный компрессор Panasonic C-SCP400H38A -->
+      <g transform="translate(1218, 524)" filter="url(#sh)" class="svg-node-hit" onclick="selectNode(8)">
+        <rect x="-6" y="148" width="112" height="7" rx="3" fill="#334155"/>
+        <rect x="4" y="16" width="92" height="132" rx="12" fill="url(#blkM)" stroke="rgba(245,158,11,0.55)" stroke-width="2"/>
+        <path d="M 2 22 C 2 -6, 98 -6, 98 22 Z" fill="url(#blkM)" stroke="#EF4444" stroke-width="1.8"/>
+        <text x="50" y="11" text-anchor="middle" font-family="JetBrains Mono" font-size="6" font-weight="700" fill="#FDE68A" id="svgCompDischText">ВЫХЛОП: 24 бар (+68°C)</text>
+
+        <rect x="10" y="20" width="80" height="38" rx="5" fill="#080A10" stroke="#F59E0B" stroke-width="1.4"/>
+        <circle cx="50" cy="36" r="11" fill="none" stroke="#FACC15" stroke-width="2" stroke-dasharray="8 3" class="spin-fan"/>
+        <text x="50" y="54" text-anchor="middle" font-size="5.5" font-weight="700" fill="#FDE68A">СПИРАЛЬ СЖАТИЯ R410A</text>
+
+        <rect x="10" y="61" width="80" height="46" rx="4" fill="#0B0D14" stroke="#38BDF8" stroke-width="1.2"/>
+        <rect x="13" y="65" width="14" height="38" rx="2" fill="url(#brass)"/>
+        <rect x="73" y="65" width="14" height="38" rx="2" fill="url(#brass)"/>
+        <text x="50" y="80" text-anchor="middle" font-size="7" font-weight="800" fill="#FFFFFF">Panasonic</text>
+        <text x="50" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="5.8" font-weight="700" fill="#38BDF8">C-SCP400H38A</text>
+        <text x="50" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="5.5" font-weight="700" fill="#2DD4BF" id="svgCompSuctText">380V • 11.4 А</text>
+
+        <rect x="10" y="110" width="80" height="22" rx="4" fill="#F59E0B"/>
+        <text x="50" y="124" text-anchor="middle" font-size="6" font-weight="900" fill="#07080C">КАРТЕР МАСЛА FV68S</text>
+        <use href="#beaconAmber" x="96" y="12"/>
+      </g>
+
+      <g transform="translate(1158, 692)" filter="url(#sh)">
+        <rect x="0" y="0" width="268" height="62" rx="10" fill="#080A10" stroke="rgba(255,255,255,0.1)" stroke-width="1.2"/>
+        <text x="134" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="#F8FAFC">КОМПРЕССОР PANASONIC SCROLL C-SCP400H38A [8]</text>
+        <text x="134" y="34" text-anchor="middle" font-size="8" font-weight="500" fill="#94A3B8">Сжатие сухого пара R410A (8.5 → 24.0 бар) • Мощность 4.2 кВт</text>
+        <text x="134" y="49" text-anchor="middle" font-size="8" font-weight="600" fill="#2DD4BF">Коэффициент преобразования энергии теплового насоса COP = 4.2</text>
+      </g>
+
+      <!-- ================= ЗОНА IV: УЛИЧНАЯ ЭСТАКАДА + ТЕРМО-КОРОБ [10] ================= -->
+      <g transform="translate(1476, 116)" filter="url(#sh)">
+        <rect x="-6" y="4" width="308" height="248" rx="12" fill="#080A10" stroke="rgba(45,212,191,0.4)" stroke-width="2" stroke-dasharray="8 4"/>
+        <polygon points="-10,16 148,-10 306,16" fill="#1E293B" stroke="#475569" stroke-width="1.8"/>
+        <rect x="0" y="16" width="296" height="175" rx="8" fill="#101420" stroke="rgba(255,255,255,0.14)" stroke-width="1.8"/>
+
+        <rect x="12" y="26" width="56" height="152" rx="5" fill="url(#goldF)" stroke="#F59E0B" stroke-width="1.5"/>
+        <path d="M 38 33 L 58 33 C 64 33, 64 55, 58 55 L 22 55 C 16 55, 16 78, 22 78 L 58 78 C 64 78, 64 102, 58 102 L 22 102 C 16 102, 16 125, 22 125 L 58 125 C 64 125, 64 142, 58 142 L 38 142" fill="none" stroke="#EF4444" stroke-width="4.5" stroke-linecap="round"/>
+
+        <use href="#fan" x="112" y="103"/><use href="#fan" x="188" y="103"/>
+
+        <g class="svg-node-hit" onclick="selectNode(10)">
+          <rect x="230" y="26" width="58" height="152" rx="6" fill="#080A10" stroke="rgba(45,212,191,0.45)" stroke-width="1.5"/>
+          <rect x="235" y="34" width="48" height="24" rx="4" fill="#0B0D14" stroke="#2DD4BF"/>
+          <text x="259" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" font-weight="700" fill="#2DD4BF">+35°C</text>
+          <text x="259" y="72" text-anchor="middle" font-size="7.5" font-weight="700" fill="#38BDF8">АВТОМАТИКА</text>
+          <text x="259" y="86" text-anchor="middle" font-size="6.5" font-weight="600" fill="#94A3B8">Подпор давления</text>
+          <text x="259" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="7.5" font-weight="700" fill="#FFFFFF">22–24 бар</text>
+          <circle cx="251" cy="135" r="4" fill="#2DD4BF"/><circle cx="267" cy="135" r="4" fill="#3B82F6"/>
+          <use href="#beaconCyan" x="286" y="22"/>
+        </g>
+
+        <g class="svg-node-hit" onclick="selectNode(10)">
+          <rect x="0" y="191" width="296" height="54" rx="8" fill="#121626" stroke="rgba(96,165,250,0.4)" stroke-width="1.5"/>
+          <text x="148" y="209" text-anchor="middle" font-size="8.5" font-weight="700" fill="#60A5FA" id="svgBoxTitle">ТЕРМО-КОРОБ ЭСТАКАДЫ [20] • РЕКУПЕРАЦИЯ 14 кВт</text>
+          <text x="148" y="224" text-anchor="middle" font-size="7.8" font-weight="600" fill="#F8FAFC" id="svgBoxSub">Зима: створки закрыты — возврат +35°C (14 кВт) в цех над мастером</text>
+          <text x="148" y="237" text-anchor="middle" font-size="7.5" font-weight="500" fill="#2DD4BF">Стабильное давление конденсации 22–24 бар в любую погоду</text>
+        </g>
+
+        <!-- Опоры эстакады и карточка энергоэффективности -->
+        <rect x="10" y="252" width="10" height="440" fill="#1E293B" stroke="#475569"/>
+        <rect x="276" y="252" width="10" height="440" fill="#1E293B" stroke="#475569"/>
+
+        <g transform="translate(0, 268)">
+          <rect x="0" y="0" width="296" height="410" rx="12" fill="url(#bentoCard)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+          <text x="148" y="26" text-anchor="middle" font-size="10.5" font-weight="700" fill="#F8FAFC">ТЕПЛОВОЙ БАЛАНС ЭСТАКАДЫ [20]</text>
+
+          <rect x="14" y="42" width="268" height="106" rx="10" fill="#080A10" stroke="rgba(59,130,246,0.32)" stroke-width="1.2"/>
+          <text x="148" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#60A5FA">1. ЗИМНИЙ РЕЖИМ (ОБОГРЕВ ЦЕХА)</text>
+          <text x="148" y="80" text-anchor="middle" font-size="8.2" font-weight="500" fill="#CBD5E1">Воздух из цеха (+10°C) проходит сквозь</text>
+          <text x="148" y="95" text-anchor="middle" font-size="8.2" font-weight="500" fill="#CBD5E1">внешний конденсатор и возвращается в рабочую</text>
+          <text x="148" y="110" text-anchor="middle" font-size="8.2" font-weight="500" fill="#CBD5E1">зону мастера нагретым до +35°C.</text>
+          <text x="148" y="130" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#2DD4BF">Экономия: +450 € за цикл сушки</text>
+
+          <rect x="14" y="162" width="268" height="106" rx="10" fill="#080A10" stroke="rgba(245,158,11,0.32)" stroke-width="1.2"/>
+          <text x="148" y="182" text-anchor="middle" font-size="9" font-weight="700" fill="#F59E0B">2. ЛЕТНИЙ РЕЖИМ (СБРОС ТЕПЛА)</text>
+          <text x="148" y="200" text-anchor="middle" font-size="8.2" font-weight="500" fill="#CBD5E1">Передние створки термо-короба открываются,</text>
+          <text x="148" y="215" text-anchor="middle" font-size="8.2" font-weight="500" fill="#CBD5E1">и избыточное тепло конденсации полностью</text>
+          <text x="148" y="230" text-anchor="middle" font-size="8.2" font-weight="500" fill="#CBD5E1">выбрасывается на улицу за пределы цеха.</text>
+          <text x="148" y="250" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="#FDE68A">Удержание 22–24 бар автоматикой</text>
+
+          <rect x="14" y="282" width="268" height="110" rx="10" fill="#080A10" stroke="rgba(45,212,191,0.32)" stroke-width="1.2"/>
+          <text x="148" y="302" text-anchor="middle" font-size="9" font-weight="700" fill="#2DD4BF">3. ПАСПОРТ ПРОИЗВОДИТЕЛЬНОСТИ</text>
+          <text x="148" y="322" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="600" fill="#E2E8F0" id="svgPassLoad">• Загрузка камеры: до 2 500 кг (15 тележек)</text>
+          <text x="148" y="340" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="600" fill="#E2E8F0" id="svgPassWater">• Влагосъем: до 75 л/ч (1 350 л за цикл)</text>
+          <text x="148" y="358" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="600" fill="#E2E8F0" id="svgPassEnergy">• Удельный расход: 1.61 кВт·ч / кг готовой</text>
+          <text x="148" y="376" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" font-weight="700" fill="#60A5FA" id="svgPassCost">• Себестоимость энергии: 0.29 € / кг</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    const NODES_DB = {
+      1: {
+        short: "[1] Cantoni 4×3кВт",
+        title: "[1] Осевые турбины Рижской камеры Cantoni (4 колеса • частотники HAPN)",
+        desc: "Создают равномерный односторонний ламинарный поток (2.8 м/с на 30 Гц при сушке и 0.8 м/с на 18 Гц в паузе диффузии) сквозь все 15 тележек SS304.",
+        metric: "30.0 Гц • 2.8 м/с",
+        grains: 12,
+        col: "blue"
+      },
+      2: {
+        short: "[2] 15 Тележек SS304",
+        title: "[2] Зона 15 тележек из нержавеющей стали AISI 304 (Матрица 3×5)",
+        desc: "Загрузка до 2 500 кг рыбы. Пленум разгона 70 см слева и буфер всасывания 50 см справа исключают байпас воздуха мимо продукта.",
+        metric: "+15.8°C • VPD 0.75 кПа",
+        grains: 11,
+        col: "amber"
+      },
+      3: {
+        short: "[3] Трап слива [21]",
+        title: "[3] Всасывающие окна у пола и дренажный трап [21] (60 см)",
+        desc: "Отработанный влажный воздух (+12.4°C, до 80% rH) уходит в нижнюю секцию осушителя AIM, а отжатый конденсат сливается в трап.",
+        metric: "-75.0 л/ч • RH 80%",
+        grains: 13,
+        col: "cyan"
+      },
+      4: {
+        short: "[4] 1#Dehumicoil",
+        title: "[4] Наклонный V-образный испаритель 1#Dehumicoil (Slanted V-Evaporator)",
+        desc: "Охлаждает влажный поток ниже точки росы (+5.1°C при кипении 8.5 бар) и конденсирует до 75 литров воды в час без обмерзания сот.",
+        metric: "+5.1°C • 8.5 бар",
+        grains: 13,
+        col: "cyan"
+      },
+      5: {
+        short: "[5] Догрев Reheat",
+        title: "[5] Внутренний конденсатор догрева воздуха (Reheat Coil)",
+        desc: "Горячий газ R410A (+68°C) бесплатно нагревает осушенный воздух с +5.1°C до +15.8°C, снижая его относительную влажность с 95% до 48%.",
+        metric: "+68°C → +15.8°C",
+        grains: 12,
+        col: "amber"
+      },
+      6: {
+        short: "[6] Вентиляторы LIHUA",
+        title: "[6] Циркуляционные вентиляторы моноблока LIHUA GHF/B6S-4 (2×2.2 кВт)",
+        desc: "Прокачивают 32 000 м³/ч воздуха вертикально вверх сквозь V-испаритель и конденсатор догрева в верхний пленум камеры.",
+        metric: "32 000 м³/ч • 4.4 кВт",
+        grains: 11,
+        col: "blue"
+      },
+      7: {
+        short: "[7] Клапан 1#EEV",
+        title: "[7] Электронный расширительный вентиль 1#EEV (0–480 шагов)",
+        desc: "Точно дозирует подачу жидкого фреона R410A в V-испаритель по алгоритму точки росы (Dew Point), удерживая рабочее открытие 290–320 шагов.",
+        metric: "315 шагов • Норма",
+        grains: 10,
+        col: "blue"
+      },
+      8: {
+        short: "[8] Panasonic Scroll",
+        title: "[8] Спиральный компрессор Panasonic C-SCP400H38A + Докипатель",
+        desc: "Сердце теплового насоса (COP = 4.2): сжимает сухой пар R410A с 8.5 до 24.0 бар (+68°C) при рабочем токе 11.4 А.",
+        metric: "24.0 бар • 11.4 А",
+        grains: 12,
+        col: "amber"
+      },
+      9: {
+        short: "[9] Ресивер 12L & DML",
+        title: "[9] Жидкостной ресивер 12 л + Фильтр Danfoss DML 164 + Смотровой глазок",
+        desc: "Аккумулирует запас переохлажденного жидкого хладагента R410A (+36°C) и обеспечивает плотный поток жидкости без паровой пены перед 1#EEV.",
+        metric: "12.0 л • +36°C",
+        grains: 11,
+        col: "amber"
+      },
+      10: {
+        short: "[10] Термо-короб 14кВт",
+        title: "[10] Термо-короб рекуперации ППУ [20] на эстакаде (14 кВт в цех)",
+        desc: "Утилизирует избыточное тепло конденсации с 10-метровой трассы на обогрев цеха Юрмалциемс (+35°C над рабочим местом мастера) и держит 22–24 бар.",
+        metric: "+14.0 кВт • +35°C",
+        grains: 14,
+        col: "cyan"
+      }
+    };
+
+    let currentNode = 4;
+    let isWinter = true;
+    let isFlowAnim = true;
+
+    function renderInspectorGrains(lit, colClass) {
+      const bar = document.getElementById('inspGrainBar');
+      let html = '';
+      for (let i = 0; i < 15; i++) {
+        html += `<span class="grain-dot ${i < lit ? colClass : ''}"></span>`;
+      }
+      bar.innerHTML = html;
+    }
+
+    function initPills() {
+      const bar = document.getElementById('nodePillsBar');
+      bar.innerHTML = '';
+      Object.keys(NODES_DB).forEach(k => {
+        const num = parseInt(k, 10);
+        const info = NODES_DB[num];
+        const btn = document.createElement('button');
+        btn.className = 'n-pill' + (num === currentNode ? ' active' : '');
+        btn.id = 'pill-' + num;
+        btn.textContent = info.short;
+        btn.onclick = () => selectNode(num);
+        bar.appendChild(btn);
+      });
+    }
+
+    function selectNode(num) {
+      currentNode = num;
+      const info = NODES_DB[num] || NODES_DB[4];
+      document.querySelectorAll('.n-pill').forEach(el => el.classList.remove('active'));
+      const activePill = document.getElementById('pill-' + num);
+      if (activePill) activePill.classList.add('active');
+
+      document.getElementById('inspTitle').textContent = info.title;
+      document.getElementById('inspDesc').textContent = info.desc;
+      document.getElementById('inspMetricTxt').textContent = info.metric;
+      renderInspectorGrains(info.grains, info.col);
+    }
+
+    function setWorkMode(mode) {
+      ['btnDry30', 'btnPause18', 'btnFinish25'].forEach(id => document.getElementById(id).classList.remove('active'));
+      if (mode === 'DRY_30') {
+        document.getElementById('btnDry30').classList.add('active');
+        document.getElementById('hdrClimVal').textContent = '+15.8°C • 58%';
+        document.getElementById('hdrWaterVal').textContent = '-75.0 л/ч';
+        document.getElementById('hdrEevVal').textContent = '315 step • 30Гц';
+        document.getElementById('svgCantoniHz').textContent = 'Частотники HAPN: 30.0 Гц (Сушка)';
+        document.getElementById('svgEevStepText').textContent = 'Открытие: 315 шагов (Dew Point)';
+        document.getElementById('svgDrainText').textContent = 'СЛИВ В ТРАП [21]: ДО 75 Л/Ч КОНДЕНСАТА';
+        selectNode(4);
+      } else if (mode === 'PAUSE_18') {
+        document.getElementById('btnPause18').classList.add('active');
+        document.getElementById('hdrClimVal').textContent = '+15.2°C • 74%';
+        document.getElementById('hdrWaterVal').textContent = '-4.5 л/ч (Пауза)';
+        document.getElementById('hdrEevVal').textContent = '75 step • 18Гц';
+        document.getElementById('svgCantoniHz').textContent = 'Частотники HAPN: 18.0 Гц (Пауза диффузии)';
+        document.getElementById('svgEevStepText').textContent = 'Дежурный шаг: 75 step (Пауза)';
+        document.getElementById('svgDrainText').textContent = 'ПАУЗА ДИФФУЗИИ: ВЫРАВНИВАНИЕ ВЛАГИ ОТ ХРЕБТА';
+        selectNode(2);
+      } else {
+        document.getElementById('btnFinish25').classList.add('active');
+        document.getElementById('hdrClimVal').textContent = '+14.0°C • 52%';
+        document.getElementById('hdrWaterVal').textContent = '-18.0 л/ч';
+        document.getElementById('hdrEevVal').textContent = '195 step • 25.3Гц';
+        document.getElementById('svgCantoniHz').textContent = 'Частотники HAPN: 25.3 Гц (Отволаживание 1ч/4ч)';
+        document.getElementById('svgEevStepText').textContent = 'Открытие: 195 шагов (Финиш Ст.4)';
+        document.getElementById('svgDrainText').textContent = 'СТАДИЯ 4: МЯГКИЙ ДОВОД ПЕРЕД ВАКУУМОМ KOMET';
+        selectNode(1);
+      }
+    }
+
+    function toggleSeason() {
+      isWinter = !isWinter;
+      const btn = document.getElementById('btnSeason');
+      const hVal = document.getElementById('hdrHeatVal');
+      const hSub = document.getElementById('hdrSeasonSub');
+      const bTitle = document.getElementById('svgBoxTitle');
+      const bSub = document.getElementById('svgBoxSub');
+
+      if (isWinter) {
+        btn.classList.add('active');
+        btn.textContent = 'Зима: +14 кВт в цех (+35°C)';
+        hVal.textContent = '+14.0 кВт в цех';
+        hSub.textContent = 'Зима (+35°C • 24 бар)';
+        bTitle.textContent = 'ТЕРМО-КОРОБ ЭСТАКАДЫ [20] • РЕКУПЕРАЦИЯ 14 кВт';
+        bSub.textContent = 'Зима: створки закрыты — возврат +35°C (14 кВт) в цех над мастером';
+      } else {
+        btn.classList.remove('active');
+        btn.textContent = 'Лето: Сброс тепла на улицу';
+        hVal.textContent = 'Сброс на улицу';
+        hSub.textContent = 'Лето (створки открыты)';
+        bTitle.textContent = 'ТЕРМО-КОРОБ ЭСТАКАДЫ [20] • ЛЕТНИЙ СБРОС ТЕПЛА';
+        bSub.textContent = 'Лето: передние створки открыты — полный сброс тепла за пределы цеха';
+      }
+      selectNode(10);
+    }
+
+    function toggleFlowAnim() {
+      isFlowAnim = !isFlowAnim;
+      const board = document.getElementById('svgBoard');
+      const btn = document.getElementById('btnFlowAnim');
+      if (isFlowAnim) {
+        board.classList.remove('flow-paused');
+        btn.classList.add('active');
+        btn.textContent = 'Потоки 3D: ВКЛ';
+      } else {
+        board.classList.add('flow-paused');
+        btn.classList.remove('active');
+        btn.textContent = 'Потоки 3D: ВЫКЛ';
+      }
+    }
+
+    function downloadSVG() {
+      const svgEl = document.getElementById('master-svg');
+      let source = new XMLSerializer().serializeToString(svgEl);
+      if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+      const blob = new Blob(['<?xml version="1.0" standalone="no"?>\r\n' + source], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'AIM_AGHD_250ELC_3D_Master_Cutaway.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadPNG() {
+      const svgEl = document.getElementById('master-svg');
+      let svgStr = new XMLSerializer().serializeToString(svgEl);
+      if (!svgStr.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+        svgStr = svgStr.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = 3600;
+      canvas.height = 1660;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      const url = URL.createObjectURL(new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' }));
+      img.onload = function () {
+        ctx.fillStyle = '#07080C';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        canvas.toBlob(function (pngBlob) {
+          const pngUrl = URL.createObjectURL(pngBlob);
+          const a = document.createElement('a');
+          a.href = pngUrl;
+          a.download = 'AIM_AGHD_250ELC_3D_Master_4K.png';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(pngUrl);
+        }, 'image/png');
+      };
+      img.src = url;
+    }
+
+    initPills();
+    selectNode(4);
+  </script>
+  <!-- Партия в камере (общий модуль) + живые потоки воздуха, фреона и конденсата на схеме (?fx=0 — без анимаций) -->
+  <script src="js/knowledge-base.js"></script>
+  <script src="js/sim-batch.js"></script>
+  <script src="js/cad-batch.js"></script>
+</body>
+</html>

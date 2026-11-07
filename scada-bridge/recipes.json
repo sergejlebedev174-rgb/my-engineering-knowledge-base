@@ -1,0 +1,37 @@
+{
+  "_о_файле": "Каскадные рецепты вялки для внешнего планировщика. Источник: ТЗ технолога 2026-11-05. Время — часы. workHumi 20% = компрессор работает всю фазу; pauseHumi 95% = компрессор стоит (при Dehumi(m)=0 / PauseD(m)=60 в Фазе 1 MCGS). Температура паузы = рабочая + pauseTempOffsetC из config.json (правило «чистой паузы», против включения по Cooling).",
+  "recipes": [
+    {
+      "id": "smelt",
+      "name": "Корюшка 600+ кг (в т.ч. крупная икряная) • 2–3 суток",
+      "stages": [
+        { "name": "Сутки 1 — съём верховой влаги", "hours": 24, "workH": 3.5, "pauseH": 0.5, "tempC": 18.0, "workHz": 30, "pauseHz": 18, "maxTempC": 22 },
+        { "name": "Сутки 2 — вытяжка из тушки и икры", "hours": 24, "workH": 2.5, "pauseH": 1.0, "tempC": 17.0, "workHz": 30, "pauseHz": 16, "maxTempC": 18 },
+        { "name": "Сутки 3 — дожим и стабилизация", "hours": 24, "workH": 2.0, "pauseH": 1.5, "tempC": 16.0, "workHz": 28, "pauseHz": 15, "maxTempC": 18 }
+      ],
+      "hold": { "name": "Хранение", "tempC": 14.0, "humi": 60, "hz": 18, "maxTempC": 18 }
+    },
+    {
+      "id": "vimba_bream",
+      "name": "Вимба 2000 кг / Лещ крупный колодкой 2000 кг • 4–6 суток",
+      "stages": [
+        { "name": "Этап 1 — холодный старт «корсет»", "hours": 24, "workH": 3.5, "pauseH": 0.5, "tempC": 14.0, "workHz": 30, "pauseHz": 18, "maxTempC": 18 },
+        { "name": "Этап 2 — активный съём влаги", "hours": 24, "workH": 3.0, "pauseH": 1.0, "tempC": 16.5, "workHz": 30, "pauseHz": 18, "maxTempC": 18.5 },
+        { "name": "Этап 3 — вытяжка из хребта и икры", "hours": 48, "workH": 2.5, "pauseH": 1.5, "tempC": 16.5, "workHz": 30, "pauseHz": 16, "maxTempC": 18.5 },
+        { "name": "Этап 4 — финишный дожим (a_w ≤ 0.82)", "hours": 24, "workH": 2.0, "pauseH": 2.0, "tempC": 15.5, "workHz": 28, "pauseHz": 15, "maxTempC": 18.5 },
+        { "name": "Этап 5 — отволаживание под упаковку", "hours": 12, "holdOnly": true, "tempC": 14.0, "humi": 61, "hz": 16, "maxTempC": 16 }
+      ],
+      "hold": { "name": "Удержание до упаковки", "tempC": 14.5, "humi": 61, "hz": 16, "maxTempC": 16 }
+    },
+    {
+      "id": "roach",
+      "name": "Плотва 22+ 2000 кг • 4–5 суток",
+      "stages": [
+        { "name": "Старт 20–22°C", "hours": 24, "workH": 3.5, "pauseH": 1.0, "tempC": 21.0, "workHz": 30, "pauseHz": 18, "maxTempC": 23 },
+        { "name": "Каскад 17–19°C с длинными паузами", "hours": 72, "workH": 2.5, "pauseH": 1.75, "tempC": 18.0, "workHz": 28, "pauseHz": 16, "maxTempC": 20 },
+        { "name": "Финишная стабилизация", "hours": 12, "holdOnly": true, "tempC": 14.0, "humi": 61, "hz": 16, "maxTempC": 16 }
+      ],
+      "hold": { "name": "Удержание", "tempC": 14.0, "humi": 61, "hz": 16, "maxTempC": 16 }
+    }
+  ]
+}

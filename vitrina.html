@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<link rel="icon" type="image/png" href="img/brand/fish-icon-64.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Витрина для байеров • Юрмалциемс</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<script src="js/knowledge-base.js"></script>
+<style>
+/* Витрина для байеров — по эскизу Stitch «Baltic Cyber-Telemetry Industrial». Все цифры — из базы знаний (knowledge/*.js). */
+:root{--bg:#080B11;--panel:#0D131F;--card:#131A27;--hover:#1A2335;--c:#00E5FF;--ice:#38BDF8;--em:#10B981;--am:#F59E0B;--red:#EF4444;
+  --tx:#F1F5F9;--tx2:#94A3B8;--mut:#475569;--line:rgba(56,189,248,.12);--line2:rgba(0,229,255,.35);
+  --fh:"Space Grotesk",system-ui,sans-serif;--fb:"Inter",system-ui,sans-serif;--fm:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 var(--fb);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background:radial-gradient(900px 500px at 15% -10%,rgba(0,229,255,.10),transparent 60%),radial-gradient(800px 600px at 110% 30%,rgba(16,185,129,.06),transparent 60%),
+  linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:auto,auto,32px 32px,32px 32px}
+a{color:var(--ice)}img{display:block;max-width:100%}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 16px}
+.mono{font-family:var(--fm)}.caps{font:700 10.5px var(--fh);letter-spacing:.09em;text-transform:uppercase}
+/* верхняя строка */
+.ticker{position:relative;z-index:2;background:#05080D;border-bottom:1px solid var(--line);font:500 11.5px var(--fm);color:var(--tx2);overflow:hidden;white-space:nowrap}
+.ticker div{display:inline-block;padding:7px 0;animation:tick 42s linear infinite}.ticker span{margin:0 26px}.ticker b{color:var(--c)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+header.top{position:sticky;top:0;z-index:20;background:rgba(8,11,17,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx)}
+.brand img{width:46px;height:46px;border-radius:12px;object-fit:cover;object-position:30% 70%;mix-blend-mode:screen;filter:drop-shadow(0 0 8px rgba(0,229,255,.35))}
+.brand b{font:700 17px var(--fh)}.brand small{display:block;font:500 9.5px var(--fm);color:var(--tx2);letter-spacing:.06em}
+nav.menu{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav.menu a{color:var(--tx2);text-decoration:none;font:600 12.5px var(--fh);padding:7px 11px;border-radius:8px;transition:.2s}
+nav.menu a:hover{color:var(--tx);background:var(--card)}
+.btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:0;border-radius:8px;padding:11px 18px;font:700 13px var(--fm);text-decoration:none;transition:.2s}
+.btn.p{background:var(--c);color:#04121a;box-shadow:0 0 18px rgba(0,229,255,.35)}.btn.p:hover{background:var(--ice);box-shadow:0 0 28px rgba(0,229,255,.55)}
+.btn.s{background:var(--card);color:var(--c);border:1px solid rgba(56,189,248,.3)}.btn.s:hover{border-color:var(--c)}
+.btn.g{background:linear-gradient(90deg,#FACC15,#FCD34D,#EAB308);color:#1a1300;box-shadow:0 0 22px rgba(250,204,21,.3)}
+@media(max-width:980px){nav.menu{display:none}}
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:56px 0 46px}
+@media(max-width:920px){.hero{grid-template-columns:1fr;padding-top:30px}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{font:700 10.5px var(--fm);padding:4px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--c);background:rgba(0,229,255,.06)}
+.chip.am{color:var(--am);border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.07)}
+h1{font:700 clamp(30px,4.6vw,54px)/1.04 var(--fh);letter-spacing:-.02em;margin:0 0 16px;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--c);text-shadow:0 0 30px rgba(0,229,255,.35)}
+.lead{color:var(--tx2);font-size:16px;max-width:560px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:22px 0}
+@media(max-width:560px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.kpi span{display:block;font:700 9.5px var(--fh);letter-spacing:.08em;text-transform:uppercase;color:var(--tx2)}
+.kpi b{display:block;font:800 clamp(15px,1.45vw,19px) var(--fm);color:var(--c);margin:3px 0 1px;white-space:nowrap;letter-spacing:-.02em}.kpi em{font-style:normal;font-size:11px;color:var(--mut)}
+.trust{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;color:var(--tx2)}.trust i{font-style:normal;color:var(--em)}
+.heroimg{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 0 50px rgba(0,229,255,.12),0 30px 60px rgba(0,0,0,.6);aspect-ratio:4/3;background:#05080d}
+.heroimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .7s ease;animation:ken 20s ease-in-out infinite alternate}
+@keyframes ken{from{transform:scale(1.02)}to{transform:scale(1.1) translate(-1.5%,1%)}}
+.heroimg .scan{position:absolute;left:0;right:0;height:60px;background:linear-gradient(180deg,transparent,rgba(0,229,255,.18),transparent);animation:scan 5s ease-in-out infinite;pointer-events:none}
+@keyframes scan{0%{top:-60px}100%{top:100%}}
+.heroimg .tag{position:absolute;font:700 10.5px var(--fm);padding:5px 10px;border-radius:6px;background:rgba(8,11,17,.86);border:1px solid var(--line2);color:var(--c);backdrop-filter:blur(6px)}
+.heroimg .views{position:absolute;top:12px;right:12px;display:flex;gap:4px}
+.heroimg .views button{cursor:pointer;font:700 10.5px var(--fm);padding:5px 9px;border-radius:6px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.6);color:#cbd5e1}
+.heroimg .views button.on{background:var(--c);color:#04121a;border-color:var(--c)}
+.pins{position:absolute;left:12px;bottom:12px;right:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pins div{background:rgba(8,11,17,.85);border:1px solid var(--line);border-radius:6px;padding:6px 8px;backdrop-filter:blur(6px)}
+.pins span{display:block;font:700 9px var(--fh);letter-spacing:.07em;text-transform:uppercase;color:var(--tx2)}.pins b{font:700 13px var(--fm)}
+/* секции */
+section.blk{padding:56px 0;border-top:1px solid var(--line)}
+.kick{font:700 11px var(--fm);color:var(--c);letter-spacing:.08em;margin-bottom:8px}
+h2{font:700 clamp(24px,3vw,36px)/1.1 var(--fh);margin:0 0 10px;text-transform:uppercase;letter-spacing:-.01em}h2 em{font-style:normal;color:var(--am)}
+.sub{color:var(--tx2);max-width:760px;margin:0 0 22px}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px;margin-bottom:16px}
+.tabs button{cursor:pointer;border:1px solid transparent;background:transparent;color:#64748B;border-radius:8px;padding:8px 13px;font:700 12px var(--fm);transition:.2s}
+.tabs button:hover{color:var(--tx)}.tabs button.on{background:rgba(0,229,255,.15);border-color:var(--c);color:var(--c);text-shadow:0 0 10px rgba(0,229,255,.5)}
+/* таймлайн стадий */
+.tl{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tl-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line);font:600 12px var(--fm);color:var(--tx2)}
+.tl-head b{color:var(--tx)}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:#000}
+@media(max-width:760px){.strip{grid-template-columns:repeat(2,1fr)}}
+.st{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer}
+.st img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s}
+.st:hover img{transform:scale(1.06)}.st:not(.on) img{filter:saturate(.75) brightness(.8)}
+.st .h{position:absolute;top:8px;left:8px;font:800 11px var(--fm);padding:3px 8px;border-radius:5px;background:rgba(8,11,17,.85);border:1px solid var(--line2);color:var(--c)}
+.st.on{outline:2px solid var(--c);outline-offset:-2px;box-shadow:inset 0 0 40px rgba(0,229,255,.25)}
+.st .bar{position:absolute;left:0;bottom:0;height:3px;background:var(--c);width:0;transition:width .3s}.st.on .bar{width:100%;transition:width 6s linear}
+.descs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line)}
+@media(max-width:760px){.descs{grid-template-columns:1fr}}
+.ds{background:var(--card);padding:12px 14px;transition:background .3s}.ds.on{background:var(--hover)}
+.ds small{font:700 10px var(--fm);color:var(--am)}.ds b{display:block;font:700 14px var(--fh);margin:2px 0 4px}.ds p{margin:0;font-size:12.5px;color:var(--tx2)}
+/* вакуум */
+.vac{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+@media(max-width:860px){.vac{grid-template-columns:1fr}}
+.vacimg{position:relative;border-radius:14px;overflow:hidden;border:2px dashed rgba(56,189,248,.45);aspect-ratio:818/494;box-shadow:0 0 50px rgba(0,229,255,.1)}
+.vacimg img{width:100%;height:100%;object-fit:cover;animation:breath 5s ease-in-out infinite}
+@keyframes breath{50%{transform:scale(1.015);filter:brightness(1.08)}}
+.vacimg::after{content:"";position:absolute;inset:-30%;background:linear-gradient(115deg,transparent 42%,rgba(224,242,254,.28) 50%,transparent 58%);animation:sheen 4.8s ease-in-out infinite;mix-blend-mode:screen}
+@keyframes sheen{0%{transform:translateX(-60%)}60%,100%{transform:translateX(60%)}}
+.feat{display:flex;gap:12px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
+.feat i{flex-shrink:0;width:28px;height:28px;border-radius:7px;display:grid;place-items:center;background:rgba(16,185,129,.12);color:var(--em);font-style:normal;font-weight:800}
+.feat b{display:block;font:700 14px var(--fh)}.feat span{font-size:12.5px;color:var(--tx2)}
+/* каталог */
+.cat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:960px){.cat{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.cat{grid-template-columns:1fr}}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s}
+.pc:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 0 26px rgba(0,229,255,.14)}
+.pc-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:#05080d}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform .6s}.pc:hover .pc-img img{transform:scale(1.05)}
+.pc-img .alt{position:absolute;inset:0;opacity:0}.pc:hover .pc-img .alt{opacity:1}
+.pc-code{position:absolute;top:8px;left:8px;font:700 10px var(--fm);padding:3px 8px;border-radius:5px;background:rgba(8,11,17,.85);border:1px solid var(--line2);color:var(--c)}
+.pc-price{position:absolute;right:8px;bottom:8px;font:800 15px var(--fm);padding:4px 10px;border-radius:6px;background:rgba(8,11,17,.88);border:1px solid rgba(245,158,11,.5);color:#FCD34D}
+.pc-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pc-body h3{margin:0;font:700 17px var(--fh)}.pc-body p{margin:0;font-size:12.5px;color:var(--tx2);flex:1}
+.pc-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pc-meta div{background:#0d131f;border:1px solid var(--line);border-radius:6px;padding:5px 7px}
+.pc-meta span{display:block;font:700 8.5px var(--fh);letter-spacing:.07em;text-transform:uppercase;color:var(--tx2)}.pc-meta b{font:700 13px var(--fm)}
+.pc-act{display:flex;gap:6px}.pc-act .btn{flex:1;justify-content:center;padding:9px 10px;font-size:11.5px}
+/* калькулятор и заявка */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:900px){.two{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.panel.gold{border-color:rgba(250,204,21,.35);box-shadow:0 0 40px rgba(250,204,21,.06)}
+label.f{display:flex;flex-direction:column;gap:5px;font:700 10px var(--fh);letter-spacing:.07em;text-transform:uppercase;color:var(--tx2);margin-bottom:10px}
+.in{background:#0b1220;border:1px solid rgba(255,255,255,.1);color:var(--tx);border-radius:8px;padding:11px 12px;font:600 14px var(--fm);width:100%;outline:none;transition:.2s}
+.in:focus{border-color:var(--c);box-shadow:0 0 12px rgba(0,229,255,.2)}
+.panel.gold .in:focus{border-color:#FACC15;box-shadow:0 0 12px rgba(250,204,21,.2)}
+.res{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:6px 0 12px}
+.res div{background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.res span{display:block;font:700 9.5px var(--fh);letter-spacing:.07em;text-transform:uppercase;color:var(--tx2)}
+.res b{display:block;font:800 22px var(--fm);color:var(--c);transition:color .3s}.res em{font-style:normal;font-size:11px;color:var(--mut)}
+.res .sum b{color:#FCD34D}
+.note{font-size:12px;color:var(--mut)}
+.ok{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;border:1px solid rgba(16,185,129,.5);background:rgba(16,185,129,.1);font-size:13px}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--tx2);font-size:13px;position:relative;z-index:1}
+.fgrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px}@media(max-width:800px){.fgrid{grid-template-columns:1fr}}
+footer b{color:var(--tx);font-family:var(--fh)}
+.cert{display:inline-block;font:700 10.5px var(--fm);padding:3px 9px;border-radius:999px;border:1px solid rgba(16,185,129,.5);color:var(--em);margin:4px 4px 0 0}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}.reveal.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="ticker"><div id="ticker"></div></div>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top"><img src="img/brand/fish-3d.png" onerror="this.style.display='none'" alt=""><span><b id="coName">SIA “TUBA”</b><small id="coSub">БАЛТИЙСКАЯ ВЯЛЕНАЯ РЫБА • ЮРМАЛЦИЕМС</small></span></a>
+  <nav class="menu"><a href="#stages">5 стадий</a><a href="#vacuum">Вакуум</a><a href="#catalog">Каталог</a><a href="#calc">Калькулятор</a><a href="#request">Байерам</a></nav>
+  <a class="btn s" href="index.html" title="Вернуться в АРМ технолога">АРМ ↗</a>
+</div></header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <div class="reveal">
+      <div class="chips"><span class="chip">КУРЗЕМСКОЕ ВЯЛЕНИЕ</span><span class="chip">КАМЕРА AIM AGHD-250ELC</span><span class="chip am">ВАКУУМ KOMET PLUSVAC 25</span></div>
+      <h1>Балтийская вяленая рыба <em>с контролем каждой стадии</em></h1>
+      <p class="lead">Солим в тузлуке при +2…+4°C и вялим в закрытой камере осушения при +13…+17°C — без жары и без «загара» жира. Каждая партия проходит четыре стадии и отволаживание перед вакуумом.</p>
+      <div class="kpis" id="heroKpis"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn p" href="#request">Запросить дегустационный сет</a><a class="btn s" href="#stages">5 стадий вяления</a></div>
+      <div class="trust" id="trust"></div>
+    </div>
+    <div class="heroimg reveal" id="heroImg">
+      <img id="hiA" src="img/vyalka/cut-roach.jpg" alt="Срез икряной плотвы">
+      <img id="hiB" src="img/vyalka/roach-4.jpg" alt="Готовая вяленая плотва" style="opacity:0">
+      <div class="scan"></div>
+      <span class="tag" style="top:12px;left:12px">ЭТАЛОННЫЙ СРЕЗ • ПЛОТВА ИКРЯНАЯ</span>
+      <div class="views"><button class="on" data-v="A">Срез</button><button data-v="B">Готовая</button></div>
+      <div class="pins" id="heroPins"></div>
+    </div>
+  </div>
+</main>
+
+<section class="blk" id="stages"><div class="wrap">
+  <div class="kick reveal">ФОТОТАЙМЛАЙН • 0 → 84 Ч</div>
+  <h2 class="reveal">Как созревает рыба: <em>5 стадий вяления</em></h2>
+  <p class="sub reveal">Реальные фото наших партий: как меняются цвет, плотность спинки и икра от посола до готовой рыбы. Выберите вид.</p>
+  <div class="tabs reveal" id="spTabs"></div>
+  <div class="tl reveal">
+    <div class="tl-head"><span id="tlTitle">—</span><span id="tlClimate">—</span></div>
+    <div class="strip" id="strip"></div>
+    <div class="descs" id="descs"></div>
+  </div>
+</div></section>
+
+<section class="blk" id="vacuum"><div class="wrap vac">
+  <div class="vacimg reveal"><img src="img/vyalka/vacuum-pack.jpg" alt="Вяленая рыба в вакуум-пакете KOMET"></div>
+  <div class="reveal">
+    <div class="kick">ВАКУУМНАЯ ЛИНИЯ KOMET PLUSVAC 25</div>
+    <h2>Упаковка, которая <em>бережёт жир</em></h2>
+    <p class="sub">Рыбу пакуем только охлаждённой до +13…+15°C после отволаживания — без росы внутри пакета.</p>
+    <div id="vacFeats"></div>
+    <a class="btn s" href="#request" style="margin-top:6px">Запросить образцы в вакууме</a>
+  </div>
+</div></section>
+
+<section class="blk" id="catalog"><div class="wrap">
+  <div class="kick reveal">КАТАЛОГ • 6 ВИДОВ</div>
+  <h2 class="reveal">Готовая продукция: <em>паспорт каждого вида</em></h2>
+  <p class="sub reveal">Калибр, жирность, выход и целевая активность воды a_w — из технологической базы цеха. Цены — ориентир, фиксируются в договоре. Наведите на фото — увидите срез.</p>
+  <div class="tabs reveal" id="chTabs"></div>
+  <div class="cat" id="cat"></div>
+</div></section>
+
+<section class="blk" id="calc"><div class="wrap two">
+  <div class="panel reveal">
+    <div class="kick">КАЛЬКУЛЯТОР ЗАКАЗА</div>
+    <h2 style="font-size:24px">Сколько стоит партия</h2>
+    <label class="f">Вид рыбы<select class="in" id="cSp"></select></label>
+    <div class="two" style="gap:10px">
+      <label class="f">Формат<select class="in" id="cCh"><option value="vacuum">Вакуум KOMET, 3 тушки</option><option value="wholesale">Опт россыпью (еврокуб)</option><option value="semi">Полуопт</option></select></label>
+      <label class="f">Объём готовой рыбы, кг<input class="in" id="cKg" type="number" min="5" step="5" value="200"></label>
+    </div>
+    <div class="res" id="cRes"></div>
+    <p class="note" id="cNote"></p>
+    <a class="btn p" href="#request" id="cSend">Отправить расчёт в заявку →</a>
+  </div>
+  <div class="panel gold reveal" id="request">
+    <div class="kick" style="color:#FACC15">ЗАПРОС ДЛЯ БАЙЕРА</div>
+    <h2 style="font-size:24px">Дегустационный сет или опт</h2>
+    <form id="form">
+      <div class="two" style="gap:10px">
+        <label class="f">Компания<input class="in" name="company" required placeholder="SIA …"></label>
+        <label class="f">Телефон / WhatsApp<input class="in" name="phone" required placeholder="+371 …"></label>
+      </div>
+      <div class="two" style="gap:10px">
+        <label class="f">Позиция<select class="in" name="item" id="fItem"></select></label>
+        <label class="f">Объём<select class="in" name="vol"><option>Дегустационный сет (5–10 кг)</option><option>Партия 100–500 кг</option><option>Опт 500–2 000 кг</option><option>Контракт от 5 т в месяц</option></select></label>
+      </div>
+      <label class="f">Город и пожелания<textarea class="in" name="msg" rows="3" id="fMsg" placeholder="Город поставки, упаковка, сроки"></textarea></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn g" type="submit" data-via="mail">Отправить на e-mail</button><button class="btn s" type="submit" data-via="wa" id="waBtn">WhatsApp</button></div>
+      <div class="ok" id="formOk"></div>
+      <p class="note" style="margin-top:10px">Заявка откроется в вашей почте или WhatsApp — отправляете вы сами, сайт ничего не пересылает.</p>
+    </form>
+  </div>
+</div></section>
+
+<footer><div class="wrap fgrid">
+  <div><b id="fName">SIA “TUBA”</b><p>Вяленая балтийская рыба. Камера осушения AIM AGHD-250ELC с закрытым контуром, посол в тузлуке 20°Bé при +2…+4°C, вакуум KOMET PlusVac 25.</p><div id="certs"></div></div>
+  <div><b>Поставки</b><p id="geo">—</p><p>Хранение готовой продукции: 0…+4°C; длительное — только в вакууме при −18°C.</p></div>
+  <div><b>Контакты</b><p id="contacts">—</p><p class="note" id="terms"></p></div>
+</div></footer>
+
+<script>
+(function () {
+  "use strict";
+  const STAGES = [[0, "Свежая / солёная", "Тузлук 20°Bé при +2…+4°C, отмочка. Рыба насыщена солевым раствором."],
+    [13, "Подвяливание", "Съём верховой влаги с чешуи. Мягкий старт без закала поверхности."],
+    [35, "Активное вяление", "Влага уходит из глубины спинки. Чистые паузы — без «пилы» влажности."],
+    [68, "Готовая вяленая", "Плотная эластичная спинка, икра собрана, жир прозрачный."],
+    [84, "Выдержанная", "Отволаживание: влага выровнена от хребта до чешуи — готова к вакууму."]];
+  const CH = { vacuum: ["Вакуум", "vacuumPriceEur"], wholesale: ["Опт", "wholesalePriceEur"], semi: ["Полуопт", "semiPriceEur"] };
+  let KB, list = [], sp = "BREAM", ch = "vacuum", stage = 4, autoTimer = null;
+  const $ = (id) => document.getElementById(id);
+  const fmt = (v, d) => Number(v).toLocaleString("ru-RU", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function shop() { return (window.ARM_KNOWLEDGE.marketing || {})["витрина_для_байеров"] || {}; }
+
+  function header() {
+    const s = shop();
+    if (s.компания) { $("coName").textContent = s.компания; $("fName").textContent = s.компания; document.title = `${s.компания} • витрина для байеров`; }
+    if (s.подпись) $("coSub").textContent = s.подпись.toUpperCase();
+    $("geo").textContent = (s.география_поставок || []).join(" • ") || "по запросу";
+    const c = [];
+    if (s.email) c.push(`<a href="mailto:${esc(s.email)}">${esc(s.email)}</a>`);
+    if (s.телефон_whatsapp) c.push(esc(s.телефон_whatsapp)); else $("waBtn").title = "Номер WhatsApp цеха не задан в базе знаний — откроется WhatsApp без получателя";
+    if (s.адрес) c.push(esc(s.адрес));
+    $("contacts").innerHTML = c.join("<br>") || "—";
+    $("terms").textContent = s.условия || "";
+    const certs = (s.сертификаты || []).filter((x) => x.подтверждено);
+    $("certs").innerHTML = certs.map((x) => `<span class="cert">✓ ${esc(x.название)}${x.номер ? " " + esc(x.номер) : ""}</span>`).join("");
+    const tk = [`<b>Юрмалциемс</b> • Курземе, Латвия`, `Камера <b>AIM AGHD-250ELC</b> • закрытый контур`, `Посол <b>20°Bé</b> при +2…+4°C`, `Вакуум <b>KOMET PlusVac 25</b> • Soft Vac 95–96%`, `Хранение <b>0…+4°C</b>`, `${list.length} видов балтийской рыбы`];
+    $("ticker").innerHTML = (tk.map((x) => `<span>${x}</span>`).join("")).repeat(2);
+    $("trust").innerHTML = `<span><i>●</i> Прямой контакт с цехом</span><span><i>●</i> Поставки: ${esc((s.география_поставок || []).join(", ") || "по запросу")}</span>` + certs.map((x) => `<span><i>✓</i> ${esc(x.название)}</span>`).join("");
+  }
+
+  function heroKpis() {
+    const r = KB.getCanonicalSpecies("ROACH");
+    const awMin = Math.min(...list.map((c) => c.aw)), awMax = Math.max(...list.map((c) => c.aw));
+    $("heroKpis").innerHTML = [
+      ["a_w цель", `${awMin.toFixed(2)}–${awMax.toFixed(2)}`, "по видам"],
+      ["Посол", "+2…+4°C", "тузлук 20°Bé"],
+      ["Вакуум", "95–96%", "Soft Vac"],
+      ["Хранение", "0…+4°C", "−18°C в вакууме"],
+    ].map(([a, b, c]) => `<div class="kpi"><span>${a}</span><b>${b}</b><em>${c}</em></div>`).join("");
+    $("heroPins").innerHTML = [["Калибр", r.caliber || "22+"], ["Жирность", r.fatPercent + "%"], ["a_w цель", "≤ " + r.aw.toFixed(2)]]
+      .map(([a, b]) => `<div><span>${a}</span><b>${esc(b)}</b></div>`).join("");
+    document.querySelectorAll("#heroImg .views button").forEach((b) => (b.onclick = () => {
+      document.querySelectorAll("#heroImg .views button").forEach((x) => x.classList.toggle("on", x === b));
+      $("hiA").style.opacity = b.dataset.v === "A" ? 1 : 0; $("hiB").style.opacity = b.dataset.v === "B" ? 1 : 0;
+    }));
+  }
+
+  function tabs(boxId, items, cur, onPick) {
+    $(boxId).innerHTML = items.map(([k, l]) => `<button type="button" data-k="${k}" class="${k === cur ? "on" : ""}">${esc(l)}</button>`).join("");
+    $(boxId).querySelectorAll("button").forEach((b) => (b.onclick = () => { $(boxId).querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b)); onPick(b.dataset.k); }));
+  }
+
+  function timeline() {
+    const c = KB.getCanonicalSpecies(sp), lk = KB.toLowerSpeciesKey(sp);
+    const rng = c.tempRangeMonoC || [15, 16.5];
+    $("tlTitle").innerHTML = `<b>${esc(c.titleRu)}</b> • ${esc(c.caliber)} • фото партии 0 → 84 ч`;
+    $("tlClimate").textContent = `Коридор вида: +${rng[0]}…+${rng[1]}°C • посол ${c.saltingRange} ч • выход ${c.yieldRange}`;
+    $("strip").innerHTML = STAGES.map(([h], i) => `<div class="st ${i === stage ? "on" : ""}" data-i="${i}"><img loading="lazy" src="img/vyalka/${lk}-${i}.jpg" alt="${h} ч"><span class="h">${h} Ч</span><i class="bar"></i></div>`).join("");
+    $("descs").innerHTML = STAGES.map(([h, n, d], i) => `<div class="ds ${i === stage ? "on" : ""}"><small>${h} ЧАСОВ${i === 4 ? " • ФИНИШ" : ""}</small><b>${n}</b><p>${d}${i === 4 ? ` Цель a_w ≤ ${c.aw.toFixed(2)}.` : ""}</p></div>`).join("");
+    $("strip").querySelectorAll(".st").forEach((el) => (el.onclick = () => { stage = Number(el.dataset.i); paintStage(); restartAuto(); }));
+  }
+  function paintStage() {
+    document.querySelectorAll("#strip .st").forEach((el, i) => el.classList.toggle("on", i === stage));
+    document.querySelectorAll("#descs .ds").forEach((el, i) => el.classList.toggle("on", i === stage));
+  }
+  function restartAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => { stage = (stage + 1) % 5; paintStage(); }, 6000); }
+
+  function vacFeats() {
+    const cb = KB.getCostBase ? KB.getCostBase() : null;
+    const v = cb ? cb.vac : { fishPerPack: 3, packKg: 0.85 };
+    $("vacFeats").innerHTML = [
+      ["Soft Vac 95–96%", "Мягкий вакуум не раздавливает жир в брюшке и не выдавливает его под плёнку."],
+      [`Пакет PA/PE 90 мкм, по ${v.fishPerPack} тушки (~${Math.round(v.packKg * 1000)} г)`, "Плавники подрезаются на 2–3 мм, каждый пакет проходит 15–20-минутный тест на прокол."],
+      ["Хранение 0…+4°C, долго — только −18°C в вакууме", "В вакууме при −18°C правильно отволоженная рыба держит вкус и вес 8–12 месяцев."],
+    ].map(([b, s], i) => `<div class="feat"><i>${i + 1}</i><div><b>${esc(b)}</b><span>${esc(s)}</span></div></div>`).join("");
+  }
+
+  function catalog() {
+    $("cat").innerHTML = list.map((c) => {
+      const lk = KB.toLowerSpeciesKey(c.key), price = c[CH[ch][1]];
+      return `<article class="pc">
+        <div class="pc-img"><img loading="lazy" src="img/vyalka/${lk}-4.jpg" alt="${esc(c.titleRu)}"><img class="alt" loading="lazy" src="img/vyalka/cut-${lk}.jpg" alt="Срез ${esc(c.titleRu)}" onerror="this.remove()">
+          <span class="pc-code">${esc(c.caliber || c.shortRu)}</span><span class="pc-price">${fmt(price, 2)} €/кг</span></div>
+        <div class="pc-body"><h3>${esc(c.titleRu)}</h3><p>${esc(c.subtitleRu || "")}</p>
+          <div class="pc-meta"><div><span>Жирность</span><b>${c.fatPercent}%</b></div><div><span>Выход</span><b>${esc(c.yieldRange)}</b></div><div><span>a_w цель</span><b>≤ ${c.aw.toFixed(2)}</b></div></div>
+          <div class="pc-act"><a class="btn s" href="#calc" data-calc="${c.key}">Рассчитать</a><a class="btn p" href="#request" data-req="${c.key}">Запросить</a></div></div>
+      </article>`;
+    }).join("");
+    $("cat").querySelectorAll("[data-calc]").forEach((a) => (a.onclick = () => { $("cSp").value = a.dataset.calc; calc(); }));
+    $("cat").querySelectorAll("[data-req]").forEach((a) => (a.onclick = () => { $("fItem").value = KB.getCanonicalSpecies(a.dataset.req).titleRu; }));
+  }
+
+  function calc() {
+    const c = KB.getCanonicalSpecies($("cSp").value), chk = $("cCh").value, kg = Math.max(0, Number($("cKg").value) || 0);
+    const price = c[CH[chk][1]], cb = KB.getCostBase ? KB.getCostBase() : null;
+    let units;
+    if (chk === "vacuum") { const n = Math.round(kg / (cb ? cb.vac.packKg : 0.85)); units = [`${fmt(n)} пак.`, `по ${cb ? cb.vac.fishPerPack : 3} тушки ~${Math.round((cb ? cb.vac.packKg : 0.85) * 1000)} г`]; }
+    else { const per = cb ? cb.cube.kgPerCube : 275, n = Math.max(1, Math.ceil(kg / per)); units = [`${n} еврокуб.`, `по ${cb ? cb.cube.kgMin : 250}–${cb ? cb.cube.kgMax : 300} кг с картоном`]; }
+    const rawKg = kg / (c.yieldNorm / 100);
+    $("cRes").innerHTML = `<div><span>Цена</span><b>${fmt(price, 2)} €</b><em>за кг • ${CH[chk][0].toLowerCase()}</em></div>
+      <div><span>Упаковка</span><b>${units[0]}</b><em>${units[1]}</em></div>
+      <div><span>Из сырья</span><b>${fmt(rawKg)} кг</b><em>выход ${c.yieldNorm}% (${c.yieldRange})</em></div>
+      <div class="sum"><span>Ориентир суммы</span><b>${fmt(kg * price)} €</b><em>FCA Юрмалциемс</em></div>`;
+    $("cNote").textContent = `Ориентир по ценам базы цеха (${new Date().getFullYear()}). Окончательная цена, срок и минимальная партия — в договоре.`;
+    $("cSend").onclick = () => { $("fItem").value = c.titleRu; $("fMsg").value = `Расчёт: ${c.titleRu}, ${CH[chk][0].toLowerCase()}, ${fmt(kg)} кг готовой рыбы • ориентир ${fmt(kg * price)} €.\n`; };
+  }
+
+  function form() {
+    $("fItem").innerHTML = `<option>Дегустационный сет (все ${list.length} позиций)</option>` + list.map((c) => `<option>${esc(c.titleRu)}</option>`).join("");
+    let via = "mail";
+    $("form").querySelectorAll("button[type=submit]").forEach((b) => (b.onclick = () => (via = b.dataset.via)));
+    $("form").onsubmit = (e) => {
+      e.preventDefault();
+      const f = new FormData(e.target), s = shop();
+      const text = `Запрос байера\nКомпания: ${f.get("company")}\nТелефон: ${f.get("phone")}\nПозиция: ${f.get("item")}\nОбъём: ${f.get("vol")}\n${f.get("msg") || ""}`;
+      if (via === "wa") {
+        const to = String(s.телефон_whatsapp || "").replace(/\D/g, "");
+        window.open(`https://wa.me/${to}?text=${encodeURIComponent(text)}`, "_blank");
+      } else {
+        location.href = `mailto:${encodeURIComponent(s.email || "")}?subject=${encodeURIComponent("Запрос байера: " + f.get("item"))}&body=${encodeURIComponent(text)}`;
+      }
+      const ok = $("formOk");
+      ok.style.display = "block";
+      ok.textContent = via === "wa" ? "Открыт WhatsApp с текстом заявки — нажмите «Отправить» там." : `Открыто письмо на ${s.email || "e-mail цеха"} — нажмите «Отправить» в почте.`;
+    };
+  }
+
+  function reveal() {
+    const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); } }), { threshold: 0.12 }) : null;
+    document.querySelectorAll(".reveal").forEach((el) => (io ? io.observe(el) : el.classList.add("vis")));
+  }
+
+  function init() {
+    KB = window.ARM_KB;
+    list = KB.SPECIES_ORDER.map((k) => KB.getCanonicalSpecies(k));
+    header(); heroKpis(); vacFeats();
+    tabs("spTabs", list.map((c) => [c.key, c.shortRu]), sp, (k) => { sp = k; stage = 4; timeline(); restartAuto(); });
+    tabs("chTabs", Object.entries(CH).map(([k, v]) => [k, `Цены: ${v[0].toLowerCase()}`]), ch, (k) => { ch = k; catalog(); });
+    timeline(); restartAuto(); catalog();
+    $("cSp").innerHTML = list.map((c) => `<option value="${c.key}">${esc(c.titleRu)}</option>`).join("");
+    $("cSp").value = "BREAM";
+    ["cSp", "cCh", "cKg"].forEach((id) => $(id).addEventListener("input", calc));
+    calc(); form(); reveal();
+  }
+  if (window.ARM_KB && window.ARM_KB.ready) window.ARM_KB.ready.then(init); else document.addEventListener("DOMContentLoaded", () => window.ARM_KB.ready.then(init));
+})();
+</script>
+</body>
+</html>
