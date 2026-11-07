@@ -1,0 +1,21 @@
+<svg viewBox="5 -1 108 108" xmlns="http://www.w3.org/2000/svg">
+<!-- Знак SIA “TUBA” / Юрмалциемс — значок (иконка вкладки, шапка, сайт). Источник: js/fish-emblem.js, mini -->
+<defs>
+  <linearGradient id="g" x1="0" x2="1" y1="1" y2="0"><stop offset="0" stop-color="#7df4ff"/><stop offset=".55" stop-color="#22d3ee"/><stop offset="1" stop-color="#0e7490"/></linearGradient>
+  <linearGradient id="o" x1="0" x2="1" y1="1" y2="0"><stop offset="0" stop-color="#f59e0b"/><stop offset=".6" stop-color="#ffb95f"/><stop offset="1" stop-color="#ffe0a3"/></linearGradient>
+  <linearGradient id="d" x1="0" x2="1" y1="1" y2="0"><stop offset="0" stop-color="#0b2a3a"/><stop offset=".45" stop-color="#0d3b4f"/><stop offset="1" stop-color="#06131c"/></linearGradient>
+</defs>
+<path d="M88 22 L81 3 L94 13 L110 8 L99 27 Z" fill="url(#d)" stroke="url(#o)" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M47 44 L56 25 L77 36 L68 40 Z" fill="url(#d)" stroke="url(#o)" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M32 79 L27 95 L45 86 Z" fill="url(#d)" stroke="#22d3ee" stroke-width="2" stroke-linejoin="round" opacity=".95"/>
+<path d="M60 79 L63 94 L76 73 Z" fill="url(#d)" stroke="#ffb95f" stroke-width="2" stroke-linejoin="round" opacity=".9"/>
+<path d="M12 78 C16 60 32 46 52 43 C68 40 80 34 88 22 L99 27 C96 46 86 62 72 72 C58 82 40 90 24 89 C16 88 13 83 12 78 Z" fill="url(#g)"/>
+<path d="M30 72 C48 66 70 58 92 27" fill="none" stroke="#06131c" stroke-width="2.6" stroke-linecap="round" opacity=".55"/>
+<path d="M33 52 C50 44 70 41 86 28" fill="none" stroke="#ffb95f" stroke-width="3.4" stroke-linecap="round"/>
+<path d="M12 78 C16 60 32 46 52 43 C68 40 80 34 88 22 L99 27 C96 46 86 62 72 72 C58 82 40 90 24 89 C16 88 13 83 12 78 Z" fill="none" stroke="#22d3ee" stroke-width="2.6" stroke-linejoin="round"/>
+<g transform="translate(21 71)">
+  <circle r="4.6" fill="#06131c" stroke="#7df4ff" stroke-width="1.8"/>
+  <circle r="2" fill="#7df4ff"/>
+  <circle cx="-.6" cy="-.6" r=".7" fill="#fff"/>
+</g>
+</svg>

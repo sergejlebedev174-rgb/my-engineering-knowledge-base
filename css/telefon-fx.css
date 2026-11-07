@@ -1,0 +1,840 @@
+/* ==========================================================================
+   📱 TELEFON FX — слой «дорогой» графики для telefon.html (поверх дизайна)
+   Ничего не перекрашивает: только свет, глубина, движение.
+   Включается классом html.tfx (ставит js/telefon-fx.js). Выключатель: ?fx=0
+   Анимации — только transform / opacity / stroke-dashoffset.
+   ========================================================================== */
+
+/* ---------- 1. ЖИВОЙ ФОН: северное сияние + сетка + пыль ---------- */
+html.tfx body {
+  background-color: transparent !important;
+}
+
+#tfx-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+
+#tfx-ambient .tfx-aurora {
+  position: absolute;
+  width: 140vw;
+  height: 70vh;
+  border-radius: 50%;
+  opacity: 0.55;
+  will-change: transform;
+}
+
+#tfx-ambient .tfx-aurora.a1 {
+  left: -50vw;
+  top: -22vh;
+  background: radial-gradient(closest-side, rgba(0, 229, 255, 0.22), rgba(0, 229, 255, 0.06) 55%, transparent);
+  animation: tfxAurora1 22s ease-in-out infinite alternate;
+}
+
+#tfx-ambient .tfx-aurora.a2 {
+  right: -60vw;
+  top: 30vh;
+  background: radial-gradient(closest-side, rgba(167, 139, 250, 0.18), rgba(167, 139, 250, 0.05) 55%, transparent);
+  animation: tfxAurora2 28s ease-in-out infinite alternate;
+}
+
+#tfx-ambient .tfx-aurora.a3 {
+  left: -30vw;
+  bottom: -40vh;
+  background: radial-gradient(closest-side, rgba(255, 167, 38, 0.13), rgba(255, 167, 38, 0.04) 55%, transparent);
+  animation: tfxAurora3 34s ease-in-out infinite alternate;
+}
+
+@keyframes tfxAurora1 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(22vw, 8vh, 0) scale(1.15); }
+}
+@keyframes tfxAurora2 {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to   { transform: translate3d(-26vw, -10vh, 0) scale(0.95); }
+}
+@keyframes tfxAurora3 {
+  from { transform: translate3d(0, 0, 0) scale(0.9); }
+  to   { transform: translate3d(30vw, -12vh, 0) scale(1.1); }
+}
+
+/* перспективная сетка «пола цеха» внизу экрана */
+#tfx-ambient .tfx-floor {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: -10vh;
+  height: 55vh;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.10) 1px, transparent 1px);
+  background-size: 44px 44px;
+  transform: perspective(420px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 85%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 85%);
+  opacity: 0.55;
+}
+
+#tfx-ambient canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- 2. ВЕРХНЯЯ ПАНЕЛЬ: бегущий луч и живая телеметрия ---------- */
+html.tfx .mob-top-bar .tfx-scanbeam {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 38%;
+  height: 1.5px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.9), rgba(167, 139, 250, 0.8), transparent);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.7);
+  animation: tfxBeam 5.5s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes tfxBeam {
+  0%   { transform: translateX(-110%); opacity: 0; }
+  10%  { opacity: 1; }
+  60%  { transform: translateX(290%); opacity: 1; }
+  61%, 100% { transform: translateX(290%); opacity: 0; }
+}
+
+html.tfx .mob-brand-icon {
+  display: inline-block;
+  animation: tfxFishSwim 3.6s ease-in-out infinite;
+  transform-origin: 50% 60%;
+}
+
+@keyframes tfxFishSwim {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-2px) rotate(5deg); }
+}
+
+html.tfx #mob-pill-telemetry {
+  position: relative;
+}
+
+/* «живая» плашка: мягко дышащий ореол (текст плашки программа переписывает сама) */
+html.tfx #mob-pill-telemetry::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(46, 229, 157, 0.55), inset 0 0 6px rgba(46, 229, 157, 0.25);
+  animation: tfxLive 2.2s ease-in-out infinite;
+}
+
+@keyframes tfxLive {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 1; }
+}
+
+/* активный режим Торг/Техн — блик проходит по капсуле */
+html.tfx .mob-mode-btn.active-trade,
+html.tfx .mob-mode-btn.active-tech {
+  position: relative;
+  overflow: hidden;
+}
+
+html.tfx .mob-mode-btn.active-trade::after,
+html.tfx .mob-mode-btn.active-tech::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-18deg);
+  animation: tfxSheenBtn 4.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes tfxSheenBtn {
+  0%, 55% { transform: translateX(0) skewX(-18deg); }
+  85%, 100% { transform: translateX(420%) skewX(-18deg); }
+}
+
+/* ---------- 3. КАРТОЧКИ: появление в 3D, блик, наклон при касании ---------- */
+html.tfx .tfx-card {
+  transform-style: flat;
+}
+
+html.tfx .tfx-pre {
+  opacity: 0;
+  transform: perspective(900px) translate3d(0, 26px, 0) rotateX(9deg) scale(0.975);
+}
+
+html.tfx .tfx-pre.tfx-in {
+  opacity: 1;
+  transform: perspective(900px) translate3d(0, 0, 0) rotateX(0) scale(1);
+  transition: opacity 0.55s ease-out, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* блик-«стекло», пробегающий по карточке */
+html.tfx .tfx-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+
+html.tfx .tfx-sheen::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.075) 45%, rgba(255, 255, 255, 0.13) 50%, rgba(255, 255, 255, 0.075) 55%, transparent 80%);
+  transform: translateX(-120%) skewX(-12deg);
+}
+
+html.tfx .tfx-in .tfx-sheen::before,
+html.tfx .tfx-card.tfx-shine .tfx-sheen::before {
+  animation: tfxCardSheen 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s 1 both;
+}
+
+html.tfx .tfx-card.tfx-shine .tfx-sheen::before {
+  animation-delay: 0s;
+}
+
+@keyframes tfxCardSheen {
+  from { transform: translateX(-120%) skewX(-12deg); }
+  to   { transform: translateX(330%) skewX(-12deg); }
+}
+
+/* световая кромка сверху (стекло с подсветкой) */
+html.tfx .tfx-sheen::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0.7;
+}
+
+/* наклон при касании: переменные ставит JS */
+html.tfx .tfx-card.tfx-tilting {
+  transform: perspective(800px) rotateX(var(--tfx-rx, 0deg)) rotateY(var(--tfx-ry, 0deg)) scale(0.985) !important;
+  transition: transform 0.12s ease-out !important;
+}
+
+html.tfx .tfx-card.tfx-untilt {
+  transition: transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) !important;
+}
+
+/* блик, следующий за пальцем */
+html.tfx .tfx-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  background: radial-gradient(240px circle at var(--tfx-gx, 50%) var(--tfx-gy, 50%), rgba(255, 255, 255, 0.10), transparent 60%);
+  transition: opacity 0.35s ease;
+}
+
+html.tfx .tfx-card.tfx-tilting .tfx-glare {
+  opacity: 1;
+}
+
+/* ---------- 4. КЛИМАТ: волны, кольца, цифры ---------- */
+html.tfx .tfx-wave-line {
+  stroke-dasharray: var(--tfx-len, 400);
+  stroke-dashoffset: var(--tfx-len, 400);
+}
+
+html.tfx .tfx-drawn .tfx-wave-line {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html.tfx .tfx-wave-area {
+  opacity: 0;
+}
+
+html.tfx .tfx-drawn .tfx-wave-area {
+  opacity: 1;
+  transition: opacity 1.4s ease 0.6s;
+  animation: tfxAreaBreath 5s ease-in-out 2s infinite;
+}
+
+@keyframes tfxAreaBreath {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+html.tfx .tfx-wave-scan {
+  animation: tfxWaveScan 4.5s linear infinite;
+}
+
+@keyframes tfxWaveScan {
+  from { transform: translateX(-20px); }
+  to   { transform: translateX(280px); }
+}
+
+html.tfx #mob-bento-vpd-ring,
+html.tfx #mob-bento-pwr-ring {
+  transition: stroke-dasharray 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.tfx .tfx-ring {
+  border-radius: 50%;
+}
+
+html.tfx .tfx-ring::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--tfx-ring-c, rgba(56, 189, 248, 0.35)), transparent);
+  animation: tfxRingHalo 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes tfxRingHalo {
+  0%, 100% { opacity: 0.25; transform: scale(0.9); }
+  50%      { opacity: 0.8; transform: scale(1.12); }
+}
+
+/* вспышка цифры при обновлении */
+html.tfx .tfx-flash {
+  animation: tfxFlash 0.7s ease-out 1;
+}
+
+@keyframes tfxFlash {
+  0%   { transform: scale(1); }
+  25%  { transform: scale(1.07); text-shadow: 0 0 14px currentColor, 0 0 2px #fff; }
+  100% { transform: scale(1); text-shadow: 0 0 0 transparent; }
+}
+
+html.tfx #mob-bento-temp,
+html.tfx #mob-bento-rh {
+  display: inline-block;
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+  transform-origin: left center;
+}
+
+html.tfx #mob-bento-rh {
+  transform-origin: right center;
+}
+
+/* ---------- 5. СХЕМА КАМЕРЫ: воздух, фреон, конденсат ---------- */
+html.tfx .tfx-flow-dash {
+  stroke-dasharray: 3 9;
+  animation: tfxDash 0.9s linear infinite;
+}
+
+html.tfx .tfx-flow-dash.slow {
+  animation-duration: 1.6s;
+}
+
+@keyframes tfxDash {
+  to { stroke-dashoffset: -12; }
+}
+
+html.tfx .tfx-freon-flow {
+  stroke-dasharray: 5 11;
+  animation: tfxFreon 1.2s linear infinite;
+}
+
+@keyframes tfxFreon {
+  to { stroke-dashoffset: -16; }
+}
+
+html.tfx .tfx-coil-flow {
+  stroke-dasharray: 4 8;
+  animation: tfxDash 0.8s linear infinite;
+}
+
+html.tfx .tfx-air {
+  animation: tfxAir var(--tfx-dur, 2.4s) linear var(--tfx-delay, 0s) infinite;
+}
+
+@keyframes tfxAir {
+  0%   { transform: translateX(0); opacity: 0; }
+  8%   { opacity: 0.95; }
+  85%  { opacity: 0.8; }
+  100% { transform: translateX(var(--tfx-dist, 300px)); opacity: 0; }
+}
+
+html.tfx .tfx-drip {
+  animation: tfxDrip 1.9s cubic-bezier(0.55, 0, 0.9, 0.5) var(--tfx-delay, 0s) infinite;
+}
+
+@keyframes tfxDrip {
+  0%   { transform: translateY(0) scaleY(0.6); opacity: 0; }
+  15%  { opacity: 1; transform: translateY(0) scaleY(1); }
+  80%  { opacity: 1; }
+  100% { transform: translateY(26px) scaleY(1.3); opacity: 0; }
+}
+
+html.tfx .tfx-liquid-wave {
+  animation: tfxLiquid 2.2s linear infinite;
+}
+
+@keyframes tfxLiquid {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-24px); }
+}
+
+html.tfx .tfx-pulse-soft {
+  animation: tfxPulseSoft 2.4s ease-in-out infinite;
+}
+
+@keyframes tfxPulseSoft {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.85; }
+}
+
+html.tfx .tfx-node-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: tfxNode 1.8s ease-out infinite;
+}
+
+@keyframes tfxNode {
+  0%   { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+
+html.tfx .tfx-light-sweep {
+  animation: tfxSweep 6s ease-in-out infinite;
+}
+
+@keyframes tfxSweep {
+  0%, 20% { transform: translateX(-120px); }
+  70%, 100% { transform: translateX(420px); }
+}
+
+/* пауза камеры: воздух замедляется, конденсат почти встаёт */
+body.chamber-paused .tfx-air { animation-duration: calc(var(--tfx-dur, 2.4s) * 3.5) !important; }
+body.chamber-paused .tfx-flow-dash { animation-duration: 3.2s !important; }
+body.chamber-paused .tfx-drip { animation-duration: 5s !important; }
+body.chamber-paused .tfx-freon-flow,
+body.chamber-paused .tfx-coil-flow { animation-duration: 3.5s !important; }
+
+/* вне экрана — всё стоит (экономим батарею телефона) */
+.tfx-offscreen *,
+.tfx-offscreen::before,
+.tfx-offscreen::after {
+  animation-play-state: paused !important;
+}
+
+/* ---------- 6. КНОПКИ: волна от пальца, живая подсветка ---------- */
+html.tfx .tfx-ripple-host {
+  position: relative;
+  overflow: hidden;
+}
+
+html.tfx .tfx-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.12) 60%, transparent);
+  animation: tfxRipple 0.65s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  z-index: 5;
+}
+
+@keyframes tfxRipple {
+  from { transform: scale(0); opacity: 1; }
+  to   { transform: scale(var(--tfx-rs, 14)); opacity: 0; }
+}
+
+html.tfx .scada-ctrl-btn.active-green::after,
+html.tfx .scada-ctrl-btn.active-amber::after,
+html.tfx .scada-ctrl-btn.active-blue::after,
+html.tfx .scada-ctrl-btn.active-dry-on::after,
+html.tfx .scada-ctrl-btn.active-pause::after,
+html.tfx .scada-ctrl-btn.active-circuit::after {
+  animation: tfxUnderGlow 2.2s ease-in-out infinite;
+}
+
+@keyframes tfxUnderGlow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+
+html.tfx .scada-ctrl-btn > span:first-child {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html.tfx .scada-ctrl-btn.active-green > span:first-child,
+html.tfx .scada-ctrl-btn.active-amber > span:first-child,
+html.tfx .scada-ctrl-btn.active-blue > span:first-child {
+  transform: translateY(-1px) scale(1.12);
+}
+
+html.tfx .tfx-pop {
+  animation: tfxPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+}
+
+@keyframes tfxPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- 7. НИЖНИЙ ДОК: светящаяся «капля» под активной кнопкой ---------- */
+html.tfx .tfx-dock-glow {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  width: 60px;
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(80% 90% at 50% 100%, rgba(0, 229, 255, 0.28), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  box-shadow: 0 0 18px -4px rgba(0, 229, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.5, 1), width 0.4s ease, opacity 0.3s ease;
+  will-change: transform;
+}
+
+html.tfx .mob-dock-item {
+  z-index: 1;
+}
+
+html.tfx .mob-dock-item.tfx-bounce .mob-dock-icon {
+  animation: tfxDockBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+}
+
+@keyframes tfxDockBounce {
+  0%   { transform: translateY(0) scale(1); }
+  35%  { transform: translateY(-7px) scale(1.25); }
+  100% { transform: translateY(-2px) scale(1); }
+}
+
+/* ---------- 8. ЦЕНТР СВЕРХПРИБЫЛИ: вкладки и карточки выбора ---------- */
+html.tfx .sp-tab-btn.active,
+html.tfx .sp-choice-btn.active,
+html.tfx .mob-pill-tab.active {
+  position: relative;
+  overflow: hidden;
+}
+
+html.tfx .sp-tab-btn.active::after,
+html.tfx .sp-choice-btn.active::after,
+html.tfx .mob-pill-tab.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -50%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: skewX(-18deg);
+  animation: tfxSheenBtn 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+html.tfx .sp-choice-btn.active {
+  box-shadow: 0 0 0 1px rgba(255, 167, 38, 0.35), 0 10px 26px -10px rgba(255, 167, 38, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+html.tfx .sp-box-val {
+  display: inline-block;
+}
+
+/* смена экрана (Торг/Техн, подвкладки) */
+html.tfx .tfx-enter {
+  animation: tfxEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1;
+}
+
+@keyframes tfxEnter {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- 9. ТОСТ: выезд с пружиной ---------- */
+html.tfx .toast-popup.tfx-toast-in {
+  animation: tfxToast 0.5s cubic-bezier(0.34, 1.4, 0.5, 1) 1;
+}
+
+@keyframes tfxToast {
+  from { opacity: 0; transform: translate(-50%, 18px) scale(0.92); }
+  to   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+/* ---------- 10. Эмблема, P&ID-переключатель, карточка тележки ---------- */
+html.tfx .mob-brand-icon.tfx-emblem {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.45));
+  animation: none;
+}
+
+html.tfx .tfx-seg {
+  position: relative;
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: 8px;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(4, 9, 17, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+html.tfx .tfx-seg button {
+  position: relative;
+  z-index: 1;
+  min-width: 52px;
+  padding: 3px 9px;
+  border: 0;
+  background: none;
+  font: 800 9.5px var(--font-mono);
+  letter-spacing: 0.04em;
+  color: #8B9BAE;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+html.tfx .tfx-seg button.on {
+  color: #04121C;
+}
+
+html.tfx .tfx-seg i {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc(50% - 2px);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38BDF8, #00F0FF);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.55);
+  transition: transform 0.45s cubic-bezier(0.34, 1.3, 0.5, 1);
+}
+
+html.tfx .tfx-seg.right i {
+  transform: translateX(100%);
+}
+
+html.tfx .tfx-pid-box {
+  position: relative;
+  height: 466px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 240, 255, 0.18);
+}
+
+html.tfx .tfx-trolley {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+html.tfx .tfx-trolley:active {
+  opacity: 0.7;
+}
+
+.tfx-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  pointer-events: none;
+}
+
+.tfx-sheet-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 5, 10, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tfx-sheet-card {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(100%, 480px);
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 8px 14px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-radius: 22px 22px 0 0;
+  background: radial-gradient(80% 40% at 50% 0%, rgba(0, 240, 255, 0.12), transparent 70%), linear-gradient(170deg, #111A28, #070B13);
+  border: 1px solid rgba(0, 240, 255, 0.32);
+  border-bottom: 0;
+  box-shadow: 0 -18px 48px rgba(0, 0, 0, 0.75), 0 0 26px rgba(0, 240, 255, 0.12);
+  color: #E2F4FF;
+  transform: translate(-50%, 105%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tfx-sheet.on { pointer-events: auto; }
+.tfx-sheet.on .tfx-sheet-bg { opacity: 1; }
+.tfx-sheet.on .tfx-sheet-card { transform: translate(-50%, 0); }
+
+.tfx-grab {
+  width: 38px;
+  height: 4px;
+  margin: 0 auto 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.tfx-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.tfx-sheet-kicker {
+  font: 800 9.5px var(--font-mono);
+  letter-spacing: 0.1em;
+  color: #00F0FF;
+}
+
+.tfx-sheet-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.tfx-sheet-x {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tfx-photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: 46vh;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(0, 240, 255, 0.16);
+  background: #05080E;
+}
+
+.tfx-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.04);
+  animation: tfxKen 14s ease-in-out infinite alternate;
+}
+
+@keyframes tfxKen {
+  from { transform: scale(1.04) translate(0, 0); }
+  to   { transform: scale(1.12) translate(-1.5%, -2%); }
+}
+
+.tfx-photo-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 240, 200, 0.16) 50%, transparent 65%);
+  transform: translateX(-100%);
+  animation: tfxPhotoSweep 4.5s ease-in-out 0.4s infinite;
+}
+
+@keyframes tfxPhotoSweep {
+  0% { transform: translateX(-100%); }
+  45%, 100% { transform: translateX(100%); }
+}
+
+.tfx-photo-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 2px 8px;
+  border-radius: 7px;
+  font: 800 11px var(--font-mono);
+  color: #00F0FF;
+  background: rgba(6, 10, 18, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.45);
+}
+
+.tfx-sheet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tfx-sheet-grid div {
+  padding: 8px 9px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.tfx-sheet-grid span {
+  display: block;
+  font-size: 9.5px;
+  color: #8B9BAE;
+}
+
+.tfx-sheet-grid b {
+  font: 800 14px var(--font-mono);
+  color: #38BDF8;
+}
+
+.tfx-sheet-grid b.a { color: #FBBF24; }
+
+.tfx-sheet-note {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #8B9BAE;
+}
+
+.tfx-sheet-go {
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.5);
+  background: linear-gradient(90deg, #0284C7, #00F0FF);
+  color: #04080E;
+  font-weight: 800;
+  font-size: 12.5px;
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.3);
+}
+
+/* ---------- 11. Без анимаций по просьбе системы ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.tfx *,
+  html.tfx *::before,
+  html.tfx *::after {
+    animation: none !important;
+  }
+  html.tfx .tfx-pre { opacity: 1; transform: none; }
+  html.tfx .tfx-wave-line { stroke-dashoffset: 0; }
+  html.tfx .tfx-wave-area { opacity: 1; }
+}

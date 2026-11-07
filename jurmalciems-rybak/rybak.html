@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#08111D">
+<link rel="manifest" href="./manifest-rybak.json">
+<title>Рыбный экран • Юрмалциемс</title>
+<style>
+:root{
+  --bg:#08111D; --surface:#0F1E32; --card:#152842; --elevated:#1D3557;
+  --cyan:#00E5FF; --amber:#FFA726; --emerald:#2EE59D; --coral:#FF5252;
+  --text:#F0F6FC; --text2:#9FB3C8; --border:#2B466B;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{
+  background:var(--bg);color:var(--text);font-family:var(--font);
+  font-size:20px;line-height:1.3;min-height:100vh;overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  display:flex;flex-direction:column;
+  padding:12px; 
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  gap:12px;
+}
+
+/* Верхняя панель */
+.header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 4px}
+.header h1{font-size:24px;font-weight:800;color:var(--cyan);letter-spacing:.5px}
+.status-badge{
+  display:flex; align-items:center; gap:6px; font-size:14px; font-weight:700;
+  padding:6px 12px; border-radius:999px; background:var(--surface); border:2px solid var(--border); color:var(--text2);
+  transition: all 0.3s ease;
+}
+.status-dot{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.status-badge.online{border-color:var(--emerald); color:var(--emerald)}
+.status-badge.online .status-dot{background:var(--emerald);box-shadow:0 0 8px var(--emerald)}
+.status-badge.offline{border-color:var(--coral); color:var(--coral)}
+.status-badge.offline .status-dot{background:var(--coral);box-shadow:0 0 8px var(--coral)}
+
+/* Сетка рыбы */
+.species-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.species-btn{
+  background:var(--card);border:3px solid var(--border);border-radius:18px;
+  padding:14px 8px;font-size:24px;font-weight:800;color:var(--text);
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+  transition:all .15s ease;min-height:90px;user-select:none;
+}
+.species-btn .emoji{font-size:34px;line-height:1}
+.species-btn .name{font-size:22px}
+.species-btn.active{
+  border-color:var(--cyan);
+  background:linear-gradient(135deg,rgba(0,229,255,.2),rgba(0,229,255,.05));
+  box-shadow:0 0 20px rgba(0,229,255,.4), inset 0 0 10px rgba(0,229,255,.2);
+  transform: translateY(-2px);
+}
+.species-btn:active{transform:scale(.96)}
+
+/* Панель веса */
+.weight-panel{background:var(--surface);border:2px solid var(--border);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.weight-display{text-align:center;padding:10px 0}
+.weight-display .label{font-size:16px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.weight-display .value-wrap{display:flex;align-items:baseline;justify-content:center;gap:6px}
+.weight-display .value{font-size:56px;font-weight:900;color:var(--cyan);line-height:1.1;letter-spacing:-2px;transition:all 0.2s ease;}
+.weight-display .unit{font-size:24px;color:var(--text2);font-weight:700}
+
+/* Цифровая клавиатура */
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.key{
+  background:var(--card);border:2px solid var(--border);border-radius:14px;
+  padding:14px 4px;font-size:24px;font-weight:800;color:var(--text);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  min-height:60px;user-select:none;transition:all .1s ease;
+}
+.key:active{transform:scale(.95);background:var(--elevated);border-color:var(--text2)}
+.key.reset{border-color:var(--amber);color:var(--amber);font-size:18px}
+.key.backspace{border-color:var(--coral);color:var(--coral);font-size:22px}
+
+/* Нижняя фиксированная панель действий */
+.action-row{display:flex;gap:10px;width:100%;}
+.action-panel{
+  position:fixed; bottom:0; left:0; right:0;
+  background:rgba(8,17,29,0.95); backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+  padding:12px; padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+  display:flex; gap:10px; z-index:100;
+  max-width:560px; margin:0 auto;
+}
+.btn{
+  flex:1; padding:16px 12px; border-radius:16px; font-size:22px; font-weight:800;
+  cursor:pointer; border:2px solid transparent; display:flex; align-items:center;
+  justify-content:center; gap:8px; min-height:64px; transition:all .15s ease; user-select:none;
+}
+.btn:active{transform:scale(.96)}
+.btn-voice{
+  background:var(--surface); color:var(--amber); border-color:var(--amber);
+  box-shadow:0 0 15px rgba(255,167,38,.15);
+}
+.btn-voice.listening{background:var(--coral); color:#fff; border-color:#fff; animation:pulse 1s infinite alternate;}
+@keyframes pulse { 0%{transform:scale(1)} 100%{transform:scale(1.05);box-shadow:0 0 25px var(--coral)} }
+
+.btn-send{
+  background:linear-gradient(135deg,var(--emerald),#10B981); color:#04130D; border-color:#A7F3D0;
+  box-shadow:0 4px 18px rgba(46,229,157,.3); flex:1.5;
+}
+.btn-send:disabled{opacity:.5;filter:grayscale(.8);pointer-events:none}
+
+/* Транскрипт */
+.transcript{
+  background:rgba(6,14,26,.6); border:2px dashed var(--border); border-radius:12px;
+  padding:10px 14px; font-size:17px; color:var(--text2); text-align:center;
+  min-height:54px; display:flex; align-items:center; justify-content:center;
+  font-style:italic;
+}
+
+/* Всплывающие уведомления */
+.toast{
+  position:fixed; bottom:calc(110px + env(safe-area-inset-bottom, 0px)); left:50%;
+  transform:translateX(-50%) translateY(20px); background:var(--elevated);
+  border:2px solid var(--emerald); color:var(--text); padding:12px 20px;
+  border-radius:14px; font-size:16px; font-weight:700; opacity:0; pointer-events:none;
+  transition:all .25s ease; z-index:999; white-space:nowrap; max-width:92vw; overflow:hidden; text-overflow:ellipsis;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(min-width:600px){
+  body{padding-bottom:120px}
+  .action-panel{left:50%; transform:translateX(-50%); width:560px; border-radius:20px 20px 0 0; border-left:1px solid var(--border); border-right:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <h1>🐟 Рыбный экран</h1>
+  <div class="status-badge" id="statusBadge"><div class="status-dot"></div><span id="statusText">Поиск связи</span></div>
+</header>
+
+<div class="species-grid" id="speciesGrid">
+  <button class="species-btn" data-species="ROACH"><span class="emoji">🐟</span><span class="name">Плотва</span></button>
+  <button class="species-btn" data-species="BREAM"><span class="emoji">🐟</span><span class="name">Лещ</span></button>
+  <button class="species-btn" data-species="VIMBA"><span class="emoji">🐠</span><span class="name">Вимба</span></button>
+  <button class="species-btn" data-species="PERCH"><span class="emoji">🐠</span><span class="name">Окунь</span></button>
+</div>
+
+<div class="weight-panel">
+  <div class="weight-display">
+    <div class="label">Вес партии</div>
+    <div class="value-wrap">
+      <span class="value" id="weightValue">0</span>
+      <span class="unit">кг</span>
+    </div>
+  </div>
+  
+  <!-- Цифровая клавиатура -->
+  <div class="keypad">
+    <button class="key" data-key="1">1</button>
+    <button class="key" data-key="2">2</button>
+    <button class="key" data-key="3">3</button>
+    <button class="key" data-key="4">4</button>
+    <button class="key" data-key="5">5</button>
+    <button class="key" data-key="6">6</button>
+    <button class="key" data-key="7">7</button>
+    <button class="key" data-key="8">8</button>
+    <button class="key" data-key="9">9</button>
+    <button class="key reset" id="resetBtn">Сброс</button>
+    <button class="key" data-key="0">0</button>
+    <button class="key backspace" id="backspaceBtn">⌫</button>
+  </div>
+</div>
+
+<!-- Панель действий: голос и отправка в АРМ -->
+<div class="action-row">
+  <button class="btn btn-voice" id="voiceBtn">🎙️ Сказать</button>
+  <button class="btn btn-send" id="sendBtn" disabled>▶ В АРМ</button>
+</div>
+
+<!-- Большая кнопка перехода в полный режим -->
+<a href="../telefon.html" class="btn" style="width:100%; margin-top:10px; background:var(--elevated); color:var(--cyan); border:2px solid var(--cyan); text-decoration:none; font-size:20px; display:flex; align-items:center; justify-content:center; border-radius:16px; min-height:60px;" onclick="if (!location.pathname.includes('/jurmalciems-rybak/')) { this.href = 'telefon.html'; }">
+  🔄 Открыть полный режим (Торг / Техн)
+</a>
+
+<div class="transcript" id="transcript" style="margin-top:10px;">Выберите рыбу и введите вес</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SYNC_CHANNEL = "JURMALCIEMS_SYNC_CHANNEL";
+const ROOM = "JURMALCIEMS_MAIN";
+const SPECIES_KEYS = { ROACH:"Плотва", BREAM:"Лещ", VIMBA:"Вимба", PERCH:"Окунь" };
+
+let selectedSpecies = "ROACH";
+let weightString = "0"; 
+let channel = null;
+if ("BroadcastChannel" in window) { try { channel = new BroadcastChannel(SYNC_CHANNEL); } catch(e){} }
+
+const speciesBtns = document.querySelectorAll(".species-btn");
+const weightValue = document.getElementById("weightValue");
+const statusBadge = document.getElementById("statusBadge");
+const statusText = document.getElementById("statusText");
+const transcript = document.getElementById("transcript");
+const toast = document.getElementById("toast");
+const voiceBtn = document.getElementById("voiceBtn");
+const sendBtn = document.getElementById("sendBtn");
+
+// --- ЛОГИКА ИНТЕРФЕЙСА ---
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>toast.classList.remove("show"), 2500);
+}
+
+function setStatus(text, cls) {
+  statusText.textContent = text;
+  statusBadge.className = "status-badge " + (cls || "");
+}
+
+function updateUI() {
+  let num = parseInt(weightString, 10) || 0;
+  if (num > 10000) num = 10000; 
+  weightString = num.toString(); 
+  
+  weightValue.textContent = num === 0 ? "0" : num.toLocaleString("ru-RU");
+  
+  if (weightString.length > 3) {
+    weightValue.style.fontSize = "44px";
+  } else {
+    weightValue.style.fontSize = "56px";
+  }
+
+  sendBtn.disabled = (num <= 0);
+}
+
+function selectSpecies(key) {
+  selectedSpecies = key;
+  speciesBtns.forEach(b => b.classList.toggle("active", b.dataset.species === key));
+  if(parseInt(weightString)>0) {
+    transcript.textContent = `Выбрано: ${SPECIES_KEYS[key]} • ${parseInt(weightString).toLocaleString('ru-RU')} кг`;
+  } else {
+    transcript.textContent = `Выбрано: ${SPECIES_KEYS[key]}`;
+  }
+}
+
+// --- ВВОД С ЦИФРОВОЙ КЛАВИАТУРЫ ---
+document.querySelectorAll(".key[data-key]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if(navigator.vibrate) navigator.vibrate(8);
+    if (weightString === "0") weightString = ""; 
+    if (weightString.length < 5) { 
+      weightString += btn.dataset.key;
+    }
+    updateUI();
+  });
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if(navigator.vibrate) navigator.vibrate(12);
+  weightString = "0";
+  updateUI();
+  transcript.textContent = "Сброшено";
+});
+
+document.getElementById("backspaceBtn").addEventListener("click", () => {
+  if(navigator.vibrate) navigator.vibrate(10);
+  weightString = weightString.slice(0, -1);
+  if (weightString === "" || weightString === "0") weightString = "0";
+  updateUI();
+});
+
+speciesBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if(navigator.vibrate) navigator.vibrate(10);
+    selectSpecies(btn.dataset.species);
+  });
+});
+
+// --- ОТПРАВКА И СИНХРОНИЗАЦИЯ ---
+function computeFastHash(str) {
+  const s = String(str || ""); let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+  return h.toString(36);
+}
+function getRelayTopic(room) {
+  const slug = room.toLowerCase().replace(/[^a-z0-9]/g, "_");
+  const salt = computeFastHash("JURMALCIEMS_AIM250_SECRET_SALT_2026_" + slug);
+  return `arm_jrmlcm_${slug}_${salt}`;
+}
+
+async function pushToCloudRelay(telemetryMin) {
+  const topic = getRelayTopic(ROOM);
+  const snap = {
+    schemaVersion: 2, roomCode: ROOM,
+    updatedAtMs: Date.now(),
+    updatedAtStr: new Date().toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit", second: "2-digit" }),
+    deviceId: "rybak_" + Math.random().toString(36).slice(2, 8),
+    deviceName: "Рыбак (телефон)",
+    fingerprint: "rybak_" + Date.now(),
+    telemetry: telemetryMin
+  };
+  try {
+    setStatus("Отправка...", "offline");
+    await fetch(`https://ntfy.sh/${topic}`, { method: "POST", body: JSON.stringify(snap) });
+    setStatus("Связь есть", "online");
+  } catch (e) {
+    setStatus("Нет сети", "offline");
+    console.error("Cloud push error:", e);
+  }
+}
+
+function sendToArm() {
+  const num = parseInt(weightString, 10) || 0;
+  if (num <= 0) return;
+  
+  const payload = { type: "SYNC_BATCH", speciesKey: selectedSpecies, weightKg: num, source: "rybak", ts: Date.now() };
+  
+  if (channel) {
+    try { channel.postMessage(payload); } catch (e) {}
+  }
+  
+  pushToCloudRelay({ speciesKey: selectedSpecies, batchWeightKg: num });
+  
+  setStatus("Передано", "online");
+  showToast(`✓ ${SPECIES_KEYS[selectedSpecies]} ${num.toLocaleString('ru-RU')} кг → АРМ`);
+  transcript.textContent = `Успешно передано: ${SPECIES_KEYS[selectedSpecies]} ${num} кг`;
+  
+  setTimeout(() => {
+    weightString = "0";
+    updateUI();
+  }, 3000);
+}
+
+sendBtn.addEventListener("click", () => {
+  if(navigator.vibrate) navigator.vibrate(20);
+  sendToArm();
+});
+
+
+// --- ГОЛОСОВОЙ ВВОД ---
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+
+function parseVoice(text) {
+  const q = String(text || "").toLowerCase().replace(/ё/g, "е");
+  let species = null;
+  if (/плотв|вобл/.test(q)) species = "ROACH";
+  else if (/лещ/.test(q)) species = "BREAM";
+  else if (/вимб|сырт/.test(q)) species = "VIMBA";
+  else if (/окун/.test(q)) species = "PERCH";
+
+  let weight = null;
+  const tonMatch = q.match(/(\d+(?:[.,]\d+)?)\s*(?:тонн|т(?:\s|$))/);
+  if (tonMatch) weight = Math.round(parseFloat(tonMatch[1].replace(",", ".")) * 1000);
+  else {
+    const numMatch = q.match(/(\d+)\s*(?:кг|килограмм|кило)?/);
+    if (numMatch) weight = parseInt(numMatch[1], 10);
+  }
+  
+  if (weight === null) {
+    const words = {"пятьсот":500,"тысяча":1000,"тысячу":1000,"полторы":1500,"две тысячи":2000,"три тысячи":3000,"четыре тысячи":4000,"пять тысяч":5000};
+    for (const [w, v] of Object.entries(words)) { if (q.includes(w)) { weight = v; break; } }
+  }
+  
+  if (weight !== null) weight = Math.max(0, Math.min(10000, Math.round(weight / 50) * 50));
+  return { species, weight };
+}
+
+if (SR) {
+  recognition = new SR();
+  recognition.lang = "ru-RU";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  recognition.continuous = false;
+
+  recognition.onstart = () => {
+    setStatus("Слушаю...", "online");
+    transcript.textContent = "🎙️ Говорите: «Вимба 1500» или «Лещ полторы тонны»";
+    voiceBtn.classList.add("listening");
+    voiceBtn.innerHTML = "⏹️ Стоп";
+  };
+
+  recognition.onresult = (ev) => {
+    const text = ev.results[0][0].transcript;
+    transcript.textContent = `«${text}»`;
+    const { species, weight } = parseVoice(text);
+    
+    if (species) selectSpecies(species);
+    if (weight !== null && weight > 0) {
+      weightString = weight.toString();
+      updateUI();
+    }
+    
+    if (species || weight) {
+      if(species && weight) setTimeout(() => sendToArm(), 500);
+    } else {
+      showToast("Не распознал рыбу или вес");
+      setStatus("Не понял", "offline");
+    }
+  };
+
+  recognition.onerror = (ev) => {
+    setStatus("Ошибка", "offline");
+    showToast("Микрофон: " + (ev.error || "ошибка"));
+    voiceBtn.classList.remove("listening");
+    voiceBtn.innerHTML = "🎙️ Сказать";
+  };
+
+  recognition.onend = () => {
+    voiceBtn.classList.remove("listening");
+    voiceBtn.innerHTML = "🎙️ Сказать";
+    if (statusText.textContent === "Слушаю...") setStatus("Готов", "online");
+  };
+}
+
+voiceBtn.addEventListener("click", () => {
+  if (navigator.vibrate) navigator.vibrate(15);
+  if (!recognition) {
+    showToast("Голосовой ввод не поддерживается");
+    return;
+  }
+  if (statusText.textContent === "Слушаю...") {
+    try { recognition.stop(); } catch (e) {}
+  } else {
+    try { recognition.start(); } catch (e) { showToast("Не удалось запустить микрофон"); }
+  }
+});
+
+// --- ИНИЦИАЛИЗАЦИЯ ---
+selectSpecies("ROACH");
+updateUI();
+setStatus("Готов", "online");
+
+// Service Worker (офлайн-кэш)
+if ("serviceWorker" in navigator && (location.protocol === "http:" || location.protocol === "https:")) {
+  window.addEventListener("load", () => { navigator.serviceWorker.register("./sw-rybak.js").catch(() => {}); });
+}
+</script>
+</body>
+</html>

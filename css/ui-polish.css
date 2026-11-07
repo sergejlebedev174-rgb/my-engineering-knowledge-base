@@ -1,0 +1,297 @@
+/* ==========================================================================
+   🌊 АРМ ТЕХНОЛОГА • ЮРМАЛЦИЕМС
+   СЛОЙ УДОБСТВА И ПОЛИРОВКИ ИНТЕРФЕЙСА (пара к js/ui-polish.js)
+   • длинный текст — 3 строки и кнопка «Подробнее»
+   • плавная смена вкладок, заглушка пока грузится модуль, подсказки, кнопка «наверх»
+   Подключён в index.html, telefon.html, knowledge.html. Выключатель: ?ui=0
+   ========================================================================== */
+
+/* ---------- длинный текст: 3 строки + «Подробнее» ---------- */
+html.uix-on .uix-clamp {
+  max-height: var(--uix-cur, var(--uix-h, 4.6em)) !important;
+  overflow: hidden !important;
+  transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding-bottom 0.35s ease;
+  /* текст плавно тает к низу; в правом нижнем углу маска не действует — там стоит кнопка */
+  -webkit-mask: linear-gradient(180deg, #000 calc(100% - 2.4em), transparent calc(100% - 0.15em)), linear-gradient(#000 0 0) right 2px bottom 0 / 132px 30px no-repeat;
+  mask: linear-gradient(180deg, #000 calc(100% - 2.4em), transparent calc(100% - 0.15em)), linear-gradient(#000 0 0) right 2px bottom 0 / 132px 30px no-repeat;
+}
+html.uix-on .uix-clamp.uix-open {
+  -webkit-mask: none;
+  mask: none;
+  padding-bottom: calc(var(--uix-pb, 0px) + 30px) !important;
+}
+.uix-more {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 3px 10px 3px 11px;
+  border-radius: 999px;
+  font: 700 10px/1.35 "JetBrains Mono", Consolas, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #67e8f9;
+  background: linear-gradient(135deg, rgba(10, 20, 33, 0.97), rgba(8, 15, 25, 0.97));
+  border: 1px solid rgba(34, 211, 238, 0.45);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55), 0 0 12px rgba(34, 211, 238, 0.16);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease, scale 0.1s ease;
+}
+.uix-more:hover { color: #cffafe; border-color: rgba(103, 232, 249, 0.85); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.55), 0 0 18px rgba(34, 211, 238, 0.35); }
+.uix-more i {
+  width: 6px;
+  height: 6px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.uix-open > .uix-more i { transform: translateY(1px) rotate(225deg); }
+
+/* ---------- плавная смена вкладок ---------- */
+html.uix-on .tab-pane.uix-enter { animation: uixEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes uixEnter { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+
+/* ---------- заглушка, пока грузится модуль во вкладке ---------- */
+.uix-skel {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(110deg, transparent 30%, rgba(34, 211, 238, 0.07) 48%, rgba(186, 230, 253, 0.1) 50%, rgba(34, 211, 238, 0.07) 52%, transparent 70%),
+    radial-gradient(120% 90% at 50% 20%, #0d1826 0%, #070b12 70%);
+  background-size: 260% 100%, 100% 100%;
+  animation: uixShimmer 1.5s linear infinite;
+  transition: opacity 0.5s ease;
+}
+.uix-skel.uix-gone { opacity: 0; }
+@keyframes uixShimmer { from { background-position: 130% 0, 0 0; } to { background-position: -130% 0, 0 0; } }
+.uix-skel span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 11px/1 "JetBrains Mono", Consolas, monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #67e8f9;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+}
+.uix-skel span i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(34, 211, 238, 0.2);
+  border-top-color: #67e8f9;
+  animation: uixSpin 0.8s linear infinite;
+}
+@keyframes uixSpin { to { transform: rotate(360deg); } }
+
+/* ---------- подсказки вместо системных title ---------- */
+.uix-tip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147483000;
+  max-width: 300px;
+  padding: 7px 11px;
+  border-radius: 10px;
+  font: 500 12px/1.45 "Inter", "Segoe UI", system-ui, sans-serif;
+  color: #e2f3ff;
+  background: rgba(9, 16, 27, 0.97);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65), 0 0 18px rgba(34, 211, 238, 0.12);
+  pointer-events: none;
+  opacity: 0;
+  translate: 0 4px;
+  scale: 0.98;
+  transition: opacity 0.16s ease, translate 0.16s ease, scale 0.16s ease;
+  white-space: pre-line;
+}
+.uix-tip.on { opacity: 1; translate: 0 0; scale: 1; }
+.uix-tip::after {
+  content: "";
+  position: absolute;
+  left: var(--ax, 50%);
+  top: 100%;
+  width: 9px;
+  height: 9px;
+  margin: -5px 0 0 -5px;
+  background: inherit;
+  border-right: 1px solid rgba(34, 211, 238, 0.35);
+  border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+  transform: rotate(45deg);
+}
+.uix-tip.below::after { top: 0; transform: rotate(225deg); }
+
+/* ---------- кнопка «наверх» на длинных вкладках ---------- */
+.uix-top {
+  position: fixed;
+  right: 22px;
+  bottom: 24px;
+  z-index: 9000;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: #67e8f9;
+  background: linear-gradient(160deg, rgba(14, 26, 42, 0.95), rgba(8, 14, 24, 0.95));
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 16px rgba(34, 211, 238, 0.18);
+  cursor: pointer;
+  opacity: 0;
+  translate: 0 14px;
+  scale: 0.9;
+  pointer-events: none;
+  transition: opacity 0.25s ease, translate 0.3s cubic-bezier(0.16, 1, 0.3, 1), scale 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+.uix-top.on { opacity: 1; translate: 0 0; scale: 1; pointer-events: auto; }
+.uix-top:hover { border-color: rgba(103, 232, 249, 0.85); color: #cffafe; }
+
+/* ---------- «Чат ИИ»: плашка подключённого ключа и свёрнутая директива ---------- */
+.chat-key-ok {
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 7px 8px 7px 12px;
+  border-radius: 999px;
+  width: fit-content;
+  font: 600 12px/1.2 "JetBrains Mono", Consolas, monospace;
+  color: #a7f3d0;
+  background: linear-gradient(135deg, rgba(6, 40, 30, 0.85), rgba(6, 22, 28, 0.85));
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.12);
+}
+.chat-key-ok-dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; animation: uixPulseDot 2s ease-in-out infinite; }
+@keyframes uixPulseDot { 50% { opacity: 0.45; } }
+.chat-key-ok .pill-btn { padding: 4px 12px !important; font-size: 11px !important; }
+details.chat-directive > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 6px; }
+details.chat-directive > summary::-webkit-details-marker { display: none; }
+details.chat-directive > summary::after {
+  content: "";
+  margin-left: auto;
+  width: 7px;
+  height: 7px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+}
+details.chat-directive[open] > summary::after { transform: rotate(225deg); }
+.chat-directive-body { margin-top: 6px; opacity: 0.92; }
+
+/* ---------- телефон: верхняя панель помещается в одну строку на узких экранах ---------- */
+@media (max-width: 440px) {
+  html.uix-on .mob-top-bar { gap: 5px !important; padding: 0 8px !important; overflow: hidden; }
+  html.uix-on .mob-top-bar .mob-brand-zone { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 5px; overflow: hidden; }
+  html.uix-on .mob-top-bar .mob-brand-title { display: none !important; }
+  html.uix-on .mob-top-bar .mob-telemetry-pill { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11px !important; min-width: 0; }
+  html.uix-on .mob-top-bar .mob-mode-toggle { flex: 0 0 auto; }
+  html.uix-on .mob-top-bar .mob-mode-btn { padding-left: 9px !important; padding-right: 9px !important; white-space: nowrap; }
+  html.uix-on .mob-top-bar .mob-status-zone, html.uix-on .mob-top-bar .mob-ops-zone { flex: 0 0 auto; display: flex; gap: 4px; }
+  /* «⚡ Меню» → квадратная кнопка-иконка */
+  html.uix-on #btn-mob-actions-open { font-size: 0 !important; width: 36px; min-width: 36px; padding: 0 !important; display: inline-flex; align-items: center; justify-content: center; }
+  html.uix-on #btn-mob-actions-open::before { content: "☰"; font-size: 17px; line-height: 1; }
+}
+
+/* ---------- тактильный отклик и фокус с клавиатуры ---------- */
+html.uix-on button:not(:disabled):active,
+html.uix-on .pill-btn:active,
+html.uix-on .chip:active,
+html.uix-on .btn:active { scale: 0.965; }
+html.uix-on :focus-visible { outline: 2px solid rgba(34, 211, 238, 0.75) !important; outline-offset: 2px !important; }
+html.uix-on ::selection { background: rgba(34, 211, 238, 0.32); color: #ffffff; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.uix-on .uix-clamp, .uix-more i, .uix-top, .uix-tip { transition: none !important; }
+  html.uix-on .tab-pane.uix-enter, .uix-skel, .uix-skel span i { animation: none !important; }
+}
+
+/* ---------- разгрузка шапки (index.html) ---------- */
+/* мобильные «100% / Моб / Меню» на ПК не нужны — они есть в меню «Ещё» */
+@media (min-width: 821px) {
+  html.uix-light-top body header.top-bar .mobile-top-quick-bar { display: none !important; }
+}
+html.uix-light-top body header.top-bar #engineer-top-actions { gap: 5px !important; margin-left: auto !important; }
+html.uix-light-top .uix-kbd {
+  font: 700 9px var(--font-mono, monospace); color: #94A3B8; padding: 1px 5px; border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.04); margin-left: 4px;
+}
+html.uix-light-top #cloud-sync-header-text { display: none !important; }
+html.uix-light-top .uix-sync-short { font-weight: 600; }
+html.uix-light-top .uix-count {
+  min-width: 18px; padding: 0 5px; border-radius: 999px; text-align: center; margin-left: 3px;
+  font: 800 10px var(--font-mono, monospace); color: #04121C; background: #22D3EE;
+}
+/* меню «Ещё» — выпадающее, поверх страницы */
+.vision-tools-menu.uix-menu {
+  position: fixed; z-index: 100000; min-width: 220px; padding: 6px; border-radius: 14px;
+  display: flex; flex-direction: column; gap: 2px;
+  background: rgba(12, 16, 26, 0.96); border: 1px solid rgba(34, 211, 238, 0.28);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 20px rgba(34, 211, 238, 0.1);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  opacity: 0; transform: translateY(-6px) scale(0.98); transform-origin: top right; pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vision-tools-menu.uix-menu.open { opacity: 1; transform: none; pointer-events: auto; }
+.vision-tools-menu.uix-menu > * {
+  display: flex !important; align-items: center; gap: 8px; width: 100%; justify-content: flex-start !important;
+  padding: 8px 10px !important; border-radius: 9px !important; border: 1px solid transparent !important;
+  background: transparent !important; color: #CBD5E1 !important; font-size: 12px !important; font-weight: 600 !important;
+  text-decoration: none !important; box-shadow: none !important; cursor: pointer; white-space: nowrap;
+}
+.vision-tools-menu.uix-menu > *:hover { background: rgba(34, 211, 238, 0.1) !important; color: #FFFFFF !important; border-color: rgba(34, 211, 238, 0.25) !important; }
+
+/* второй ряд кокпита: без повторов — логотип, климат и бренд уже есть в шапке */
+html.uix-light-top #ck-bento-root .ck-greeting > img { display: none !important; }
+html.uix-light-top #ck-bento-root .ck-greeting p { display: none !important; }
+html.uix-light-top #ck-bento-root .ck-header-bar > div:last-child > div:has(#ckHdrTempTxt) { display: none !important; }
+
+/* ---------- разгрузка бокового меню ---------- */
+html body nav.nav-rail[data-uix-light] { justify-content: flex-start !important; gap: 6px !important; }
+nav.nav-rail[data-uix-light] .uix-rail-more {
+  display: flex; flex-direction: column; gap: 6px; overflow: hidden;
+  max-height: 0; opacity: 0; transform: translateY(-6px);
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, transform 0.35s ease;
+  border-top: 1px solid transparent; padding-top: 0;
+}
+nav.nav-rail.uix-more-open .uix-rail-more {
+  max-height: 520px; opacity: 1; transform: none;
+  border-top-color: rgba(255, 255, 255, 0.07); padding-top: 6px;
+}
+nav.nav-rail .uix-rail-toggle .nav-emoji { font-size: 18px; line-height: 1; letter-spacing: 1px; }
+nav.nav-rail .uix-rail-toggle.uix-has-active { color: #22D3EE !important; }
+nav.nav-rail .uix-rail-toggle.uix-has-active::after {
+  content: ""; position: absolute; top: 6px; right: 12px; width: 6px; height: 6px; border-radius: 50%;
+  background: #22D3EE; box-shadow: 0 0 8px #22D3EE;
+}
+nav.nav-rail .uix-rail-toggle { position: relative; }
+html.uix-light-top .uix-ico { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* ---------- анатомия вида в карточках «Виды» и крупный просмотр ---------- */
+.sp-anatomy { position: relative; display: block; width: 100%; margin: 10px 0 4px; padding: 0; border-radius: 12px; overflow: hidden; cursor: zoom-in;
+  border: 1px solid rgba(34, 211, 238, 0.28); background: #05080E; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6); }
+.sp-anatomy img { display: block; width: 100%; aspect-ratio: 376 / 268; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s; filter: saturate(1.05); }
+.sp-anatomy:hover img { transform: scale(1.04); filter: saturate(1.2) brightness(1.05); }
+.sp-anatomy::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(34, 211, 238, 0.16), transparent); transform: translateY(-100%); animation: spScan 4.5s ease-in-out infinite; }
+@keyframes spScan { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(340%); } }
+.sp-anatomy span { position: absolute; left: 8px; bottom: 8px; padding: 2px 8px; border-radius: 6px; font: 800 10px var(--font-mono, monospace); color: #67E8F9; background: rgba(4, 8, 14, 0.85); border: 1px solid rgba(34, 211, 238, 0.4); }
+.uix-lightbox { position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(2, 4, 8, 0.88); backdrop-filter: blur(8px); cursor: zoom-out; animation: uixFade 0.25s ease; }
+.uix-lightbox figure { margin: 0; max-width: min(1100px, 100%); max-height: 100%; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.uix-lightbox img { max-width: 100%; max-height: calc(100vh - 90px); border-radius: 14px; border: 1px solid rgba(34, 211, 238, 0.35); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 211, 238, 0.15); animation: uixZoom 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.uix-lightbox figcaption { color: #CFFAFE; font: 700 13px var(--font-mono, monospace); }
+@keyframes uixFade { from { opacity: 0; } } @keyframes uixZoom { from { transform: scale(0.93); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sp-anatomy::after { animation: none; } }

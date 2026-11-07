@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>ИИ-Советник Технолога • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/><script src="js/knowledge-base.js"></script><script src="js/bio-tomography.js"></script><script src="js/cockpit-pages-fx.js" defer></script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><div class="w-full"><main class="relative w-full min-h-screen bg-surface"><div class="flex flex-col w-full">
+<!-- Sub-header Breadcrumb & Live Phase Ribbon -->
+<div class="w-full bg-surface-container-lowest/90 px-space-lg py-space-sm flex flex-wrap items-center justify-between gap-space-md shadow-md">
+<div class="flex items-center gap-space-md flex-wrap">
+<div class="flex items-center gap-space-xs">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_10px_#00f0ff] animate-ping"></span>
+<span class="font-headline-md text-headline-md tracking-tight text-primary font-bold">ЭТАЛОННЫЙ СОВЕТНИК ТЕХНОЛОГА</span>
+<span class="font-label-code text-label-code text-outline uppercase tracking-wider">/ AIM AGHD-250ELC</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-2 bg-surface-container px-space-sm py-1 rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[16px]">set_meal</span>
+<span id="adv-species-label" class="font-label-caps text-label-caps text-on-surface font-bold">ВИМБА (СЫРТЬ)</span>
+<span class="font-label-code text-label-code text-primary">1 850 кг</span>
+<span class="font-label-caps text-[9px] text-tertiary-container bg-surface-container-high px-1.5 py-0.5 rounded font-bold">СТАДИЯ 2: ВЫТЯЖКА ОТ ХРЕБТА</span>
+</div>
+</div>
+<!-- Live Telemetry Compact Capsules -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-1.5 px-space-xs py-1 rounded-md bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-outline">T КАМ:</span>
+<span class="font-metric-md text-metric-md text-secondary font-bold">+15.8°C</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-xs py-1 rounded-md bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-outline">rH:</span>
+<span class="font-metric-md text-metric-md text-primary font-bold">58%</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-xs py-1 rounded-md bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-outline">VPD:</span>
+<span class="font-metric-md text-metric-md text-tertiary font-bold">0.75 кПа</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-xs py-1 rounded-md bg-tertiary-container/10">
+<span class="material-symbols-outlined text-[15px] text-tertiary-container">payments</span>
+<span class="font-label-caps text-label-caps text-tertiary-container">ЧИСТАЯ ПРИБЫЛЬ:</span>
+<span class="font-metric-md text-metric-md text-tertiary-container font-bold">+19 237 €</span>
+</div>
+</div>
+</div>
+<!-- Operational Mode Quick-Switch Tabs -->
+<div class="w-full bg-surface-container px-space-lg py-2 flex items-center justify-between overflow-x-auto gap-space-md">
+<div class="flex items-center gap-space-xs min-w-max">
+<button class="px-space-md py-1.5 rounded-lg font-label-caps text-label-caps bg-surface-container-highest text-primary-container shadow-[0_0_12px_rgba(0,240,255,0.25)] flex items-center gap-1.5 font-bold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">calculate</span> 1. СУПЕР-РАСЧЕТЧИК
+      </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high flex items-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">groups</span> 2. ЛЮДИ ИЗ КОПТИЛКИ
+      </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high flex items-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">grid_view</span> 3. ШАХМАТКА 15 ТРУЛЕЙ
+      </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-caps text-label-caps bg-primary-container text-on-primary-container shadow-[0_0_16px_rgba(0,240,255,0.35)] flex items-center gap-1.5 font-bold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">view_in_ar</span> 4. ФИЗИКА & РАЗРЕЗ
+      </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high flex items-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">water_drop</span> 5. ВОДОМЕР ТРАПА & ЗУМ
+      </button>
+</div>
+<div class="hidden 2xl:flex items-center gap-2 min-w-max">
+<span class="w-2 h-2 rounded-full bg-tertiary-container shadow-[0_0_8px_#65f2b5]"></span>
+<span class="font-label-code text-label-code text-tertiary">РЕКУПЕРАЦИЯ: ЗИМА (+35°C в цех)</span>
+</div>
+</div>
+<!-- Primary Workspace Bento Grid -->
+<div class="p-space-lg grid grid-cols-1 xl:grid-cols-12 gap-space-lg">
+<!-- TOP ROW LEFT: 3D Tomography Section (7 cols) -->
+<div class="xl:col-span-7 bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm relative overflow-hidden shadow-xl">
+<div class="flex items-center justify-between z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">biotech</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold uppercase tracking-tight">Спектральная Томография и Биофизика Среза</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-tertiary-container/15 text-tertiary font-label-caps text-label-caps font-bold">
+            aw = 0.81 (НОРМА)
+          </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-label-code text-label-code">
+            3D-Twin v4.2
+          </span>
+</div>
+</div>
+<!-- Tomography Graphic Viewport with HUD Callouts -->
+<div class="relative w-full h-[410px] rounded-lg overflow-hidden bg-surface-container-lowest flex items-center justify-center cursor-zoom-in" onclick="if(window.BIO_TOMO){const b=window.ARM_KB&&window.ARM_KB.getSharedBatch?window.ARM_KB.getSharedBatch():null;window.BIO_TOMO.openBioLightbox((b&&b.speciesKey)||'VIMBA');}">
+<img id="tomo-scanner-img" alt="Спектральный срез вяленой рыбы" class="w-full h-full object-cover opacity-90 select-none transition-all duration-300" src="img/vyalka/cut-vimba.jpg" onerror="this.src='vimba-3d.png'"/>
+<!-- Live HUD Scanning Ring Overlay -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute top-4 left-4 pointer-events-none flex flex-col gap-1">
+<span class="font-label-caps text-[9px] text-primary-container tracking-widest uppercase">SCAN FREQ: 9.4 GHz</span>
+<span class="font-label-code text-[11px] text-on-surface-variant font-mono">DENSITY_MAP: AISI-HYBRID</span>
+</div>
+<!-- Callout 1: Липидная кристаллизация -->
+<div class="absolute top-10 left-12 group cursor-pointer transition-all hover:scale-105">
+<div class="flex items-center gap-1.5 bg-surface-container-lowest/85 backdrop-blur-md px-2 py-1 rounded-md shadow-[0_0_12px_rgba(0,240,255,0.3)]">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-primary-container font-bold">ЛИПИДНАЯ КРИСТАЛЛИЗАЦИЯ</span>
+<span class="font-label-code text-[10px] text-on-surface">aw = 0.81 • Янтарный балык спинки</span>
+</div>
+</div>
+</div>
+<!-- Callout 2: Хребтовая кость -->
+<div class="absolute top-20 right-16 group cursor-pointer transition-all hover:scale-105">
+<div class="flex items-center gap-1.5 bg-surface-container-lowest/85 backdrop-blur-md px-2 py-1 rounded-md shadow-[0_0_12px_rgba(245,158,11,0.3)]">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-secondary font-bold">ХРЕБТОВАЯ КОСТЬ</span>
+<span class="font-label-code text-[10px] text-on-surface">Влажность ядра: 48.5% (Игольчатый датчик)</span>
+</div>
+</div>
+</div>
+<!-- Callout 3: ИК-пирометр шкуры -->
+<div class="absolute bottom-16 left-8 group cursor-pointer transition-all hover:scale-105">
+<div class="flex items-center gap-1.5 bg-surface-container-lowest/85 backdrop-blur-md px-2 py-1 rounded-md shadow-[0_0_12px_rgba(101,242,181,0.3)]">
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-ping"></span>
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-tertiary-container font-bold">ИК-ПИРОМЕТР ШКУРЫ</span>
+<span class="font-label-code text-[10px] text-tertiary">14.5°C [ΔT = +1.3°C испарение]</span>
+</div>
+</div>
+</div>
+<!-- Callout 4: Ястык икры -->
+<div class="absolute bottom-14 right-20 group cursor-pointer transition-all hover:scale-105">
+<div class="flex items-center gap-1.5 bg-surface-container-lowest/85 backdrop-blur-md px-2 py-1 rounded-md shadow-[0_0_12px_rgba(238,152,0,0.3)]">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-secondary-fixed font-bold">ЯСТЫК ИКРЫ</span>
+<span class="font-label-code text-[10px] text-on-surface">Равномерный выход влаги • Осадка 100%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tomography Quality Conclusion Bar -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">verified</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">
+            ЭТАЛОННАЯ ЯНТАРНО-СТЕКЛОВИДНАЯ СЛЕЗА БЕЗ БЕЛЕСЫХ ПЯТЕН
+          </span>
+</div>
+<span class="font-label-caps text-[10px] text-outline font-bold">СПЕКТР: 98.4% СООТВЕТСТВИЯ СТАНДАРТУ</span>
+</div>
+</div>
+<!-- TOP ROW RIGHT: AI Live Advisor Terminal & Fast Controls (5 cols) -->
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<!-- AI Advisor Terminal Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between shadow-xl relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-[18px]">psychology</span>
+</div>
+<div>
+<span class="font-headline-md text-headline-md text-primary font-bold">СОВЕТ ТЕХНОЛОГУ (AI LIVE ADVISOR)</span>
+<p class="font-label-caps text-[9px] text-outline">НЕЙРОСЕТЕВОЙ МОНИТОРИНГ • JURMALCIEMS v2.5</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-tertiary font-label-code text-label-code">
+            1#EEV: 315 STEP
+          </span>
+</div>
+<!-- Terminal Output Screen -->
+<div class="p-space-md rounded-lg bg-surface-container-lowest font-body-sm text-body-sm leading-relaxed text-on-surface shadow-inner">
+<p class="text-on-surface">
+            Партия <span class="text-primary font-semibold">Вимба (Сырть) (1 850 кг, Стадия 2, рекуперация: Зима 14 кВт в цех)</span> идет в оптимальном биотехнологическом коридоре: 
+            <span class="text-secondary font-mono">Environment 15.8°C</span>, 
+            <span class="text-tertiary font-mono">Чешуя 14.5°C [ΔT = +1.3°C]</span>, 
+            <span class="text-primary font-mono">Влагомер хребта 48.5%</span>, 
+            <span class="text-tertiary-fixed font-mono">Parkside rH 58%</span>, 
+            <span class="text-on-surface font-mono">T_росы 7.6°C</span>, 
+            <span class="text-primary-container font-mono">VPD 0.75 кПа</span>.
+          </p>
+<div class="mt-2 pt-2 bg-surface-container/40 p-2 rounded">
+<span class="text-tertiary-container font-bold">✅ ВЕРДИКТ:</span> Рисков закала и подпарки нет. Капля жира у анального отверстия при сухой чешуе является технологической нормой. 1#EEV = 315 step в расчетном окне. Удерживайте Стадию 2 на Контуре №1 до полки 56–60% rH.
+          </div>
+</div>
+<!-- Tactical Fast Buttons -->
+<div class="grid grid-cols-2 gap-space-xs mt-space-md">
+<button class="py-2 px-space-xs rounded-lg bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold hover:brightness-110 flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(0,240,255,0.3)] transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span> ✨ Совет ИИ (15.8°C)
+          </button>
+<button class="py-2 px-space-xs rounded-lg bg-surface-container-high text-on-surface font-label-caps text-label-caps hover:bg-surface-container-highest flex items-center justify-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span> 📋 Копировать
+          </button>
+<button class="py-2 px-space-xs rounded-lg bg-surface-container-high text-on-surface font-label-caps text-label-caps hover:bg-surface-container-highest flex items-center justify-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span> ⬇ Экспорт отчета (CSV)
+          </button>
+<button class="py-2 px-space-xs rounded-lg bg-surface-container-high text-tertiary font-label-caps text-label-caps hover:bg-surface-container-highest flex items-center justify-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark_add</span> 🔖 В журнал Parkside
+          </button>
+</div>
+</div>
+<!-- 4-Point Biophysical Status Diagnostics -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-outline uppercase">1. РИСК ЗАКАЛА ЧЕШУИ</span>
+<span class="font-metric-md text-metric-md text-tertiary font-bold">НОРМА (0.00)</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container text-[22px]">check_circle</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-outline uppercase">2. РИСК ПОДПАРКИ ТУШКИ</span>
+<span class="font-metric-md text-metric-md text-tertiary font-bold">НОРМА (0.00)</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container text-[22px]">format_image_left</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-outline uppercase">3. 1#EEV & 1#DEHUMICOIL</span>
+<span class="font-metric-md text-metric-md text-primary font-bold">+5.1°C (OK)</span>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[22px]">ac_unit</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-[9px] text-outline uppercase">4. СЛЕДУЮЩАЯ СТАДИЯ</span>
+<span class="font-metric-md text-metric-md text-secondary font-bold">КОНТРОЛЬ (~14 ч)</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[22px]">pending_actions</span>
+</div>
+</div>
+</div>
+<!-- MIDDLE ROW LEFT: 3D CAD Aerodynamic & Thermodynamic Cutaway (7 cols) -->
+<div class="xl:col-span-7 bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm shadow-xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">hvac</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold uppercase tracking-tight">3D CAD-Схема Камеры & Аэродинамики AIM AGHD-250ELC</span>
+</div>
+<span class="font-label-caps text-[10px] text-outline font-bold">МОДУЛЬ РЕГЕНЕРАЦИИ ТЕПЛА</span>
+</div>
+<!-- Cutaway Render Viewport -->
+<div class="relative w-full h-[320px] rounded-lg overflow-hidden bg-surface-container-lowest flex items-center justify-center">
+<img alt="CAD-разрез моноблока AIM AGHD-250ELC" class="w-full h-full object-cover" src="chamber-3d.png"/>
+<!-- Live Parameter Badges overlaying CAD components -->
+<div class="absolute top-4 left-4 bg-surface-container-lowest/80 backdrop-blur-md px-2.5 py-1 rounded">
+<span class="font-label-caps text-[9px] text-primary-container font-bold uppercase">4× Cantoni 3 кВт</span>
+<p class="font-label-code text-[10px] text-on-surface font-mono">30 Гц • 2.8 м/с обдув</p>
+</div>
+<div class="absolute top-4 right-4 bg-surface-container-lowest/80 backdrop-blur-md px-2.5 py-1 rounded">
+<span class="font-label-caps text-[9px] text-secondary font-bold uppercase">Рекуператор Зима</span>
+<p class="font-label-code text-[10px] text-on-surface font-mono">14 кВт в цех (+35°C)</p>
+</div>
+<div class="absolute bottom-4 left-1/3 bg-surface-container-lowest/80 backdrop-blur-md px-2.5 py-1 rounded">
+<span class="font-label-caps text-[9px] text-primary font-bold uppercase">1#Dehumicoil</span>
+<p class="font-label-code text-[10px] text-on-surface font-mono">T_исп: +5.1°C • EEV: 315 st</p>
+</div>
+<div class="absolute bottom-4 right-1/4 bg-surface-container-lowest/80 backdrop-blur-md px-2.5 py-1 rounded">
+<span class="font-label-caps text-[9px] text-tertiary-container font-bold uppercase">Трап SS304</span>
+<p class="font-label-code text-[10px] text-on-surface font-mono">Слив: -6.4 л/ч конденсата</p>
+</div>
+</div>
+<!-- Footer Telemetric Micro-Bar for CAD -->
+<div class="grid grid-cols-4 gap-space-xs pt-1">
+<div class="bg-surface-container px-2 py-1.5 rounded flex flex-col">
+<span class="font-label-caps text-[8px] text-outline">КОМПРЕССОР</span>
+<span class="font-label-code text-[11px] text-on-surface font-bold">Panasonic Scroll OK</span>
+</div>
+<div class="bg-surface-container px-2 py-1.5 rounded flex flex-col">
+<span class="font-label-caps text-[8px] text-outline">ХЛАДАГЕНТ</span>
+<span class="font-label-code text-[11px] text-primary font-bold">R410A • 18.2 bar</span>
+</div>
+<div class="bg-surface-container px-2 py-1.5 rounded flex flex-col">
+<span class="font-label-caps text-[8px] text-outline">СКОРОСТЬ ВОЗДУХА</span>
+<span class="font-label-code text-[11px] text-tertiary font-bold">2.8 м/с Равномерно</span>
+</div>
+<div class="bg-surface-container px-2 py-1.5 rounded flex flex-col">
+<span class="font-label-caps text-[8px] text-outline">МАТЕРИАЛ КОРПУСА</span>
+<span class="font-label-code text-[11px] text-on-surface font-bold">AISI 304 Пищевая</span>
+</div>
+</div>
+</div>
+<!-- MIDDLE ROW RIGHT: Gauges & Physical Control Panel (5 cols) -->
+<div class="xl:col-span-5 bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between shadow-xl">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">speed</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold uppercase tracking-tight">Биофизический Контроль Тушки</span>
+</div>
+<span class="font-label-caps text-[9px] text-tertiary-container bg-surface-container-high px-2 py-0.5 rounded font-bold">ЗОЛОТАЯ ЗОНА VPD</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md my-space-sm items-center">
+<!-- Semi-circle Analog-Style SVG Speedometer for VPD -->
+<div class="flex flex-col items-center justify-center p-space-sm bg-surface-container rounded-lg">
+<div class="relative w-36 h-20 flex items-end justify-center">
+<svg class="w-36 h-20" viewbox="0 0 100 55">
+<!-- Arc Background -->
+<path class="text-surface-variant" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="currentColor" stroke-width="8"></path>
+<!-- Safe Target Zone Arc (0.5 - 0.95 kPa) -->
+<path class="text-tertiary-container/30" d="M 32 23 A 40 40 0 0 1 76 30" fill="none" stroke="currentColor" stroke-width="8"></path>
+<!-- Active Progress Arc (0.75 kPa) -->
+<path class="text-primary-container" d="M 10 50 A 40 40 0 0 1 65 17" fill="none" stroke="currentColor" stroke-width="8"></path>
+</svg>
+<div class="absolute bottom-0 flex flex-col items-center">
+<span class="font-metric-display text-metric-display text-primary leading-none">0.75</span>
+<span class="font-label-caps text-[9px] text-outline">кПа VPD</span>
+</div>
+</div>
+<span class="font-label-code text-[10px] text-tertiary mt-2">Коридор: 0.50 – 0.95 кПа</span>
+</div>
+<!-- Sliders & Interactive Physical Indicators -->
+<div class="flex flex-col gap-space-sm">
+<!-- Skin Pyrometer Readout -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-outline">ПИРОМЕТР ЧЕШУИ</span>
+<span class="font-label-code text-label-code text-tertiary font-bold">14.5°C</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary-container h-full rounded-full" style="width: 58%;"></div>
+</div>
+<span class="font-label-caps text-[8px] text-tertiary-container leading-none">ΔT = +1.3°C ИСПАРИТЕЛЬНОЕ ОХЛАЖДЕНИЕ</span>
+</div>
+<!-- Spine Needle Probe Readout -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[10px] text-outline">ВЛАГОМЕР ХРЕБТА</span>
+<span class="font-label-code text-label-code text-secondary font-bold">48.5%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 48.5%;"></div>
+</div>
+<span class="font-label-caps text-[8px] text-secondary leading-none">ЦЕЛЬ СТАДИИ 2: 44.0%</span>
+</div>
+</div>
+</div>
+<!-- Collapsible Psychrometer Formula Box (Regnault equation) -->
+<details class="bg-surface-container rounded-lg p-space-sm group cursor-pointer">
+<summary class="font-label-caps text-label-caps text-on-surface font-semibold flex items-center justify-between list-none">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">functions</span>
+            САМОДЕЛЬНЫЙ ПСИХРОМЕТР (ФОРМУЛА РЕНЬО)
+          </span>
+<span class="material-symbols-outlined text-[16px] transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="pt-2 mt-2 font-label-code text-[11px] text-on-surface-variant flex flex-col gap-1">
+<p>e = E' - A · P · (T_сух - T_вл)</p>
+<p class="text-tertiary">T_сух: +15.8°C • T_вл: +11.2°C • Депрессия: 4.6°C • Расчетная rH: 58.1%</p>
+<p class="text-outline text-[10px]">Коэффициент формулы согласован с калибровкой датчика Parkside rH.</p>
+</div>
+</details>
+</div>
+<!-- BOTTOM ROW: Monolith Geometry 15 Trolleys (3x5) & Drying Curve Matrix (12 cols) -->
+<div class="xl:col-span-12 bg-surface-container-low rounded-xl p-space-md shadow-xl flex flex-col gap-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">grid_4x4</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold uppercase tracking-tight">
+            Геометрия Монолита: 15 Тележек (3×5) • СОП Рокировки & Кривая Сушки
+          </span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-label-caps text-label-caps">
+            ПЛЕНУМ ВХОДА: 60 см (СЛЕВА)
+          </span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-label-caps text-label-caps">
+            БУФЕР ВЫХОДА: 50 см (СПРАВА)
+          </span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Visual Trolley SS304 Matrix (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase font-bold">Шахматка расстановки (Ряды 1..5 × Линии А, Б, В)</span>
+<span class="font-label-code text-[11px] text-tertiary">15 / 15 В РАБОТЕ</span>
+</div>
+<!-- 3x5 Trolley Layout Table / Grid -->
+<div class="grid grid-cols-5 gap-2 bg-surface-container-lowest p-space-sm rounded-lg">
+<!-- Row 1 -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-label-caps text-[8px] text-outline">РЯД 1</span>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">1A</div>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">1Б</div>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">1В</div>
+</div>
+<!-- Row 2 -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-label-caps text-[8px] text-outline">РЯД 2</span>
+<div class="w-full h-8 rounded bg-primary-container/30 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">2A</div>
+<div class="w-full h-8 rounded bg-primary-container/30 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">2Б</div>
+<div class="w-full h-8 rounded bg-primary-container/30 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">2В</div>
+</div>
+<!-- Row 3 (Focus Center) -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-label-caps text-[8px] text-secondary font-bold">РЯД 3 ★</span>
+<div class="w-full h-8 rounded bg-secondary/30 flex items-center justify-center font-label-code text-[10px] text-secondary font-bold shadow-[0_0_8px_rgba(245,158,11,0.2)]">3A</div>
+<div class="w-full h-8 rounded bg-secondary/40 flex items-center justify-center font-label-code text-[10px] text-secondary font-bold shadow-[0_0_8px_rgba(245,158,11,0.3)]">3Б</div>
+<div class="w-full h-8 rounded bg-secondary/30 flex items-center justify-center font-label-code text-[10px] text-secondary font-bold shadow-[0_0_8px_rgba(245,158,11,0.2)]">3В</div>
+</div>
+<!-- Row 4 -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-label-caps text-[8px] text-outline">РЯД 4</span>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">4A</div>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">4Б</div>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">4В</div>
+</div>
+<!-- Row 5 -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-label-caps text-[8px] text-outline">РЯД 5</span>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">5A</div>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">5Б</div>
+<div class="w-full h-8 rounded bg-primary-container/20 flex items-center justify-center font-label-code text-[10px] text-primary font-bold shadow-sm">5В</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-caps text-[9px] px-1">
+<span>◄ ВХОД ВОЗДУХА (ПЛЕНУМ 60 см)</span>
+<span>ШТОРКИ ПЕРЕКРЫТИЯ: АКТИВНЫ</span>
+<span>ВЫХОД ВОЗДУХА ►</span>
+</div>
+</div>
+<!-- Real Stainless Steel Trolley Realistic Preview (2 cols) -->
+<div class="lg:col-span-2 relative h-48 lg:h-auto rounded-lg overflow-hidden bg-surface-container-lowest flex items-center justify-center">
+<img alt="Тележка SS304 (Труль AISI 304) загруженная рыбой" class="trolley-3d-img w-full h-full object-cover" data-trolley-3d="1" src="trolley-3d.png"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-2 right-2 bg-surface-container-lowest/80 backdrop-blur-md p-1.5 rounded flex items-center justify-between">
+<span class="font-label-caps text-[8px] text-primary-container font-bold uppercase">ТЕЛЕЖКА 3Б</span>
+<span class="font-label-code text-[9px] text-on-surface">123 кг сырья</span>
+</div>
+</div>
+<!-- Drying Curve Timeline Chart & Parkside Log Corridor (5 cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-xs bg-surface-container p-space-sm rounded-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">show_chart</span>
+<span class="font-label-caps text-label-caps text-on-surface font-bold uppercase">Эталонный Зеленый Коридор Сушки</span>
+</div>
+<span class="font-label-caps text-[9px] text-tertiary-container bg-surface-container-highest px-1.5 py-0.5 rounded font-bold">
+              ФИНИШ: KOMET PLUSVAC 25
+            </span>
+</div>
+<!-- Inline Dynamic SVG Graph for Moisture & Phase Decay -->
+<div class="w-full h-28 bg-surface-container-lowest rounded p-2 relative flex items-center justify-center">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 300 80">
+<!-- Safe Process Corridor Envelope -->
+<polygon class="text-tertiary-container/10" fill="currentColor" points="0,15 100,30 200,50 300,68 300,78 200,60 100,42 0,25"></polygon>
+<!-- Phase Divider Markers -->
+<line class="text-outline-variant" stroke="currentColor" stroke-dasharray="2,2" x1="80" x2="80" y1="0" y2="80"></line>
+<line class="text-outline-variant" stroke="currentColor" stroke-dasharray="2,2" x1="180" x2="180" y1="0" y2="80"></line>
+<line class="text-outline-variant" stroke="currentColor" stroke-dasharray="2,2" x1="260" x2="260" y1="0" y2="80"></line>
+<!-- Target Golden Curve -->
+<path class="text-tertiary-container" d="M 0,20 Q 80,35 150,47 T 300,72" fill="none" stroke="currentColor" stroke-width="2"></path>
+<!-- Current Actual Progress Line -->
+<path class="text-primary-container" d="M 0,18 Q 70,33 130,45" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+<!-- Current Live Point Node -->
+<circle class="text-primary-container animate-ping" cx="130" cy="45" fill="currentColor" r="4"></circle>
+<circle class="text-surface-container-lowest" cx="130" cy="45" fill="currentColor" r="3"></circle>
+</svg>
+<div class="absolute bottom-1 right-2 font-label-code text-[9px] text-outline">
+              ФАКТ: 48.5% ВЛАГИ [СТАДИЯ 2]
+            </div>
+</div>
+<!-- Parkside Log Entry Mini-Status -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-[9px] text-outline">ЖУРНАЛ PARKSIDE:</span>
+<span class="font-label-code text-[10px] text-on-surface">Замер #42 • 14:00 • Чешуя: 14.5°C</span>
+</div>
+<button class="text-primary font-label-caps text-[9px] hover:underline flex items-center gap-0.5" type="button">
+              Подробнее <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><script src="js/draw-trolley.js"></script><script src="js/stitch-cockpits.js"></script></main></div></body></html>

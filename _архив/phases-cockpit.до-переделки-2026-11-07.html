@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>АРМ Технолога • Юрмалциемс</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<style>
+    body {
+      background-color: #080c14;
+      color: #e2e8f0;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    .neon-border-cyan {
+      box-shadow: 0 0 14px rgba(0, 240, 255, 0.15), inset 0 0 1px rgba(0, 240, 255, 0.4);
+    }
+    .neon-glow-active {
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.28), 0 0 4px rgba(0, 240, 255, 0.8);
+    }
+    @keyframes orbRotate {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.04); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    .orb-anim {
+      animation: orbRotate 12s linear infinite;
+    }
+    @keyframes barPulse {
+      0%, 100% { transform: scaleY(0.4); }
+      50% { transform: scaleY(1); }
+    }
+    .eq-bar {
+      transform-origin: bottom;
+      animation: barPulse 1.2s ease-in-out infinite;
+    }
+  </style>
+<meta content="web_dashboard" name="shell-type"/><link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/><script src="js/knowledge-base.js"></script><script src="js/cockpit-pages-fx.js" defer></script></head>
+<body class="min-h-screen bg-[#070b13]">
+<div class="w-full flex flex-col min-w-0 bg-[#070b13]">
+<main class="flex-1 p-3.5 space-y-3.5 overflow-y-auto"><div class="flex flex-col w-full space-y-4">
+<!-- TOP HERO STAT BENTO BAR -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+<!-- Stat 1: Общее время цикла -->
+<div class="bg-surface-container/90 rounded-xl p-3.5 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Общее время 8 фаз MCGS</span>
+<span class="px-2 py-0.5 rounded bg-primary-container/15 text-primary-container font-label-caps text-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+          ФАЗА 02 АКТИВНА
+        </span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-2">
+<span class="text-on-surface font-metric-display text-metric-display text-primary">28,5 ч</span>
+<span class="text-on-surface-variant font-label-code text-label-code">(1,19 сут)</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Сушка: 12 ч • Паузы: 4,5 ч • Буфер Ф8: 12 ч</p>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 22%"></div>
+</div>
+</div>
+<!-- Stat 2: Энергопотребление -->
+<div class="bg-surface-container/90 rounded-xl p-3.5 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Расчетное потребление (8 фаз)</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-label-caps text-label-caps">
+          Cantoni 4×3 кВт
+        </span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-2">
+<span class="text-secondary font-metric-display text-metric-display">~289 кВт·ч</span>
+<span class="text-on-surface-variant font-label-code text-label-code">(266–311)</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Сушка: 17–19 кВт • Пауза VFD: 1,8–2,4 кВт</p>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 38%"></div>
+</div>
+</div>
+<!-- Stat 3: Влагосъем текущей стадии -->
+<div class="bg-surface-container/90 rounded-xl p-3.5 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Влагосъем текущей стадии</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/15 text-tertiary-fixed-dim font-label-caps text-label-caps">
+          EEV 315 steps
+        </span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-2">
+<span class="text-tertiary-fixed-dim font-metric-display text-metric-display">~228 л</span>
+<span class="text-on-surface-variant font-label-code text-label-code">воды</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">32% от общего съема партии (684–740 л)</p>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-tertiary-fixed-dim h-full rounded-full" style="width: 32%"></div>
+</div>
+</div>
+<!-- Stat 4: Партия и выход -->
+<div class="bg-surface-container/90 rounded-xl p-3.5 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">Готовая продукция (Вимба)</span>
+<span class="px-2 py-0.5 rounded bg-primary-container/15 text-primary font-label-caps text-label-caps">
+          Норма: 60–63%
+        </span>
+</div>
+<div class="my-2">
+<div class="flex items-baseline gap-2">
+<span class="text-primary font-metric-display text-metric-display">1 110–1 166</span>
+<span class="text-on-surface-variant font-label-code text-label-code">кг</span>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Исходная загрузка: 1 850 кг сырца (3×5 монолит)</p>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 61%"></div>
+</div>
+</div>
+</section>
+<!-- STRICT BIOPHYSICAL WARNING BANNER -->
+<section class="bg-surface-container-low rounded-xl p-3 shadow-md">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-error-container/40 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error text-lg" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-error">Жесткое биофизическое правило закрытого контура (MCGS)</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-highest text-on-surface-variant font-label-code text-label-code">СТАДИИ 1–3</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            На Стадиях 1–3 <span class="text-error font-medium">ЗАПРЕЩЕНО</span> ставить паузы длиннее <span class="text-on-surface font-label-code text-label-code">1.5–2.0 ч</span>. При закрытом контуре за 25 мин влажность достигает <span class="text-primary">85% rH</span> — рыба задыхается без влагосъема! Пауза 4 ч разрешена <span class="text-secondary font-medium">ТОЛЬКО</span> на Стадии 4 (Отволаживание).
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-2 shrink-0 self-end lg:self-center">
+<span class="px-2 py-1 rounded bg-surface-container font-label-code text-label-code text-primary">
+          Ст.1: 1.0ч • Ст.2: 1.5ч • Ст.3: 2.0ч
+        </span>
+</div>
+</div>
+</section>
+<!-- 8-PHASE MCGS MASTER TABLE -->
+<section class="bg-surface-container/90 rounded-xl shadow-xl overflow-hidden">
+<!-- Header strip with controls -->
+<div class="p-3 bg-surface-container-high/60 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-sm"></span>
+<span class="font-headline-md text-headline-md text-on-surface">ТАБЛИЦА 8 ФАЗ MCGS • СТ.2 (3ч / 1.5ч)</span>
+</div>
+<span class="text-on-surface-variant font-label-code text-label-code">Вимба (Сырть) (1 850 кг → 1 110–1 166 кг)</span>
+</div>
+<div class="flex items-center gap-2.5">
+<label class="flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container-lowest cursor-pointer select-none">
+<input checked="" class="rounded bg-surface-container text-primary-container focus:ring-0 w-3.5 h-3.5" id="joint-load-toggle" type="checkbox"/>
+<span class="font-label-code text-label-code text-primary">Совместно с вимбой (Вкл)</span>
+</label>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-code text-label-code flex items-center gap-1.5 transition-colors shadow-sm" id="btn-copy-table">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+<span>Копировать таблицу</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-headline-md text-body-md font-bold flex items-center gap-1.5 shadow-md hover:bg-primary-fixed transition-all" id="btn-write-mcgs">
+<span class="material-symbols-outlined text-sm">upload_file</span>
+<span>Записать в MCGS</span>
+</button>
+</div>
+</div>
+<!-- Table Grid -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-lowest text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">
+<th class="py-2.5 px-3">Фаза</th>
+<th class="py-2.5 px-3">Режим</th>
+<th class="py-2.5 px-3">Темп.</th>
+<th class="py-2.5 px-3">Влажность</th>
+<th class="py-2.5 px-3">Время</th>
+<th class="py-2.5 px-3" title="Минутный таймер компрессора в каждом часе фазы">Dehumi / PauseD (м)</th>
+<th class="py-2.5 px-3">Cantoni VFD</th>
+<th class="py-2.5 px-3">Контуры / Логика</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/40 font-label-code text-label-code" id="pc-mcgs-tbody">
+<tr><td colspan="8" class="py-3 px-3 text-on-surface-variant">Таблица строится генератором программы (главное окно АРМ)…</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 3D CHAMBER AERODYNAMICS MIMIC & CUTAWAY SCHEMATIC -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
+<!-- Visual 3D Chamber View -->
+<div class="lg:col-span-8 bg-surface-container/90 rounded-xl p-3.5 shadow-xl flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">view_in_ar</span>
+<span class="font-headline-md text-headline-md text-on-surface">3D Двойник Камеры AIM AGHD-250ELC • Аэродинамический срез</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary-container/15 text-primary font-label-code text-label-code">AISI 304 Стены</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-label-code text-label-code">VFD: 30.0 Гц</span>
+</div>
+</div>
+<!-- Cutaway Render with Overlay HUD Callouts -->
+<div class="relative w-full rounded-lg overflow-hidden bg-surface-container-lowest">
+<img alt="3D Cutaway of industrial fish drying chamber with dehumidifier, condensation coil and fish trolleys" class="w-full h-auto max-h-[380px] object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity" src="chamber-3d.png"/>
+<!-- Interactive Telemetry Overlays directly over equipment -->
+<div class="absolute top-3 left-3 bg-surface-container-lowest/80 backdrop-blur-md p-2 rounded-lg text-left shadow-lg">
+<div class="flex items-center gap-1.5 text-primary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-xs">air</span>
+<span>НАПОР CANTONI 4×3 кВт</span>
+</div>
+<div class="font-metric-md text-metric-md text-on-surface">2.8 м/с <span class="text-on-surface-variant text-label-code font-label-code">в межтележечных зазорах</span></div>
+</div>
+<div class="absolute bottom-3 left-3 bg-surface-container-lowest/80 backdrop-blur-md p-2 rounded-lg text-left shadow-lg">
+<div class="flex items-center gap-1.5 text-primary-container font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-xs">water_drop</span>
+<span>ОСУШИТЕЛЬ V-БЛОК</span>
+</div>
+<div class="font-metric-md text-metric-md text-primary-container">Тр: +5.2°C <span class="text-on-surface-variant text-label-code font-label-code">• Сток: 6.4 л/ч</span></div>
+</div>
+<div class="absolute bottom-3 right-3 bg-surface-container-lowest/80 backdrop-blur-md p-2 rounded-lg text-right shadow-lg">
+<div class="flex items-center justify-end gap-1.5 text-secondary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-xs">heat_pump</span>
+<span>КОМПРЕССОР SCROLL</span>
+</div>
+<div class="font-metric-md text-metric-md text-secondary">R410A • Pe = 8.4 бар • Pc = 22.1 бар</div>
+</div>
+</div>
+<!-- Quick Telemetry Tickers underneath the image -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3 pt-2">
+<div class="bg-surface-container-lowest p-2 rounded-lg">
+<span class="text-on-surface-variant font-label-caps text-label-caps block">ПЛЕНУМ РАЗГОНА</span>
+<span class="text-primary font-label-code text-label-code font-bold">50–70 см (Слева)</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg">
+<span class="text-on-surface-variant font-label-caps text-label-caps block">БУФЕР ВСАСЫВАНИЯ</span>
+<span class="text-primary font-label-code text-label-code font-bold">50 см (Справа)</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg">
+<span class="text-on-surface-variant font-label-caps text-label-caps block">ПОЛОЖЕНИЕ БРЮШЕК</span>
+<span class="text-tertiary-fixed-dim font-label-code text-label-code font-bold">Влево (в набегающий поток)</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-lg">
+<span class="text-on-surface-variant font-label-caps text-label-caps block">БОКОВЫЕ ШТОРКИ</span>
+<span class="text-secondary font-label-code text-label-code font-bold">100% Перекрыто (нет байпаса)</span>
+</div>
+</div>
+</div>
+<!-- Quick Live Status & Stepper Control Matrix -->
+<div class="lg:col-span-4 bg-surface-container/90 rounded-xl p-3.5 shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-2">
+<span class="font-headline-md text-headline-md text-on-surface">Пульт Контроллера</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/15 text-tertiary-fixed-dim font-label-code text-label-code">Modbus RTU: OK</span>
+</div>
+<div class="space-y-3 mt-3">
+<!-- Step 1 Cantoni VFD Speed -->
+<div class="bg-surface-container-lowest p-3 rounded-lg">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ЧАСТОТА ВЕНТИЛЯТОРОВ (CANTONI)</span>
+<span class="font-metric-md text-metric-md text-primary font-bold" id="vfd-display">30.0 Гц (9.0V)</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center font-bold text-lg select-none transition-colors" id="vfd-minus">-</button>
+<div class="flex-1 bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all" id="vfd-bar" style="width: 60%"></div>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center font-bold text-lg select-none transition-colors" id="vfd-plus">+</button>
+</div>
+</div>
+<!-- Step 2 Target Temp -->
+<div class="bg-surface-container-lowest p-3 rounded-lg">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">УСТАВКА ТЕМПЕРАТУРЫ (T_SET)</span>
+<span class="font-metric-md text-metric-md text-secondary font-bold" id="temp-display">+15.8 °C</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center font-bold text-lg select-none transition-colors" id="temp-minus">-</button>
+<div class="flex-1 bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all" id="temp-bar" style="width: 48%"></div>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface flex items-center justify-center font-bold text-lg select-none transition-colors" id="temp-plus">+</button>
+</div>
+</div>
+<!-- Step 3 Chamber VPD Telemetry Real-time -->
+<div class="bg-surface-container-lowest p-3 rounded-lg flex items-center justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block">ДЕФИЦИТ ДАВЛЕНИЯ ПАРА (VPD)</span>
+<span class="font-metric-lg text-metric-lg text-tertiary-fixed-dim font-bold">0.75 кПа</span>
+</div>
+<div class="text-right font-label-code text-label-code text-on-surface-variant">
+<span>Целевая зона:</span><br/>
+<span class="text-primary font-bold">0.65–0.85 кПа</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 flex flex-col gap-2">
+<button class="w-full py-2.5 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-code text-label-code flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-sm">restart_alt</span>
+<span>Принудительный перезапуск фазы</span>
+</button>
+<button class="w-full py-2.5 rounded-lg bg-error-container text-on-error font-label-code text-label-code font-bold flex items-center justify-center gap-2 hover:bg-error transition-colors shadow-md">
+<span class="material-symbols-outlined text-sm">power_settings_new</span>
+<span>АВАРИЙНЫЙ СТОП СУШИЛКИ</span>
+</button>
+</div>
+</div>
+</section>
+<!-- MONOLITH GEOMETRY (15 TROLLEYS 3x5) & ROTATION MATRIX (СОП) -->
+<section class="bg-surface-container/90 rounded-xl p-4 shadow-xl">
+<div class="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">dataset</span>
+<div>
+<span class="font-headline-md text-headline-md text-on-surface">ГЕОМЕТРИЯ МОНОЛИТА (15 ТЕЛЕЖЕК 3×5) И СОП СУТОЧНОЙ РОКИРОВКИ</span>
+<span class="text-on-surface-variant font-label-code text-label-code block">Памятка 8-го шага контроллера MCGS</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-secondary-container/20 text-secondary font-label-code text-label-code">
+          Совместно с вимбой (Вимба Р1–3 + Плотва Р4–5)
+        </span>
+</div>
+</div>
+<!-- Directional Indicator Banner -->
+<div class="bg-surface-container-lowest p-2 rounded-lg text-center font-label-code text-label-code text-secondary mb-3 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">west</span>
+<span>ЛЕВЫЙ/ВЕРХНИЙ БОКОВОЙ КОРИДОР ПЕРЕКРЫТ ШТОРКАМИ • БРЮШКИ РЫБЫ ВСЕГДА ВЛЕВО (В ПОТОК) • ПРАВЫЙ КОРИДОР ПЕРЕКРЫТ</span>
+<span class="material-symbols-outlined text-sm">east</span>
+</div>
+<!-- 15 Trolleys 3x5 Layout Diagram -->
+<div class="grid grid-cols-1 md:grid-cols-7 gap-2 items-center">
+<!-- Plenum Column -->
+<div class="bg-surface-container-lowest p-3 rounded-lg text-center flex flex-col justify-center min-h-[140px] md:h-full">
+<span class="font-label-caps text-label-caps text-primary uppercase block">Слева у скоса</span>
+<span class="font-metric-md text-metric-md text-primary font-bold my-1">ПЛЕНУМ РАЗГОНА</span>
+<span class="font-label-code text-label-code text-on-surface-variant">50–70 см</span>
+<span class="font-body-sm text-body-sm text-secondary mt-1">Напор Cantoni 4×3 кВт (30 Гц)</span>
+</div>
+<!-- Row 1: Vimba (2t) -->
+<div class="bg-surface-container-high/60 p-2 rounded-lg flex flex-col gap-1.5">
+<div class="text-center font-label-code text-label-code text-primary font-bold">РЯД 1 • Вимба (2 т)</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №1</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №2</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №3</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<span class="font-label-caps text-[9px] text-center text-on-surface-variant">Рокировка ↔ Ряд 3</span>
+</div>
+<!-- Row 2: Vimba (2t) -->
+<div class="bg-surface-container-high/60 p-2 rounded-lg flex flex-col gap-1.5">
+<div class="text-center font-label-code text-label-code text-primary font-bold">РЯД 2 • Вимба (2 т)</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №4</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №5</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №6</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<span class="font-label-caps text-[9px] text-center text-on-surface-variant">Рокировка ↔ Ряд 3</span>
+</div>
+<!-- Row 3: Vimba (2t) -->
+<div class="bg-surface-container-high/60 p-2 rounded-lg flex flex-col gap-1.5">
+<div class="text-center font-label-code text-label-code text-primary font-bold">РЯД 3 • Вимба (2 т)</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №7</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №8</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №9</span>
+<span class="text-primary text-[10px]">◀ брюшко</span>
+</div>
+<span class="font-label-caps text-[9px] text-center text-on-surface-variant">Рокировка ↔ Ряды 1–2</span>
+</div>
+<!-- Row 4: Roach (1.7t) -->
+<div class="bg-surface-container-high/60 p-2 rounded-lg flex flex-col gap-1.5">
+<div class="text-center font-label-code text-label-code text-secondary font-bold">РЯД 4 • Плотва (1.7 т)</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №10</span>
+<span class="text-secondary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №11</span>
+<span class="text-secondary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №12</span>
+<span class="text-secondary text-[10px]">◀ брюшко</span>
+</div>
+<span class="font-label-caps text-[9px] text-center text-error font-bold">НЕ ИДЕТ ВПЕРЕД!</span>
+</div>
+<!-- Row 5: Roach (1.7t) -->
+<div class="bg-surface-container-high/60 p-2 rounded-lg flex flex-col gap-1.5">
+<div class="text-center font-label-code text-label-code text-secondary font-bold">РЯД 5 • Плотва (1.7 т)</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №13</span>
+<span class="text-secondary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №14</span>
+<span class="text-secondary text-[10px]">◀ брюшко</span>
+</div>
+<div class="bg-surface-container-lowest p-1.5 rounded flex items-center justify-between text-on-surface font-label-code text-label-code">
+<span>Тел. №15</span>
+<span class="text-secondary text-[10px]">◀ брюшко</span>
+</div>
+<span class="font-label-caps text-[9px] text-center text-error font-bold">НЕ ИДЕТ ВПЕРЕД!</span>
+</div>
+<!-- Buffer Column -->
+<div class="bg-surface-container-lowest p-3 rounded-lg text-center flex flex-col justify-center min-h-[140px] md:h-full">
+<span class="font-label-caps text-label-caps text-secondary uppercase block">Справа у сеток</span>
+<span class="font-metric-md text-metric-md text-secondary font-bold my-1">БУФЕР ВЫХОДА</span>
+<span class="font-label-code text-label-code text-on-surface-variant">50 см</span>
+<span class="font-body-sm text-body-sm text-primary mt-1">Всасывание AIM AGHD-250ELC</span>
+</div>
+</div>
+<!-- SOP Detailed Callout Rules -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3">
+<div class="bg-surface-container-lowest p-3 rounded-lg">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-primary text-base">check_circle</span>
+<span class="font-headline-md text-body-md text-primary font-bold">КОГДА 8-Й ШАГ ФИКСАЦИИ (20°C / 40% • БУФЕР Ф8) ОБЯЗАТЕЛЕН:</span>
+</div>
+<ul class="font-body-sm text-body-sm text-on-surface-variant space-y-1 pl-6 list-disc">
+<li>Партия идет под вакуумную упаковку на <strong class="text-on-surface">KOMET PlusVac 25</strong> (стабилизация и выравнивание влаги без конденсата и росы в пакете).</li>
+<li>Крупный калибр (отборная вимба, лещ 28–30+ см) и закладка на длительный склад или экспорт.</li>
+</ul>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-error text-base">cancel</span>
+<span class="font-headline-md text-body-md text-error font-bold">КОГДА 8-Й ШАГ ФИКСАЦИИ НУЖНО ОТКЛЮЧИТЬ:</span>
+</div>
+<ul class="font-body-sm text-body-sm text-on-surface-variant space-y-1 pl-6 list-disc">
+<li>Мелкая рыба уже «звенит» (корюшка, мелкая плотва) — лишние часы обдува пересушат хвост в стекло.</li>
+<li>Требуется мягкая вялка для клиента на развес либо партия уходит на дозревание в картонный короб.</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- INTERACTIVE BATCH & MOISTURE CALCULATOR -->
+<section class="bg-surface-container/90 rounded-xl p-4 shadow-xl">
+<div class="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">calculate</span>
+<span class="font-headline-md text-headline-md text-on-surface">КАЛЬКУЛЯТОР ПАРТИИ И ВЛАГОСЪЕМА</span>
+</div>
+<button class="px-3.5 py-1.5 rounded-lg bg-primary-container text-on-primary-container font-headline-md text-body-md font-bold flex items-center gap-2 shadow-md hover:bg-primary-fixed transition-all" id="btn-export-csv">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Экспорт отчета партии (CSV)</span>
+</button>
+</div>
+<!-- Controls Row -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-end">
+<!-- Raw Fish Weight Input & Presets -->
+<div class="lg:col-span-6 bg-surface-container-lowest p-3 rounded-lg">
+<div class="flex justify-between items-center mb-1.5">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Вес сырой рыбы при загрузке (кг)</span>
+<span class="font-label-code text-label-code text-primary">Монолит 15 тележек</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code font-bold transition-colors select-none" id="weight-minus-100">-100</button>
+<input class="flex-1 bg-surface-container border-0 rounded text-center font-metric-lg text-metric-lg text-primary font-bold py-1.5 focus:ring-1 focus:ring-primary-container" id="input-weight" type="number" value="1850"/>
+<button class="px-3 py-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code font-bold transition-colors select-none" id="weight-plus-100">+100</button>
+</div>
+<!-- Preset Pills -->
+<div class="flex flex-wrap gap-1.5 mt-2.5">
+<button class="preset-pill px-2.5 py-0.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code" data-val="800">800 кг</button>
+<button class="preset-pill px-2.5 py-0.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code" data-val="1200">1200 кг</button>
+<button class="preset-pill px-2.5 py-0.5 rounded bg-primary-container text-on-primary-container font-label-code text-label-code font-bold" data-val="1850">1850 кг</button>
+<button class="preset-pill px-2.5 py-0.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code" data-val="2400">2400 кг</button>
+<button class="preset-pill px-2.5 py-0.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code" data-val="3000">3000 кг</button>
+<button class="preset-pill px-2.5 py-0.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code" data-val="3500">3500 кг</button>
+</div>
+</div>
+<!-- Fish Species Selector -->
+<div class="lg:col-span-6 bg-surface-container-lowest p-3 rounded-lg">
+<div class="flex justify-between items-center mb-1.5">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Вид рыбы (норма выхода 60–63%)</span>
+<span class="font-label-code text-label-code text-secondary" id="species-rate">Выход 62%</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+<button class="species-btn py-1.5 px-2 rounded bg-primary-container text-on-primary-container font-label-code text-label-code font-bold text-center" data-name="Вимба (Сырть)" data-ratio="0.62">Вимба (Сырть)</button>
+<button class="species-btn py-1.5 px-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code text-center" data-name="Лещ (колодкой)" data-ratio="0.60">Лещ (колодкой)</button>
+<button class="species-btn py-1.5 px-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code text-center" data-name="Плотва (22+) " data-ratio="0.58">Плотва (22+)</button>
+<button class="species-btn py-1.5 px-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code text-center" data-name="Корюшка" data-ratio="0.55">Корюшка</button>
+<button class="species-btn py-1.5 px-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code text-center" data-name="Окунь" data-ratio="0.57">Окунь</button>
+<button class="species-btn py-1.5 px-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-code text-label-code text-center" data-name="Бычок балтийский" data-ratio="0.52">Бычок (до 3.5 т)</button>
+</div>
+</div>
+</div>
+<!-- Calculated Readouts -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mt-3 pt-3">
+<!-- Yield Card -->
+<div class="bg-surface-container-lowest p-3.5 rounded-lg flex items-center justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block uppercase">ГОТОВАЯ ПРОДУКЦИЯ НА ВЫХОДЕ</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-metric-display text-metric-display text-primary font-bold" id="calc-yield-min">1110</span>
+<span class="text-on-surface-variant font-metric-lg text-metric-lg">–</span>
+<span class="font-metric-display text-metric-display text-primary font-bold" id="calc-yield-max">1166</span>
+<span class="text-on-surface-variant font-label-code text-label-code">кг</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">Средний расчетный вес: ~1138 кг</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-primary-container/15 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">scale</span>
+</div>
+</div>
+<!-- Water Evaporation Card -->
+<div class="bg-surface-container-lowest p-3.5 rounded-lg flex items-center justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block uppercase">ИСПАРИТЬ ВОДЫ ВСЕГО (ДРЕНАЖ)</span>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-metric-display text-metric-display text-tertiary-fixed-dim font-bold" id="calc-water-min">684</span>
+<span class="text-on-surface-variant font-metric-lg text-metric-lg">–</span>
+<span class="font-metric-display text-metric-display text-tertiary-fixed-dim font-bold" id="calc-water-max">740</span>
+<span class="text-on-surface-variant font-label-code text-label-code">л</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">На текущей Ст.2 снимается: ~228 л (32%)</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/15 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-2xl">water_drop</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  (function() {
+    // 1. Interactive VFD and Temp Steppers
+    let currentVfd = 30.0;
+    const vfdDisplay = document.getElementById('vfd-display');
+    const vfdBar = document.getElementById('vfd-bar');
+    const vfdPlus = document.getElementById('vfd-plus');
+    const vfdMinus = document.getElementById('vfd-minus');
+
+    if (vfdPlus && vfdMinus) {
+      vfdPlus.addEventListener('click', () => {
+        if (currentVfd < 50.0) {
+          currentVfd = +(currentVfd + 1.0).toFixed(1);
+          vfdDisplay.textContent = `${currentVfd.toFixed(1)} Гц (${(currentVfd * 0.3).toFixed(1)}V)`;
+          vfdBar.style.width = `${(currentVfd / 50) * 100}%`;
+        }
+      });
+      vfdMinus.addEventListener('click', () => {
+        if (currentVfd > 10.0) {
+          currentVfd = +(currentVfd - 1.0).toFixed(1);
+          vfdDisplay.textContent = `${currentVfd.toFixed(1)} Гц (${(currentVfd * 0.3).toFixed(1)}V)`;
+          vfdBar.style.width = `${(currentVfd / 50) * 100}%`;
+        }
+      });
+    }
+
+    let currentTemp = 15.8;
+    const tempDisplay = document.getElementById('temp-display');
+    const tempBar = document.getElementById('temp-bar');
+    const tempPlus = document.getElementById('temp-plus');
+    const tempMinus = document.getElementById('temp-minus');
+
+    if (tempPlus && tempMinus) {
+      tempPlus.addEventListener('click', () => {
+        if (currentTemp < 28.0) {
+          currentTemp = +(currentTemp + 0.2).toFixed(1);
+          tempDisplay.textContent = `+${currentTemp.toFixed(1)} °C`;
+          tempBar.style.width = `${((currentTemp - 10) / 20) * 100}%`;
+        }
+      });
+      tempMinus.addEventListener('click', () => {
+        if (currentTemp > 8.0) {
+          currentTemp = +(currentTemp - 0.2).toFixed(1);
+          tempDisplay.textContent = `+${currentTemp.toFixed(1)} °C`;
+          tempBar.style.width = `${((currentTemp - 10) / 20) * 100}%`;
+        }
+      });
+    }
+
+    // 2. Batch & Moisture Calculator
+    const inputWeight = document.getElementById('input-weight');
+    const weightPlus = document.getElementById('weight-plus-100');
+    const weightMinus = document.getElementById('weight-minus-100');
+    const presetPills = document.querySelectorAll('.preset-pill');
+    const speciesBtns = document.querySelectorAll('.species-btn');
+    const speciesRate = document.getElementById('species-rate');
+
+    const yieldMin = document.getElementById('calc-yield-min');
+    const yieldMax = document.getElementById('calc-yield-max');
+    const waterMin = document.getElementById('calc-water-min');
+    const waterMax = document.getElementById('calc-water-max');
+
+    let activeRatio = 0.62;
+
+    function recalculate() {
+      const weight = parseFloat(inputWeight.value) || 0;
+      const minRatio = activeRatio - 0.015;
+      const maxRatio = activeRatio + 0.015;
+
+      const yMin = Math.round(weight * minRatio);
+      const yMax = Math.round(weight * maxRatio);
+
+      const wMin = Math.round(weight * (1 - maxRatio));
+      const wMax = Math.round(weight * (1 - minRatio));
+
+      if (yieldMin) yieldMin.textContent = yMin;
+      if (yieldMax) yieldMax.textContent = yMax;
+      if (waterMin) waterMin.textContent = wMin;
+      if (waterMax) waterMax.textContent = wMax;
+    }
+
+    if (weightPlus) {
+      weightPlus.addEventListener('click', () => {
+        inputWeight.value = (parseFloat(inputWeight.value) || 0) + 100;
+        recalculate();
+      });
+    }
+
+    if (weightMinus) {
+      weightMinus.addEventListener('click', () => {
+        const val = (parseFloat(inputWeight.value) || 0) - 100;
+        inputWeight.value = val > 0 ? val : 0;
+        recalculate();
+      });
+    }
+
+    if (inputWeight) {
+      inputWeight.addEventListener('input', recalculate);
+    }
+
+    presetPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        presetPills.forEach(p => {
+          p.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
+          p.classList.add('bg-surface-container-high', 'text-on-surface');
+        });
+        pill.classList.remove('bg-surface-container-high', 'text-on-surface');
+        pill.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+        inputWeight.value = pill.getAttribute('data-val');
+        recalculate();
+      });
+    });
+
+    speciesBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        speciesBtns.forEach(b => {
+          b.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold');
+          b.classList.add('bg-surface-container-high', 'text-on-surface');
+        });
+        btn.classList.remove('bg-surface-container-high', 'text-on-surface');
+        btn.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold');
+        activeRatio = parseFloat(btn.getAttribute('data-ratio')) || 0.62;
+        if (speciesRate) {
+          speciesRate.textContent = `Выход ${Math.round(activeRatio * 100)}%`;
+        }
+        recalculate();
+      });
+    });
+
+    // 3. Таблица 8 фаз — из генератора главного окна (postMessage работает и при file://)
+    const sendCmd = (cmd, args) => { try { window.parent.postMessage({ type: 'arm-cmd', cmd, args: args || [] }, '*'); } catch (e) {} };
+    window.pcSendCmd = sendCmd;
+    const tbody = document.getElementById('pc-mcgs-tbody');
+    const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    function renderMcgs(phases, tel) {
+      if (!tbody || !Array.isArray(phases) || !phases.length) return;
+      tbody.innerHTML = phases.map((p) => {
+        const n = p.phaseNumber, isBuf = n === 8, isPause = !isBuf && n % 2 === 0;
+        const col = isBuf ? 'text-tertiary-fixed-dim' : (isPause ? 'text-secondary' : 'text-primary');
+        return `<tr class="${isBuf ? 'bg-surface-container-lowest/80 ' : ''}hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 px-3 font-bold ${isBuf ? col : 'text-on-surface'}">Ф0${n}</td>
+<td class="py-2.5 px-3 ${col} font-bold">${esc(p.modeLabel)}</td>
+<td class="py-2.5 px-3 text-on-surface">${esc(p.tempSetpointC)}°C</td>
+<td class="py-2.5 px-3 ${col}">${esc(p.humiSetpointPercent)}%</td>
+<td class="py-2.5 px-3 text-on-surface${isBuf ? ' font-bold' : ''}">${esc(p.durationHours)} ч</td>
+<td class="py-2.5 px-3 font-bold ${col}">${esc(p.dehumiMin ?? '—')} / ${esc(p.pauseMin ?? '—')}</td>
+<td class="py-2.5 px-3 text-secondary">${esc(p.cantoniFreqHz)} (${esc(p.cantoniVoltageV)})</td>
+<td class="py-2.5 px-3 text-on-surface-variant">${esc(p.circuitsNote)}</td>
+</tr>`;
+      }).join('') + `<tr><td colspan="8" class="py-2.5 px-3 text-on-surface-variant" style="font-size:11px; line-height:1.45;">
+⏲ Humi ниже факта (20%) — компрессор 100% фазы, таймер 60/0. Humi выше факта (90%) — компрессор идёт по Dehumi/PauseD: в паузах строго 0/60 и Temp на +1…+2°C выше сушки, иначе «пила» на Parkside. Ф8 — 15/45.
+${tel && tel.mcgsProtocol === 'RESCUE' ? '<b style="color:#FF8A80">🚑 Сейчас таблица протокола спасения (высолы / липкая чешуя).</b>' : ''}
+<button onclick="pcSendCmd('setMcgsProtocol',['${tel && tel.mcgsProtocol === 'RESCUE' ? 'STANDARD' : 'RESCUE'}'])" style="margin-left:6px; text-decoration:underline; cursor:pointer;">${tel && tel.mcgsProtocol === 'RESCUE' ? '← вернуть регламент стадии' : '🚑 протокол спасения'}</button>
+</td></tr>`;
+    }
+    window.addEventListener('message', (ev) => {
+      const d = ev.data;
+      if (d && d.type === 'ARM_MCGS_TABLE') renderMcgs(d.phases, d.telemetry);
+    });
+    sendCmd('broadcastTelemetrySync');
+
+    const copyBtn = document.getElementById('btn-copy-table');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        sendCmd('copyMcgsTable');
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<span class="material-symbols-outlined text-sm">check</span><span>Скопировано</span>';
+        setTimeout(() => { copyBtn.innerHTML = originalText; }, 1800);
+      });
+    }
+
+    // Связи с контроллером нет — честно говорим, что строки вводятся в Settings вручную
+    const writeBtn = document.getElementById('btn-write-mcgs');
+    if (writeBtn) {
+      writeBtn.innerHTML = '<span class="material-symbols-outlined text-sm">keyboard</span><span>Ввод в MCGS вручную</span>';
+      writeBtn.title = 'Программа не подключена к контроллеру MCGS';
+      writeBtn.addEventListener('click', () => {
+        const originalText = writeBtn.innerHTML;
+        writeBtn.innerHTML = '<span class="material-symbols-outlined text-sm">info</span><span>Нет связи с MCGS — введите строки в Settings</span>';
+        setTimeout(() => { writeBtn.innerHTML = originalText; }, 3200);
+      });
+    }
+
+    // Initial recalculation trigger
+    recalculate();
+  })();
+</script></main>
+</div>
+<script>
+    // Live SCADA Header Clock
+    function updateClock() {
+      const clockEl = document.getElementById('header-clock');
+      if (!clockEl) return;
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      clockEl.textContent = `${h}:${m}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+<script src="js/draw-trolley.js"></script><script src="js/stitch-cockpits.js"></script></body></html>

@@ -1,0 +1,1436 @@
+:root {
+  --arm-ui-scale: 1 !important;
+  --bg-canvas: #07080C !important;
+  --baltic-abyss: #07080C !important;
+  --baltic-surface: #0B0D14 !important;
+  --baltic-card: #10121A !important;
+  --baltic-elevated: #141722 !important;
+  --card-bg: #10121A !important;
+  --card-bg-2: #141722 !important;
+  --well-bg: #0B0D14 !important;
+  --border-hairline: rgba(255, 255, 255, 0.068) !important;
+  --border-highlight: rgba(255, 255, 255, 0.14) !important;
+  --steel-border: rgba(255, 255, 255, 0.068) !important;
+  --glass-border: rgba(255, 255, 255, 0.08) !important;
+  --cobalt-glow: #2563EB !important;
+  --sky-bright: #38BDF8 !important;
+  --cyan-dew: #38BDF8 !important;
+  --cyan-mint: #2DD4BF !important;
+  --amber-curing: #F59E0B !important;
+  --amber-warm: #F59E0B !important;
+  --gold-accent: #FBBF24 !important;
+  --emerald-optimal: #2DD4BF !important;
+  --coral-danger: #F43F5E !important;
+  --violet-accent: #6D4AFF !important;
+  --text-main: #F8FAFC !important;
+  --text-muted: #64748B !important;
+  --text-sub: #94A3B8 !important;
+  --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  --font-display: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  --font-mono: 'JetBrains Mono', monospace !important;
+}
+
+html, html body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: clip !important;
+  transform: none !important;
+  zoom: 1 !important;
+  background-color: #07080C !important;
+  background-image:
+    radial-gradient(45% 40% at 24% 35%, rgba(245, 158, 11, 0.05), transparent 70%),
+    radial-gradient(45% 45% at 72% 22%, rgba(37, 99, 235, 0.08), transparent 70%) !important;
+  background-attachment: fixed !important;
+  font-family: var(--font-sans) !important;
+  color: #F8FAFC !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+html body:not(.mode-owner) #owner-simple-view { display: none !important; }
+html body.mode-owner #owner-simple-view {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 12px 18px 36px !important;
+  box-sizing: border-box !important;
+  overflow-x: clip !important;
+}
+html body.mode-owner #engineer-app-shell { display: none !important; }
+html body:not(.mode-owner) #engineer-app-shell {
+  display: flex !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: clip !important;
+  align-items: flex-start !important;
+}
+
+html body #engineer-app-shell .main-content,
+html body .main-content {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  width: calc(100% - 86px) !important;
+  max-width: calc(100% - 86px) !important;
+  margin: 0 !important;
+  padding: 8px 16px 24px !important;
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  box-sizing: border-box !important;
+}
+
+html body #vx-top-dock,
+html body #pro-live-batch-ribbon,
+html body .scada-top-ribbon { display: none !important; }
+
+html body .top-bar {
+  height: 44px !important;
+  min-height: 44px !important;
+  max-height: 44px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  background: rgba(10, 12, 18, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.068) !important;
+  padding: 0 14px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 8px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2000 !important;
+  box-sizing: border-box !important;
+}
+
+html body .top-bar .top-bar-title {
+  flex: 0 0 auto !important;
+  min-width: max-content !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #F8FAFC !important;
+}
+
+html body #top-bar-telemetry-badge {
+  background: rgba(16, 18, 26, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #E2E8F0 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  padding: 4px 10px !important;
+  border-radius: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+html body .top-bar .mode-switcher-bar {
+  flex: 0 0 auto !important;
+  margin: 0 4px !important;
+  display: flex !important;
+  gap: 4px !important;
+  background: rgba(16, 18, 26, 0.92) !important;
+  padding: 3px !important;
+  border-radius: 11px !important;
+  border: 1px solid rgba(255, 255, 255, 0.068) !important;
+}
+
+html body .top-bar .mobile-top-quick-bar {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-right: auto !important;
+}
+
+html body .top-bar button,
+html body .top-bar .pill-btn,
+html body .top-bar a {
+  background: rgba(255, 255, 255, 0.035) !important;
+  border: 1px solid rgba(255, 255, 255, 0.075) !important;
+  color: #CBD5E1 !important;
+  box-shadow: none !important;
+  border-radius: 9px !important;
+  padding: 4px 9px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  transition: all 0.18s ease !important;
+  text-shadow: none !important;
+}
+
+html body .top-bar button:hover,
+html body .top-bar .pill-btn:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+}
+
+html body .top-bar .mode-switch-btn.active-engineer {
+  background: linear-gradient(135deg, #3B82F6, #2563EB) !important;
+  border-color: rgba(147, 197, 253, 0.4) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45) !important;
+}
+
+html body .top-bar .mode-switch-btn.active-owner {
+  background: linear-gradient(135deg, #F59E0B, #D97706) !important;
+  border-color: rgba(253, 230, 138, 0.4) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4) !important;
+}
+
+@media (min-width: 821px) {
+  html body #engineer-app-shell .nav-rail,
+  html body .nav-rail {
+    position: sticky !important;
+    top: 52px !important;
+    left: 8px !important;
+    height: calc(100vh - 60px) !important;
+    margin-left: 8px !important;
+    background: rgba(16, 18, 26, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.068) !important;
+    border-radius: 22px !important;
+    width: 72px !important;
+    min-width: 72px !important;
+    max-width: 72px !important;
+    flex: 0 0 72px !important;
+    padding: 8px 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 2px !important;
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85) !important;
+    box-sizing: border-box !important;
+  }
+  html body #engineer-app-shell .nav-rail::-webkit-scrollbar { display: none !important; }
+
+  html body #engineer-app-shell .nav-item,
+  html body .nav-item {
+    width: 100% !important;
+    font-size: 8.5px !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.02em !important;
+    color: #64748B !important;
+    border-radius: 13px !important;
+    padding: 5px 2px !important;
+    border: 1px solid transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    text-shadow: none !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    transition: all 0.18s ease !important;
+  }
+
+  html body .nav-rail .nav-emoji,
+  html body .nav-rail .nav-ico-wrap {
+    width: 28px !important;
+    height: 22px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  html body #engineer-app-shell .nav-item svg,
+  html body .nav-item svg {
+    width: 18px !important;
+    height: 18px !important;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.8px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    filter: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+  }
+
+  html body .nav-rail .nav-item svg path,
+  html body .nav-rail .nav-item svg rect,
+  html body .nav-rail .nav-item svg circle,
+  html body .nav-rail .nav-item svg polyline,
+  html body .nav-rail .nav-item svg polygon,
+  html body .nav-rail .nav-item svg line {
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.8px !important;
+    filter: none !important;
+  }
+
+  html body .nav-rail .nav-label {
+    color: inherit !important;
+    font-size: 8.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.1 !important;
+    filter: none !important;
+    text-shadow: none !important;
+  }
+
+  html body #engineer-app-shell .nav-item:hover {
+    color: #F8FAFC !important;
+    background: rgba(255, 255, 255, 0.045) !important;
+  }
+
+  html body #engineer-app-shell .nav-item.active,
+  html body #engineer-app-shell .nav-item.vx-nav.active {
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5) !important;
+  }
+}
+
+html body #tab-scada { padding: 0 !important; margin: 0 !important; }
+
+html body #ck-bento-root {
+  display: grid !important;
+  grid-template-rows: 46px minmax(0, 1fr) !important;
+  height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
+  min-height: 550px !important;
+  gap: 10px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html body .ck-header-bar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
+  padding: 0 14px !important;
+  background: rgba(16, 18, 26, 0.72) !important;
+  border: 1px solid rgba(255, 255, 255, 0.065) !important;
+  border-radius: 15px !important;
+  box-sizing: border-box !important;
+}
+
+html body .ck-greeting h2 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: #F8FAFC !important;
+  margin: 0 !important;
+  line-height: 1.15 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+html body .ck-greeting h2 span { color: #60A5FA !important; font-weight: 700 !important; }
+html body .ck-greeting p { font-size: 10px !important; color: #64748B !important; margin: 1px 0 0 !important; line-height: 1.1 !important; }
+
+html body .ck-thin-clock { text-align: right !important; flex-shrink: 0 !important; }
+html body .ck-thin-clock-time {
+  font-size: 23px !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1 !important;
+  color: #F8FAFC !important;
+  font-variant-numeric: tabular-nums !important;
+}
+html body .ck-thin-clock-date { font-size: 9.5px !important; color: #64748B !important; margin-top: 2px !important; }
+
+html body .ck-bento-grid {
+  display: grid !important;
+  grid-template-columns: 1.38fr 1.15fr 0.85fr !important;
+  grid-template-rows: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+  gap: 12px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+html body .ck-card {
+  position: relative !important;
+  border-radius: 22px !important;
+  background:
+    radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.045), transparent 60%),
+    linear-gradient(165deg, #131620 0%, #0D0F17 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.068) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 40px -12px rgba(0, 0, 0, 0.85) !important;
+  padding: 12px 15px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+}
+
+html body .ck-card.fintech-hero {
+  background:
+    radial-gradient(280px circle at 14% 18%, rgba(37, 99, 235, 0.42), transparent 65%),
+    linear-gradient(165deg, #121626 0%, #0B0E17 100%) !important;
+  border-top: 1px solid rgba(96, 165, 250, 0.32) !important;
+}
+
+html body .ck-card.stage-3d {
+  background:
+    radial-gradient(55% 55% at 52% 52%, rgba(245, 158, 11, 0.12), transparent 70%),
+    radial-gradient(45% 45% at 80% 40%, rgba(45, 212, 191, 0.09), transparent 70%),
+    linear-gradient(180deg, #11131A 0%, #090B10 100%) !important;
+  padding: 11px 14px !important;
+}
+
+/* 3D ФОТО-РЕНДЕР AIM-3D.PNG + ВЕРТИКАЛЬНЫЙ СЛАЙДЕР ОБДУВА ИЗ STITCH */
+.ck-photo-twin-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 175px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #07080C;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ck-photo-twin-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: contrast(1.04) brightness(0.96);
+}
+.ck-photo-hs {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ck-photo-hs::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--hs-glow, rgba(56, 189, 248, 0.35));
+  animation: hsPulse 2.1s infinite ease-out;
+}
+.ck-photo-hs-core {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0B0D14;
+  border: 2px solid var(--hs-col, #38BDF8);
+  box-shadow: 0 0 10px var(--hs-col, #38BDF8);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ck-photo-hs-core::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--hs-col, #38BDF8);
+}
+
+/* Тактильный вертикальный ползунок обдува справа внутри окна 3D-камеры (Фишка №1 из Stitch) */
+.ck-v-slider-dock {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 48px;
+  background: rgba(13, 16, 26, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  padding: 6px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 11;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 10px 24px rgba(0, 0, 0, 0.75);
+}
+.ck-v-slider-track {
+  position: relative;
+  width: 7px;
+  flex: 1;
+  margin: 6px 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.45) 0%, rgba(37, 99, 235, 0.2) 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+.ck-v-slider-thumb {
+  position: absolute;
+  left: -4px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #38BDF8;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 0 12px #38BDF8;
+  transition: bottom 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Приборная строка в подвале карточки (Фишка №4 из Stitch) */
+.ck-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 6px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.068);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+/* Прогресс-бары внутри этапов MCGS (Фишка №3 из Stitch) */
+.ck-stage-prog-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+.ck-stage-prog-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+html body #ckHeroProfit, html body #finHeroProfit {
+  font-size: clamp(19px, 1.75vw, 25px) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.03em !important;
+  color: #FFFFFF !important;
+  white-space: nowrap !important;
+  font-variant-numeric: tabular-nums !important;
+  line-height: 1.1 !important;
+}
+html body #ckHeroRoi, html body #finHeroRoi { white-space: nowrap !important; flex-shrink: 0 !important; }
+
+html body .ck-hdr {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  z-index: 2 !important;
+  gap: 8px !important;
+  flex-shrink: 0 !important;
+}
+html body .ck-title { font-size: 12.5px !important; font-weight: 600 !important; color: #E2E8F0 !important; letter-spacing: -0.01em !important; }
+html body .ck-sub { font-size: 10px !important; color: #64748B !important; margin-top: 1px !important; }
+
+html body .ck-badge {
+  font-family: var(--font-mono) !important;
+  font-size: 9.5px !important;
+  font-weight: 600 !important;
+  padding: 3px 8px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.075) !important;
+  color: #94A3B8 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  white-space: nowrap !important;
+}
+
+html body .ck-popover {
+  position: absolute !important;
+  top: 8px !important;
+  left: 8px !important;
+  width: 176px !important;
+  background: rgba(11, 13, 20, 0.8) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 14px !important;
+  padding: 7px 10px !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85) !important;
+  z-index: 10 !important;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.hotspot-dot { cursor: pointer; transition: transform 0.2s ease; }
+.hotspot-dot:hover { transform: scale(1.18); }
+.hotspot-pulse { animation: hsPulse 2.2s infinite ease-out; transform-origin: center; transform-box: fill-box; }
+@keyframes hsPulse {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+.ck-grain-bar { display: inline-flex !important; gap: 3px !important; align-items: center !important; flex-wrap: nowrap !important; }
+.ck-grain { width: 4.5px !important; height: 4.5px !important; border-radius: 50% !important; background: rgba(255, 255, 255, 0.14) !important; flex-shrink: 0 !important; }
+.ck-grain.amber { background: #F59E0B !important; box-shadow: 0 0 6px #F59E0B !important; }
+.ck-grain.cyan { background: #2DD4BF !important; box-shadow: 0 0 6px #2DD4BF !important; }
+.ck-grain.blue { background: #3B82F6 !important; box-shadow: 0 0 6px #3B82F6 !important; }
+.ck-grain.coral { background: #F43F5E !important; box-shadow: 0 0 6px #F43F5E !important; }
+
+html body .ck-sys-tiles { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 6px !important; z-index: 2 !important; flex-shrink: 0 !important; margin-top: 5px !important; }
+html body .ck-sys-btn {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.068) !important;
+  border-radius: 12px !important;
+  padding: 5px 7px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.2s ease !important;
+}
+html body .ck-sys-btn:hover { background: rgba(255, 255, 255, 0.06) !important; }
+html body .ck-sys-btn.active { background: rgba(37, 99, 235, 0.12) !important; border-color: rgba(59, 130, 246, 0.4) !important; }
+html body .ck-sys-btn.active::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 20% !important;
+  right: 20% !important;
+  height: 2.5px !important;
+  background: #38BDF8 !important;
+  box-shadow: 0 0 8px #38BDF8 !important;
+  border-radius: 2px !important;
+}
+
+/* Выпуклая капсула фасовки KOMET с галочкой ✓ ВЫБРАНО (Фишка №2 из Stitch) */
+html body .ck-bottom-split { display: grid !important; grid-template-columns: 1.14fr 0.86fr !important; gap: 12px !important; height: 100% !important; min-height: 0 !important; }
+html body .ck-pill-bars { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 8px !important; height: 112px !important; padding-top: 6px !important; margin-top: auto !important; align-items: end !important; }
+html body .ck-bar-col { display: flex !important; flex-direction: column !important; align-items: center !important; height: 100% !important; justify-content: flex-end !important; cursor: pointer !important; transition: transform 0.22s ease !important; }
+html body .ck-bar-col.active { transform: translateY(-3px) !important; }
+html body .ck-bar-val { font-family: var(--font-mono) !important; font-size: 9.5px !important; color: #94A3B8 !important; margin-bottom: 4px !important; }
+html body .ck-bar-body {
+  width: 100% !important;
+  height: 76px !important;
+  border-radius: 14px !important;
+  background: rgba(11, 13, 20, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  padding: 6px 4px !important;
+  position: relative !important;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+html body .ck-bar-inner-rod {
+  width: 8px !important;
+  border-radius: 999px !important;
+  background: #475569 !important;
+  transition: all 0.25s ease !important;
+}
+html body .ck-bar-check-wrap {
+  display: none !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  gap: 4px !important;
+}
+html body .ck-bar-col.active .ck-bar-body {
+  background: linear-gradient(180deg, #38BDF8 0%, #2563EB 55%, #1D4ED8 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 0 22px rgba(37, 99, 235, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+html body .ck-bar-col.active .ck-bar-inner-rod { display: none !important; }
+html body .ck-bar-col.active .ck-bar-check-wrap { display: flex !important; }
+html body .ck-bar-col.active .ck-bar-val { color: #38BDF8 !important; font-weight: 800 !important; text-shadow: 0 0 8px rgba(56, 189, 248, 0.45) !important; }
+html body .ck-bar-col.active .ck-bar-lbl { color: #FFFFFF !important; font-weight: 700 !important; }
+html body .ck-bar-lbl { font-size: 9px !important; color: #64748B !important; margin-top: 5px !important; white-space: nowrap !important; }
+
+html body .ck-tr-circle { width: 15px !important; height: 15px !important; border-radius: 50% !important; border: 1.5px solid rgba(255, 255, 255, 0.16) !important; background: transparent !important; cursor: pointer !important; transition: all 0.2s ease !important; }
+html body .ck-tr-circle.lit-blue { background: #38BDF8 !important; border-color: #BAE6FD !important; box-shadow: 0 0 8px rgba(56, 189, 248, 0.7) !important; }
+html body .ck-tr-circle.lit-amber { background: #F59E0B !important; border-color: #FDE68A !important; box-shadow: 0 0 8px rgba(245, 158, 11, 0.7) !important; }
+
+html body .ck-subtab-banner {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  background:
+    radial-gradient(240px circle at 10% 20%, rgba(37, 99, 235, 0.22), transparent 70%),
+    linear-gradient(165deg, #131620 0%, #0D0F17 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.075) !important;
+  border-top: 1px solid rgba(96, 165, 250, 0.28) !important;
+  border-radius: 18px !important;
+  padding: 11px 16px !important;
+  margin-bottom: 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 12px 28px -8px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* ==================== ШАГ 2: ШТУРМАН, ПАРТИЯ, ПРИБЫЛЬ ==================== */
+html body #tab-voice .vx-orb-zone {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 22px 16px 18px !important;
+  margin-top: 4px !important;
+  background: radial-gradient(circle at 50% 42%, rgba(37, 99, 235, 0.18), rgba(11, 13, 20, 0.96) 70%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 22px !important;
+  overflow: visible !important;
+}
+
+html body #tab-voice button.vx-mic-orb,
+html body .vx-mic-orb {
+  width: 152px !important;
+  height: 152px !important;
+  min-width: 152px !important;
+  min-height: 152px !important;
+  max-width: 152px !important;
+  max-height: 152px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 50% 50%, rgba(29, 78, 216, 0.36) 0%, #04060B 74%) !important;
+  border: 1.5px solid rgba(56, 189, 248, 0.38) !important;
+  box-shadow: 0 0 38px rgba(37, 99, 235, 0.42), inset 0 0 24px rgba(56, 189, 248, 0.22) !important;
+  padding: 0 !important;
+  margin: 10px auto 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+}
+
+html body .vx-eq i,
+html body .vx-eq.vx-eq-big i {
+  background: linear-gradient(180deg, #38BDF8 0%, #2563EB 100%) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4) !important;
+}
+
+html body .vx-ring,
+html body #tab-voice .vx-ring,
+html body #tab-voice [style*="border-radius:50%"]:not(.vx-mic-orb):not(.ck-grain),
+html body #tab-voice [style*="border-radius: 50%"]:not(.vx-mic-orb):not(.ck-grain) {
+  border-color: #3B82F6 !important;
+  box-shadow: 0 0 26px rgba(37, 99, 235, 0.42), inset 0 0 16px rgba(56, 189, 248, 0.22) !important;
+}
+
+html body .vx-kpi::after,
+html body .vx-kpi::before,
+html body .vx-step::after,
+html body .vx-step::before,
+html body .vx-glass::after,
+html body .vx-glass::before {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+html body .vx-kpi,
+html body .vx-step {
+  background: #0B0D14 !important;
+  border: 1px solid rgba(255, 255, 255, 0.072) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.11) !important;
+  border-radius: 16px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 24px -8px rgba(0, 0, 0, 0.75) !important;
+}
+
+html body .vx-arrow { color: #475569 !important; opacity: 0.65 !important; text-shadow: none !important; }
+
+html body .vx-cart,
+html body .ck-trolley-cell {
+  background: linear-gradient(180deg, #131724 0%, #0B0E17 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 2.5px solid #3B82F6 !important;
+  border-radius: 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 10px 24px rgba(0, 0, 0, 0.65) !important;
+  color: #F8FAFC !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+html body .vx-cart > *:not(.vx-cart-fill) { position: relative !important; z-index: 3 !important; }
+html body .vx-cart .vx-cart-fill {
+  z-index: 1 !important;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.08) 100%) !important;
+  border-top: 1px solid rgba(96, 165, 250, 0.3) !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+html body .vx-icons-row { display: flex !important; align-items: center !important; gap: 5px !important; padding: 6px 0 !important; min-height: 22px !important; }
+
+html body #tab-batch div:has(> #vb-flask),
+html body #tab-batch div:has(> div > #vb-flask) {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
+html body #vb-flask,
+html body #vb-scale,
+html body [id*="flask-slot"],
+html body [id*="scale-slot"] {
+  height: auto !important;
+  max-height: none !important;
+  min-height: 150px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  padding-bottom: 4px !important;
+}
+
+html body .vx-bars {
+  height: 252px !important;
+  min-height: 252px !important;
+  padding: 44px 12px 10px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-around !important;
+  gap: 14px !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+html body .vx-bar-col {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  height: 100% !important;
+  flex: 1 1 0% !important;
+  overflow: visible !important;
+}
+
+html body .vx-bar {
+  width: 100% !important;
+  max-width: 44px !important;
+  max-height: 132px !important;
+  border-radius: 13px !important;
+  background: linear-gradient(180deg, #60A5FA 0%, #2563EB 100%) !important;
+  border: 1px solid rgba(147, 197, 253, 0.5) !important;
+  box-shadow: 0 0 22px rgba(37, 99, 235, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+html body .vx-donut {
+  margin: 14px auto !important;
+  width: 168px !important;
+  height: 168px !important;
+  min-width: 168px !important;
+  min-height: 168px !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+html body .tab-pane,
+html body [id^="tab-"],
+html body #owner-simple-view {
+  color: #F8FAFC !important;
+  overflow: visible !important;
+}
+
+html body .card,
+html body .card-hud,
+html body .scada-panel,
+html body .vx-glass,
+html body .trade-tool-card,
+html body .tech-suite-card,
+html body .sp-hub-card,
+html body [id^="tab-"]:not(#tab-scada) > div:not(.ck-subtab-banner),
+html body [id^="tab-"]:not(#tab-scada) > div > div[style*="border"],
+html body #owner-simple-view > div:not(.ck-subtab-banner),
+html body #owner-simple-view > div > div[style*="border"] {
+  background:
+    radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.04), transparent 60%),
+    linear-gradient(165deg, #131620 0%, #0D0F17 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.068) !important;
+  border-radius: 22px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.075), 0 16px 38px -12px rgba(0, 0, 0, 0.85) !important;
+  overflow: visible !important;
+}
+
+html body [id^="tab-"]:not(#tab-scada) div div[style*="border"]:not(.ck-grain):not(.vx-bar):not(.vx-cart-fill):not(.ck-tr-circle):not(.ck-badge):not(.vx-ring) {
+  background: #0B0D14 !important;
+  border: 1px solid rgba(255, 255, 255, 0.068) !important;
+  border-radius: 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+html body #tab-profit > div:nth-of-type(2),
+html body .ck-fintech-highlight {
+  background:
+    radial-gradient(280px circle at 14% 18%, rgba(37, 99, 235, 0.38), transparent 65%),
+    linear-gradient(165deg, #121626 0%, #0B0E17 100%) !important;
+  border: 1px solid rgba(96, 165, 250, 0.28) !important;
+}
+
+html body div:has(> [onclick*="selectSuperHubCalc"]) {
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  width: 100% !important;
+  overflow: visible !important;
+  margin-bottom: 12px !important;
+}
+
+html body [onclick*="selectSuperHubCalc"] {
+  background: #0B0D14 !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 12px !important;
+  padding: 9px 8px !important;
+  color: #94A3B8 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+html body [onclick*="selectSuperHubCalc"]:hover { background: #141824 !important; color: #F8FAFC !important; border-color: rgba(96, 165, 250, 0.35) !important; }
+html body [onclick*="selectSuperHubCalc"][style*="0, 245, 212"],
+html body [onclick*="selectSuperHubCalc"][style*="#00"],
+html body [onclick*="selectSuperHubCalc"].active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.22), rgba(37, 99, 235, 0.12)) !important;
+  border: 1px solid rgba(96, 165, 250, 0.45) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3) !important;
+}
+
+html body table { border-collapse: separate !important; border-spacing: 0 4px !important; width: 100% !important; }
+html body th { color: #64748B !important; font-size: 10.5px !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.04em !important; border-bottom: 1px solid rgba(255, 255, 255, 0.068) !important; padding: 8px 10px !important; }
+html body td { background: rgba(11, 13, 20, 0.82) !important; border-top: 1px solid rgba(255, 255, 255, 0.048) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.048) !important; color: #E2E8F0 !important; font-family: var(--font-mono) !important; font-size: 12px !important; padding: 10px !important; }
+html body td button { background: #121622 !important; border: 1px solid rgba(255, 255, 255, 0.12) !important; color: #E2E8F0 !important; padding: 4px 10px !important; border-radius: 8px !important; font-family: var(--font-mono) !important; font-size: 11px !important; }
+html body td button:first-of-type { border-color: rgba(45, 212, 191, 0.4) !important; color: #2DD4BF !important; }
+html body td button:last-of-type { border-color: rgba(244, 63, 94, 0.4) !important; color: #FB7185 !important; }
+
+html body input[type="number"],
+html body input[type="text"],
+html body input[type="password"],
+html body textarea,
+html body select {
+  background: #080A10 !important;
+  border: 1px solid rgba(255, 255, 255, 0.085) !important;
+  border-radius: 11px !important;
+  color: #F8FAFC !important;
+  font-family: var(--font-mono) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  outline: none !important;
+}
+html body input[type="number"]:focus,
+html body input[type="text"]:focus,
+html body select:focus {
+  border-color: rgba(59, 130, 246, 0.55) !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25) !important;
+}
+html body input[type="range"] { accent-color: #3B82F6 !important; }
+html body [id^="tab-"]:not(#tab-scada) button:not(.vx-mic-orb),
+html body #owner-simple-view button:not(.vx-mic-orb) {
+  border-radius: 10px !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+  transition: all 0.18s ease !important;
+}
+html body svg text { paint-order: stroke fill !important; stroke: #07080C !important; stroke-width: 1.8px !important; stroke-linecap: round !important; stroke-linejoin: round !important; font-family: var(--font-sans) !important; }
+.workshop-memory-backdrop, #pro-cmd-palette-backdrop { position: fixed; inset: 0; background: rgba(5, 6, 11, 0.86); backdrop-filter: blur(18px); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 12px; }
+/* === ФИНАЛЬНАЯ ПОЛИРОВКА КОКПИТА И ШАГ 3 (7 КАЛЬКУЛЯТОРОВ #TAB-CALCS) === */
+html body .ck-photo-twin-img {
+  object-fit: contain !important;
+  background: radial-gradient(circle at 50% 50%, #101726 0%, #06080E 100%) !important;
+}
+
+html body #ckPopoverBox {
+  width: 156px !important;
+  padding: 5px 8px !important;
+  top: 6px !important;
+  left: 6px !important;
+  background: rgba(8, 10, 16, 0.72) !important;
+  backdrop-filter: blur(12px) !important;
+  transform: scale(0.92) !important;
+  transform-origin: top left !important;
+  cursor: pointer !important;
+}
+
+html body #ckHeroProfit {
+  font-size: clamp(17px, 1.48vw, 22px) !important;
+}
+
+html body #ckHabitRows {
+  gap: 5px !important;
+}
+html body #ckHabitRows > div {
+  padding: 4px 8px !important;
+  border-radius: 10px !important;
+}
+html body #ckHabitRows > div > span {
+  white-space: nowrap !important;
+  font-size: 10px !important;
+  gap: 5px !important;
+}
+html body #ckHabitRows .ck-tr-circle {
+  width: 13px !important;
+  height: 13px !important;
+}
+
+html body #tab-calcs div[style*="border"]:not(.ck-grain):not(.ck-badge) {
+  border-color: rgba(255, 255, 255, 0.072) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 12px 28px -8px rgba(0, 0, 0, 0.8) !important;
+}
+
+html body #tab-calcs button:not(.ck-badge):not([onclick*="selectSuperHubCalc"]) {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(29, 78, 216, 0.1)) !important;
+  border: 1px solid rgba(96, 165, 250, 0.38) !important;
+  color: #E2E8F0 !important;
+  box-shadow: none !important;
+}
+html body #tab-calcs button:not(.ck-badge):not([onclick*="selectSuperHubCalc"]):hover {
+  background: linear-gradient(135deg, #3B82F6, #2563EB) !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   💎 ТОРГОВЫЙ ДОМ • ЮРМАЛЦИЕМС (#owner-simple-view)
+   ULTRA-LUXURY SCADA BENTO GRAPHICS & ANIMATIONS (В СТИЛЕ ГЛАВНОЙ СТРАНИЦЫ)
+   ========================================================================== */
+
+@keyframes thDropFall {
+  0%   { transform: translateY(-10px) scale(0.85); opacity: 0; }
+  25%  { opacity: 0.95; }
+  85%  { opacity: 0.95; }
+  100% { transform: translateY(38px) scale(1.05); opacity: 0; }
+}
+
+@keyframes thWaveSlide {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-18px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes thScanBeam {
+  0%   { top: -18%; opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
+}
+
+@keyframes thBarShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes thPinPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.55); }
+  50%      { transform: scale(1.06); box-shadow: 0 0 0 6px rgba(56, 189, 248, 0); }
+}
+
+@keyframes thSealLaser {
+  0%, 100% { opacity: 0.45; filter: drop-shadow(0 0 3px #2DD4BF); }
+  50%      { opacity: 1; filter: drop-shadow(0 0 10px #00F0FF); }
+}
+
+@keyframes thOrbitGlow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Главные карточки Торгового Дома — глубокое стекло как на #tab-scada */
+html body #owner-simple-view .th-bento-card,
+html body #owner-simple-view .sp-hub-card,
+html body #owner-simple-view .trade-tool-card {
+  position: relative !important;
+  background:
+    radial-gradient(440px circle at 14% 12%, rgba(37, 99, 235, 0.14), transparent 62%),
+    radial-gradient(380px circle at 88% 85%, rgba(14, 165, 183, 0.09), transparent 60%),
+    linear-gradient(165deg, #131826 0%, #0B0E17 58%, #080A11 100%) !important;
+  border: 1px solid rgba(125, 211, 252, 0.14) !important;
+  border-radius: 22px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+    0 24px 54px -18px rgba(0, 0, 0, 0.92),
+    0 0 32px -14px rgba(37, 99, 235, 0.25) !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease !important;
+  overflow: hidden !important;
+}
+
+html body #owner-simple-view .th-bento-card:hover,
+html body #owner-simple-view .sp-hub-card:hover,
+html body #owner-simple-view .trade-tool-card:hover {
+  border-color: rgba(56, 189, 248, 0.32) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 28px 64px -18px rgba(0, 0, 0, 0.96),
+    0 0 42px -12px rgba(56, 189, 248, 0.32) !important;
+}
+
+/* Верхняя декоративная неоновая линия на карточках */
+html body #owner-simple-view .th-bento-card::before,
+html body #owner-simple-view .sp-hub-card::before,
+html body #owner-simple-view .trade-tool-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.65), rgba(45, 212, 191, 0.65), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Заголовки секций и бейджи */
+html body #owner-simple-view .trade-tool-head,
+html body #owner-simple-view .sp-hub-head {
+  padding-bottom: 12px !important;
+  margin-bottom: 14px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075) !important;
+}
+
+html body #owner-simple-view .trade-tool-title,
+html body #owner-simple-view .sp-hub-title {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  color: #F8FAFC !important;
+  text-shadow: 0 2px 12px rgba(56, 189, 248, 0.22) !important;
+}
+
+html body #owner-simple-view .trade-tool-badge,
+html body #owner-simple-view .sp-hub-badge {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(10, 15, 28, 0.92)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.38) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+  padding: 5px 12px !important;
+  border-radius: 999px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+}
+
+/* Кнопки-вкладки и чипы в стиле главной страницы SCADA */
+html body #owner-simple-view .sp-tab-bar {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)) !important;
+  gap: 8px !important;
+  background: rgba(7, 10, 18, 0.78) !important;
+  padding: 6px !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.065) !important;
+  margin-bottom: 14px !important;
+}
+
+html body #owner-simple-view .sp-tab-btn,
+html body #owner-simple-view .trade-chip {
+  background: linear-gradient(165deg, #111623 0%, #0A0D16 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.085) !important;
+  color: #94A3B8 !important;
+  padding: 8px 13px !important;
+  border-radius: 11px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html body #owner-simple-view .sp-tab-btn:hover,
+html body #owner-simple-view .trade-chip:hover {
+  background: linear-gradient(165deg, #172033 0%, #0F1524 100%) !important;
+  color: #F8FAFC !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body #owner-simple-view .sp-tab-btn.active,
+html body #owner-simple-view .trade-chip.active {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.38) 0%, rgba(14, 165, 183, 0.26) 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.72) !important;
+  color: #FFFFFF !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 6px 18px -4px rgba(37, 99, 235, 0.5),
+    0 0 14px rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Карточки выбора режима (.sp-choice-btn) */
+html body #owner-simple-view .sp-choice-btn {
+  background: linear-gradient(165deg, #111624 0%, #090C14 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.085) !important;
+  border-radius: 14px !important;
+  padding: 12px 14px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 20px rgba(0, 0, 0, 0.45) !important;
+  transition: all 0.22s ease !important;
+}
+
+html body #owner-simple-view .sp-choice-btn.active {
+  background:
+    radial-gradient(220px circle at 15% 20%, rgba(56, 189, 248, 0.22), transparent 70%),
+    linear-gradient(165deg, #151F34 0%, #0B111E 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.65) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 10px 26px -6px rgba(37, 99, 235, 0.42) !important;
+}
+
+/* Fintech KPI-карточки (.sp-box и .trade-kpi-card) */
+html body #owner-simple-view .sp-box,
+html body #owner-simple-view .trade-kpi-card {
+  position: relative !important;
+  background:
+    radial-gradient(240px circle at 12% 15%, rgba(56, 189, 248, 0.12), transparent 68%),
+    linear-gradient(165deg, #101522 0%, #090C14 100%) !important;
+  border: 1px solid rgba(125, 211, 252, 0.18) !important;
+  border-left: 3px solid #38BDF8 !important;
+  border-radius: 16px !important;
+  padding: 13px 15px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 28px -10px rgba(0, 0, 0, 0.82) !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+html body #owner-simple-view .sp-box:hover,
+html body #owner-simple-view .trade-kpi-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 16px 34px -10px rgba(0, 0, 0, 0.9),
+    0 0 22px -6px rgba(56, 189, 248, 0.28) !important;
+}
+
+html body #owner-simple-view .sp-box[style*="FFA726"],
+html body #owner-simple-view .trade-kpi-card[style*="FFD166"] {
+  border-left-color: #F59E0B !important;
+  background:
+    radial-gradient(240px circle at 12% 15%, rgba(245, 158, 11, 0.15), transparent 68%),
+    linear-gradient(165deg, #141622 0%, #0A0C14 100%) !important;
+}
+
+html body #owner-simple-view .sp-box[style*="2EE59D"],
+html body #owner-simple-view .trade-kpi-card[style*="2EE59D"] {
+  border-left-color: #10B981 !important;
+  background:
+    radial-gradient(240px circle at 12% 15%, rgba(16, 185, 129, 0.16), transparent 68%),
+    linear-gradient(165deg, #0E1922 0%, #080D14 100%) !important;
+}
+
+html body #owner-simple-view .sp-box[style*="FF5252"] {
+  border-left-color: #F43F5E !important;
+  background:
+    radial-gradient(240px circle at 12% 15%, rgba(244, 63, 94, 0.16), transparent 68%),
+    linear-gradient(165deg, #19111B 0%, #0B0911 100%) !important;
+}
+
+html body #owner-simple-view .sp-box[style*="A78BFA"] {
+  border-left-color: #A78BFA !important;
+  background:
+    radial-gradient(240px circle at 12% 15%, rgba(167, 139, 250, 0.15), transparent 68%),
+    linear-gradient(165deg, #141324 0%, #090B14 100%) !important;
+}
+
+html body #owner-simple-view .sp-box-val,
+html body #owner-simple-view .trade-kpi-val {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: -0.02em !important;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Живые переливающиеся шкалы (Баланс массы, Снято влаги, Вакуум/TUBA) */
+html body #owner-simple-view .th-shimmer-bar {
+  position: relative;
+  overflow: hidden;
+}
+html body #owner-simple-view .th-shimmer-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: thBarShimmer 2.8s linear infinite;
+  pointer-events: none;
+}
+
+/* Кастомные дорогие ползунки (range sliders) в Торговом Доме */
+html body #owner-simple-view input[type="range"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.45), rgba(45, 212, 191, 0.45)) !important;
+  border: 1px solid rgba(125, 211, 252, 0.28) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  cursor: pointer !important;
+}
+html body #owner-simple-view input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #38BDF8 55%, #0284C7 100%) !important;
+  border: 2px solid #E0F2FE !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.85), 0 2px 6px rgba(0, 0, 0, 0.7) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+html body #owner-simple-view input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.16) !important;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 1), 0 3px 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Кнопки быстрых действий (1.5т, 2.0т, Жми -0.10) */
+html body #owner-simple-view .trade-btn-sm {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.24), rgba(14, 165, 183, 0.16)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.42) !important;
+  color: #E0F2FE !important;
+  padding: 6px 12px !important;
+  border-radius: 9px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.35) !important;
+}
+html body #owner-simple-view .trade-btn-sm:hover {
+  background: linear-gradient(135deg, #2563EB, #0EA5B7) !important;
+  color: #FFFFFF !important;
+  border-color: #7DD3FC !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Вертикальные 3D-колбы каналов сбыта (в стиле Фасовка KOMET с главной страницы) */
+.th-channel-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.th-pillar-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(16, 22, 36, 0.92) 0%, rgba(9, 12, 20, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 10px 24px rgba(0, 0, 0, 0.6);
+}
+.th-pillar-tube {
+  width: 36px;
+  height: 88px;
+  border-radius: 12px;
+  background: #060911;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.85);
+}
+.th-pillar-fill {
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+.th-pillar-fill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: #FFFFFF;
+  border-radius: 999px;
+  box-shadow: 0 0 8px #FFFFFF;
+}
+
+/* ==========================================================================
+   📐 ЕДИНЫЙ SCADA-ЭТАЛОН РАЗРЕШЕНИЯ ДЛЯ ВСЕХ ВКЛАДОК КРОМЕ ГЛАВНОЙ (#tab-scada)
+   Главная страница (#tab-scada / #ck-bento-root) остается 100% нетронутой!
+   Все остальные вкладки, классические модули и Торговый Дом приводятся к
+   компактной плотности главной SCADA-панели.
+   ========================================================================== */
+
+html body .ck-subtab-banner {
+  padding: 7px 13px !important;
+  margin-bottom: 8px !important;
+  border-radius: 14px !important;
+  min-height: 44px !important;
+}
+
+/* Нативные вкладки (Штурман, Виды, Чат ИИ) + классические модули + Торговый Дом */
+html body #tab-voice,
+html body #tab-species,
+html body #tab-chat,
+html body .ck-legacy-pane-wrap,
+html body #owner-simple-view {
+  zoom: 0.86;
+}
+
+@media (max-width: 1480px), (max-height: 840px) {
+  html body #tab-voice,
+  html body #tab-species,
+  html body #tab-chat,
+  html body .ck-legacy-pane-wrap,
+  html body #owner-simple-view {
+    zoom: 0.82;
+  }
+}
+
+/* База знаний (#tab-knowledge iframe) — ровно под высоту экрана без двойного скролла */
+html body #tab-knowledge {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+html body #tab-knowledge .ck-subtab-banner {
+  display: none !important;
+}
+html body #tab-knowledge iframe,
+html body #kb-iframe {
+  width: 100% !important;
+  height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
+  min-height: 520px !important;
+  border-radius: 16px !important;
+  display: block !important;
+}
+

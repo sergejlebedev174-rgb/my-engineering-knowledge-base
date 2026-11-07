@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head><meta charset="utf-8"/><title>Инженерные Расчеты &amp; Энергия • Юрмалциемс АРМ</title><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" media="print" onload="this.media='all'"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link rel="stylesheet" href="css/stitch-cockpits.css"/><link rel="stylesheet" href="css/cockpit-pages-fx.css"/><script src="js/knowledge-base.js"></script><script src="js/bio-tomography.js"></script><script src="js/cockpit-pages-fx.js" defer></script></head><body class="bg-surface font-body-md text-on-surface antialiased"><div class="w-full"><main class="relative w-full min-h-screen bg-surface px-space-lg py-space-md"><div class="flex flex-col w-full gap-space-lg">
+<!-- 1. Top Batch Header & Species Selector HUD -->
+<section class="flex flex-col gap-space-md p-space-lg rounded-xl bg-surface-container-low shadow-xl relative overflow-hidden">
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-16 -bottom-16 w-80 h-80 rounded-full bg-secondary/5 blur-3xl pointer-events-none"></div>
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md z-10">
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-high">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f0ff]"></span>
+<span class="font-label-caps text-label-caps text-primary-container tracking-wider">КОНВЕЙЕР ПАРТИИ &amp; МАТРИЦА 15 ТЕЛЕЖЕК SS304</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ШИФР ПАРТИИ:</span>
+<span class="font-metric-md text-metric-md text-secondary tracking-tight font-semibold">#ЮР-408/К-ВИМБА</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-surface-container text-tertiary-container">
+<span class="material-symbols-outlined text-[15px]">sensors</span>
+<span class="font-label-code text-label-code">MODBUS POLLING: 12ms (ONLINE)</span>
+</div>
+</div>
+<!-- Mode Selector -->
+<div class="flex items-center bg-surface-container-lowest p-1 rounded-lg self-start xl:self-auto shadow-inner">
+<button class="px-space-md py-1.5 rounded font-label-caps text-label-caps text-on-primary bg-primary-container font-bold shadow-[0_0_12px_rgba(0,240,255,0.35)] transition-all" id="btn-mono">
+          Моно-партия (1 вид)
+        </button>
+<button class="px-space-md py-1.5 rounded font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-all" id="btn-mix">
+          Сборная камера (Микс 15 тележек)
+        </button>
+</div>
+</div>
+<!-- Species Chips & Main Calibration Sliders -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-lg pt-space-xs z-10">
+<!-- Species Chips -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<button data-species="VIMBA" class="species-chip active px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container font-headline-md text-body-md flex items-center gap-space-xs shadow-[0_0_10px_rgba(0,240,255,0.25)] transition-all cursor-pointer">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          Вимба (Рыбец охл.)
+        </button>
+<button data-species="BREAM" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">
+          Лещ балтийский
+        </button>
+<button data-species="ROACH" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">
+          Плотва икряная
+        </button>
+<button data-species="SMELT" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">
+          Корюшка морская
+        </button>
+<button data-species="PERCH" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">
+          Окунь камышовый
+        </button>
+<button data-species="GOBY" class="species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer">
+          Бычок кругляк
+        </button>
+</div>
+<!-- Quick Status Badges -->
+<div class="flex items-center gap-space-md bg-surface-container-lowest/60 px-space-md py-2 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">ТЕМП ВЛАГОСЪЕМА:</span>
+<span class="font-metric-md text-metric-md text-secondary font-semibold" id="hdr-drain-rate">-6.4 л/ч в трап</span>
+</div>
+<div class="h-6 w-px bg-surface-container-highest"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">ЭКОНОМИКА ЦИКЛА:</span>
+<span class="font-metric-md text-metric-md text-tertiary-container font-semibold" id="hdr-profit-val">+19 237 €</span>
+</div>
+</div>
+</div>
+<!-- Sliders Bar: Raw vs Curing Yield -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg pt-space-xs">
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">СЫРЬЕ В ПАРТИИ (КГ)</span>
+<span class="font-metric-lg text-metric-lg text-primary-container font-bold" id="raw-display">1 850 кг</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" id="raw-slider" max="3300" min="300" step="50" type="range" value="1850"/>
+<div class="flex justify-between font-label-code text-label-code text-outline">
+<span>MIN: 300 кг</span>
+<span>MAX (15 рамок): 3 300 кг</span>
+</div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ВЫХОД / СТЕПЕНЬ УСУШКИ (БАЛЫК / ЗВОН)</span>
+<span class="font-metric-lg text-metric-lg text-secondary font-bold" id="yield-display">61.5% • МЯГКАЯ ВЯЛКА</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="yield-slider" max="75" min="45" step="0.5" type="range" value="61.5"/>
+<div class="flex justify-between font-label-code text-label-code text-outline">
+<span>48% сухая "звон"</span>
+<span id="yield-norm-hint">норма 60-63%</span>
+<span>68% деликатес</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Process Pipeline Stepper & Mass Balance HUD (4 Cyber Cards) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- Card 1: Raw Material -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container flex items-center justify-center font-label-code text-label-code font-bold">1</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">ВХОДНОЕ СЫРЬЕ</span>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[20px]">scale</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-primary-container" id="card-raw-weight">1 850</span>
+<span class="font-label-code text-label-code text-on-surface-variant">КГ</span>
+</div>
+<span class="font-body-sm text-body-sm text-primary" id="card1-sub">Вимба охл. балтийская • навеска 350г</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span>ТЕМП. ТЕЛА: +2.1°C</span>
+<span>ГОСТ 1551-93</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-container via-primary-container/50 to-transparent"></div>
+</div>
+<!-- Card 2: Salting -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-secondary/20 text-secondary flex items-center justify-center font-label-code text-label-code font-bold">2</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">ПОСОЛ В ТУЗЛУКЕ</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">water</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-secondary" id="card2-hours">48–72</span>
+<span class="font-label-code text-label-code text-on-surface-variant">ЧАСА</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary-fixed" id="card2-sub">Тузлук 1 295 л • 20.0 °Bé • +3°C</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="card2-salt">СОЛЬ: 422 КГ (17 МЕШКОВ)</span>
+<span>ЧИЛЛЕР: 100%</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-secondary via-secondary/50 to-transparent"></div>
+</div>
+<!-- Card 3: Dehydration / Condensate -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-error/20 text-error flex items-center justify-center font-label-code text-label-code font-bold">3</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">УСУШКА В ТРАП</span>
+</div>
+<span class="material-symbols-outlined text-error text-[20px]">humidity_percentage</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-error" id="card-loss-liters">-712</span>
+<span class="font-label-code text-label-code text-on-surface-variant">ЛИТРОВ</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant" id="card3-sub">≈ 5.5 сут сушка + 1.5 сут перераспределение</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span>ТРАП ПОЛА: ДРЕНАЖ ОК</span>
+<span>VPD: 0.75 кПа</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-error via-error/50 to-transparent"></div>
+</div>
+<!-- Card 4: Finished Output & Trolley Summary -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between relative overflow-hidden shadow-lg group hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-5 h-5 rounded-full bg-tertiary-container/20 text-tertiary-container flex items-center justify-center font-label-code text-label-code font-bold">4</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">ГОТОВЫЙ ВЫХОД</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">fact_check</span>
+</div>
+<div class="my-space-sm flex flex-col">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-tertiary-container" id="card-yield-weight">1 138</span>
+<span class="font-label-code text-label-code text-on-surface-variant">КГ</span>
+</div>
+<span class="font-body-sm text-body-sm text-tertiary" id="card4-trolleys">9 / 15 тележек • Загрузка 60%</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="card4-price">ОЦЕНКА: 16.90 €/кг</span>
+<span class="text-tertiary-container font-semibold" id="card4-sum">∑ 19 237 €</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-tertiary-container via-tertiary-container/50 to-transparent"></div>
+</div>
+</section>
+<!-- 3. Two-Column Interactive Laboratory Workstation -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- LEFT COLUMN: 3D Holographic Cross-Section & Condensate Flask Widget (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- 3D Fish Cutaway Tomography Card -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">view_in_ar</span>
+<span class="font-headline-md text-headline-md text-primary tracking-tight" id="tomo-card-title">3D ТОМОГРАФИЯ СУШКИ</span>
+</div>
+<span class="font-label-code text-label-code px-space-xs py-0.5 rounded bg-surface-container text-primary-container" id="tomo-aim-code">
+            VIMBA_CUT_32.AIM
+          </span>
+</div>
+<!-- Image viewport with HUD-Overlays -->
+<div id="tomo-viewport-box" class="relative w-full h-72 rounded-lg overflow-hidden bg-surface-container-lowest cursor-zoom-in border border-primary-container/20" title="Нажмите для 5× Спектральной Лупы">
+<img id="tomo-scanner-img" class="w-full h-full object-cover transition-all duration-300" src="img/vyalka/cut-vimba.jpg" onerror="if(!this.dataset.fb){this.dataset.fb='1';this.src='vimba-3d.png';}" alt="3D Томография среза рыбы"/>
+<!-- Spectral Wave Contour SVG & Glowing Biophysical Nodes (from AI Studio reference) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-65" viewBox="0 0 500 288" preserveAspectRatio="none">
+  <defs>
+    <radialGradient id="nodeGlowCyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="1"/>
+      <stop offset="35%" stop-color="#00F0FF" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#00F0FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nodeGlowAmber" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEF3C7" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#F59E0B" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path d="M 15,245 Q 140,210 260,235 T 485,195" fill="none" stroke="rgba(0,240,255,0.22)" stroke-width="1" stroke-dasharray="3 4"/>
+  <path d="M 25,260 Q 160,225 280,248 T 490,215" fill="none" stroke="rgba(0,240,255,0.14)" stroke-width="1"/>
+  <line x1="215" y1="34" x2="242" y2="96" stroke="rgba(245,158,11,0.75)" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="210" y1="162" x2="150" y2="215" stroke="rgba(0,240,255,0.8)" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="286" y1="128" x2="355" y2="215" stroke="rgba(56,189,248,0.75)" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <circle cx="242" cy="96" r="14" fill="url(#nodeGlowAmber)" class="animate-pulse"/>
+  <circle cx="242" cy="96" r="3.5" fill="#FFF"/>
+  <circle cx="210" cy="162" r="18" fill="url(#nodeGlowCyan)" class="animate-pulse"/>
+  <circle cx="210" cy="162" r="4.5" fill="#FFF"/>
+  <circle cx="286" cy="128" r="13" fill="url(#nodeGlowCyan)"/>
+  <circle cx="286" cy="128" r="3.5" fill="#E0F2FE"/>
+</svg>
+<!-- Tactical HUD Reticles -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent opacity-85 pointer-events-none"></div>
+<!-- Top-Right SPECTRAL SCAN badge -->
+<div class="absolute top-3 right-3 px-2 py-0.5 rounded bg-surface-container-lowest/85 border border-primary-container/35 font-label-code text-[9px] text-primary-container tracking-widest uppercase">
+  SPECTRAL SCAN
+</div>
+<!-- Point 1: Lipid crystallization / Ruby Balyk -->
+<div class="absolute top-3 left-3 flex items-center gap-space-xs bg-surface-container-lowest/85 border border-secondary/40 backdrop-blur-md px-space-sm py-1 rounded shadow-[0_0_12px_rgba(245,158,11,0.25)]">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+<span class="font-label-caps text-label-caps text-secondary font-bold" id="tomo-callout-1">РУБИНОВЫЙ БАЛЫК (БЕЗ СУХОГО КОЛЬЦА)</span>
+</div>
+<!-- Point 2: Roe pouch -->
+<div class="absolute bottom-11 left-3 flex flex-col bg-surface-container-lowest/90 border border-primary-container/35 backdrop-blur-md px-2.5 py-1 rounded shadow-[0_0_14px_rgba(0,240,255,0.2)]">
+<span class="font-label-caps text-[9px] text-primary-container font-bold" id="tomo-callout-2-lbl">ИКРЯНОЙ МЕШОК (ЯСТЫК)</span>
+<span class="font-metric-md text-[11.5px] text-on-surface font-bold" id="tomo-callout-2-val">СОЛЬ 4.2% • ВЛАЖНОСТЬ: 38.4%</span>
+</div>
+<!-- Point 3: Spine Core -->
+<div class="absolute bottom-11 right-3 flex flex-col text-right bg-surface-container-lowest/90 border border-secondary/35 backdrop-blur-md px-2.5 py-1 rounded shadow-[0_0_14px_rgba(245,158,11,0.2)]">
+<span class="font-label-caps text-[9px] text-outline font-bold" id="tomo-callout-3-lbl">ПОЗВОНОЧНЫЙ КАНАЛ</span>
+<span class="font-metric-md text-[11.5px] text-secondary font-bold" id="tomo-callout-3-val">ВЛАГА 43.8% • ОТВОЛАЖИВАНИЕ</span>
+</div>
+<div class="absolute bottom-2 left-3 right-3 flex items-center justify-between text-outline font-label-code text-label-code">
+<span id="tomo-aw-txt">АКТИВНОСТЬ ВОДЫ: a_w = 0.81</span>
+<span id="tomo-grad-txt">ГРАДИЕНТ ВЛАГИ: 42.1% → 31.0%</span>
+</div>
+</div>
+<!-- Telemetry Indicators Grid -->
+<div class="grid grid-cols-3 gap-space-xs pt-space-xs">
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center text-center">
+<span class="font-label-caps text-label-caps text-outline">СКОРОСТЬ ВОЗДУХА</span>
+<span class="font-metric-md text-metric-md text-primary-container font-semibold" id="tomo-air-val">1.45 м/с</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center text-center">
+<span class="font-label-caps text-label-caps text-outline">ЛИПИДНЫЙ СЛОЙ</span>
+<span class="font-metric-md text-metric-md text-secondary font-semibold" id="tomo-fat-val">8.5% жирность</span>
+</div>
+<div class="p-space-xs rounded bg-surface-container flex flex-col items-center text-center">
+<span class="font-label-caps text-label-caps text-outline">НАВЕСКА ТУШКИ</span>
+<span class="font-metric-md text-metric-md text-tertiary-container font-semibold" id="tomo-piece-val">350 г</span>
+</div>
+</div>
+</div>
+<!-- Condensate Flask Widget & Analog Dial Balance -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Condensate Flask -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-lg flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">КОЛБА СБОРА ТРАПА</span>
+<span class="material-symbols-outlined text-primary-container text-[18px]">opacity</span>
+</div>
+<div class="flex items-center gap-space-md my-space-md">
+<!-- Animated Flask SVG -->
+<div class="relative w-16 h-28 bg-surface-container-lowest rounded-b-xl overflow-hidden flex flex-col justify-end p-1 shadow-inner border border-primary-container/20">
+<div id="flask-level-bar" class="w-full bg-primary-container/25 rounded-b-lg transition-all duration-700 relative overflow-hidden" style="height: 71%;">
+<div class="absolute inset-0 bg-primary-container/35 animate-pulse"></div>
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container shadow-[0_0_8px_#00f0ff]"></div>
+</div>
+<div class="absolute top-2 right-1 font-label-code text-[9px] text-outline">1000L</div>
+<div class="absolute top-10 right-1 font-label-code text-[9px] text-outline">500L</div>
+<div class="absolute top-20 right-1 font-label-code text-[9px] text-outline">0L</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">СБРОС В ТРАП</span>
+<span class="font-metric-lg text-metric-lg text-primary-container font-bold" id="flask-val">-712 л</span>
+<span class="font-label-code text-label-code text-on-surface-variant mt-1" id="flask-norm-txt">Норма: 6.4 л/ч</span>
+<span class="font-label-caps text-[9px] text-tertiary-container mt-0.5">AISI-304 трап чист</span>
+</div>
+</div>
+<div class="px-space-xs py-1 rounded bg-surface-container flex items-center justify-between text-outline font-label-code text-label-code">
+<span>ЭВАПОРАТОР:</span>
+<span class="text-primary-container">6.2 kWt</span>
+</div>
+</div>
+<!-- Mass Balance Radial Dial -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-lg flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">БАЛАНС МАССЫ</span>
+<span class="material-symbols-outlined text-secondary text-[18px]">timelapse</span>
+</div>
+<div class="flex flex-col items-center justify-center my-space-xs">
+<div class="relative w-28 h-28 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle id="mass-dial-circle" class="text-secondary transition-all duration-500" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="96.7" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-metric-lg text-metric-lg text-secondary font-bold" id="mass-dial-pct">61.5%</span>
+<span class="font-label-caps text-[9px] text-outline">ВЫХОД</span>
+</div>
+</div>
+</div>
+<div class="px-space-xs py-1 rounded bg-surface-container flex items-center justify-between text-outline font-label-code text-label-code">
+<span>ОСТАТОЧНАЯ МАССА:</span>
+<span class="text-secondary font-bold" id="mass-dial-kg">1 138 кг</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: 15 AISI 304 Trolleys Matrix + Brine Salting Calculator (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- 15 AISI 304 Trolleys Matrix Section -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[22px]">shelves</span>
+<span class="font-headline-md text-headline-md text-primary">МАТРИЦА 15 ТЕЛЕЖЕК SS304 В КАМЕРЕ AGHD-250</span>
+</div>
+<div class="flex items-center gap-space-xs text-outline font-label-code text-label-code">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span>НАПРАВЛЕНИЕ ОБДУВА: CANTONI PLENUM →</span>
+</div>
+</div>
+<!-- Interactive 5 Rows x 3 Columns Matrix Layout -->
+<div class="grid grid-cols-3 sm:grid-cols-5 gap-space-xs" id="calcs-trolley-grid">
+<!-- Row 1: Trolley 1 to 3 (Row A - Cyan High Airflow) + 4 to 5 (Row B) -->
+<button data-trolley-idx="1" data-airflow="100" class="trolley-card active p-space-xs rounded-lg bg-surface-container-high shadow-[inset_0_0_0_1.5px_#00f0ff,0_0_14px_rgba(0,240,255,0.18)] flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary-container font-bold">#01 [РЯД А]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-primary-container/50 shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+<img class="w-full h-full object-cover" style="filter:hue-rotate(-8deg) saturate(1.35) brightness(1.08);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-primary-container text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-primary-container">ОБДУВ 100%</span>
+</button>
+<button data-trolley-idx="2" data-airflow="98" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#02 [РЯД А]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-primary-container/40 shadow-[0_0_8px_rgba(0,240,255,0.22)]">
+<img class="w-full h-full object-cover" style="filter:hue-rotate(-8deg) saturate(1.3) brightness(1.05);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-primary-container/90 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-primary-container">ОБДУВ 98%</span>
+</button>
+<button data-trolley-idx="3" data-airflow="96" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#03 [РЯД А]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-primary-container/40 shadow-[0_0_8px_rgba(0,240,255,0.22)]">
+<img class="w-full h-full object-cover" style="filter:hue-rotate(-8deg) saturate(1.3) brightness(1.05);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-primary-container/90 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-primary-container">ОБДУВ 96%</span>
+</button>
+<button data-trolley-idx="4" data-airflow="94" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#04 [РЯД Б]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-tertiary-container/35">
+<img class="w-full h-full object-cover" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-tertiary-container/85 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-tertiary-container">ОБДУВ 94%</span>
+</button>
+<button data-trolley-idx="5" data-airflow="92" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#05 [РЯД Б]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-tertiary-container/35">
+<img class="w-full h-full object-cover" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-tertiary-container/85 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-tertiary-container">ОБДУВ 92%</span>
+</button>
+<!-- Row 2: Trolley 6 to 9 (Amber Curing Zone) + 10 (Airflow Reserve Shunt) -->
+<button data-trolley-idx="6" data-airflow="95" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#06 [РЯД Б]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-secondary/45 shadow-[0_0_8px_rgba(245,158,11,0.2)]">
+<img class="w-full h-full object-cover" style="filter:sepia(0.25) saturate(1.4);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-primary-container/85 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-tertiary-container">ОБДУВ 95%</span>
+</button>
+<button data-trolley-idx="7" data-airflow="93" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#07 [РЯД В]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-secondary/45 shadow-[0_0_8px_rgba(245,158,11,0.2)]">
+<img class="w-full h-full object-cover" style="filter:sepia(0.25) saturate(1.4);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-primary-container/85 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-tertiary-container">ОБДУВ 93%</span>
+</button>
+<button data-trolley-idx="8" data-airflow="90" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-primary font-bold">#08 [РЯД В]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-secondary/45 shadow-[0_0_8px_rgba(245,158,11,0.2)]">
+<img class="w-full h-full object-cover" style="filter:sepia(0.25) saturate(1.4);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-primary-container/85 text-surface-dim font-label-caps text-[8px] font-bold">14 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-on-surface">220 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-tertiary-container">ОБДУВ 90%</span>
+</button>
+<!-- Trolley 9 (Partial Load: 90kg) -->
+<button data-trolley-idx="9" data-airflow="88" class="trolley-card p-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high flex flex-col items-center text-center transition-all cursor-pointer">
+<span class="font-label-code text-label-code text-secondary font-bold">#09 [РЯД В]</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative border border-secondary/60 shadow-[0_0_10px_rgba(245,158,11,0.28)]">
+<img class="w-full h-full object-cover opacity-80" style="filter:sepia(0.35) saturate(1.5);" src="trolley-3d.png" data-trolley-3d="1" alt="3D Труль AISI 304"/>
+<div class="trolley-tier-badge absolute bottom-0 inset-x-0 bg-secondary text-surface-dim font-label-caps text-[8px] font-bold">4 ЯР.</div>
+</div>
+<span class="trolley-kg-lbl font-metric-md text-metric-md text-secondary">90 кг</span>
+<span class="trolley-flow-lbl font-label-caps text-[9px] text-secondary">ЧАСТИЧНО</span>
+</button>
+<!-- Trolley 10: Aerodynamic Bypass / Fan Slot (from AI Studio reference) -->
+<button data-trolley-idx="10" data-airflow="86" class="trolley-card p-space-xs rounded-lg bg-surface-container/45 hover:bg-surface-container flex flex-col items-center justify-center text-center text-outline transition-all cursor-pointer">
+<span class="font-label-code text-label-code">#10</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest border border-outline-variant/40 flex items-center justify-center relative overflow-hidden">
+<span class="material-symbols-outlined text-primary-container/60 text-[24px] animate-spin" style="animation-duration:7s;">mode_fan</span>
+</div>
+<span class="trolley-kg-lbl font-label-caps text-[9px] uppercase text-outline">ОБДУВ</span>
+<span class="trolley-flow-lbl font-label-caps text-[8px] text-outline/70">СВОБОДНО</span>
+</button>
+<!-- Row 3: Trolley 11 to 15: Empty Available Slots -->
+<button data-trolley-idx="11" data-airflow="85" class="trolley-card p-space-xs rounded-lg bg-surface-container/40 hover:bg-surface-container flex flex-col items-center justify-center text-center text-outline transition-all cursor-pointer">
+<span class="font-label-code text-label-code">#11</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative"><img class="trolley-3d-img w-full h-full object-cover opacity-30 grayscale" data-trolley-3d="1" src="trolley-3d.png" alt="Труль AISI 304"/></div>
+<span class="trolley-kg-lbl font-label-caps text-[9px] uppercase">СВОБОДНО</span>
+</button>
+<button data-trolley-idx="12" data-airflow="84" class="trolley-card p-space-xs rounded-lg bg-surface-container/40 hover:bg-surface-container flex flex-col items-center justify-center text-center text-outline transition-all cursor-pointer">
+<span class="font-label-code text-label-code">#12</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative"><img class="trolley-3d-img w-full h-full object-cover opacity-30 grayscale" data-trolley-3d="1" src="trolley-3d.png" alt="Труль AISI 304"/></div>
+<span class="trolley-kg-lbl font-label-caps text-[9px] uppercase">СВОБОДНО</span>
+</button>
+<button data-trolley-idx="13" data-airflow="83" class="trolley-card p-space-xs rounded-lg bg-surface-container/40 hover:bg-surface-container flex flex-col items-center justify-center text-center text-outline transition-all cursor-pointer">
+<span class="font-label-code text-label-code">#13</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative"><img class="trolley-3d-img w-full h-full object-cover opacity-30 grayscale" data-trolley-3d="1" src="trolley-3d.png" alt="Труль AISI 304"/></div>
+<span class="trolley-kg-lbl font-label-caps text-[9px] uppercase">СВОБОДНО</span>
+</button>
+<button data-trolley-idx="14" data-airflow="82" class="trolley-card p-space-xs rounded-lg bg-surface-container/40 hover:bg-surface-container flex flex-col items-center justify-center text-center text-outline transition-all cursor-pointer">
+<span class="font-label-code text-label-code">#14</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative"><img class="trolley-3d-img w-full h-full object-cover opacity-30 grayscale" data-trolley-3d="1" src="trolley-3d.png" alt="Труль AISI 304"/></div>
+<span class="trolley-kg-lbl font-label-caps text-[9px] uppercase">СВОБОДНО</span>
+</button>
+<button data-trolley-idx="15" data-airflow="80" class="trolley-card p-space-xs rounded-lg bg-surface-container/40 hover:bg-surface-container flex flex-col items-center justify-center text-center text-outline transition-all cursor-pointer">
+<span class="font-label-code text-label-code">#15</span>
+<div class="w-12 h-14 my-1 rounded bg-surface-container-lowest overflow-hidden relative"><img class="trolley-3d-img w-full h-full object-cover opacity-30 grayscale" data-trolley-3d="1" src="trolley-3d.png" alt="Труль AISI 304"/></div>
+<span class="trolley-kg-lbl font-label-caps text-[9px] uppercase">СВОБОДНО</span>
+</button>
+</div>
+<!-- Active Trolley Detailed Inspector Banner -->
+<div class="p-space-md rounded-lg bg-surface-container-high/70 border border-primary-container/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<img class="trolley-3d-img w-12 h-12 rounded-lg object-cover border border-primary-container/40 shadow-[0_0_12px_rgba(0,240,255,0.28)]" data-trolley-3d="1" src="trolley-3d.png" alt="3D Труль #01"/>
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 text-primary-container flex items-center justify-center font-metric-lg text-metric-lg font-bold" id="insp-num-badge">
+              01
+            </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-body-lg text-primary font-bold" id="insp-title-txt">Инспектор тележки #01 (AISI 304 Труль)</span>
+<span class="font-label-code text-label-code text-on-surface-variant" id="insp-sub-txt">14 ярусов сетки • 220 кг вимбы • Темп влагосъема: 7.3 л/ч</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<!-- Glowing Double-Ring MCGS Action Button from AI Studio Reference -->
+<div class="relative flex items-center justify-center p-1.5 rounded-full border border-primary-container/35 shadow-[0_0_22px_rgba(0,240,255,0.25)]">
+  <span class="absolute inset-0 rounded-full border border-primary-container/40 animate-ping opacity-30 pointer-events-none"></span>
+  <button id="btn-insp-write-mcgs" type="button" class="px-space-md py-1.5 rounded-full bg-surface-container-highest border border-primary-container text-primary-container font-label-caps text-[10px] font-bold hover:bg-primary-container hover:text-on-primary transition-all cursor-pointer leading-tight text-center shadow-[0_0_12px_rgba(0,240,255,0.3)]">
+    Записать рецепт<br/>в контроллер MCGS
+  </button>
+</div>
+<button type="button" class="px-space-sm py-1.5 rounded bg-surface-container font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-bright transition-all">
+              ТЕРМОЗОНД<br/>1
+            </button>
+</div>
+</div>
+</div>
+<!-- Brine Salting Calculator Section -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">science</span>
+<span class="font-headline-md text-headline-md text-secondary">КАЛЬКУЛЯТОР ТУЗЛУКА &amp; ПОСОЛА (ПЛОТНОМЕР БОМЕ)</span>
+</div>
+<span class="font-label-code text-label-code text-tertiary-container bg-surface-container px-space-xs py-0.5 rounded">
+            РЕЦЕПТ #Б-12 (ГОСТ)
+          </span>
+</div>
+<!-- Calculator Input Parameters Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<div class="p-space-sm rounded bg-surface-container flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">АРЕОМЕТР БОМЕ</span>
+<span class="font-metric-lg text-metric-lg text-secondary font-bold">20.0 °Bé</span>
+<span class="font-label-code text-label-code text-on-surface-variant">ρ = 1.160 г/см³</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">СРЕДНЯЯ НАВЕСКА</span>
+<span class="font-metric-lg text-metric-lg text-primary-container font-bold" id="brine-piece-g">350 г</span>
+<span class="font-label-code text-label-code text-on-surface-variant" id="brine-piece-name">рыбец балтийский</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">ТЕМП. ТУЗЛУКА</span>
+<span class="font-metric-lg text-metric-lg text-primary font-bold">+3.0 °C</span>
+<span class="font-label-code text-label-code text-on-surface-variant">чиллерный контур</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container flex flex-col">
+<span class="font-label-caps text-label-caps text-outline">РАСЧЕТНОЕ ВРЕМЯ</span>
+<span class="font-metric-lg text-metric-lg text-tertiary-container font-bold" id="brine-calc-hours">11.5 ЧАСА</span>
+<span class="font-label-code text-label-code text-on-surface-variant" id="brine-salt-target">до соли 3.8%</span>
+</div>
+</div>
+<!-- Salt Bags & Water Batch Distribution -->
+<div class="p-space-md rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">grain</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">РАСХОД СОЛИ НА ПАРТИЮ (МЕШКИ 25 КГ):</span>
+</div>
+<span class="font-metric-md text-metric-md text-secondary font-bold" id="brine-salt-summary">422 кг NaCl (≈ 17 мешков)</span>
+</div>
+<!-- Bag Visual Representation Dots -->
+<div class="flex flex-wrap gap-1.5 py-1">
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary shadow-[0_0_6px_#ffb95f]"></span>
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary/50"></span>
+</div>
+<div class="flex items-center justify-between text-outline font-label-code text-label-code pt-1">
+<span id="brine-water-txt">ВОДА ПОДГОТОВЛЕННАЯ: 1 162 Л</span>
+<span>СООТНОШЕНИЕ РЫБА : ТУЗЛУК = 1 : 0.7</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 6-Species Biological 3D Tomography & Comparison Matrix -->
+<div id="calcs-bio-matrix-mount"></div>
+<!-- 4. Bottom Action Command Bar (SCADA Operators Trigger Array) -->
+<section class="p-space-md rounded-xl bg-surface-container-low shadow-2xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-3 h-3 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f0ff]"></div>
+<div class="flex flex-col">
+<span class="font-headline-md text-body-md text-primary font-bold">ГОТОВНОСТЬ К ПЕРЕДАЧЕ В ЦИКЛ AGHD-250ELC</span>
+<span class="font-label-code text-label-code text-on-surface-variant">Все 15 слотов верифицированы. Канал термощупов Modbus CH1..CH8 активен.</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm w-full md:w-auto justify-end">
+<!-- Secondary Actions -->
+<button class="px-space-md py-2 rounded-lg bg-surface-container font-label-caps text-label-caps text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">description</span>
+        Паспорт партии
+      </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container font-label-caps text-label-caps text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">sync_alt</span>
+        Синхронизация 1C:ERP
+      </button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container font-label-caps text-label-caps text-tertiary-container hover:bg-surface-container-high transition-all flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">send</span>
+        WhatsApp Рапорт
+      </button>
+<!-- Primary Control Button -->
+<button class="px-space-lg py-2.5 rounded-lg bg-primary-container text-on-primary font-headline-md text-body-md font-bold shadow-[0_0_16px_rgba(0,240,255,0.4)] hover:brightness-110 active:scale-95 transition-all flex items-center gap-space-xs" id="btn-write-recipe">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+        Записать рецепт в контроллер MCGS
+      </button>
+</div>
+</section>
+</div>
+<script>
+  (function() {
+    const CALCS_SPECIES = {
+      VIMBA: {
+        key: "VIMBA",
+        shortCode: "ВИМБА",
+        aimCode: "VIMBA_CUT_32.AIM",
+        cutImg: "img/vyalka/cut-vimba.jpg",
+        card1Sub: "Вимба охл. балтийская • навеска 350г",
+        pieceG: 350,
+        pieceName: "вимба (рыбец балтийский)",
+        genitive: "вимбы",
+        fatPct: "8.5% жирность",
+        yieldNorm: 61.5,
+        normHint: "норма 60-63%",
+        saltingRange: "48–72",
+        saltingK: 3.3,
+        saltTarget: "до соли 3.8%",
+        aw: 0.81,
+        gradTxt: "ГРАДИЕНТ ВЛАГИ: 42.1% → 31.0%",
+        callout1: "ЯНТАРНАЯ КРИСТАЛЛИЗАЦИЯ ЖИРА (89%)",
+        callout2Lbl: "ИКРЯНОЙ МЕШОК (ЯСТЫК)",
+        callout2Val: "СОЛЬ 3.8% • ВЛАЖНОСТЬ: 38.4%",
+        callout3Lbl: "ХРЕБТОВАЯ КОСТЬ",
+        callout3Val: "ВЛАГА 42.1% • t° = +15.2°C",
+        pricePerKg: 16.90,
+        trolleyCap: 220
+      },
+      BREAM: {
+        key: "BREAM",
+        shortCode: "ЛЕЩ",
+        aimCode: "BREAM_CUT_10.AIM",
+        cutImg: "img/vyalka/cut-bream.jpg",
+        card1Sub: "Лещ крупный (колодкой) • навеска 850г",
+        pieceG: 850,
+        pieceName: "лещ крупный балтийский",
+        genitive: "леща",
+        fatPct: "9.0% жирность",
+        yieldNorm: 60.0,
+        normHint: "норма 58-62%",
+        saltingRange: "72–96",
+        saltingK: 3.6,
+        saltTarget: "до соли 4.2%",
+        aw: 0.82,
+        gradTxt: "ГРАДИЕНТ ВЛАГИ: 43.0% → 32.5%",
+        callout1: "РУБИНОВЫЙ БАЛЫК (БЕЗ СУХОГО КОЛЬЦА)",
+        callout2Lbl: "ИКРЯНОЙ МЕШОК (ЯСТЫК)",
+        callout2Val: "СОЛЬ 4.2% • ВЛАЖНОСТЬ: 40.2%",
+        callout3Lbl: "ПОЗВОНОЧНЫЙ КАНАЛ",
+        callout3Val: "ВЛАГА 43.0% • ОТВОЛАЖИВАНИЕ",
+        pricePerKg: 18.50,
+        trolleyCap: 230
+      },
+      ROACH: {
+        key: "ROACH",
+        shortCode: "ПЛОТВА",
+        aimCode: "ROACH_CUT_22.AIM",
+        cutImg: "img/vyalka/cut-roach.jpg",
+        card1Sub: "Плотва икряная отборная • навеска 260г",
+        pieceG: 260,
+        pieceName: "плотва икряная балтийская",
+        genitive: "плотвы",
+        fatPct: "4.2% жирность",
+        yieldNorm: 58.0,
+        normHint: "норма 56-60%",
+        saltingRange: "36–48",
+        saltingK: 3.0,
+        saltTarget: "до соли 4.0%",
+        aw: 0.79,
+        gradTxt: "ГРАДИЕНТ ВЛАГИ: 39.5% → 29.0%",
+        callout1: "ЯНТАРНАЯ КРИСТАЛЛИЗАЦИЯ ЖИРА (92%)",
+        callout2Lbl: "ИКРЯНОЙ МЕШОК (ЯСТЫК)",
+        callout2Val: "ЯНТАРНАЯ ИКРА • ВЛАГА: 36.8%",
+        callout3Lbl: "ПОЗВОНОЧНИК",
+        callout3Val: "ВЛАГА 39.5% • ЗВОНКИЙ СРЕЗ",
+        pricePerKg: 16.00,
+        trolleyCap: 210
+      },
+      SMELT: {
+        key: "SMELT",
+        shortCode: "КОРЮШКА",
+        aimCode: "SMELT_CUT_13.AIM",
+        cutImg: "img/vyalka/cut-smelt.jpg",
+        card1Sub: "Корюшка икряная морская • навеска 85г",
+        pieceG: 85,
+        pieceName: "корюшка икряная морская",
+        genitive: "корюшки",
+        fatPct: "5.5% жирность",
+        yieldNorm: 52.0,
+        normHint: "норма 50-54%",
+        saltingRange: "12–18",
+        saltingK: 1.8,
+        saltTarget: "до соли 3.4%",
+        aw: 0.77,
+        gradTxt: "ГРАДИЕНТ ВЛАГИ: 37.8% → 26.5%",
+        callout1: "ЯНТАРНАЯ КРИСТАЛЛИЗАЦИЯ ЖИРА (t° < 23°C)",
+        callout2Lbl: "ИКРЯНОЙ МЕШОК (ДО 35% МАССЫ)",
+        callout2Val: "СОЛЬ 3.2% • ОГУРЕЧНЫЙ АРОМАТ",
+        callout3Lbl: "ХРЕБТОВАЯ КОСТЬ",
+        callout3Val: "ВЛАГА 37.8% • ЦИКЛ 2–3 СУТ.",
+        pricePerKg: 26.00,
+        trolleyCap: 180
+      },
+      PERCH: {
+        key: "PERCH",
+        shortCode: "ОКУНЬ",
+        aimCode: "PERCH_CUT_16.AIM",
+        cutImg: "img/vyalka/cut-perch.jpg",
+        card1Sub: "Окунь камышовый (в чешуе) • навеска 320г",
+        pieceG: 320,
+        pieceName: "окунь целиком в панцирной чешуе",
+        genitive: "окуня",
+        fatPct: "2.1% жирность",
+        yieldNorm: 56.0,
+        normHint: "норма 54-58%",
+        saltingRange: "48–60",
+        saltingK: 3.4,
+        saltTarget: "до соли 4.0%",
+        aw: 0.80,
+        gradTxt: "ГРАДИЕНТ ВЛАГИ: 41.0% → 30.2%",
+        callout1: "ПАНЦИРНАЯ ЧЕШУЯ (СТАРТ rH 60–65%)",
+        callout2Lbl: "БЕЛОЕ МЯСО СПИНКИ (БАЛЫК)",
+        callout2Val: "ПЛОТНЫЙ БАЛЫК • БЕЗ ОТСЛОЕНИЯ",
+        callout3Lbl: "ПОЗВОНОЧНЫЙ КАНАЛ",
+        callout3Val: "ВЛАГА 41.0% • БЕЗ ЗАКАЛА",
+        pricePerKg: 17.50,
+        trolleyCap: 215
+      },
+      GOBY: {
+        key: "GOBY",
+        shortCode: "БЫЧОК",
+        aimCode: "GOBY_CUT_19.AIM",
+        cutImg: "img/vyalka/cut-goby.jpg",
+        card1Sub: "Бычок кругляк балтийский • навеска 140г",
+        pieceG: 140,
+        pieceName: "бычок балтийский (толстая шея)",
+        genitive: "бычка",
+        fatPct: "3.5% жирность",
+        yieldNorm: 52.5,
+        normHint: "норма 50-55%",
+        saltingRange: "24–36",
+        saltingK: 2.5,
+        saltTarget: "до соли 4.2%",
+        aw: 0.78,
+        gradTxt: "ГРАДИЕНТ ВЛАГИ: 38.4% → 28.0%",
+        callout1: "ЯНТАРНАЯ КРИСТАЛЛИЗАЦИЯ ЖИРА (ШЕЯ/БАЛЫК)",
+        callout2Lbl: "БРЮШНАЯ ПОЛОСТЬ / ШЕЙНЫЙ ОТДЕЛ",
+        callout2Val: "ПАУЗА 1.5–2Ч • ПЕРЕТОК К ХВОСТУ",
+        callout3Lbl: "ХРЕБЕТ",
+        callout3Val: "ВЛАГА 38.4% • 2 КОНТУРА ОСУШЕНИЯ",
+        pricePerKg: 15.00,
+        trolleyCap: 230
+      }
+    };
+
+    let currentCalcsSpeciesKey = "VIMBA";
+
+    // Mode Toggles
+    const btnMono = document.getElementById('btn-mono');
+    const btnMix = document.getElementById('btn-mix');
+
+    btnMono.addEventListener('click', function() {
+      btnMono.className = "px-space-md py-1.5 rounded font-label-caps text-label-caps text-on-primary bg-primary-container font-bold shadow-[0_0_12px_rgba(0,240,255,0.35)] transition-all";
+      btnMix.className = "px-space-md py-1.5 rounded font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-all";
+    });
+
+    btnMix.addEventListener('click', function() {
+      btnMix.className = "px-space-md py-1.5 rounded font-label-caps text-label-caps text-on-primary bg-primary-container font-bold shadow-[0_0_12px_rgba(0,240,255,0.35)] transition-all";
+      btnMono.className = "px-space-md py-1.5 rounded font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-all";
+    });
+
+    // Slider Dynamics for Mass Balance Calculation
+    const rawSlider = document.getElementById('raw-slider');
+    const yieldSlider = document.getElementById('yield-slider');
+    const rawDisplay = document.getElementById('raw-display');
+    const yieldDisplay = document.getElementById('yield-display');
+    const cardRawWeight = document.getElementById('card-raw-weight');
+    const cardLossLiters = document.getElementById('card-loss-liters');
+    const cardYieldWeight = document.getElementById('card-yield-weight');
+    const flaskVal = document.getElementById('flask-val');
+
+    function setElText(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    let selectedTrolleyIdx = 1;
+
+    function updateCalculations() {
+      const sp = CALCS_SPECIES[currentCalcsSpeciesKey] || CALCS_SPECIES.VIMBA;
+      const rawKg = parseFloat(rawSlider.value) || 1850;
+      const yieldPct = parseFloat(yieldSlider.value) || sp.yieldNorm;
+
+      const finalKg = Math.round(rawKg * (yieldPct / 100));
+      const waterLossLiters = Math.round(rawKg - finalKg);
+      const drainRate = (waterLossLiters / 110).toFixed(1);
+      const brineLiters = Math.round(rawKg * 0.7);
+      const saltKg = Math.round(brineLiters * 0.2826);
+      const saltBags = Math.ceil(saltKg / 25);
+      const waterPreparedL = Math.round(brineLiters * 0.8973);
+      const saltingHours = (Math.sqrt(sp.pieceG / 28.5) * sp.saltingK).toFixed(1);
+      const occupiedTrolleys = Math.min(15, Math.ceil(rawKg / sp.trolleyCap));
+      const loadPct = Math.min(100, Math.round((occupiedTrolleys / 15) * 100));
+      const revenueEur = Math.round(finalKg * sp.pricePerKg);
+
+      rawDisplay.innerText = rawKg.toLocaleString('ru-RU') + ' кг';
+      cardRawWeight.innerText = rawKg.toLocaleString('ru-RU');
+
+      yieldDisplay.innerText = yieldPct.toFixed(1) + '% • ' + (yieldPct < 55 ? 'СУХАЯ ЗВОНКАЯ' : yieldPct <= 65 ? 'МЯГКАЯ ВЯЛКА' : 'ДЕЛИКАТЕС БАЛЫК');
+      cardLossLiters.innerText = '-' + waterLossLiters.toLocaleString('ru-RU');
+      cardYieldWeight.innerText = finalKg.toLocaleString('ru-RU');
+      flaskVal.innerText = '-' + waterLossLiters.toLocaleString('ru-RU') + ' л';
+
+      // Update Condensate Flask level & Mass Balance Radial Dial
+      const flaskBar = document.getElementById('flask-level-bar');
+      if (flaskBar) {
+        const flaskPct = Math.max(12, Math.min(95, Math.round((waterLossLiters / 1100) * 100)));
+        flaskBar.style.height = flaskPct + '%';
+      }
+      setElText('flask-norm-txt', 'Норма: ' + drainRate + ' л/ч');
+      const dialCircle = document.getElementById('mass-dial-circle');
+      if (dialCircle) {
+        const dashOffset = (251.2 * (1 - Math.min(1, Math.max(0.1, yieldPct / 100)))).toFixed(1);
+        dialCircle.setAttribute('stroke-dashoffset', dashOffset);
+      }
+      setElText('mass-dial-pct', yieldPct.toFixed(1) + '%');
+      setElText('mass-dial-kg', finalKg.toLocaleString('ru-RU') + ' кг');
+
+      // Update species-dependent cards & 3D Tomography Scanner
+      setElText('yield-norm-hint', sp.normHint);
+      setElText('card1-sub', sp.card1Sub);
+      setElText('card2-hours', sp.saltingRange);
+      setElText('card2-sub', 'Тузлук ' + brineLiters.toLocaleString('ru-RU') + ' л • 20.0 °Bé • +3°C');
+      setElText('card2-salt', 'СОЛЬ: ' + saltKg + ' КГ (' + saltBags + ' МЕШКОВ)');
+      setElText('card4-trolleys', occupiedTrolleys + ' / 15 тележек • Загрузка ' + loadPct + '%');
+      setElText('card4-price', 'ОЦЕНКА: ' + sp.pricePerKg.toFixed(2) + ' €/кг');
+      setElText('card4-sum', '∑ ' + revenueEur.toLocaleString('ru-RU') + ' €');
+      setElText('hdr-profit-val', '+' + revenueEur.toLocaleString('ru-RU') + ' €');
+      setElText('hdr-drain-rate', '-' + drainRate + ' л/ч в трап');
+
+      // 3D Tomography Scanner Image + AIM Code + Callouts
+      const scannerImg = document.getElementById('tomo-scanner-img');
+      if (scannerImg && scannerImg.getAttribute('src') !== sp.cutImg) {
+        scannerImg.setAttribute('src', sp.cutImg);
+      }
+      setElText('tomo-aim-code', sp.aimCode);
+      setElText('tomo-callout-1', sp.callout1);
+      setElText('tomo-callout-2-lbl', sp.callout2Lbl);
+      setElText('tomo-callout-2-val', sp.callout2Val);
+      setElText('tomo-callout-3-lbl', sp.callout3Lbl);
+      setElText('tomo-callout-3-val', sp.callout3Val);
+      setElText('tomo-aw-txt', 'АКТИВНОСТЬ ВОДЫ: a_w = ' + sp.aw.toFixed(2));
+      setElText('tomo-grad-txt', sp.gradTxt);
+      setElText('tomo-fat-val', sp.fatPct);
+      setElText('tomo-piece-val', sp.pieceG + ' г');
+
+      // Dynamically update 15 Trolley cards weight & Inspector
+      let remKg = rawKg;
+      document.querySelectorAll('#calcs-trolley-grid .trolley-card').forEach((card, i) => {
+        const idx = i + 1;
+        const thisKg = Math.max(0, Math.min(sp.trolleyCap, remKg));
+        remKg = Math.max(0, remKg - thisKg);
+        const kgEl = card.querySelector('.trolley-kg-lbl');
+        const tierEl = card.querySelector('.trolley-tier-badge');
+        const flowEl = card.querySelector('.trolley-flow-lbl');
+        const airflowPct = parseInt(card.getAttribute('data-airflow') || '90', 10);
+        if (thisKg > 0) {
+          const tiers = Math.max(2, Math.round((thisKg / sp.trolleyCap) * 14));
+          if (kgEl) kgEl.textContent = Math.round(thisKg) + ' кг';
+          if (tierEl) tierEl.textContent = tiers + ' ЯР.';
+          if (flowEl) flowEl.textContent = thisKg < sp.trolleyCap * 0.85 ? 'ЧАСТИЧНО' : ('ОБДУВ ' + airflowPct + '%');
+        } else {
+          if (kgEl) kgEl.textContent = idx === 10 ? 'ОБДУВ' : 'СВОБОДНО';
+          if (tierEl) tierEl.textContent = '0 ЯР.';
+          if (flowEl) flowEl.textContent = 'РЕЗЕРВ';
+        }
+        if (idx === selectedTrolleyIdx) {
+          const numStr = String(idx).padStart(2, '0');
+          const trLoad = thisKg > 0 ? Math.round(thisKg) : sp.trolleyCap;
+          const trTiers = thisKg > 0 ? Math.max(2, Math.round((thisKg / sp.trolleyCap) * 14)) : 14;
+          const trDrain = ((parseFloat(drainRate) || 6.4) * (airflowPct / 92)).toFixed(1);
+          setElText('insp-num-badge', numStr);
+          setElText('insp-title-txt', 'Инспектор тележки #' + numStr + ' (AISI 304 Труль)');
+          setElText('insp-sub-txt', trTiers + ' ярусов сетки • ' + trLoad + ' кг ' + sp.genitive + ' • Темп влагосъема: ' + trDrain + ' л/ч');
+        }
+      });
+
+      // Brine Calculator
+      setElText('brine-piece-g', sp.pieceG + ' г');
+      setElText('brine-piece-name', sp.pieceName);
+      setElText('brine-calc-hours', saltingHours + ' ЧАСА');
+      setElText('brine-salt-target', sp.saltTarget);
+      setElText('brine-salt-summary', saltKg + ' кг NaCl (≈ ' + saltBags + ' мешков)');
+      setElText('brine-water-txt', 'ВОДА ПОДГОТОВЛЕННАЯ: ' + waterPreparedL.toLocaleString('ru-RU') + ' Л');
+    }
+
+    window.setCalcsSpecies = function(spKey, updateYieldFlag) {
+      const norm = String(spKey || 'VIMBA').toUpperCase();
+      const key = norm === 'ROUND_GOBY' ? 'GOBY' : (CALCS_SPECIES[norm] ? norm : 'VIMBA');
+      currentCalcsSpeciesKey = key;
+      const sp = CALCS_SPECIES[key];
+      if (updateYieldFlag !== false && yieldSlider) {
+        yieldSlider.value = String(sp.yieldNorm);
+      }
+      document.querySelectorAll('.species-chip').forEach(c => {
+        const cKey = c.getAttribute('data-species');
+        if (cKey === key) {
+          c.className = "species-chip active px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container font-headline-md text-body-md flex items-center gap-space-xs shadow-[0_0_10px_rgba(0,240,255,0.25)] transition-all cursor-pointer";
+        } else {
+          c.className = "species-chip px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high font-headline-md text-body-md flex items-center gap-space-xs transition-all cursor-pointer";
+        }
+      });
+      updateCalculations();
+    };
+
+    // Species Selector Chips
+    const chips = document.querySelectorAll('.species-chip');
+    chips.forEach(chip => {
+      chip.addEventListener('click', function() {
+        const key = this.getAttribute('data-species') || 'VIMBA';
+        window.setCalcsSpecies(key, true);
+      });
+    });
+
+    // Click on 3D Tomography Scanner opens 5x Spectral Lightbox
+    const tomoBox = document.getElementById('tomo-viewport-box');
+    if (tomoBox) {
+      tomoBox.addEventListener('click', function() {
+        if (window.BIO_TOMO && typeof window.BIO_TOMO.openBioLightbox === 'function') {
+          window.BIO_TOMO.openBioLightbox(currentCalcsSpeciesKey);
+        }
+      });
+    }
+
+    rawSlider.addEventListener('input', updateCalculations);
+    yieldSlider.addEventListener('input', updateCalculations);
+
+    // Trolley Card Selection
+    const trolleyCards = document.querySelectorAll('.trolley-card');
+    trolleyCards.forEach((card, i) => {
+      card.addEventListener('click', function() {
+        selectedTrolleyIdx = i + 1;
+        trolleyCards.forEach(c => {
+          c.classList.remove('shadow-[inset_0_0_0_1.5px_#00f0ff,0_0_14px_rgba(0,240,255,0.18)]', 'shadow-[inset_0_0_0_1.5px_#00f0ff]');
+        });
+        this.classList.add('shadow-[inset_0_0_0_1.5px_#00f0ff,0_0_14px_rgba(0,240,255,0.18)]');
+        updateCalculations();
+      });
+    });
+
+    // MCGS Controller Transmission Feedback (both Brine & Trolley Inspector buttons)
+    const btnWrite = document.getElementById('btn-write-recipe');
+    const btnInspMcgs = document.getElementById('btn-insp-write-mcgs');
+    if (btnInspMcgs) {
+      btnInspMcgs.addEventListener('click', function() {
+        const orig = btnInspMcgs.innerHTML;
+        btnInspMcgs.innerHTML = '⚡ ЗАПИСЬ В MCGS...';
+        setTimeout(() => {
+          btnInspMcgs.innerHTML = '✓ РЕЦЕПТ В MCGS OK';
+          setTimeout(() => { btnInspMcgs.innerHTML = orig; }, 2000);
+        }, 900);
+      });
+    }
+    btnWrite.addEventListener('click', function() {
+      const originalText = btnWrite.innerHTML;
+      btnWrite.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span> Запись в MCGS...';
+      btnWrite.classList.add('bg-tertiary-container', 'text-on-tertiary');
+      btnWrite.classList.remove('bg-primary-container', 'text-on-primary');
+
+      setTimeout(() => {
+        btnWrite.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Записано (PLC OK)';
+        setTimeout(() => {
+          btnWrite.innerHTML = originalText;
+          btnWrite.classList.remove('bg-tertiary-container', 'text-on-tertiary');
+          btnWrite.classList.add('bg-primary-container', 'text-on-primary');
+        }, 2000);
+      }, 1200);
+    });
+
+    // Mount 6-Species 3D Tomography Matrix at bottom of calcs-cockpit.html
+    if (window.BIO_TOMO && typeof window.BIO_TOMO.mountBioMatrix === 'function') {
+      window.BIO_TOMO.mountBioMatrix('#calcs-bio-matrix-mount', {
+        initialSpecies: currentCalcsSpeciesKey,
+        onSelectSpecies: function(spKey) {
+          const chip = document.querySelector('.species-chip[data-species="' + spKey.toUpperCase() + '"]');
+          if (chip) chip.click();
+          else window.setCalcsSpecies(spKey, true);
+        }
+      });
+    }
+
+    updateCalculations();
+  })();
+</script><script src="js/draw-trolley.js"></script><script src="js/stitch-cockpits.js"></script></main></div></body></html>

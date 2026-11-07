@@ -1,0 +1,26 @@
+{
+  "name": "Рыбный экран • Юрмалциемс",
+  "short_name": "Рыбный экран",
+  "description": "Экран контроля вяления рыбы для партнёра (цех Юрмалциемс)",
+  "start_url": "./rybak.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#040911",
+  "theme_color": "#040911",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%23040911'/%3E%3Cpath d='M30 96c30-40 80-45 110-15 15-15 25-10 28-5-3 15-12 25-28 20-30 30-80 25-110-15-5-2-5-4 0-5z' fill='%232EE59D'/%3E%3Ccircle cx='130' cy='90' r='5' fill='%23040911'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%23040911'/%3E%3Cpath d='M80 256c80-110 215-120 295-40 40-40 68-27 75-13-8 40-32 68-75 53-80 80-215 70-295-40-13-5-13-10 0-13z' fill='%232EE59D'/%3E%3Ccircle cx='350' cy='240' r='14' fill='%23040911'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
